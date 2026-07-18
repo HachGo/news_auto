@@ -27,7 +27,7 @@ POSTS_DIR = ROOT / "content" / "posts"
 CST = timezone(timedelta(hours=8))  # 北京时间
 
 DEEPSEEK_BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
-DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
+DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash")
 
 
 def load_config():
@@ -207,6 +207,8 @@ def summarize(client, item, retries=2):
                 temperature=0.3,
                 max_tokens=400,
                 timeout=60,
+                # V4 默认开启 thinking 模式，翻译摘要任务无需推理，关闭以省时省钱
+                extra_body={"thinking": {"type": "disabled"}},
             )
             data = json.loads(resp.choices[0].message.content)
             title_zh = str(data.get("title_zh", "")).strip()
