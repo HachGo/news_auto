@@ -39,6 +39,17 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
+      - name: Check API key
+        if: github.event_name != 'push'
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          if [ -z "$DEEPSEEK_API_KEY" ]; then
+            echo "::error::DEEPSEEK_API_KEY secret 未配置！请到 Settings -> Secrets and variables -> Actions -> Repository secrets 添加，名称必须为 DEEPSEEK_API_KEY"
+            exit 1
+          fi
+          echo "API key 已配置 (长度: ${#DEEPSEEK_API_KEY})"
+
       - name: Fetch and summarize news
         if: github.event_name != 'push'
         env:

@@ -364,11 +364,22 @@ def main():
     selected = rank_and_select(client, candidates, config)
     print(f"[info] 精选条目: {len(selected)}")
 
+    ok_count = 0
     for item in selected:
         result = summarize(client, item)
         if result:
             item.update(result)
+            ok_count += 1
         time.sleep(0.5)
+
+    if client is not None and ok_count == 0:
+        print(
+            "[error] LLM 客户端已初始化但全部调用失败，中止发布（避免发出无翻译的内容）。"
+            "请检查上方 [warn] 日志中的具体报错。",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    print(f"[info] LLM 翻译成功 {ok_count}/{len(selected)} 条")
 
     now_cst = datetime.now(CST)
     POSTS_DIR.mkdir(parents=True, exist_ok=True)
