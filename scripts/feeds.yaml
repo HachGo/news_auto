@@ -1,0 +1,83 @@
+# RSS 源清单
+# category: 展示分类（国际新闻 / AI 动态）
+# ai_filter: true 时按 AI 关键词过滤条目
+# max_items: 单个源最多取多少条候选
+
+settings:
+  total_limit: 15          # 每日最多精选条数
+  per_source_limit: 4      # 单来源最多入选条数
+  hours_window: 36         # 只取最近 N 小时内发布的条目
+
+feeds:
+  # ---------- 国际新闻 ----------
+  - name: BBC World
+    url: https://feeds.bbci.co.uk/news/world/rss.xml
+    category: 国际新闻
+    ai_filter: false
+    max_items: 10
+
+  - name: The Guardian World
+    url: https://www.theguardian.com/world/rss
+    category: 国际新闻
+    ai_filter: false
+    max_items: 10
+
+  - name: Reuters World (via Google News)
+    url: https://news.google.com/rss/search?q=site:reuters.com%20world&hl=en-US&gl=US&ceid=US:en
+    category: 国际新闻
+    ai_filter: false
+    max_items: 8
+
+  # ---------- AI 动态 ----------
+  - name: TechCrunch AI
+    url: https://techcrunch.com/category/artificial-intelligence/feed/
+    category: AI 动态
+    ai_filter: false
+    max_items: 10
+
+  - name: The Verge AI
+    url: https://www.theverge.com/rss/ai-artificial-intelligence/index.xml
+    category: AI 动态
+    ai_filter: false
+    max_items: 10
+
+  - name: VentureBeat AI
+    url: https://venturebeat.com/category/ai/feed/
+    category: AI 动态
+    ai_filter: false
+    max_items: 8
+
+  - name: Hacker News Frontpage
+    url: https://hnrss.org/frontpage
+    category: AI 动态
+    ai_filter: true
+    max_items: 20
+
+  - name: MIT Technology Review AI
+    url: https://www.technologyreview.com/topic/artificial-intelligence/feed
+    category: AI 动态
+    ai_filter: false
+    max_items: 6
+
+# AI 关键词（仅对 ai_filter: true 的源生效，不区分大小写）
+ai_keywords:
+  - AI
+  - A.I.
+  - artificial intelligence
+  - machine learning
+  - deep learning
+  - neural
+  - LLM
+  - GPT
+  - OpenAI
+  - Anthropic
+  - Claude
+  - Gemini
+  - DeepSeek
+  - Llama
+  - Mistral
+  - transformer
+  - diffusion model
+  - AGI
+  - chatbot
+  - copilot

@@ -1,0 +1,82 @@
+baseURL = "https://hachgo.github.io/news_auto/"
+languageCode = "zh-cn"
+defaultContentLanguage = "zh-cn"
+title = "每日 AI 与国际资讯"
+theme = "PaperMod"
+
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+[pagination]
+  pagerSize = 10
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+[params]
+  env = "production"
+  title = "每日 AI 与国际资讯"
+  description = "每日自动汇总的国际新闻与 AI 领域动态，中英双语精简摘要。"
+  keywords = ["AI", "资讯", "国际新闻", "每日简报"]
+  author = "news_auto"
+  DateFormat = "2006-01-02"
+  defaultTheme = "auto"
+  disableThemeToggle = false
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = false
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = false
+  tocopen = false
+
+  [params.homeInfoParams]
+    Title = "每日 AI 与国际资讯"
+    Content = "每天早晨自动汇总的国际新闻与 AI 领域动态，中英双语精简摘要，按日期倒序排列。"
+
+  [params.assets]
+    disableHLJS = true
+    favicon = "favicon.ico"
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/HachGo/news_auto"
+
+[[params.socialIcons]]
+  name = "rss"
+  url = "index.xml"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[menu]
+  [[menu.main]]
+    identifier = "archives"
+    name = "归档"
+    url = "/archives/"
+    weight = 10
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 20
+  [[menu.main]]
+    identifier = "search"
+    name = "搜索"
+    url = "/search/"
+    weight = 30
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
