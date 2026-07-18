@@ -53,6 +53,31 @@ feeds:
     ai_filter: true
     max_items: 20
 
+  # ---------- 社区热点（HN 高分榜 + Reddit AI 社区，代理 X 上的病毒式热帖） ----------
+  - name: Hacker News Best
+    url: https://hnrss.org/best
+    category: 社区热点
+    ai_filter: false
+    max_items: 15
+
+  - name: Reddit r/singularity Top
+    url: https://www.reddit.com/r/singularity/top/.rss?t=day
+    category: 社区热点
+    ai_filter: false
+    max_items: 10
+
+  - name: Reddit r/OpenAI Top
+    url: https://www.reddit.com/r/OpenAI/top/.rss?t=day
+    category: 社区热点
+    ai_filter: false
+    max_items: 8
+
+  - name: Reddit r/LocalLLaMA Top
+    url: https://www.reddit.com/r/LocalLLaMA/top/.rss?t=day
+    category: 社区热点
+    ai_filter: false
+    max_items: 8
+
   - name: MIT Technology Review AI
     url: https://www.technologyreview.com/topic/artificial-intelligence/feed
     category: AI 动态

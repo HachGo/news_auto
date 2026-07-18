@@ -16,6 +16,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import feedparser
+import requests
 import yaml
 from dateutil import parser as dtparser
 
@@ -90,6 +91,25 @@ def matches_keywords(entry, keywords):
     return False
 
 
+def fetch_feed(url, retries=3):
+    """抓取并解析 RSS，对 429 限流做指数退避重试。"""
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; news_auto/1.0)"}
+    for attempt in range(retries):
+        try:
+            resp = requests.get(url, headers=headers, timeout=20)
+            if resp.status_code == 429:
+                wait = 10 * (attempt + 1)
+                print(f"[warn] 429 rate limited, retry in {wait}s: {url}", file=sys.stderr)
+                time.sleep(wait)
+                continue
+            resp.raise_for_status()
+            return feedparser.parse(resp.content)
+        except Exception as exc:
+            print(f"[warn] fetch error ({exc}), attempt {attempt + 1}: {url}", file=sys.stderr)
+            time.sleep(5)
+    return None
+
+
 def fetch_candidates(config, seen):
     settings = config.get("settings", {})
     hours_window = settings.get("hours_window", 36)
@@ -97,16 +117,14 @@ def fetch_candidates(config, seen):
     keywords = config.get("ai_keywords", [])
 
     candidates = []
-    for feed_cfg in config.get("feeds", []):
+    for feed_idx, feed_cfg in enumerate(config.get("feeds", [])):
         name = feed_cfg["name"]
+        if feed_idx > 0:
+            time.sleep(2)  # Reddit 等站点对连续请求限流
         print(f"[fetch] {name} ...", flush=True)
-        try:
-            parsed = feedparser.parse(
-                feed_cfg["url"],
-                request_headers={"User-Agent": "Mozilla/5.0 (news_auto bot)"},
-            )
-        except Exception as exc:  # 网络异常不应中断整体流程
-            print(f"[warn] {name} fetch failed: {exc}", file=sys.stderr)
+        parsed = fetch_feed(feed_cfg["url"])
+        if parsed is None:
+            print(f"[warn] {name} fetch failed, skipped", file=sys.stderr)
             continue
 
         count = 0
@@ -171,18 +189,19 @@ def select_items(candidates, config):
     return selected
 
 
-RANK_PROMPT = """你是资深国际新闻主编。以下是今日候选新闻列表（编号、标题、来源、分类）。
+RANK_PROMPT = """你是资深国际新闻主编。以下是今日候选新闻列表（编号、标题、来源、分类，部分带社区热度数据）。
 请评估每条新闻的重要性和影响力，选出最重要的 {limit} 条。评分标准（1-10 分）：
 
 - 9-10 分：全球级重大事件（重要 AI 模型/产品发布如 GPT、Kimi、DeepSeek 新版本，重大地缘政治事件，重要国际会议如 WAIC 开幕，行业格局改变的收购/政策）
-- 7-8 分：有广泛影响的行业新闻、重要国家的重大政策、知名公司重要动向
+- 7-8 分：有广泛影响的行业新闻、重要国家的重大政策、知名公司重要动向、社区高热度讨论
 - 5-6 分：一般性行业新闻、区域性事件
 - 1-4 分：琐碎消息、营销软文、纯观点评论、影响面小的本地新闻
 
 要求：
-1. 同一事件的多条重复报道只选最权威的一条。
-2. AI 领域与国际新闻兼顾，但以重要性优先，不强求数量平衡。
-3. 返回 JSON（不要其他文字）：{{"selected": [{{"index": 编号, "score": 分数}}, ...]}}，按分数从高到低排列，最多 {limit} 条。
+1. 「社区热点」分类（Hacker News 高分榜、Reddit AI 社区当日最热）代表 X/Twitter 和技术社区正在疯传的内容，是捕捉病毒式传播事件的重要信号：热度高（如 HN 500+ points）且话题重大的条目应显著加分；但纯梗图、灌水贴、与 AI/科技/时事无关的娱乐内容仍应打低分。
+2. 同一事件的多条重复报道只选最权威的一条。
+3. AI 领域与国际新闻兼顾，但以重要性优先，不强求数量平衡。
+4. 返回 JSON（不要其他文字）：{{"selected": [{{"index": 编号, "score": 分数}}, ...]}}，按分数从高到低排列，最多 {limit} 条。
 
 候选新闻：
 {items}
@@ -199,8 +218,12 @@ def rank_and_select(client, candidates, config):
 
     lines = []
     for i, item in enumerate(candidates):
+        heat = ""
+        m = re.search(r"Points:\s*(\d+)", item.get("summary", ""))
+        if m:
+            heat = f" (热度: {m.group(1)} points)"
         lines.append(
-            f"{i}. [{item['category']}/{item['source']}] {item['title']}"
+            f"{i}. [{item['category']}/{item['source']}] {item['title']}{heat}"
         )
     prompt = RANK_PROMPT.format(limit=total_limit, items="\n".join(lines))
 
