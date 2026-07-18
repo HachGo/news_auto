@@ -9,7 +9,8 @@
 ```
 GitHub Actions (每日 UTC 23:00 / 北京 07:00)
   → scripts/fetch_news.py 抓取 RSS → 去重 (data/seen.json)
-  → DeepSeek 翻译 + 摘要 → 生成 content/posts/YYYY-MM-DD.md
+  → DeepSeek 重要性评分选出最有影响力的新闻 → 翻译 + 摘要
+  → 生成 content/posts/YYYY-MM-DD.md（今日焦点 + 分类列表）
   → 提交回仓库 → Hugo 构建 → 部署 GitHub Pages
 ```
 

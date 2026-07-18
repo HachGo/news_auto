@@ -140,7 +140,7 @@ def fetch_candidates(config, seen):
 
 
 def select_items(candidates, config):
-    """按来源均衡挑选，最多 total_limit 条。"""
+    """降级方案：按来源均衡挑选，最多 total_limit 条（LLM 不可用时使用）。"""
     settings = config.get("settings", {})
     total_limit = settings.get("total_limit", 15)
     per_source_limit = settings.get("per_source_limit", 4)
@@ -169,6 +169,74 @@ def select_items(candidates, config):
                 idx %= len(sources)
     selected.sort(key=lambda x: (x["category"], x["time"]), reverse=False)
     return selected
+
+
+RANK_PROMPT = """你是资深国际新闻主编。以下是今日候选新闻列表（编号、标题、来源、分类）。
+请评估每条新闻的重要性和影响力，选出最重要的 {limit} 条。评分标准（1-10 分）：
+
+- 9-10 分：全球级重大事件（重要 AI 模型/产品发布如 GPT、Kimi、DeepSeek 新版本，重大地缘政治事件，重要国际会议如 WAIC 开幕，行业格局改变的收购/政策）
+- 7-8 分：有广泛影响的行业新闻、重要国家的重大政策、知名公司重要动向
+- 5-6 分：一般性行业新闻、区域性事件
+- 1-4 分：琐碎消息、营销软文、纯观点评论、影响面小的本地新闻
+
+要求：
+1. 同一事件的多条重复报道只选最权威的一条。
+2. AI 领域与国际新闻兼顾，但以重要性优先，不强求数量平衡。
+3. 返回 JSON（不要其他文字）：{{"selected": [{{"index": 编号, "score": 分数}}, ...]}}，按分数从高到低排列，最多 {limit} 条。
+
+候选新闻：
+{items}
+"""
+
+
+def rank_and_select(client, candidates, config):
+    """用 LLM 按重要性排序选取；失败时降级为来源均衡策略。"""
+    settings = config.get("settings", {})
+    total_limit = settings.get("total_limit", 15)
+
+    if client is None or not candidates:
+        return select_items(candidates, config)
+
+    lines = []
+    for i, item in enumerate(candidates):
+        lines.append(
+            f"{i}. [{item['category']}/{item['source']}] {item['title']}"
+        )
+    prompt = RANK_PROMPT.format(limit=total_limit, items="\n".join(lines))
+
+    for attempt in range(2):
+        try:
+            resp = client.chat.completions.create(
+                model=DEEPSEEK_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type": "json_object"},
+                temperature=0.2,
+                max_tokens=8000,
+                timeout=180,
+                extra_body={"thinking": {"type": "enabled"}},
+            )
+            data = json.loads(resp.choices[0].message.content)
+            picked = []
+            seen_idx = set()
+            for entry in data.get("selected", []):
+                idx = entry.get("index")
+                if not isinstance(idx, int) or idx in seen_idx:
+                    continue
+                if 0 <= idx < len(candidates):
+                    item = candidates[idx]
+                    item["score"] = entry.get("score", 5)
+                    picked.append(item)
+                    seen_idx.add(idx)
+                if len(picked) >= total_limit:
+                    break
+            if picked:
+                print(f"[info] LLM 重要性排序完成，选出 {len(picked)} 条")
+                return picked
+        except Exception as exc:
+            print(f"[warn] 重要性排序失败 (attempt {attempt + 1}): {exc}", file=sys.stderr)
+            time.sleep(3)
+    print("[warn] 重要性排序不可用，降级为来源均衡策略", file=sys.stderr)
+    return select_items(candidates, config)
 
 
 def build_llm_client():
@@ -232,28 +300,52 @@ def render_post(items, date_cst):
         "",
     ]
 
-    by_category = {}
-    for item in items:
-        by_category.setdefault(item["category"], []).append(item)
+    def render_item(item, num):
+        block = []
+        title_zh = item.get("title_zh") or item["title"]
+        score = item.get("score")
+        badge = "【重点】" if isinstance(score, (int, float)) and score >= 9 else ""
+        block.append(f"### {num}. {badge}{title_zh}")
+        block.append("")
+        if item.get("title_zh"):
+            block.append(f"> {item['title']}")
+            block.append("")
+        summary_zh = item.get("summary_zh") or item["summary"][:200]
+        if summary_zh:
+            block.append(summary_zh)
+            block.append("")
+        block.append(f"来源：[{item['source']}]({item['link']})")
+        block.append("")
+        return block
 
-    # AI 动态放前面
-    order = sorted(by_category.keys(), key=lambda c: (c != "AI 动态", c))
-    for category in order:
-        lines.append(f"## {category}")
+    # 有重要性评分时：焦点区 + 分类区；无评分时按分类展示
+    scored = [i for i in items if "score" in i]
+    if scored:
+        items = sorted(items, key=lambda x: x.get("score", 0), reverse=True)
+        focus, rest = items[:3], items[3:]
+        lines.append("## 今日焦点")
         lines.append("")
-        for i, item in enumerate(by_category[category], 1):
-            title_zh = item.get("title_zh") or item["title"]
-            lines.append(f"### {i}. {title_zh}")
+        for n, item in enumerate(focus, 1):
+            lines.extend(render_item(item, n))
+        by_category = {}
+        for item in rest:
+            by_category.setdefault(item["category"], []).append(item)
+        order = sorted(by_category.keys(), key=lambda c: (c != "AI 动态", c))
+        for category in order:
+            lines.append(f"## {category}")
             lines.append("")
-            if item.get("title_zh"):
-                lines.append(f"> {item['title']}")
-                lines.append("")
-            summary_zh = item.get("summary_zh") or item["summary"][:200]
-            if summary_zh:
-                lines.append(summary_zh)
-                lines.append("")
-            lines.append(f"来源：[{item['source']}]({item['link']})")
+            for n, item in enumerate(by_category[category], 1):
+                lines.extend(render_item(item, n))
+    else:
+        by_category = {}
+        for item in items:
+            by_category.setdefault(item["category"], []).append(item)
+        order = sorted(by_category.keys(), key=lambda c: (c != "AI 动态", c))
+        for category in order:
+            lines.append(f"## {category}")
             lines.append("")
+            for n, item in enumerate(by_category[category], 1):
+                lines.extend(render_item(item, n))
     return "\n".join(lines)
 
 
@@ -267,10 +359,11 @@ def main():
         print("[info] 没有新条目，跳过生成")
         return
 
-    selected = select_items(candidates, config)
+    client = build_llm_client()
+
+    selected = rank_and_select(client, candidates, config)
     print(f"[info] 精选条目: {len(selected)}")
 
-    client = build_llm_client()
     for item in selected:
         result = summarize(client, item)
         if result:
