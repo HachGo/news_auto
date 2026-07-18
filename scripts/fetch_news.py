@@ -210,7 +210,7 @@ def rank_and_select(client, candidates, config):
                 model=DEEPSEEK_MODEL,
                 messages=[{"role": "user", "content": prompt}],
                 response_format={"type": "json_object"},
-                temperature=0.2,
+                reasoning_effort="high",
                 max_tokens=8000,
                 timeout=180,
                 extra_body={"thinking": {"type": "enabled"}},
