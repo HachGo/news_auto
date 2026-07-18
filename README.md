@@ -39,7 +39,7 @@ GitHub Actions (每日 UTC 23:00 / 北京 07:00)
 - **增删新闻源**：编辑 `scripts/feeds.yaml` 的 `feeds` 列表；`ai_filter: true` 表示按 `ai_keywords` 关键词过滤。
 - **调整条数**：`feeds.yaml` 中 `settings.total_limit`（每日总条数）、`per_source_limit`（单来源上限）。
 - **调整发布时间**：修改 `.github/workflows/daily.yml` 中的 cron 表达式（UTC 时间）。
-- **换模型**：设置环境变量 `DEEPSEEK_MODEL`（默认 `deepseek-v4-flash`，非 thinking 模式）或 `DEEPSEEK_BASE_URL`（任意 OpenAI 兼容接口）。
+- **换模型**：设置环境变量 `DEEPSEEK_MODEL`（默认 `deepseek-v4-pro`，thinking 模式开启）或 `DEEPSEEK_BASE_URL`（任意 OpenAI 兼容接口）。
 
 ## 本地开发
 
