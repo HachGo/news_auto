@@ -204,9 +204,9 @@ def summarize(client, item, retries=2):
                 model=DEEPSEEK_MODEL,
                 messages=[{"role": "user", "content": prompt}],
                 response_format={"type": "json_object"},
-                temperature=0.3,
+                reasoning_effort="high",
                 max_tokens=2000,
-                timeout=60,
+                timeout=120,
                 extra_body={"thinking": {"type": "enabled"}},
             )
             data = json.loads(resp.choices[0].message.content)
