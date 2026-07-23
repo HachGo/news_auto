@@ -27,6 +27,18 @@ POSTS_DIR = ROOT / "content" / "posts"
 
 CST = timezone(timedelta(hours=8))  # 北京时间
 
+DEEP_CATEGORY = "深度精选"  # 独立模块，不参与 LLM 重要性排序
+
+# 分类展示顺序：AI 与科技优先，深度媒体次之，其余靠后
+CATEGORY_ORDER = ["AI 动态", "社区热点", DEEP_CATEGORY, "国际新闻"]
+
+
+def category_rank(category):
+    try:
+        return CATEGORY_ORDER.index(category)
+    except ValueError:
+        return len(CATEGORY_ORDER)
+
 DEEPSEEK_BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-pro")
 
@@ -117,6 +129,7 @@ def fetch_candidates(config, seen):
     keywords = config.get("ai_keywords", [])
 
     candidates = []
+    run_seen = set()  # 本次运行内去重（如经济学人 latest 与分栏目源会重复）
     for feed_idx, feed_cfg in enumerate(config.get("feeds", [])):
         name = feed_cfg["name"]
         if feed_idx > 0:
@@ -138,8 +151,10 @@ def fetch_candidates(config, seen):
             ts = entry_time(entry)
             if ts and ts < cutoff:
                 continue
-            if link_hash(link) in seen:
+            h = link_hash(link)
+            if h in seen or h in run_seen:
                 continue
+            run_seen.add(h)
             if feed_cfg.get("ai_filter") and not matches_keywords(entry, keywords):
                 continue
             candidates.append(
@@ -186,6 +201,24 @@ def select_items(candidates, config):
             if sources:
                 idx %= len(sources)
     selected.sort(key=lambda x: (x["category"], x["time"]), reverse=False)
+    return selected
+
+
+def select_deep(candidates, config):
+    """「深度精选」模块：按时间取最新，来源均衡，不与常规新闻竞争名额。"""
+    settings = config.get("settings", {})
+    limit = settings.get("deep_limit", 6)
+    per_source_limit = settings.get("deep_per_source_limit", 2)
+
+    candidates.sort(key=lambda x: x["time"], reverse=True)
+    selected, per_source = [], {}
+    for item in candidates:
+        if len(selected) >= limit:
+            break
+        if per_source.get(item["source"], 0) >= per_source_limit:
+            continue
+        selected.append(item)
+        per_source[item["source"]] = per_source.get(item["source"], 0) + 1
     return selected
 
 
@@ -353,7 +386,7 @@ def render_post(items, date_cst):
         by_category = {}
         for item in rest:
             by_category.setdefault(item["category"], []).append(item)
-        order = sorted(by_category.keys(), key=lambda c: (c != "AI 动态", c))
+        order = sorted(by_category.keys(), key=lambda c: (category_rank(c), c))
         for category in order:
             lines.append(f"## {category}")
             lines.append("")
@@ -363,7 +396,7 @@ def render_post(items, date_cst):
         by_category = {}
         for item in items:
             by_category.setdefault(item["category"], []).append(item)
-        order = sorted(by_category.keys(), key=lambda c: (c != "AI 动态", c))
+        order = sorted(by_category.keys(), key=lambda c: (category_rank(c), c))
         for category in order:
             lines.append(f"## {category}")
             lines.append("")
@@ -382,10 +415,15 @@ def main():
         print("[info] 没有新条目，跳过生成")
         return
 
+    deep_candidates = [c for c in candidates if c["category"] == DEEP_CATEGORY]
+    regular_candidates = [c for c in candidates if c["category"] != DEEP_CATEGORY]
+
     client = build_llm_client()
 
-    selected = rank_and_select(client, candidates, config)
-    print(f"[info] 精选条目: {len(selected)}")
+    selected = rank_and_select(client, regular_candidates, config)
+    deep_selected = select_deep(deep_candidates, config)
+    print(f"[info] 精选条目: {len(selected)}，深度精选: {len(deep_selected)}")
+    selected.extend(deep_selected)
 
     ok_count = 0
     for item in selected:

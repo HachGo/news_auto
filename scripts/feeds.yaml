@@ -7,6 +7,8 @@ settings:
   total_limit: 15          # 每日最多精选条数
   per_source_limit: 4      # 单来源最多入选条数
   hours_window: 36         # 只取最近 N 小时内发布的条目
+  deep_limit: 6            # 「深度精选」模块每日最多条数
+  deep_per_source_limit: 2 # 「深度精选」单来源最多条数
 
 feeds:
   # ---------- 国际新闻 ----------
@@ -83,6 +85,31 @@ feeds:
     category: AI 动态
     ai_filter: false
     max_items: 6
+
+  # ---------- 深度精选（经济学人 / 卫报 / 科学美国人，单独模块，不参与重要性排序） ----------
+  - name: The Economist Latest
+    url: https://www.economist.com/latest/rss.xml
+    category: 深度精选
+    ai_filter: false
+    max_items: 8
+
+  - name: The Economist Science & Tech
+    url: https://www.economist.com/science-and-technology/rss.xml
+    category: 深度精选
+    ai_filter: false
+    max_items: 6
+
+  - name: The Guardian Long Read
+    url: https://www.theguardian.com/news/series/the-long-read/rss
+    category: 深度精选
+    ai_filter: false
+    max_items: 6
+
+  - name: Scientific American
+    url: https://www.scientificamerican.com/platform/syndication/rss/
+    category: 深度精选
+    ai_filter: false
+    max_items: 8
 
 # AI 关键词（仅对 ai_filter: true 的源生效，不区分大小写）
 ai_keywords:
