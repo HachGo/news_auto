@@ -8,9 +8,11 @@
 
 ```
 GitHub Actions (每日 UTC 23:00 / 北京 07:00)
-  → scripts/fetch_news.py 抓取 RSS → 去重 (data/seen.json)
-  → DeepSeek 重要性评分选出最有影响力的新闻 → 翻译 + 摘要
-  → 生成 content/posts/YYYY-MM-DD.md（今日焦点 + 分类列表）
+  → scripts/fetch_news.py 编排三大版面：
+    - AI 与科技社区：RSS 抓取 → LLM 排序 + 摘要 → content/ai/YYYY-MM-DD.md
+    - 国际与深度：RSS 抓取 → LLM 排序 + 深度精选 → content/world/YYYY-MM-DD.md
+    - 市场与宏观：东方财富行情 + 金十日历 + 巨潮公告 + 财经要闻 RSS → content/market/YYYY-MM-DD.md
+  → 汇总三版面焦点 → 生成首页 content/_index.md
   → 提交回仓库 → Hugo 构建 → 部署 GitHub Pages
 ```
 
@@ -27,18 +29,24 @@ GitHub Actions (每日 UTC 23:00 / 北京 07:00)
 
 | 路径 | 说明 |
 |---|---|
-| `hugo.toml` | Hugo 站点配置（PaperMod 主题、中文界面） |
+| `hugo.toml` | Hugo 站点配置（PaperMod 主题、中文界面、三大版面菜单） |
 | `themes/PaperMod/` | 主题（git submodule） |
-| `content/posts/` | 每日自动生成的资讯文章 |
-| `scripts/fetch_news.py` | 抓取 + 摘要 + 生成 Markdown 主流程 |
-| `scripts/feeds.yaml` | RSS 源清单与筛选配置（可自由增删源） |
-| `data/seen.json` | 已处理文章指纹，防止重复（自动维护，保留 30 天） |
+| `content/ai/` | AI 与科技社区版面（每日文章） |
+| `content/world/` | 国际与深度版面（每日文章） |
+| `content/market/` | 市场与宏观版面（行情/宏观/要闻/公告研报） |
+| `content/_index.md` | 首页今日总览（脚本生成） |
+| `scripts/fetch_news.py` | 主入口，编排三版面 + 首页 |
+| `scripts/feeds.yaml` | RSS 源清单（按 section 分组） |
+| `scripts/sources/` | 数据抓取器（rss/eastmoney/jin10/cninfo） |
+| `scripts/generators/` | 版面生成器（ai/world/market） |
+| `scripts/common.py` | 共享工具（seen/LLM/渲染） |
+| `data/seen.json` | 已处理文章指纹（自动维护，保留 30 天） |
 | `.github/workflows/daily.yml` | 定时任务 + 构建 + 部署 |
 
 ## 自定义
 
 - **增删新闻源**：编辑 `scripts/feeds.yaml` 的 `feeds` 列表；`ai_filter: true` 表示按 `ai_keywords` 关键词过滤。
-- **调整条数**：`feeds.yaml` 中 `settings.total_limit`（每日总条数）、`per_source_limit`（单来源上限）。
+- **调整条数**：`feeds.yaml` 中 `settings.total_limit`（每版面每日上限）、`per_source_limit`（单来源上限）、`deep_limit`（world 深度精选上限）。
 - **调整发布时间**：修改 `.github/workflows/daily.yml` 中的 cron 表达式（UTC 时间）。
 - **换模型**：设置环境变量 `DEEPSEEK_MODEL`（默认 `deepseek-v4-pro`，thinking 模式开启）或 `DEEPSEEK_BASE_URL`（任意 OpenAI 兼容接口）。
 
