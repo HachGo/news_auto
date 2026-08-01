@@ -41,8 +41,8 @@ buildExpired = false
   tocopen = false
 
   [params.homeInfoParams]
-    Title = "每日 AI 与国际资讯"
-    Content = "每天早晨自动汇总的国际新闻与 AI 领域动态，中英双语精简摘要，按日期倒序排列。"
+    Title = "每日资讯"
+    Content = "三大版面每日自动汇总：AI 与科技社区、国际与深度、市场与宏观。"
 
   [params.assets]
     disableHLJS = true
@@ -61,20 +61,30 @@ buildExpired = false
 
 [menu]
   [[menu.main]]
+    identifier = "ai"
+    name = "AI"
+    url = "/ai/"
+    weight = 10
+  [[menu.main]]
+    identifier = "world"
+    name = "国际"
+    url = "/world/"
+    weight = 20
+  [[menu.main]]
+    identifier = "market"
+    name = "市场"
+    url = "/market/"
+    weight = 30
+  [[menu.main]]
     identifier = "archives"
     name = "归档"
     url = "/archives/"
-    weight = 10
-  [[menu.main]]
-    identifier = "tags"
-    name = "标签"
-    url = "/tags/"
-    weight = 20
+    weight = 40
   [[menu.main]]
     identifier = "search"
     name = "搜索"
     url = "/search/"
-    weight = 30
+    weight = 50
 
 [markup]
   [markup.goldmark]
