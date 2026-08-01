@@ -2,8 +2,13 @@
 
 import hashlib
 import html
+import json
+import os
 import re
+import sys
+import time
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 from dateutil import parser as dtparser
 
@@ -59,3 +64,41 @@ def matches_keywords(entry, keywords):
         elif kw_l in text:
             return True
     return False
+
+
+ROOT = Path(__file__).resolve().parent.parent
+SEEN_FILE_DEFAULT = ROOT / "data" / "seen.json"
+
+DEEPSEEK_BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
+DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-pro")
+
+
+def load_seen(path=None):
+    path = path or SEEN_FILE_DEFAULT
+    if path.exists():
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+
+def save_seen(path, seen):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    # 只保留最近 30 天的指纹，防止文件无限增长
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+    pruned = {k: v for k, v in seen.items() if v >= cutoff}
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(pruned, f, ensure_ascii=False, indent=0, sort_keys=True)
+
+
+def build_llm_client():
+    api_key = os.environ.get("DEEPSEEK_API_KEY")
+    if not api_key:
+        print("[warn] DEEPSEEK_API_KEY 未设置，跳过 LLM，使用 RSS 原始摘要", file=sys.stderr)
+        return None
+    try:
+        from openai import OpenAI
+        return OpenAI(api_key=api_key, base_url=DEEPSEEK_BASE_URL)
+    except Exception as exc:
+        print(f"[warn] 初始化 LLM 客户端失败: {exc}", file=sys.stderr)
+        return None
