@@ -1,115 +1,161 @@
 # RSS 源清单
-# category: 展示分类（国际新闻 / AI 动态）
-# ai_filter: true 时按 AI 关键词过滤条目
+# section: 归属版面（ai / world / market）
+# category: 展示分类
+# ai_filter: true 时按 ai_keywords 关键词过滤条目
 # max_items: 单个源最多取多少条候选
 
 settings:
-  total_limit: 15          # 每日最多精选条数
+  total_limit: 15          # 每版面每日最多精选条数
   per_source_limit: 4      # 单来源最多入选条数
   hours_window: 36         # 只取最近 N 小时内发布的条目
-  deep_limit: 6            # 「深度精选」模块每日最多条数
+  deep_limit: 6            # 「深度精选」每日最多条数（world 版面）
   deep_per_source_limit: 2 # 「深度精选」单来源最多条数
 
 feeds:
-  # ---------- 国际新闻 ----------
-  - name: BBC World
-    url: https://feeds.bbci.co.uk/news/world/rss.xml
-    category: 国际新闻
-    ai_filter: false
-    max_items: 10
-
-  - name: The Guardian World
-    url: https://www.theguardian.com/world/rss
-    category: 国际新闻
-    ai_filter: false
-    max_items: 10
-
-  - name: Reuters World (via Google News)
-    url: https://news.google.com/rss/search?q=site:reuters.com%20world&hl=en-US&gl=US&ceid=US:en
-    category: 国际新闻
-    ai_filter: false
-    max_items: 8
-
-  # ---------- AI 动态 ----------
+  # ---------- AI 与科技社区（section: ai） ----------
   - name: TechCrunch AI
     url: https://techcrunch.com/category/artificial-intelligence/feed/
+    section: ai
     category: AI 动态
     ai_filter: false
     max_items: 10
 
   - name: The Verge AI
     url: https://www.theverge.com/rss/ai-artificial-intelligence/index.xml
+    section: ai
     category: AI 动态
     ai_filter: false
     max_items: 10
 
   - name: VentureBeat AI
     url: https://venturebeat.com/category/ai/feed/
+    section: ai
     category: AI 动态
     ai_filter: false
     max_items: 8
 
   - name: Hacker News Frontpage
     url: https://hnrss.org/frontpage
+    section: ai
     category: AI 动态
     ai_filter: true
     max_items: 20
 
-  # ---------- 社区热点（HN 高分榜 + Reddit AI 社区，代理 X 上的病毒式热帖） ----------
   - name: Hacker News Best
     url: https://hnrss.org/best
+    section: ai
     category: 社区热点
     ai_filter: false
     max_items: 15
 
   - name: Reddit r/singularity Top
     url: https://www.reddit.com/r/singularity/top/.rss?t=day
+    section: ai
     category: 社区热点
     ai_filter: false
     max_items: 10
 
   - name: Reddit r/OpenAI Top
     url: https://www.reddit.com/r/OpenAI/top/.rss?t=day
+    section: ai
     category: 社区热点
     ai_filter: false
     max_items: 8
 
   - name: Reddit r/LocalLLaMA Top
     url: https://www.reddit.com/r/LocalLLaMA/top/.rss?t=day
+    section: ai
     category: 社区热点
     ai_filter: false
     max_items: 8
 
   - name: MIT Technology Review AI
     url: https://www.technologyreview.com/topic/artificial-intelligence/feed
+    section: ai
     category: AI 动态
     ai_filter: false
     max_items: 6
 
-  # ---------- 深度精选（经济学人 / 卫报 / 科学美国人，单独模块，不参与重要性排序） ----------
+  # ---------- 国际与深度（section: world） ----------
+  - name: BBC World
+    url: https://feeds.bbci.co.uk/news/world/rss.xml
+    section: world
+    category: 国际新闻
+    ai_filter: false
+    max_items: 10
+
+  - name: The Guardian World
+    url: https://www.theguardian.com/world/rss
+    section: world
+    category: 国际新闻
+    ai_filter: false
+    max_items: 10
+
+  - name: Reuters World (via Google News)
+    url: https://news.google.com/rss/search?q=site:reuters.com%20world&hl=en-US&gl=US&ceid=US:en
+    section: world
+    category: 国际新闻
+    ai_filter: false
+    max_items: 8
+
   - name: The Economist Latest
     url: https://www.economist.com/latest/rss.xml
+    section: world
     category: 深度精选
     ai_filter: false
     max_items: 8
 
   - name: The Economist Science & Tech
     url: https://www.economist.com/science-and-technology/rss.xml
+    section: world
     category: 深度精选
     ai_filter: false
     max_items: 6
 
   - name: The Guardian Long Read
     url: https://www.theguardian.com/news/series/the-long-read/rss
+    section: world
     category: 深度精选
     ai_filter: false
     max_items: 6
 
   - name: Scientific American
     url: https://www.scientificamerican.com/platform/syndication/rss/
+    section: world
     category: 深度精选
     ai_filter: false
     max_items: 8
+
+  # ---------- 市场与宏观 · 财经要闻（section: market） ----------
+  # 走 RSS 的财经要闻源（这些站点的可用 RSS；不可用则由抓取失败占位）
+  - name: 第一财经要闻
+    url: https://rsshub.app/yicai/news
+    section: market
+    category: 财经要闻
+    ai_filter: false
+    max_items: 10
+
+  - name: 财新财经
+    url: https://rsshub.app/caixin/latest
+    section: market
+    category: 财经要闻
+    ai_filter: false
+    max_items: 10
+
+  - name: 华尔街见闻
+    url: https://rsshub.app/wallstreetcn/news/global
+    section: market
+    category: 财经要闻
+    ai_filter: false
+    max_items: 10
+
+  # ---------- 市场与宏观 · 研报（section: market, 走 RSS 聚合） ----------
+  - name: 慧博研报精选
+    url: https://rsshub.app/hibor/report
+    section: market
+    category: 研报要点
+    ai_filter: false
+    max_items: 6
 
 # AI 关键词（仅对 ai_filter: true 的源生效，不区分大小写）
 ai_keywords:
