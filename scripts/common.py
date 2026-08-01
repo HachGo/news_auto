@@ -10,6 +10,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import yaml
 from dateutil import parser as dtparser
 
 CST = timezone(timedelta(hours=8))  # 北京时间
@@ -321,3 +322,9 @@ def render_sectioned(items, title, summary, focus_count=3):
             for n, item in enumerate(by_category[category], 1):
                 lines.extend(render_item(item, n))
     return "\n".join(lines)
+
+
+def load_config(path=None):
+    path = Path(path) if path else ROOT / "scripts" / "feeds.yaml"
+    with open(path, encoding="utf-8") as f:
+        return yaml.safe_load(f)
