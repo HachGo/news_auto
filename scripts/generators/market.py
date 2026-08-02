@@ -13,6 +13,9 @@ from common import summarize, CST
 from sources import rss, eastmoney, jin10, cninfo
 
 FAIL_BLOCK = "📊 数据获取失败，请稍后查看原文。"
+EMPTY_CALENDAR = "今日无重要宏观数据公布。"
+EMPTY_NEWS = "今日暂无新要闻。"
+EMPTY_ANNOUNCE = "今日暂无新公告。"
 
 
 def generate(config, seen, client, date_str, posts_dir=None):
@@ -86,16 +89,18 @@ def _render(date_str, quotes, calendar, announces, news_items, research_items):
         lines.append(FAIL_BLOCK)
     lines.append("")
 
-    # 宏观与政策
+    # 宏观与政策：None=失败，[]=当日无数据
     lines.append("## 宏观与政策")
     lines.append("")
-    if calendar:
+    if calendar is None:
+        lines.append(FAIL_BLOCK)
+    elif not calendar:
+        lines.append(EMPTY_CALENDAR)
+    else:
         lines.append("| 指标 | 预期 | 前值 | 公布值 |")
         lines.append("|---|---|---|---|")
         for c in calendar:
             lines.append(f"| {c['title']} | {c.get('consensus') or '—'} | {c.get('previous') or '—'} | {c.get('actual') or '—'} |")
-    else:
-        lines.append(FAIL_BLOCK)
     lines.append("")
 
     # 财经要闻
@@ -105,21 +110,24 @@ def _render(date_str, quotes, calendar, announces, news_items, research_items):
         for n, item in enumerate(news_items, 1):
             lines.extend(_render_item(item, n))
     else:
-        lines.append(FAIL_BLOCK)
+        lines.append(EMPTY_NEWS)
     lines.append("")
 
     # 公告与研报
     lines.append("## 公告与研报")
     lines.append("")
-    if announces:
+    if announces is None:
+        lines.append("公告：")
+        lines.append(FAIL_BLOCK)
+        lines.append("")
+    elif not announces:
+        lines.append(EMPTY_ANNOUNCE)
+        lines.append("")
+    else:
         lines.append("**公司公告**（巨潮）")
         lines.append("")
         for a in announces:
             lines.append(f"- {a['sec_name']}：[{a['title']}]({a['url']})")
-        lines.append("")
-    else:
-        lines.append("公告：")
-        lines.append(FAIL_BLOCK)
         lines.append("")
     if research_items:
         lines.append("**研报要点**")

@@ -1,0 +1,26 @@
+/* 搜索结果：标题 + 版面/日期/摘要 */
+.searchResults li {
+    align-items: flex-start;
+}
+
+.searchResults .result-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-right: 28px;
+    min-width: 0;
+}
+
+.searchResults .result-title {
+    font-weight: 600;
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.searchResults .result-meta {
+    font-size: 0.85em;
+    font-weight: 400;
+    color: var(--secondary);
+    line-height: 1.4;
+    word-break: break-word;
+}

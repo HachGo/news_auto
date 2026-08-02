@@ -39,7 +39,6 @@ def test_generate_renders_all_four_blocks(tmp_path):
 
 
 def test_generate_handles_source_failures(tmp_path):
-    from datetime import date
     config = {"settings": {"hours_window": 240, "total_limit": 5, "per_source_limit": 4},
               "ai_keywords": [], "feeds": []}
     # 三个抓取源都失败返回 None，财经要闻也无
@@ -52,3 +51,20 @@ def test_generate_handles_source_failures(tmp_path):
     assert result["path"].exists()
     text = result["path"].read_text(encoding="utf-8")
     assert "数据获取失败" in text
+
+
+def test_generate_empty_calendar_not_failure(tmp_path):
+    config = {"settings": {"hours_window": 240, "total_limit": 5, "per_source_limit": 4},
+              "ai_keywords": [], "feeds": []}
+    quotes = [{"name": "上证指数", "price": 3225.43, "change_pct": 0.82, "amount": 8e11}]
+    with patch("generators.market.rss.fetch_candidates", return_value=[]), \
+         patch("generators.market.summarize", return_value=None), \
+         patch("generators.market.eastmoney.fetch_quotes", return_value=quotes), \
+         patch("generators.market.jin10.fetch_calendar", return_value=[]), \
+         patch("generators.market.cninfo.fetch_announcements", return_value=[]):
+        result = market.generate(config, {}, None, date_str="2026-08-02", posts_dir=tmp_path)
+    text = result["path"].read_text(encoding="utf-8")
+    assert "今日无重要宏观数据公布" in text
+    assert "今日暂无新要闻" in text
+    assert "今日暂无新公告" in text
+    assert text.count("数据获取失败") == 0

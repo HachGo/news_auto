@@ -39,6 +39,20 @@ buildExpired = false
   hideSummary = false
   showtoc = false
   tocopen = false
+  # 归档 / 首页列表 / 上下篇：覆盖三大版面（缺省会只取最大 section）
+  mainSections = ["ai", "world", "market"]
+
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.35
+    minMatchCharLength = 1
+    ignoreLocation = true
+    findAllMatches = true
+    limit = 50
+    keys = ["title", "content", "summary", "permalink"]
 
   [params.homeInfoParams]
     Title = "每日资讯"

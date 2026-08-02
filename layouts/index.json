@@ -1,0 +1,48 @@
+{{- /* 全文检索索引：每日简报拆成单条资讯 + 保留整页（行情表等） */ -}}
+{{- $.Scratch.Add "index" slice -}}
+{{- range site.RegularPages -}}
+{{- if and (not .Params.searchHidden) (ne .Layout "archives") (ne .Layout "search") -}}
+{{- $page := . -}}
+{{- $section := .Section -}}
+{{- $sectionLabel := $section -}}
+{{- if eq $section "ai" }}{{ $sectionLabel = "AI" }}{{ end -}}
+{{- if eq $section "world" }}{{ $sectionLabel = "国际" }}{{ end -}}
+{{- if eq $section "market" }}{{ $sectionLabel = "市场" }}{{ end -}}
+{{- $date := .Date.Format "2006-01-02" -}}
+{{- $meta := printf "%s · %s" $sectionLabel $date -}}
+{{- $raw := .RawContent -}}
+
+{{- /* ### N. 标题 条目（AI / 国际 / 财经要闻 / 研报） */ -}}
+{{- $blocks := split $raw "\n### " -}}
+{{- if gt (len $blocks) 1 -}}
+{{- range $i, $block := $blocks -}}
+{{- if gt $i 0 -}}
+{{- $lines := split $block "\n" -}}
+{{- $heading := index $lines 0 | strings.TrimSpace -}}
+{{- $heading = replaceRE `^\d+\.\s*` "" $heading -}}
+{{- $heading = replaceRE `^【重点】` "" $heading -}}
+{{- $heading = strings.TrimSpace $heading -}}
+{{- $body := delimit (after 1 $lines) "\n" -}}
+{{- $plain := $body | plainify | htmlUnescape | strings.TrimSpace -}}
+{{- if $heading -}}
+{{- $.Scratch.Add "index" (dict "title" $heading "content" $plain "permalink" $page.Permalink "summary" $meta "section" $section) -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- /* 巨潮公告列表项：- 公司：[标题](url) */ -}}
+{{- range findRE `(?m)^-\s+[^：:\n]+[：:]\s*\[[^\]]+\]\([^)]+\)` $raw -}}
+{{- $line := . -}}
+{{- $company := replaceRE `(?s)^-\s+([^：:]+)[：:].*$` "$1" $line | strings.TrimSpace -}}
+{{- $title := replaceRE `(?s)^.*\[([^\]]+)\].*$` "$1" $line | strings.TrimSpace -}}
+{{- $entryTitle := printf "%s：%s" $company $title -}}
+{{- $.Scratch.Add "index" (dict "title" $entryTitle "content" $entryTitle "permalink" $page.Permalink "summary" (printf "%s · 公告 · %s" $sectionLabel $date) "section" $section) -}}
+{{- end -}}
+
+{{- /* 整页兜底：行情表、宏观日历、未拆分内容均可搜 */ -}}
+{{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" (.Params.summary | default $meta) "section" $section) -}}
+
+{{- end -}}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}

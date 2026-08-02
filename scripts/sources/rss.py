@@ -16,7 +16,13 @@ from common import link_hash, strip_html, entry_time, matches_keywords
 
 def fetch_feed(url, retries=3):
     """抓取并解析 RSS，对 429 限流做指数退避重试。失败返回 None。"""
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; news_auto/1.0)"}
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/rss+xml, application/xml, text/xml, */*",
+    }
     for attempt in range(retries):
         try:
             resp = requests.get(url, headers=headers, timeout=20)
