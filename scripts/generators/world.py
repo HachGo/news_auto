@@ -1,12 +1,12 @@
-"""国际与深度版面生成器。
+"""国际资讯版面生成器。
 
-国际新闻走 LLM 排序，深度精选走来源均衡（select_deep），二者合并渲染。
+国际硬新闻走 LLM 排序 + 摘要，渲染为 content/world/YYYY-MM-DD.md。
 """
 
 import sys
 from pathlib import Path
 
-from common import rank_and_select, select_deep, summarize, render_sectioned, DEEP_CATEGORY
+from common import rank_and_select, summarize, render_sectioned
 from sources import rss
 
 
@@ -17,12 +17,7 @@ def generate(config, seen, client, date_str, posts_dir=None):
         print("[info] 国际版面无新条目，跳过")
         return None
 
-    deep_candidates = [c for c in candidates if c["category"] == DEEP_CATEGORY]
-    regular_candidates = [c for c in candidates if c["category"] != DEEP_CATEGORY]
-
-    selected = rank_and_select(client, regular_candidates, config)
-    deep_selected = select_deep(deep_candidates, config)
-    selected.extend(deep_selected)
+    selected = rank_and_select(client, candidates, config)
 
     ok = 0
     for item in selected:
@@ -39,7 +34,7 @@ def generate(config, seen, client, date_str, posts_dir=None):
     posts_dir.mkdir(parents=True, exist_ok=True)
     path = posts_dir / f"{date_str}.md"
     path.write_text(
-        render_sectioned(selected, f"国际与深度 {date_str}", f"今日 {len(selected)} 条国际新闻与深度报道。"),
+        render_sectioned(selected, f"国际资讯 {date_str}", f"今日 {len(selected)} 条国际资讯。"),
         encoding="utf-8",
     )
     print(f"[info] 国际版面已生成 {path}")

@@ -1,4 +1,4 @@
-"""AI 与科技社区版面生成器。
+"""AI与科技版面生成器。
 
 从 feeds.yaml 拉取 section=ai 的 RSS 候选，LLM 排序 + 摘要，渲染为
 content/ai/YYYY-MM-DD.md。
@@ -36,7 +36,7 @@ def generate(config, seen, client, date_str, posts_dir=None):
     posts_dir.mkdir(parents=True, exist_ok=True)
     path = posts_dir / f"{date_str}.md"
     path.write_text(
-        render_sectioned(selected, f"AI 与科技社区 {date_str}", f"今日 {len(selected)} 条 AI 动态与社区热点。"),
+        render_sectioned(selected, f"AI与科技 {date_str}", f"今日 {len(selected)} 条 AI 动态与社区热点。"),
         encoding="utf-8",
     )
     print(f"[info] AI 版面已生成 {path}")

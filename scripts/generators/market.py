@@ -1,4 +1,4 @@
-"""市场与宏观版面生成器。
+"""金融市场与股市版面生成器。
 
 四子板块：行情速览 / 宏观与政策 / 财经要闻 / 公告与研报。
 各子板块独立 try/except，失败渲染占位块，不连坐。
@@ -65,7 +65,7 @@ def _safe(fn, label):
 def _render(date_str, quotes, calendar, announces, news_items, research_items):
     lines = [
         "---",
-        f'title: "市场与宏观 {date_str}"',
+        f'title: "金融市场与股市 {date_str}"',
         f"date: {datetime.now(CST).strftime('%Y-%m-%dT%H:%M:%S%z')}",
         'tags: ["每日简报"]',
         f'summary: "今日行情速览 + {len(news_items)} 条财经要闻。"',

@@ -1,7 +1,7 @@
 baseURL = "https://hachgo.github.io/news_auto/"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"
-title = "每日 AI 与国际资讯"
+title = "每日资讯"
 theme = "PaperMod"
 
 enableRobotsTXT = true
@@ -18,9 +18,9 @@ buildExpired = false
 
 [params]
   env = "production"
-  title = "每日 AI 与国际资讯"
-  description = "每日自动汇总的国际新闻与 AI 领域动态，中英双语精简摘要。"
-  keywords = ["AI", "资讯", "国际新闻", "每日简报"]
+  title = "每日资讯"
+  description = "每日自动汇总的 AI、国际、市场与深度阅读精简摘要。"
+  keywords = ["AI", "资讯", "国际新闻", "金融市场", "深度阅读", "每日简报"]
   author = "news_auto"
   DateFormat = "2006-01-02"
   defaultTheme = "auto"
@@ -39,8 +39,8 @@ buildExpired = false
   hideSummary = false
   showtoc = false
   tocopen = false
-  # 归档 / 首页列表 / 上下篇：覆盖三大版面（缺省会只取最大 section）
-  mainSections = ["ai", "world", "market"]
+  # 归档 / 首页列表 / 上下篇：覆盖四版面（缺省会只取最大 section）
+  mainSections = ["ai", "world", "market", "deep"]
 
   [params.fuseOpts]
     isCaseSensitive = false
@@ -56,7 +56,7 @@ buildExpired = false
 
   [params.homeInfoParams]
     Title = "每日资讯"
-    Content = "三大版面每日自动汇总：AI 与科技社区、国际与深度、市场与宏观。"
+    Content = "四版面每日自动汇总：AI与科技、国际资讯、金融市场与股市、深度阅读与学习。"
 
   [params.assets]
     disableHLJS = true
@@ -89,6 +89,16 @@ buildExpired = false
     name = "市场"
     url = "/market/"
     weight = 30
+  [[menu.main]]
+    identifier = "deep"
+    name = "深度"
+    url = "/deep/"
+    weight = 35
+  [[menu.main]]
+    identifier = "method"
+    name = "方法"
+    url = "/method/"
+    weight = 38
   [[menu.main]]
     identifier = "archives"
     name = "归档"

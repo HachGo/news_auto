@@ -1,6 +1,14 @@
 from unittest.mock import MagicMock
 
-from common import summarize, rank_and_select, select_deep, render_item, render_sectioned
+from common import (
+    summarize,
+    summarize_deep,
+    rank_and_select,
+    select_deep,
+    render_item,
+    render_sectioned,
+    render_deep,
+)
 
 
 def _client_returning(content):
@@ -24,6 +32,12 @@ def test_summarize_returns_none_on_bad_json():
 
 def test_summarize_returns_none_when_no_client():
     assert summarize(None, {"title": "x", "summary": "y"}) is None
+
+
+def test_summarize_deep_returns_zh_fields():
+    client = _client_returning('{"title_zh": "深标题", "summary_zh": "深导读"}')
+    out = summarize_deep(client, {"title": "x", "summary": "y" * 20})
+    assert out == {"title_zh": "深标题", "summary_zh": "深导读"}
 
 
 def test_rank_and_select_uses_llm_indices():
@@ -91,3 +105,19 @@ def test_render_sectioned_has_focus_and_categories():
     assert "今日焦点" in out
     assert "AI 动态" in out
     assert "社区热点" in out
+
+
+def test_render_deep_magazine_markup():
+    items = [
+        {"title_zh": "中文", "title": "English Title", "summary_zh": "导读",
+         "source": "The Economist Latest", "link": "https://e.com/x", "category": "经济学人"},
+        {"title_zh": "科学", "title": "Sci", "summary_zh": "导读二",
+         "source": "Scientific American", "link": "https://s.com/y", "category": "科学美国人"},
+    ]
+    out = render_deep(items, "深度阅读与学习 2026-08-01", "今日 2 条深度精选。")
+    assert "deep-digest" in out
+    assert "deep-dek" in out
+    assert "English Title" in out
+    assert "今日精选" in out
+    assert "按刊物" in out
+    assert "经济学人" in out

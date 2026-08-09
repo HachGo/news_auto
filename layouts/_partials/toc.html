@@ -1,0 +1,12 @@
+{{- with .TableOfContents -}}
+{{- if and . (ne . "<nav id=\"TableOfContents\"></nav>") -}}
+<details class="toc" open>
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">目录</span>
+    </summary>
+    <div class="inner">
+        {{ . }}
+    </div>
+</details>
+{{- end -}}
+{{- end -}}

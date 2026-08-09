@@ -1,6 +1,6 @@
 """RSS 抓取：fetch_feed / fetch_candidates / matches_keywords。
 
-从原 fetch_news.py 抽出，三版面共用。支持 feeds 项里的 section 字段。
+从原 fetch_news.py 抽出，四版面共用。支持 feeds 项里的 section 字段。
 """
 
 import re

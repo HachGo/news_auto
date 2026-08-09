@@ -1,4 +1,4 @@
-"""共享工具：纯函数、seen.json、LLM 客户端、渲染工具。三版面共用。"""
+"""共享工具：纯函数、seen.json、LLM 客户端、渲染工具。四版面共用。"""
 
 import hashlib
 import html
@@ -15,10 +15,20 @@ from dateutil import parser as dtparser
 
 CST = timezone(timedelta(hours=8))  # 北京时间
 
-DEEP_CATEGORY = "深度精选"  # 独立模块，不参与 LLM 重要性排序
+# 历史兼容；深度版面现按刊物 category 分组
+DEEP_CATEGORY = "深度精选"
 
-# 分类展示顺序：AI 与科技优先，深度媒体次之，其余靠后
-CATEGORY_ORDER = ["AI 动态", "社区热点", DEEP_CATEGORY, "国际新闻"]
+# 分类展示顺序
+CATEGORY_ORDER = [
+    "AI 动态",
+    "社区热点",
+    "国际新闻",
+    "经济学人",
+    "科学美国人",
+    "长读",
+    "大西洋月刊",
+    DEEP_CATEGORY,
+]
 
 
 def category_rank(category):
@@ -105,23 +115,36 @@ def build_llm_client():
         return None
 
 
-RANK_PROMPT = """你是资深国际新闻主编。以下是今日候选新闻列表（编号、标题、来源、分类，部分带社区热度数据）。
-请评估每条新闻的重要性和影响力，选出最重要的 {limit} 条。评分标准（1-10 分）：
+# 评分标准与选取规则：供 LLM prompt 与站点「方法」页共用，改这里即两边同步
+SCORE_BANDS = [
+    ("9-10", "全球级重大事件（重要 AI 模型/产品发布如 GPT、Kimi、DeepSeek 新版本，重大地缘政治事件，重要国际会议如 WAIC 开幕，行业格局改变的收购/政策）"),
+    ("7-8", "有广泛影响的行业新闻、重要国家的重大政策、知名公司重要动向、社区高热度讨论"),
+    ("5-6", "一般性行业新闻、区域性事件"),
+    ("1-4", "琐碎消息、营销软文、纯观点评论、影响面小的本地新闻"),
+]
 
-- 9-10 分：全球级重大事件（重要 AI 模型/产品发布如 GPT、Kimi、DeepSeek 新版本，重大地缘政治事件，重要国际会议如 WAIC 开幕，行业格局改变的收购/政策）
-- 7-8 分：有广泛影响的行业新闻、重要国家的重大政策、知名公司重要动向、社区高热度讨论
-- 5-6 分：一般性行业新闻、区域性事件
-- 1-4 分：琐碎消息、营销软文、纯观点评论、影响面小的本地新闻
+RANK_RULES = [
+    "「社区热点」分类（Hacker News 高分榜、Reddit AI 社区当日最热）代表技术社区正在疯传的内容：热度高（如 HN 500+ points）且话题重大的条目应显著加分；纯梗图、灌水贴、无关娱乐内容仍应打低分。",
+    "同一事件的多条重复报道只选最权威的一条。",
+    "以重要性优先，不强求各分类数量平衡。",
+]
 
-要求：
-1. 「社区热点」分类（Hacker News 高分榜、Reddit AI 社区当日最热）代表 X/Twitter 和技术社区正在疯传的内容，是捕捉病毒式传播事件的重要信号：热度高（如 HN 500+ points）且话题重大的条目应显著加分；但纯梗图、灌水贴、与 AI/科技/时事无关的娱乐内容仍应打低分。
-2. 同一事件的多条重复报道只选最权威的一条。
-3. AI 领域与国际新闻兼顾，但以重要性优先，不强求数量平衡。
-4. 返回 JSON（不要其他文字）：{{"selected": [{{"index": 编号, "score": 分数}}, ...]}}，按分数从高到低排列，最多 {limit} 条。
+HIGHLIGHT_SCORE = 9  # 正文【重点】标记与今日焦点优先门槛
 
-候选新闻：
-{items}
-"""
+
+def build_rank_prompt(limit, items_text):
+    bands = "\n".join(f"- {band} 分：{desc}" for band, desc in SCORE_BANDS)
+    rules = "\n".join(f"{i}. {rule}" for i, rule in enumerate(RANK_RULES, 1))
+    return (
+        "你是资深国际新闻主编。以下是今日候选新闻列表（编号、标题、来源、分类，部分带社区热度数据）。\n"
+        f"请评估每条新闻的重要性和影响力，选出最重要的 {limit} 条。评分标准（1-10 分）：\n\n"
+        f"{bands}\n\n"
+        "要求：\n"
+        f"{rules}\n"
+        f'{len(RANK_RULES) + 1}. 返回 JSON（不要其他文字）：{{"selected": [{{"index": 编号, "score": 分数}}, ...]}}，'
+        f"按分数从高到低排列，最多 {limit} 条。\n\n"
+        f"候选新闻：\n{items_text}\n"
+    )
 
 
 def select_items(candidates, config):
@@ -156,9 +179,9 @@ def select_items(candidates, config):
 
 
 def select_deep(candidates, config):
-    """「深度精选」模块：按时间取最新，来源均衡，不与常规新闻竞争名额。"""
+    """深度阅读：按时间取最新，来源均衡，不与快讯竞争名额。"""
     settings = config.get("settings", {})
-    limit = settings.get("deep_limit", 6)
+    limit = settings.get("deep_limit", 8)
     per_source_limit = settings.get("deep_per_source_limit", 2)
 
     candidates.sort(key=lambda x: x["time"], reverse=True)
@@ -189,7 +212,7 @@ def rank_and_select(client, candidates, config):
         if m:
             heat = f" (热度: {m.group(1)} points)"
         lines.append(f"{i}. [{item['category']}/{item['source']}] {item['title']}{heat}")
-    prompt = RANK_PROMPT.format(limit=total_limit, items="\n".join(lines))
+    prompt = build_rank_prompt(total_limit, "\n".join(lines))
 
     for attempt in range(2):
         try:
@@ -233,12 +256,18 @@ PROMPT_TMPL = """你是新闻编辑。请将下面这条英文新闻翻译并总
 英文内容: {summary}
 """
 
+DEEP_PROMPT_TMPL = """你是深度刊物编辑。请将下面这篇长读翻译并写导读，返回 JSON（不要包含其他文字）：
+{{"title_zh": "中文标题", "summary_zh": "中文导读，3-4句话，180字以内，客观精炼，并点明为何值得深入阅读"}}
 
-def summarize(client, item, retries=2):
-    """调用 DeepSeek 生成中文标题与摘要；失败时返回 None（降级为原始内容）。"""
+英文标题: {title}
+英文内容: {summary}
+"""
+
+
+def _llm_summarize(client, item, prompt_tmpl, summary_chars, retries=2):
     if client is None:
         return None
-    prompt = PROMPT_TMPL.format(title=item["title"], summary=item["summary"][:500])
+    prompt = prompt_tmpl.format(title=item["title"], summary=item["summary"][:summary_chars])
     for attempt in range(retries + 1):
         try:
             resp = client.chat.completions.create(
@@ -261,12 +290,22 @@ def summarize(client, item, retries=2):
     return None
 
 
+def summarize(client, item, retries=2):
+    """调用 DeepSeek 生成中文标题与摘要；失败时返回 None（降级为原始内容）。"""
+    return _llm_summarize(client, item, PROMPT_TMPL, 500, retries=retries)
+
+
+def summarize_deep(client, item, retries=2):
+    """深度阅读：加长导读摘要。"""
+    return _llm_summarize(client, item, DEEP_PROMPT_TMPL, 900, retries=retries)
+
+
 def render_item(item, num):
     """渲染单条新闻为 markdown 行列表。"""
     block = []
     title_zh = item.get("title_zh") or item["title"]
     score = item.get("score")
-    badge = "【重点】" if isinstance(score, (int, float)) and score >= 9 else ""
+    badge = "【重点】" if isinstance(score, (int, float)) and score >= HIGHLIGHT_SCORE else ""
     block.append(f"### {num}. {badge}{title_zh}")
     block.append("")
     if item.get("title_zh"):
@@ -283,7 +322,6 @@ def render_item(item, num):
 
 def render_sectioned(items, title, summary, focus_count=3):
     """渲染带焦点区 + 分类区的版面文章。ai/world 版面共用。"""
-    date_str = title  # 调用方传入「每日资讯 YYYY-MM-DD」
     lines = [
         "---",
         f'title: "{title}"',
@@ -321,6 +359,73 @@ def render_sectioned(items, title, summary, focus_count=3):
             lines.append("")
             for n, item in enumerate(by_category[category], 1):
                 lines.extend(render_item(item, n))
+    return "\n".join(lines)
+
+
+def render_deep_item(item, num):
+    """深度阅读单条：刊物式标题 / 英文副题 / 加长导读 / 刊头来源。"""
+    title_zh = item.get("title_zh") or item["title"]
+    summary_zh = item.get("summary_zh") or item.get("summary", "")[:280]
+    source = item["source"]
+    link = item["link"]
+    block = [
+        f'<article class="deep-item">',
+        "",
+        f"### {num}. {title_zh}",
+        "",
+    ]
+    if item.get("title_zh"):
+        block.append(f'<p class="deep-dek">{html.escape(item["title"])}</p>')
+        block.append("")
+    if summary_zh:
+        block.append(summary_zh)
+        block.append("")
+    block.append(
+        f'<p class="deep-source"><a href="{html.escape(link, quote=True)}">'
+        f"{html.escape(source)}</a></p>"
+    )
+    block.append("")
+    block.append("</article>")
+    block.append("")
+    return block
+
+
+def render_deep(items, title, summary):
+    """深度阅读版面：今日精选 + 按刊物分组。"""
+    lines = [
+        "---",
+        f'title: "{title}"',
+        f"date: {datetime.now(CST).strftime('%Y-%m-%dT%H:%M:%S%z')}",
+        'tags: ["每日简报", "深度阅读"]',
+        f'summary: "{summary}"',
+        "---",
+        "",
+        '<div class="deep-digest">',
+        "",
+        "## 今日精选",
+        "",
+    ]
+    for n, item in enumerate(items, 1):
+        lines.extend(render_deep_item(item, n))
+
+    by_category = {}
+    for item in items:
+        by_category.setdefault(item.get("category") or "深度精选", []).append(item)
+    order = sorted(by_category.keys(), key=lambda c: (category_rank(c), c))
+    if len(order) > 1:
+        lines.append("## 按刊物")
+        lines.append("")
+        for category in order:
+            lines.append(f"### {category}")
+            lines.append("")
+            for item in by_category[category]:
+                title_zh = item.get("title_zh") or item["title"]
+                link = item["link"]
+                lines.append(f"- [{title_zh}]({link})")
+            lines.append("")
+
+    lines.append("</div>")
+    lines.append("")
     return "\n".join(lines)
 
 

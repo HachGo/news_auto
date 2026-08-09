@@ -1,0 +1,255 @@
+/* 四版面标识色、首页总览、深度条目节奏（字体与全站统一） */
+
+:root {
+  --section-ai: #0f766e;
+  --section-world: #334155;
+  --section-market: #166534;
+  --section-deep: #7c2d12;
+}
+
+[data-theme="dark"] {
+  --section-ai: #2dd4bf;
+  --section-world: #94a3b8;
+  --section-market: #4ade80;
+  --section-deep: #fdba74;
+}
+
+/* ---- 版面色条（单篇 / 列表） ---- */
+
+body.section-ai .post-single .post-header,
+body.section-ai .page-header,
+.post-single.section-ai .post-header {
+  border-left: 3px solid var(--section-ai);
+  padding-left: 1rem;
+}
+
+body.section-world .post-single .post-header,
+body.section-world .page-header,
+.post-single.section-world .post-header {
+  border-left: 3px solid var(--section-world);
+  padding-left: 1rem;
+}
+
+body.section-market .post-single .post-header,
+body.section-market .page-header,
+.post-single.section-market .post-header {
+  border-left: 3px solid var(--section-market);
+  padding-left: 1rem;
+}
+
+body.section-deep .post-single .post-header,
+body.section-deep .page-header,
+.post-single.section-deep .post-header {
+  border-left: 3px solid var(--section-deep);
+  padding-left: 1rem;
+}
+
+/* 列表卡片左侧细条 */
+.list.section-ai .post-entry,
+.list.section-world .post-entry,
+.list.section-market .post-entry,
+.list.section-deep .post-entry {
+  border-left-width: 3px;
+  border-left-style: solid;
+}
+
+.list.section-ai .post-entry { border-left-color: var(--section-ai); }
+.list.section-world .post-entry { border-left-color: var(--section-world); }
+.list.section-market .post-entry { border-left-color: var(--section-market); }
+.list.section-deep .post-entry { border-left-color: var(--section-deep); }
+
+/* ---- 首页总览 ---- */
+
+.home-overview {
+  margin: 0 0 2.5rem;
+}
+
+.home-overview h2 {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.focus-track {
+  list-style: none;
+  margin: 0 0 2.25rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.focus-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 0.85rem;
+  align-items: baseline;
+  padding: 0.65rem 0 0.65rem 0.9rem;
+  border-left: 3px solid var(--secondary);
+  line-height: 1.45;
+}
+
+.focus-item.focus-ai { border-left-color: var(--section-ai); }
+.focus-item.focus-world { border-left-color: var(--section-world); }
+.focus-item.focus-market { border-left-color: var(--section-market); }
+.focus-item.focus-deep { border-left-color: var(--section-deep); }
+
+.focus-label {
+  grid-column: 1 / -1;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--secondary);
+}
+
+.focus-ai .focus-label { color: var(--section-ai); }
+.focus-world .focus-label { color: var(--section-world); }
+.focus-market .focus-label { color: var(--section-market); }
+.focus-deep .focus-label { color: var(--section-deep); }
+
+.focus-title {
+  grid-column: 1 / -1;
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+
+.focus-title:hover {
+  text-decoration: underline;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .section-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.section-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.1rem 1.15rem 1.15rem;
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  background: var(--entry);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.section-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--secondary);
+}
+
+.section-card.section-ai { border-left-color: var(--section-ai); }
+.section-card.section-world { border-left-color: var(--section-world); }
+.section-card.section-market { border-left-color: var(--section-market); }
+.section-card.section-deep { border-left-color: var(--section-deep); }
+
+.section-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+  color: var(--primary);
+}
+
+.section-quotes {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--section-market);
+  font-variant-numeric: tabular-nums;
+}
+
+.section-blurb {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--secondary);
+  line-height: 1.55;
+}
+
+.section-more {
+  margin-top: 0.35rem;
+  font-size: 0.88rem;
+  color: var(--primary);
+  font-weight: 550;
+}
+
+/* ---- 市场涨跌轻量着色 ---- */
+
+body.section-market .post-content table td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- 深度条目节奏（同字体，疏朗间距） ---- */
+
+.deep-digest {
+  max-width: 40rem;
+}
+
+body.section-deep .post-content h2 {
+  font-weight: 600;
+  margin-top: 2.25rem;
+  margin-bottom: 1.25rem;
+}
+
+body.section-deep .post-content .deep-item {
+  margin: 0 0 2.2rem;
+  padding: 0 0 0.25rem;
+}
+
+body.section-deep .post-content .deep-item h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 0.5rem;
+}
+
+body.section-deep .post-content .deep-dek {
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--secondary);
+  margin: 0 0 0.85rem;
+  line-height: 1.55;
+}
+
+body.section-deep .post-content .deep-item p:not(.deep-dek):not(.deep-source) {
+  line-height: 1.7;
+  margin: 0 0 0.8rem;
+}
+
+body.section-deep .post-content .deep-source {
+  margin: 0.45rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+body.section-deep .post-content .deep-source a {
+  color: var(--section-deep);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--section-deep) 45%, transparent);
+}
+
+body.section-deep .post-content .deep-source a:hover {
+  border-bottom-color: var(--section-deep);
+}
+
+/* ---- 方法页 ---- */
+
+body.section-method .post-content table {
+  font-size: 0.92rem;
+}
+
+body.section-method .post-content h2 {
+  margin-top: 2rem;
+}

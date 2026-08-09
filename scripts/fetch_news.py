@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """每日资讯抓取主入口。
 
-编排三大版面生成（ai/world/market）+ 首页今日总览，更新 seen.json。
+编排四版面生成（ai/world/market/deep）+ 首页今日总览 + 方法页，更新 seen.json。
 任一版面异常被捕获，不阻塞其他版面。
 """
 
@@ -9,17 +9,23 @@ import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-import yaml
-
 from common import load_config, load_seen, save_seen, build_llm_client, link_hash
-from generators import ai, world, market
+from generators import ai, world, market, deep
 from homepage import build_homepage
+from method import write_method_page
 
 ROOT = Path(__file__).resolve().parent.parent
 FEEDS_FILE = Path(__file__).resolve().parent / "feeds.yaml"
 SEEN_FILE = ROOT / "data" / "seen.json"
 CONTENT_DIR = ROOT / "content"
 CST = timezone(timedelta(hours=8))
+
+SECTION_NAMES = {
+    "ai": "AI与科技",
+    "world": "国际资讯",
+    "market": "金融市场与股市",
+    "deep": "深度阅读与学习",
+}
 
 
 def main():
@@ -30,7 +36,7 @@ def main():
     date_str = datetime.now(CST).strftime("%Y-%m-%d")
     sections = {}
 
-    for key, gen in (("ai", ai), ("world", world), ("market", market)):
+    for key, gen in (("ai", ai), ("world", world), ("market", market), ("deep", deep)):
         try:
             result = gen.generate(config, seen, client, date_str,
                                   posts_dir=CONTENT_DIR / key)
@@ -44,9 +50,15 @@ def main():
     try:
         homepage_md = build_homepage(sections, date_str)
         (CONTENT_DIR / "_index.md").write_text(homepage_md, encoding="utf-8")
-        print(f"[info] 首页已生成")
+        print("[info] 首页已生成")
     except Exception as exc:
         print(f"[error] 首页生成失败: {exc}", file=sys.stderr)
+
+    # 方法页（与 feeds / 评分规则同步）
+    try:
+        write_method_page(config, path=CONTENT_DIR / "method.md")
+    except Exception as exc:
+        print(f"[error] 方法页生成失败: {exc}", file=sys.stderr)
 
     # 更新 seen
     now_iso = datetime.now(timezone.utc).isoformat()
@@ -66,11 +78,10 @@ def _to_section_summary(key, result, date_str):
     items: 用于首页焦点选取（market 只含财经要闻，带 score）。
     _raw_items: 用于 seen 去重（market 含财经要闻+研报，都需去重）。
     """
-    names = {"ai": "AI 与科技社区", "world": "国际与深度", "market": "市场与宏观"}
     items = result.get("items") or []
     raw = result.get("all_rss_items") or items
     return {
-        "name": names[key],
+        "name": SECTION_NAMES[key],
         "url": f"/{key}/{date_str}/",
         "items": items,
         "count": len(items),

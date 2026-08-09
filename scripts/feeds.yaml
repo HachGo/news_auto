@@ -1,18 +1,18 @@
 # RSS 源清单
-# section: 归属版面（ai / world / market）
+# section: 归属版面（ai / world / market / deep）
 # category: 展示分类
 # ai_filter: true 时按 ai_keywords 关键词过滤条目
 # max_items: 单个源最多取多少条候选
 
 settings:
-  total_limit: 15          # 每版面每日最多精选条数
+  total_limit: 15          # 每版面每日最多精选条数（ai/world）
   per_source_limit: 4      # 单来源最多入选条数
   hours_window: 36         # 只取最近 N 小时内发布的条目
-  deep_limit: 6            # 「深度精选」每日最多条数（world 版面）
-  deep_per_source_limit: 2 # 「深度精选」单来源最多条数
+  deep_limit: 8            # 「深度阅读」每日最多条数
+  deep_per_source_limit: 2 # 「深度阅读」单来源最多条数
 
 feeds:
-  # ---------- AI 与科技社区（section: ai） ----------
+  # ---------- AI与科技（section: ai） ----------
   - name: TechCrunch AI
     url: https://techcrunch.com/category/artificial-intelligence/feed/
     section: ai
@@ -76,7 +76,7 @@ feeds:
     ai_filter: false
     max_items: 6
 
-  # ---------- 国际与深度（section: world） ----------
+  # ---------- 国际资讯（section: world） ----------
   - name: BBC World
     url: https://feeds.bbci.co.uk/news/world/rss.xml
     section: world
@@ -98,35 +98,43 @@ feeds:
     ai_filter: false
     max_items: 8
 
+  # ---------- 深度阅读与学习（section: deep） ----------
   - name: The Economist Latest
     url: https://www.economist.com/latest/rss.xml
-    section: world
-    category: 深度精选
+    section: deep
+    category: 经济学人
     ai_filter: false
     max_items: 8
 
   - name: The Economist Science & Tech
     url: https://www.economist.com/science-and-technology/rss.xml
-    section: world
-    category: 深度精选
+    section: deep
+    category: 经济学人
     ai_filter: false
     max_items: 6
 
   - name: The Guardian Long Read
     url: https://www.theguardian.com/news/series/the-long-read/rss
-    section: world
-    category: 深度精选
+    section: deep
+    category: 长读
     ai_filter: false
     max_items: 6
 
   - name: Scientific American
     url: https://www.scientificamerican.com/platform/syndication/rss/
-    section: world
-    category: 深度精选
+    section: deep
+    category: 科学美国人
     ai_filter: false
     max_items: 8
 
-  # ---------- 市场与宏观 · 财经要闻（section: market） ----------
+  - name: The Atlantic
+    url: https://www.theatlantic.com/feed/all/
+    section: deep
+    category: 大西洋月刊
+    ai_filter: false
+    max_items: 8
+
+  # ---------- 金融市场与股市 · 财经要闻（section: market） ----------
   # 公共 rsshub.app 已对抓取端 403；改用 Google News 站点检索 + 稳定英文财经 RSS
   - name: 第一财经
     url: https://news.google.com/rss/search?q=site:yicai.com&hl=zh-CN&gl=CN&ceid=CN:zh-Hans
@@ -170,7 +178,7 @@ feeds:
     ai_filter: false
     max_items: 6
 
-  # ---------- 市场与宏观 · 研报（section: market） ----------
+  # ---------- 金融市场与股市 · 研报（section: market） ----------
   - name: 券商研报
     url: https://news.google.com/rss/search?q=%E5%88%B8%E5%95%86%E7%A0%94%E6%8A%A5+%E5%AE%8F%E8%A7%82&hl=zh-CN&gl=CN&ceid=CN:zh-Hans
     section: market
