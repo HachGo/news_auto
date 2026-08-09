@@ -1,5 +1,5 @@
 from datetime import datetime, timezone, timedelta
-from common import link_hash, strip_html, entry_time, matches_keywords
+from common import link_hash, strip_html, entry_time, matches_keywords, is_blocked
 
 
 def test_link_hash_stable():
@@ -37,3 +37,22 @@ def test_matches_keywords_short_word_boundary():
 def test_matches_keywords_long_substring():
     entry = {"title": "OpenAI announces GPT", "summary": ""}
     assert matches_keywords(entry, ["OpenAI", "transformer"])
+
+
+def test_is_blocked_taiwan_and_politics():
+    assert is_blocked({"title": "台北股市收涨", "summary": ""}, ["台北", "台湾", "politics"])
+    assert is_blocked({"title": "Election results", "summary": ""}, ["election", "Taiwan"])
+    assert not is_blocked({"title": "New AI chip", "summary": "benchmarks"}, ["Taiwan", "politics"])
+
+
+def test_is_blocked_xi_jinping():
+    kws = ["习近平", "習近平", "Xi Jinping", "习主席", "President Xi"]
+    assert is_blocked({"title": "习近平会见外宾", "summary": ""}, kws)
+    assert is_blocked({"title": "President Xi visits Europe", "summary": ""}, kws)
+    assert is_blocked({"title": "习主席讲话全文", "summary": ""}, kws)
+    assert not is_blocked({"title": "芯片行业周报", "summary": ""}, kws)
+
+
+def test_matches_keywords_chinese_substring():
+    entry = {"title": "关注台海局势最新进展", "summary": ""}
+    assert matches_keywords(entry, ["台海"])

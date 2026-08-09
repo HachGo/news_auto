@@ -94,14 +94,14 @@ def build_homepage(sections, date_str):
                 if quote_line:
                     lines.append(f'<p class="section-quotes">{escape(quote_line)}</p>')
             lines.append(f'<p class="section-blurb">{escape(blurb)}</p>')
-            lines.append('<span class="section-more">查看全文 →</span>')
+            lines.append('<span class="section-more">查看全文</span>')
             lines.append("</a>")
             lines.append("")
         else:
             lines.append(f'<a class="section-card section-{key} is-empty" href="/{key}/">')
             lines.append(f"<h3>{escape(name)}</h3>")
             lines.append('<p class="section-blurb">今日生成异常，查看历史</p>')
-            lines.append('<span class="section-more">查看历史 →</span>')
+            lines.append('<span class="section-more">查看历史</span>')
             lines.append("</a>")
             lines.append("")
 

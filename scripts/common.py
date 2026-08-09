@@ -62,19 +62,41 @@ def entry_time(entry):
     return None
 
 
-def matches_keywords(entry, keywords):
-    text = " ".join(
-        [entry.get("title", ""), strip_html(entry.get("summary", ""))]
-    ).lower()
+def text_matches_keywords(text, keywords):
+    """标题/摘要是否命中关键词列表（不区分大小写）。
+
+    - 含中日韩字符的词：子串匹配（中文无词界）
+    - 短英文词（≤4）：单词边界匹配，避免 AI 误伤 aid
+    - 其余：子串匹配
+    """
+    text = strip_html(text or "").lower()
+    if not text or not keywords:
+        return False
     for kw in keywords:
-        kw_l = kw.lower()
-        # 短关键词（如 AI）用单词边界匹配，避免误伤 (e.g. "aid")
-        if len(kw_l) <= 4:
+        kw_l = (kw or "").lower().strip()
+        if not kw_l:
+            continue
+        if re.search(r"[\u4e00-\u9fff\u3040-\u30ff\uac00-\ud7af]", kw_l):
+            if kw_l in text:
+                return True
+        elif len(kw_l) <= 4:
             if re.search(r"\b" + re.escape(kw_l) + r"\b", text):
                 return True
         elif kw_l in text:
             return True
     return False
+
+
+def matches_keywords(entry, keywords):
+    text = " ".join(
+        [entry.get("title", ""), strip_html(entry.get("summary", ""))]
+    )
+    return text_matches_keywords(text, keywords)
+
+
+def is_blocked(entry, block_keywords):
+    """命中屏蔽词则不应入选。"""
+    return matches_keywords(entry, block_keywords or [])
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -115,7 +137,7 @@ def build_llm_client():
         return None
 
 
-# 评分标准与选取规则：供 LLM prompt 与站点「方法」页共用，改这里即两边同步
+# 评分标准：LLM prompt 与前台「网站规则」页共用
 SCORE_BANDS = [
     ("9-10", "全球级重大事件（重要 AI 模型/产品发布如 GPT、Kimi、DeepSeek 新版本，重大地缘政治事件，重要国际会议如 WAIC 开幕，行业格局改变的收购/政策）"),
     ("7-8", "有广泛影响的行业新闻、重要国家的重大政策、知名公司重要动向、社区高热度讨论"),
@@ -123,10 +145,16 @@ SCORE_BANDS = [
     ("1-4", "琐碎消息、营销软文、纯观点评论、影响面小的本地新闻"),
 ]
 
+# 可公开展示的排序规则（写入「网站规则」页）
 RANK_RULES = [
     "「社区热点」分类（Hacker News 高分榜、Reddit AI 社区当日最热）代表技术社区正在疯传的内容：热度高（如 HN 500+ points）且话题重大的条目应显著加分；纯梗图、灌水贴、无关娱乐内容仍应打低分。",
     "同一事件的多条重复报道只选最权威的一条。",
     "以重要性优先，不强求各分类数量平衡。",
+]
+
+# 仅后台 / LLM 使用，不写入前台「网站规则」页
+PRIVATE_RANK_RULES = [
+    "政治相关（选举、政党、地缘外交、制裁等）、台湾相关，以及涉及习近平（含习主席、习总书记、Xi Jinping 等）的内容一律不要选入，分数给 1 分并跳过。",
 ]
 
 HIGHLIGHT_SCORE = 9  # 正文【重点】标记与今日焦点优先门槛
@@ -134,14 +162,15 @@ HIGHLIGHT_SCORE = 9  # 正文【重点】标记与今日焦点优先门槛
 
 def build_rank_prompt(limit, items_text):
     bands = "\n".join(f"- {band} 分：{desc}" for band, desc in SCORE_BANDS)
-    rules = "\n".join(f"{i}. {rule}" for i, rule in enumerate(RANK_RULES, 1))
+    all_rules = list(RANK_RULES) + list(PRIVATE_RANK_RULES)
+    rules = "\n".join(f"{i}. {rule}" for i, rule in enumerate(all_rules, 1))
     return (
         "你是资深国际新闻主编。以下是今日候选新闻列表（编号、标题、来源、分类，部分带社区热度数据）。\n"
         f"请评估每条新闻的重要性和影响力，选出最重要的 {limit} 条。评分标准（1-10 分）：\n\n"
         f"{bands}\n\n"
         "要求：\n"
         f"{rules}\n"
-        f'{len(RANK_RULES) + 1}. 返回 JSON（不要其他文字）：{{"selected": [{{"index": 编号, "score": 分数}}, ...]}}，'
+        f'{len(all_rules) + 1}. 返回 JSON（不要其他文字）：{{"selected": [{{"index": 编号, "score": 分数}}, ...]}}，'
         f"按分数从高到低排列，最多 {limit} 条。\n\n"
         f"候选新闻：\n{items_text}\n"
     )

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """每日资讯抓取主入口。
 
-编排四版面生成（ai/world/market/deep）+ 首页今日总览 + 方法页，更新 seen.json。
+编排四版面生成（ai/world/market/deep）+ 首页今日总览 + 网站规则页，更新 seen.json。
 任一版面异常被捕获，不阻塞其他版面。
 """
 
@@ -54,11 +54,11 @@ def main():
     except Exception as exc:
         print(f"[error] 首页生成失败: {exc}", file=sys.stderr)
 
-    # 方法页（与 feeds / 评分规则同步）
+    # 网站规则页（与 feeds / 评分规则同步）
     try:
         write_method_page(config, path=CONTENT_DIR / "method.md")
     except Exception as exc:
-        print(f"[error] 方法页生成失败: {exc}", file=sys.stderr)
+        print(f"[error] 网站规则页生成失败: {exc}", file=sys.stderr)
 
     # 更新 seen
     now_iso = datetime.now(timezone.utc).isoformat()

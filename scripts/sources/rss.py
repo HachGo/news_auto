@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 import feedparser
 import requests
 
-from common import link_hash, strip_html, entry_time, matches_keywords
+from common import link_hash, strip_html, entry_time, matches_keywords, is_blocked
 
 
 def fetch_feed(url, retries=3):
@@ -45,9 +45,11 @@ def fetch_candidates(config, seen):
     hours_window = settings.get("hours_window", 36)
     cutoff = datetime.now(timezone.utc) - timedelta(hours=hours_window)
     keywords = config.get("ai_keywords", [])
+    block_keywords = config.get("block_keywords", [])
 
     candidates = []
     run_seen = set()  # 本次运行内去重
+    blocked = 0
     for feed_idx, feed_cfg in enumerate(config.get("feeds", [])):
         name = feed_cfg["name"]
         if feed_idx > 0:
@@ -72,6 +74,9 @@ def fetch_candidates(config, seen):
             h = link_hash(link)
             if h in seen or h in run_seen:
                 continue
+            if is_blocked(entry, block_keywords):
+                blocked += 1
+                continue
             run_seen.add(h)
             if feed_cfg.get("ai_filter") and not matches_keywords(entry, keywords):
                 continue
@@ -88,4 +93,6 @@ def fetch_candidates(config, seen):
             )
             count += 1
         print(f"[fetch] {name}: {count} new items", flush=True)
+    if blocked:
+        print(f"[info] 屏蔽词过滤 {blocked} 条（政治/台湾等）", flush=True)
     return candidates

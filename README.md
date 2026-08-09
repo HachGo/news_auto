@@ -14,7 +14,7 @@ GitHub Actions (每日 UTC 23:00 / 北京 07:00)
     - 金融市场与股市：东方财富行情 + 金十日历 + 巨潮公告 + 财经要闻 RSS → content/market/YYYY-MM-DD.md
     - 深度阅读与学习：经济学人 / 科学美国人 / 卫报长读 / 大西洋月刊等 → content/deep/YYYY-MM-DD.md
   → 汇总四版面焦点 → 生成首页 content/_index.md
-  → 同步生成方法页 content/method.md（源清单 + 评分权重）
+  → 同步生成网站规则页 content/method.md（源清单 + 评分权重）
   → 提交回仓库 → Hugo 构建 → 部署 GitHub Pages
 ```
 
@@ -38,10 +38,10 @@ GitHub Actions (每日 UTC 23:00 / 北京 07:00)
 | `content/market/` | 金融市场与股市（行情/宏观/要闻/公告研报） |
 | `content/deep/` | 深度阅读与学习（刊物长读） |
 | `content/_index.md` | 首页今日总览（脚本生成） |
-| `content/method.md` | 抓取逻辑与源清单（脚本生成，与 feeds/评分同步） |
+| `content/method.md` | 网站规则（脚本生成，与 feeds/评分/屏蔽词同步） |
 | `assets/css/extended/` | 站点扩展样式（首页四版面、深度条目节奏） |
-| `scripts/fetch_news.py` | 主入口，编排四版面 + 首页 + 方法页 |
-| `scripts/method.py` | 方法页生成器 |
+| `scripts/fetch_news.py` | 主入口，编排四版面 + 首页 + 网站规则页 |
+| `scripts/method.py` | 网站规则页生成器 |
 | `scripts/feeds.yaml` | RSS 源清单（按 section 分组） |
 | `scripts/sources/` | 数据抓取器（rss/eastmoney/jin10/cninfo） |
 | `scripts/generators/` | 版面生成器（ai/world/market/deep） |

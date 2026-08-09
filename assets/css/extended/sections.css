@@ -1,18 +1,4 @@
-/* 四版面标识色、首页总览、深度条目节奏（字体与全站统一） */
-
-:root {
-  --section-ai: #0f766e;
-  --section-world: #334155;
-  --section-market: #166534;
-  --section-deep: #7c2d12;
-}
-
-[data-theme="dark"] {
-  --section-ai: #2dd4bf;
-  --section-world: #94a3b8;
-  --section-market: #4ade80;
-  --section-deep: #fdba74;
-}
+/* 四版面标识、首页总览、深度节奏、网站规则页 */
 
 /* ---- 版面色条（单篇 / 列表） ---- */
 
@@ -44,7 +30,13 @@ body.section-deep .page-header,
   padding-left: 1rem;
 }
 
-/* 列表卡片左侧细条 */
+body.section-rules .post-single .post-header,
+body.section-rules .page-header,
+.post-single.section-rules .post-header {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+}
+
 .list.section-ai .post-entry,
 .list.section-world .post-entry,
 .list.section-market .post-entry,
@@ -61,33 +53,77 @@ body.section-deep .page-header,
 /* ---- 首页总览 ---- */
 
 .home-overview {
-  margin: 0 0 2.5rem;
+  margin: 0 0 1.5rem;
 }
 
-.home-overview h2 {
-  margin: 0 0 1rem;
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+/* 首页下方历史列表：降噪，避免抢今日总览 */
+.home-archive-label {
+  margin: 2.25rem 0 0.85rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--primary);
+}
+
+body.section-home .main > .post-entry {
+  padding: 0.95rem 1.05rem;
+  margin-bottom: 0.75rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.section-home .main > .post-entry:hover,
+body.section-home .main > .post-entry:focus-within {
+  background: var(--entry);
+}
+
+body.section-home .main > .post-entry .entry-header h2 {
+  font-size: 1.05rem;
+}
+
+body.section-home .main > .post-entry .entry-content {
+  display: none;
+}
+
+.home-body .post-content,
+.home-body {
+  margin-top: 0.25rem;
+}
+
+.home-overview > section > h2,
+.home-focus > h2,
+.home-sections > h2 {
+  margin: 0 0 0.95rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--primary);
 }
 
 .focus-track {
   list-style: none;
-  margin: 0 0 2.25rem;
+  margin: 0 0 2.4rem;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0;
+  border-top: 1px solid var(--border);
 }
 
 .focus-item {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.35rem 0.85rem;
+  grid-template-columns: 1fr;
+  gap: 0.28rem;
   align-items: baseline;
-  padding: 0.65rem 0 0.65rem 0.9rem;
+  padding: 1rem 0 1rem 1rem;
+  border-bottom: 1px solid var(--border);
   border-left: 3px solid var(--secondary);
-  line-height: 1.45;
+  line-height: 1.4;
+  transition: background var(--dur) var(--ease-out);
+}
+
+.focus-item:hover {
+  background: color-mix(in srgb, var(--entry) 70%, transparent);
 }
 
 .focus-item.focus-ai { border-left-color: var(--section-ai); }
@@ -96,9 +132,8 @@ body.section-deep .page-header,
 .focus-item.focus-deep { border-left-color: var(--section-deep); }
 
 .focus-label {
-  grid-column: 1 / -1;
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 680;
   letter-spacing: 0.06em;
   color: var(--secondary);
 }
@@ -109,46 +144,62 @@ body.section-deep .page-header,
 .focus-deep .focus-label { color: var(--section-deep); }
 
 .focus-title {
-  grid-column: 1 / -1;
   color: var(--primary);
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 1.05rem;
+  font-weight: 650;
+  text-decoration: none !important;
+  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition:
+    color var(--dur) var(--ease-out),
+    background-size var(--dur) var(--ease-out);
 }
 
-.focus-title:hover {
-  text-decoration: underline;
+.focus-title:hover,
+.focus-title:focus-visible {
+  color: var(--accent);
+  background-size: 100% 1px;
 }
 
 .section-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 @media (min-width: 720px) {
   .section-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
 }
 
 .section-card {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  padding: 1.1rem 1.15rem 1.15rem;
+  gap: 0.5rem;
+  padding: 1.15rem 1.2rem 1.2rem;
   border: 1px solid var(--border);
   border-left-width: 3px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   text-decoration: none;
   color: inherit;
-  background: var(--entry);
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  background: color-mix(in srgb, var(--entry) 88%, transparent);
+  transition:
+    transform var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    background var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
 }
 
 .section-card:hover {
-  transform: translateY(-1px);
-  border-color: var(--secondary);
+  transform: translateY(-2px);
+  background: var(--entry);
+  box-shadow: var(--shadow-soft);
 }
 
 .section-card.section-ai { border-left-color: var(--section-ai); }
@@ -156,82 +207,127 @@ body.section-deep .page-header,
 .section-card.section-market { border-left-color: var(--section-market); }
 .section-card.section-deep { border-left-color: var(--section-deep); }
 
+.section-card.section-ai:hover { border-color: color-mix(in srgb, var(--section-ai) 40%, var(--border)); }
+.section-card.section-world:hover { border-color: color-mix(in srgb, var(--section-world) 40%, var(--border)); }
+.section-card.section-market:hover { border-color: color-mix(in srgb, var(--section-market) 40%, var(--border)); }
+.section-card.section-deep:hover { border-color: color-mix(in srgb, var(--section-deep) 40%, var(--border)); }
+
 .section-card h3 {
   margin: 0;
-  font-size: 1.05rem;
-  font-weight: 650;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   color: var(--primary);
 }
 
 .section-quotes {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   color: var(--section-market);
   font-variant-numeric: tabular-nums;
+  font-weight: 600;
 }
 
 .section-blurb {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   color: var(--secondary);
   line-height: 1.55;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .section-more {
-  margin-top: 0.35rem;
-  font-size: 0.88rem;
+  margin-top: auto;
+  padding-top: 0.35rem;
+  font-size: 0.86rem;
   color: var(--primary);
-  font-weight: 550;
+  font-weight: 600;
 }
 
-/* ---- 市场涨跌轻量着色 ---- */
+.section-card:hover .section-more {
+  color: var(--accent);
+}
+
+/* ---- 首页入场（只位移，不透明隐藏，避免首屏空白） ---- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .focus-item {
+    animation: rise-in 0.4s var(--ease-out);
+  }
+
+  .focus-item:nth-child(1) { animation-delay: 0.04s; }
+  .focus-item:nth-child(2) { animation-delay: 0.08s; }
+  .focus-item:nth-child(3) { animation-delay: 0.12s; }
+  .focus-item:nth-child(4) { animation-delay: 0.16s; }
+
+  .section-card {
+    animation: rise-in 0.4s var(--ease-out);
+  }
+
+  .section-card:nth-child(1) { animation-delay: 0.1s; }
+  .section-card:nth-child(2) { animation-delay: 0.14s; }
+  .section-card:nth-child(3) { animation-delay: 0.18s; }
+  .section-card:nth-child(4) { animation-delay: 0.22s; }
+}
+
+/* ---- 市场表格数字 ---- */
 
 body.section-market .post-content table td:last-child {
   font-variant-numeric: tabular-nums;
 }
 
-/* ---- 深度条目节奏（同字体，疏朗间距） ---- */
+/* ---- 深度条目节奏 ---- */
 
 .deep-digest {
   max-width: 40rem;
 }
 
 body.section-deep .post-content h2 {
-  font-weight: 600;
-  margin-top: 2.25rem;
-  margin-bottom: 1.25rem;
+  font-weight: 680;
+  margin-top: 2.4rem;
+  margin-bottom: 1.15rem;
+  border-bottom-color: color-mix(in srgb, var(--section-deep) 35%, var(--border));
 }
 
 body.section-deep .post-content .deep-item {
-  margin: 0 0 2.2rem;
-  padding: 0 0 0.25rem;
+  margin: 0 0 2.35rem;
+  padding: 0 0 1.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+body.section-deep .post-content .deep-item:last-child {
+  border-bottom: none;
 }
 
 body.section-deep .post-content .deep-item h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.4;
-  margin: 0 0 0.5rem;
+  font-size: 1.28rem;
+  font-weight: 680;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.55rem;
 }
 
 body.section-deep .post-content .deep-dek {
   font-style: italic;
   font-size: 0.98rem;
   color: var(--secondary);
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.9rem;
   line-height: 1.55;
 }
 
 body.section-deep .post-content .deep-item p:not(.deep-dek):not(.deep-source) {
-  line-height: 1.7;
+  line-height: 1.75;
   margin: 0 0 0.8rem;
 }
 
 body.section-deep .post-content .deep-source {
-  margin: 0.45rem 0 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  margin: 0.5rem 0 0;
+  font-size: 0.84rem;
+  font-weight: 650;
+  letter-spacing: 0.03em;
 }
 
 body.section-deep .post-content .deep-source a {
@@ -244,12 +340,43 @@ body.section-deep .post-content .deep-source a:hover {
   border-bottom-color: var(--section-deep);
 }
 
-/* ---- 方法页 ---- */
+/* ---- 网站规则页 ---- */
 
-body.section-method .post-content table {
-  font-size: 0.92rem;
+body.section-rules .post-content {
+  font-size: 0.98rem;
 }
 
-body.section-method .post-content h2 {
-  margin-top: 2rem;
+body.section-rules .post-content h2 {
+  margin-top: 2.2rem;
+}
+
+body.section-rules .post-content h3 {
+  margin-top: 1.6rem;
+  padding-top: 0.2rem;
+}
+
+body.section-rules .post-content table {
+  font-size: 0.9rem;
+  margin: 0.75rem 0 1.35rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--entry) 80%, transparent);
+}
+
+body.section-rules .post-content table a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+body.section-rules .post-content table a:hover {
+  text-decoration: underline;
+}
+
+body.section-rules .post-content blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--surface-tint);
+  margin: 0 0 1.5rem;
+  padding: 0.85rem 1rem;
+  color: var(--secondary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }

@@ -46,6 +46,7 @@ def test_fetch_candidates_filters_by_keywords_and_dedup():
     config = {
         "settings": {"hours_window": 876000},
         "ai_keywords": ["ai"],
+        "block_keywords": [],
         "feeds": [
             {"name": "T", "url": "https://x", "category": "AI 动态",
              "ai_filter": True, "max_items": 10, "section": "ai"},
@@ -58,3 +59,43 @@ def test_fetch_candidates_filters_by_keywords_and_dedup():
     assert len(cands) == 1
     assert cands[0]["title"] == "News B"
     assert cands[0]["section"] == "ai"
+
+
+BLOCK_RSS = """<?xml version="1.0"?>
+<rss version="2.0"><channel>
+<title>Test</title>
+<item>
+  <title>Taiwan election update</title>
+  <link>https://example.com/tw</link>
+  <description>politics</description>
+  <pubDate>Wed, 30 Jul 2026 10:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>New chip breakthrough</title>
+  <link>https://example.com/chip</link>
+  <description>semiconductor research</description>
+  <pubDate>Wed, 30 Jul 2026 11:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>白宫宣布新外交政策</title>
+  <link>https://example.com/cn</link>
+  <description>涉及制裁</description>
+  <pubDate>Wed, 30 Jul 2026 12:00:00 GMT</pubDate>
+</item>
+</channel></rss>""".encode("utf-8")
+
+
+def test_fetch_candidates_applies_block_keywords():
+    config = {
+        "settings": {"hours_window": 876000},
+        "ai_keywords": [],
+        "block_keywords": ["Taiwan", "politics", "白宫", "制裁", "外交"],
+        "feeds": [
+            {"name": "T", "url": "https://x", "category": "国际新闻",
+             "ai_filter": False, "max_items": 10, "section": "world"},
+        ],
+    }
+    with patch("sources.rss.requests.get", return_value=_mock_resp(BLOCK_RSS)):
+        cands = rss.fetch_candidates(config, {})
+    assert len(cands) == 1
+    assert cands[0]["title"] == "New chip breakthrough"
