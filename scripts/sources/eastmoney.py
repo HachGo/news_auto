@@ -125,7 +125,7 @@ def _fetch_eastmoney_batch():
             if not name or price is None or pct is None:
                 continue
             amount = _as_float(row.get("f6"))
-            out.append({"name": name, "price": price, "change_pct": pct, "amount": amount})
+            out.append({"name": name, "price": price, "change_pct": pct, "amount": amount, "source": "eastmoney"})
         if out:
             return out
     return []
@@ -159,6 +159,7 @@ def _fetch_sina_quotes():
         fields = payload.split(",")
         item = _parse_sina_fields(name, fields, kind)
         if item:
+            item["source"] = "sina"
             out.append(item)
     return out
 
@@ -215,6 +216,7 @@ def _fetch_yahoo_quotes():
                 "price": price,
                 "change_pct": (price - prev) / prev * 100,
                 "amount": None,
+                "source": "yahoo",
             })
         except Exception as exc:
             print(f"[warn] yahoo {name} fetch error: {exc}", file=sys.stderr)

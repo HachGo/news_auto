@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """每日资讯抓取主入口。
 
-编排四版面生成（ai/world/market/deep）+ 首页今日总览 + 网站规则页，更新 seen.json。
+编排四版面生成（ai/world/market/deep）+ 首页今日总览 + 趋势快照 + 网站规则页，更新 seen.json。
 任一版面异常被捕获，不阻塞其他版面。
 """
 
@@ -13,6 +13,7 @@ from common import load_config, load_seen, save_seen, build_llm_client, link_has
 from generators import ai, world, market, deep
 from homepage import build_homepage
 from method import write_method_page
+from trends import pipeline as trend_pipeline
 
 ROOT = Path(__file__).resolve().parent.parent
 FEEDS_FILE = Path(__file__).resolve().parent / "feeds.yaml"
@@ -35,12 +36,14 @@ def main():
 
     date_str = datetime.now(CST).strftime("%Y-%m-%d")
     sections = {}
+    raw_results = {}
 
     for key, gen in (("ai", ai), ("world", world), ("market", market), ("deep", deep)):
         try:
             result = gen.generate(config, seen, client, date_str,
                                   posts_dir=CONTENT_DIR / key)
             if result:
+                raw_results[key] = result
                 sections[key] = _to_section_summary(key, result, date_str)
         except Exception as exc:
             print(f"[error] {key} 版面生成失败: {exc}", file=sys.stderr)
@@ -53,6 +56,20 @@ def main():
         print("[info] 首页已生成")
     except Exception as exc:
         print(f"[error] 首页生成失败: {exc}", file=sys.stderr)
+
+    # 趋势层使用结构化结果，不解析 Markdown。失败不连坐日报和首页。
+    try:
+        trend_data_dir = CONTENT_DIR.parent / "data" / "trends"
+        trend_export_dir = CONTENT_DIR.parent / "static" / "data" / "trends"
+        trend_pipeline.run(
+            date_str=date_str,
+            sections=raw_results,
+            data_dir=trend_data_dir,
+            export_dir=trend_export_dir,
+        )
+        print("[info] 趋势数据已生成")
+    except Exception as exc:
+        print(f"[warn] 趋势数据生成失败，不影响日报发布: {exc}", file=sys.stderr)
 
     # 网站规则页（与 feeds / 评分规则同步）
     try:

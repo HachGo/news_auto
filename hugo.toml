@@ -19,8 +19,8 @@ buildExpired = false
 [params]
   env = "production"
   title = "每日资讯"
-  description = "每日自动汇总的 AI、国际、市场与深度阅读精简摘要。"
-  keywords = ["AI", "资讯", "国际新闻", "金融市场", "深度阅读", "每日简报"]
+  description = "每日自动汇总 AI、国际、市场与深度阅读，并生成可追溯的科技与市场趋势研判。"
+  keywords = ["AI", "资讯", "国际新闻", "金融市场", "趋势分析", "深度阅读", "每日简报"]
   author = "news_auto"
   DateFormat = "2006-01-02"
   defaultTheme = "auto"
@@ -89,6 +89,11 @@ buildExpired = false
     name = "市场"
     url = "/market/"
     weight = 30
+  [[menu.main]]
+    identifier = "trends"
+    name = "趋势"
+    url = "/trends/"
+    weight = 33
   [[menu.main]]
     identifier = "deep"
     name = "深度"

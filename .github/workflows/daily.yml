@@ -11,9 +11,11 @@ on:
       - "content/world/**"
       - "content/market/**"
       - "content/deep/**"
+      - "content/trends/**"
       - "content/_index.md"
       - "content/method.md"
       - "data/**"
+      - "static/data/trends/**"
 
 permissions:
   contents: write
@@ -67,6 +69,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add content/ai content/world content/market content/deep content/method.md content/_index.md data/seen.json
+          git add data/trends static/data/trends content/trends
           if git diff --cached --quiet; then
             echo "No new content to commit."
           else

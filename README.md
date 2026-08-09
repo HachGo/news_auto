@@ -1,6 +1,6 @@
 # news_auto — 每日资讯自动博客
 
-每天定时抓取 AI、国际、市场与深度刊物 RSS，用 DeepSeek 生成中英双语精简摘要，通过 Hugo + PaperMod 构建成静态博客，托管在 GitHub Pages。
+每天定时抓取 AI、国际、市场与深度刊物 RSS，用 DeepSeek 生成中英双语精简摘要，并把结构化新闻、行情和宏观信号聚合为趋势研判页，通过 Hugo + PaperMod 构建成静态博客，托管在 GitHub Pages。
 
 站点地址：<https://hachgo.github.io/news_auto/>
 
@@ -13,6 +13,7 @@ GitHub Actions (每日 UTC 23:00 / 北京 07:00)
     - 国际资讯：RSS 抓取 → LLM 排序 + 摘要 → content/world/YYYY-MM-DD.md
     - 金融市场与股市：东方财富行情 + 金十日历 + 巨潮公告 + 财经要闻 RSS → content/market/YYYY-MM-DD.md
     - 深度阅读与学习：经济学人 / 科学美国人 / 卫报长读 / 大西洋月刊等 → content/deep/YYYY-MM-DD.md
+  → 趋势模块保存每日结构化快照，生成周、月、季度、年度趋势数据 → static/data/trends/
   → 汇总四版面焦点 → 生成首页 content/_index.md
   → 同步生成网站规则页 content/method.md（源清单 + 评分权重）
   → 提交回仓库 → Hugo 构建 → 部署 GitHub Pages
@@ -37,6 +38,7 @@ GitHub Actions (每日 UTC 23:00 / 北京 07:00)
 | `content/world/` | 国际资讯版面（每日文章） |
 | `content/market/` | 金融市场与股市（行情/宏观/要闻/公告研报） |
 | `content/deep/` | 深度阅读与学习（刊物长读） |
+| `content/trends/` | 趋势研判版面（科技与市场趋势） |
 | `content/_index.md` | 首页今日总览（脚本生成） |
 | `content/method.md` | 网站规则（脚本生成，与 feeds/评分/屏蔽词同步） |
 | `assets/css/extended/` | 站点扩展样式（首页四版面、深度条目节奏） |
@@ -47,6 +49,7 @@ GitHub Actions (每日 UTC 23:00 / 北京 07:00)
 | `scripts/generators/` | 版面生成器（ai/world/market/deep） |
 | `scripts/common.py` | 共享工具（seen/LLM/渲染） |
 | `data/seen.json` | 已处理文章指纹（自动维护，保留 30 天） |
+| `data/trends/` | 趋势每日快照、周期聚合、预测与评估记录 |
 | `.github/workflows/daily.yml` | 定时任务 + 构建 + 部署 |
 
 ## 自定义

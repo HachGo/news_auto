@@ -1,1 +1,4 @@
-{{- /* 站点扩展 head：当前无额外资源 */ -}}
+{{- if eq .Layout "trends" -}}
+  {{- $trends := resources.Get "js/trends.js" | minify | fingerprint -}}
+  <script defer src="{{ $trends.RelPermalink }}" integrity="{{ $trends.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end -}}
