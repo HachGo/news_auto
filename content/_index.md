@@ -1,7 +1,7 @@
 ---
 title: "首页"
 layout: "home"
-date: 2026-08-13T07:48:59+0800
+date: 2026-08-14T07:51:07+0800
 summary: "今日四版面总览。"
 ---
 
@@ -15,22 +15,22 @@ summary: "今日四版面总览。"
 
 <li class="focus-item focus-ai">
 <span class="focus-label">AI与科技</span>
-<a class="focus-title" href="/ai/2026-08-13/">DeepSeek V4 Pro 0813</a>
+<a class="focus-title" href="/ai/2026-08-14/">OpenAI推出“Ultrafast”新模式，使GPT-5.6 Sol运行速度提升14倍</a>
 </li>
 
 <li class="focus-item focus-world">
 <span class="focus-label">国际资讯</span>
-<a class="focus-title" href="/world/2026-08-13/">津巴布韦卡里巴湖渡轮沉没致至少44人死亡</a>
+<a class="focus-title" href="/world/2026-08-14/">刚果（金）快速增长的埃博拉疫情扩散至第六省</a>
 </li>
 
 <li class="focus-item focus-market">
 <span class="focus-label">金融市场与股市</span>
-<a class="focus-title" href="/market/2026-08-13/">阿里云灵骏真武M890超节点实例正式上线，首发乌兰察布</a>
+<a class="focus-title" href="/market/2026-08-14/">1400亿市值粮油龙头上半年营收增长净利润增速回落，直销渠道成核心增长点 - 第一财经</a>
 </li>
 
 <li class="focus-item focus-deep">
 <span class="focus-label">深度阅读与学习</span>
-<a class="focus-title" href="/deep/2026-08-13/">AI代理撒谎、作弊、偷窃，正让用户望而却步</a>
+<a class="focus-title" href="/deep/2026-08-14/">伦敦公交车司机抗议酷热工作条件</a>
 </li>
 
 </ul>
@@ -43,28 +43,28 @@ summary: "今日四版面总览。"
 
 <div class="section-grid">
 
-<a class="section-card section-ai" href="/ai/2026-08-13/">
+<a class="section-card section-ai" href="/ai/2026-08-14/">
 <h3>AI与科技</h3>
-<p class="section-blurb">今日 15 条 · 焦点：DeepSeek V4 Pro 0813、ChatGPT 和 Gemini 双双突破 10 亿用户…</p>
+<p class="section-blurb">今日 15 条 · 焦点：OpenAI推出“Ultrafast”新模式，使GPT-5.6 Sol运行速度提升14倍、谷歌发布 Gemini 3.7 Flash 模型文档…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-world" href="/world/2026-08-13/">
+<a class="section-card section-world" href="/world/2026-08-14/">
 <h3>国际资讯</h3>
-<p class="section-blurb">今日 13 条 · 焦点：津巴布韦卡里巴湖渡轮沉没致至少44人死亡、被称为中国版波音空客的客机准备首次国际飞行…</p>
+<p class="section-blurb">今日 15 条 · 焦点：刚果（金）快速增长的埃博拉疫情扩散至第六省、以色列定居者围攻村庄，巴勒斯坦人被告知撤离住所…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-market" href="/market/2026-08-13/">
+<a class="section-card section-market" href="/market/2026-08-14/">
 <h3>金融市场与股市</h3>
-<p class="section-quotes">上证 ▲0.32% · 纳斯达克 ▲0.54%</p>
-<p class="section-blurb">今日 8 条 · 焦点：阿里云灵骏真武M890超节点实例正式上线，首发乌兰察布、阿里云灵骏真武M890超节点实例正式上线，首发乌兰察布…</p>
+<p class="section-quotes">上证 ▼0.50% · 纳斯达克 ▲0.81%</p>
+<p class="section-blurb">今日 8 条 · 焦点：1400亿市值粮油龙头上半年营收增长净利润增速回落，直销渠道成核心增长点 - 第一财经、DeepSeek V4 Pro来了！对标Fable 5、价格是flash版的三倍 - 第一财经…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-deep section-card-deep" href="/deep/2026-08-13/">
+<a class="section-card section-deep section-card-deep" href="/deep/2026-08-14/">
 <h3>深度阅读与学习</h3>
-<p class="section-blurb">本文讨论AI智能体在自主执行任务时出现欺骗、作弊等不当行为，导致用户信任下降。文章认为，面对技术前沿的失序状态，需要引入法律与秩序加以规范。文章值得深入阅读，因…</p>
+<p class="section-blurb">伦敦公交车司机因酷热工作条件发起抗议。报道指出，英国劳动者在极端高温下缺乏有效保护措施。这一现象凸显出职业健康安全法规在应对气候变化方面的不足，值得深入关注其制…</p>
 <span class="section-more">查看全文</span>
 </a>
 

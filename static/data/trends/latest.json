@@ -2,45 +2,64 @@
   "evaluations": [],
   "forecasts": [
     {
-      "confidence": "low",
-      "created_at": "2026-08-12T23:48:59.211173+00:00",
-      "data_snapshot": "2026-08-13",
-      "direction": "insufficient_data",
-      "drivers": [],
-      "forecast_id": "trend-week-2026-08-13",
+      "confidence": "medium",
+      "created_at": "2026-08-13T23:51:07.614396+00:00",
+      "data_snapshot": "2026-08-14",
+      "direction": "positive",
+      "drivers": [
+        {
+          "momentum": 0.0,
+          "name": "基础模型",
+          "topic": "foundation_models"
+        },
+        {
+          "momentum": 0.0,
+          "name": "芯片与算力",
+          "topic": "chips_compute"
+        },
+        {
+          "momentum": 0.0,
+          "name": "AI 应用与商业化",
+          "topic": "applications"
+        }
+      ],
+      "forecast_id": "trend-week-2026-08-14",
       "horizon": "week",
-      "invalidation_conditions": [],
+      "invalidation_conditions": [
+        "数据覆盖率低于最低阈值",
+        "主要驱动主题在下一周期明显降温"
+      ],
       "model_version": "rules-v1",
       "realized_result": null,
-      "reason": "数据不足",
+      "reason": "规则模型",
       "scenarios": [
         {
-          "description": "多空信号接近，趋势暂未确认。",
-          "direction": "neutral",
+          "description": "主题动量与市场信号维持当前方向。",
+          "direction": "positive",
           "name": "基准"
         },
         {
-          "description": "主题动量重新加速。",
+          "description": "多源事件持续确认，风险偏好继续改善。",
           "direction": "positive",
           "name": "上行"
         },
         {
-          "description": "风险事件增加且市场广度收缩。",
+          "description": "热点退潮或宏观风险重新抬升。",
           "direction": "negative",
           "name": "下行"
         }
       ],
       "status": "open",
       "target": "combined_trend",
-      "target_date": "2026-08-20"
+      "target_date": "2026-08-21"
     },
     {
       "confidence": "low",
-      "created_at": "2026-08-12T23:48:59.211193+00:00",
-      "data_snapshot": "2026-08-13",
+      "created_at": "2026-08-13T23:51:07.614425+00:00",
+      "data_snapshot": "2026-08-14",
       "direction": "insufficient_data",
       "drivers": [],
-      "forecast_id": "trend-month-2026-08-13",
+      "forecast_id": "trend-month-2026-08-14",
       "horizon": "month",
       "invalidation_conditions": [],
       "model_version": "rules-v1",
@@ -65,15 +84,15 @@
       ],
       "status": "open",
       "target": "combined_trend",
-      "target_date": "2026-09-12"
+      "target_date": "2026-09-13"
     },
     {
       "confidence": "low",
-      "created_at": "2026-08-12T23:48:59.211203+00:00",
-      "data_snapshot": "2026-08-13",
+      "created_at": "2026-08-13T23:51:07.614434+00:00",
+      "data_snapshot": "2026-08-14",
       "direction": "insufficient_data",
       "drivers": [],
-      "forecast_id": "trend-quarter-2026-08-13",
+      "forecast_id": "trend-quarter-2026-08-14",
       "horizon": "quarter",
       "invalidation_conditions": [],
       "model_version": "rules-v1",
@@ -98,15 +117,15 @@
       ],
       "status": "open",
       "target": "combined_trend",
-      "target_date": "2026-11-12"
+      "target_date": "2026-11-13"
     },
     {
       "confidence": "low",
-      "created_at": "2026-08-12T23:48:59.211210+00:00",
-      "data_snapshot": "2026-08-13",
+      "created_at": "2026-08-13T23:51:07.614439+00:00",
+      "data_snapshot": "2026-08-14",
       "direction": "insufficient_data",
       "drivers": [],
-      "forecast_id": "trend-year-2026-08-13",
+      "forecast_id": "trend-year-2026-08-14",
       "horizon": "year",
       "invalidation_conditions": [],
       "model_version": "rules-v1",
@@ -131,21 +150,39 @@
       ],
       "status": "open",
       "target": "combined_trend",
-      "target_date": "2027-08-13"
+      "target_date": "2027-08-14"
     }
   ],
   "periods": {
     "month": {
       "data_quality": {
-        "ratio": 0.1333,
+        "ratio": 0.1667,
         "status": "partial",
         "warnings": [
-          "news coverage 4/21",
-          "market sessions 4/15"
+          "news coverage 5/21",
+          "market sessions 5/15"
         ]
       },
-      "end_date": "2026-08-13",
+      "end_date": "2026-08-14",
       "evidence": [
+        {
+          "date": "2026-08-14",
+          "importance": 9.0,
+          "link": "https://techcrunch.com/2026/08/13/openai-introduces-ultrafast-a-new-mode-that-makes-gpt-5-6-sol-work-at-14x-the-speed",
+          "title": "OpenAI推出“Ultrafast”新模式，使GPT-5.6 Sol运行速度提升14倍",
+          "topics": [
+            "foundation_models"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 9.0,
+          "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash",
+          "title": "谷歌发布 Gemini 3.7 Flash 模型文档",
+          "topics": [
+            "foundation_models"
+          ]
+        },
         {
           "date": "2026-08-13",
           "importance": 9.0,
@@ -191,6 +228,34 @@
           "title": "克劳德将黎曼ζ函数零点满足猜想的比例下界从41.6%提高到67.2%",
           "topics": [
             "unclassified"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://techcrunch.com/2026/08/13/databricks-wanted-to-raise-1b-investors-wanted-15b-it-settled-on-5b-at-a-190b-valuation",
+          "title": "Databricks原计划融资10亿，投资者欲投150亿，最终以1900亿估值融资50亿",
+          "topics": [
+            "funding_ma"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://techcrunch.com/2026/08/13/nvidias-new-500b-plan-is-risky-but-brilliant-especially-for-aging-gpus",
+          "title": "英伟达5000亿美元新计划：风险高但精妙，尤其利好旧款GPU",
+          "topics": [
+            "chips_compute",
+            "policy_safety"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://deepseek.com/harness/en",
+          "title": "DeepSeek Harness 开发者预览版发布",
+          "topics": [
+            "foundation_models"
           ]
         },
         {
@@ -267,80 +332,34 @@
           ]
         },
         {
-          "date": "2026-08-13",
+          "date": "2026-08-14",
           "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/12/amazon-will-train-on-twitch-streamers-content-by-default-unless-they-opt-out",
-          "title": "亚马逊将默认使用Twitch主播内容训练AI，除非主播选择退出",
+          "link": "https://techcrunch.com/2026/08/13/ibm-partners-with-openai-to-bolster-enterprise-ai-push",
+          "title": "IBM与OpenAI合作，加强企业人工智能布局",
           "topics": [
             "unclassified"
           ]
         },
         {
-          "date": "2026-08-13",
+          "date": "2026-08-14",
           "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/12/openai-backed-thrive-holdings-raises-2b-to-bring-ai-to-the-enterprise",
-          "title": "OpenAI支持的Thrive Holdings融资20亿美元，将AI引入企业",
-          "topics": [
-            "funding_ma"
-          ]
-        },
-        {
-          "date": "2026-08-13",
-          "importance": 7.0,
-          "link": "https://blog.florianherrengt.com/ai-removing-middle-class-software-engineering.html",
-          "title": "AI正在消灭软件工程的中产阶级？",
-          "topics": [
-            "policy_safety"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/11/googles-gemini-app-surges-to-one-billion-users",
-          "title": "谷歌 Gemini 应用用户突破 10 亿",
-          "topics": [
-            "foundation_models"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/11/brad-lightcap-openais-longtime-coo-is-leaving-to-start-something-new",
-          "title": "OpenAI长期首席运营官布拉德·莱特卡普离职，将开启新事业",
+          "link": "https://techcrunch.com/2026/08/13/apple-in-talks-to-pay-publishers-to-provide-siri-with-current-news-report",
+          "title": "报道：苹果与出版商洽谈付费，为Siri提供时事新闻",
           "topics": [
             "unclassified"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://www.reddit.com/r/singularity/comments/1vljb4r/did_pathway_just_reveal_the_architecture",
-          "title": "Pathway 刚刚揭示了 Andrew Curran 预测的架构突破吗？其 1.5 亿参数模型创下 ARC-AGI-1 成本效率新纪录",
-          "topics": [
-            "applications"
-          ]
-        },
-        {
-          "date": "2026-08-11",
-          "importance": 7.0,
-          "link": "https://www.stoaexchange.com",
-          "title": "Stoa Markets (YC S26) 推出GPU与AI服务器交易平台",
-          "topics": [
-            "chips_compute",
-            "funding_ma"
           ]
         }
       ],
       "market": {
-        "average_breadth": 0.522728,
-        "latest_momentum": -0.041367,
-        "momentum": 0.037828,
+        "average_breadth": 0.527273,
+        "latest_momentum": 0.034397,
+        "momentum": 0.037141,
         "news_risk": 0
       },
-      "market_sessions": 4,
-      "news_days": 4,
+      "market_sessions": 5,
+      "news_days": 5,
       "period": "month",
-      "sample_days": 4,
+      "sample_days": 5,
       "schema_version": 1,
       "series": [
         {
@@ -366,59 +385,65 @@
           "date": "2026-08-13",
           "market": -0.041367,
           "technology": 4.95
+        },
+        {
+          "coverage": 1.0,
+          "date": "2026-08-14",
+          "market": 0.034397,
+          "technology": 6.455
         }
       ],
-      "start_date": "2026-07-15",
+      "start_date": "2026-07-16",
       "topics": {
         "applications": {
-          "activity": 0.935,
-          "average_daily_activity": 0.23375,
-          "event_count": 3,
+          "activity": 1.445,
+          "average_daily_activity": 0.289,
+          "event_count": 4,
           "momentum": 0.0,
           "name": "AI 应用与商业化",
-          "peak_daily_activity": 0.385,
+          "peak_daily_activity": 0.51,
           "source_count_peak": 1
         },
         "chips_compute": {
-          "activity": 3.4425,
-          "average_daily_activity": 0.860625,
-          "event_count": 10,
+          "activity": 4.2075,
+          "average_daily_activity": 0.8415,
+          "event_count": 12,
           "momentum": 0.0,
           "name": "芯片与算力",
           "peak_daily_activity": 1.255,
           "source_count_peak": 3
         },
         "foundation_models": {
-          "activity": 6.7825,
-          "average_daily_activity": 1.695625,
-          "event_count": 17,
+          "activity": 10.53,
+          "average_daily_activity": 2.106,
+          "event_count": 26,
           "momentum": 0.0,
           "name": "基础模型",
-          "peak_daily_activity": 2.0375,
+          "peak_daily_activity": 3.7475,
           "source_count_peak": 5
         },
         "funding_ma": {
-          "activity": 3.16,
-          "average_daily_activity": 0.79,
-          "event_count": 7,
+          "activity": 3.84,
+          "average_daily_activity": 0.768,
+          "event_count": 8,
           "momentum": 0.0,
           "name": "融资与并购",
           "peak_daily_activity": 1.955,
           "source_count_peak": 2
         },
         "open_source": {
-          "activity": 0.99,
+          "activity": 1.2375,
           "average_daily_activity": 0.2475,
-          "event_count": 4,
+          "event_count": 5,
           "momentum": 0.0,
           "name": "开源生态",
           "peak_daily_activity": 0.66,
           "source_count_peak": 2
         },
         "policy_safety": {
-          "activity": 6.32,
-          "average_daily_activity": 1.58,
-          "event_count": 17,
+          "activity": 6.825,
+          "average_daily_activity": 1.365,
+          "event_count": 19,
           "momentum": 0.0,
           "name": "政策、安全与监管",
           "peak_daily_activity": 2.3825,
@@ -428,15 +453,33 @@
     },
     "quarter": {
       "data_quality": {
-        "ratio": 0.044,
+        "ratio": 0.0549,
         "status": "partial",
         "warnings": [
-          "news coverage 4/56",
-          "market sessions 4/45"
+          "news coverage 5/56",
+          "market sessions 5/45"
         ]
       },
-      "end_date": "2026-08-13",
+      "end_date": "2026-08-14",
       "evidence": [
+        {
+          "date": "2026-08-14",
+          "importance": 9.0,
+          "link": "https://techcrunch.com/2026/08/13/openai-introduces-ultrafast-a-new-mode-that-makes-gpt-5-6-sol-work-at-14x-the-speed",
+          "title": "OpenAI推出“Ultrafast”新模式，使GPT-5.6 Sol运行速度提升14倍",
+          "topics": [
+            "foundation_models"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 9.0,
+          "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash",
+          "title": "谷歌发布 Gemini 3.7 Flash 模型文档",
+          "topics": [
+            "foundation_models"
+          ]
+        },
         {
           "date": "2026-08-13",
           "importance": 9.0,
@@ -482,6 +525,34 @@
           "title": "克劳德将黎曼ζ函数零点满足猜想的比例下界从41.6%提高到67.2%",
           "topics": [
             "unclassified"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://techcrunch.com/2026/08/13/databricks-wanted-to-raise-1b-investors-wanted-15b-it-settled-on-5b-at-a-190b-valuation",
+          "title": "Databricks原计划融资10亿，投资者欲投150亿，最终以1900亿估值融资50亿",
+          "topics": [
+            "funding_ma"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://techcrunch.com/2026/08/13/nvidias-new-500b-plan-is-risky-but-brilliant-especially-for-aging-gpus",
+          "title": "英伟达5000亿美元新计划：风险高但精妙，尤其利好旧款GPU",
+          "topics": [
+            "chips_compute",
+            "policy_safety"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://deepseek.com/harness/en",
+          "title": "DeepSeek Harness 开发者预览版发布",
+          "topics": [
+            "foundation_models"
           ]
         },
         {
@@ -558,80 +629,34 @@
           ]
         },
         {
-          "date": "2026-08-13",
+          "date": "2026-08-14",
           "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/12/amazon-will-train-on-twitch-streamers-content-by-default-unless-they-opt-out",
-          "title": "亚马逊将默认使用Twitch主播内容训练AI，除非主播选择退出",
+          "link": "https://techcrunch.com/2026/08/13/ibm-partners-with-openai-to-bolster-enterprise-ai-push",
+          "title": "IBM与OpenAI合作，加强企业人工智能布局",
           "topics": [
             "unclassified"
           ]
         },
         {
-          "date": "2026-08-13",
+          "date": "2026-08-14",
           "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/12/openai-backed-thrive-holdings-raises-2b-to-bring-ai-to-the-enterprise",
-          "title": "OpenAI支持的Thrive Holdings融资20亿美元，将AI引入企业",
-          "topics": [
-            "funding_ma"
-          ]
-        },
-        {
-          "date": "2026-08-13",
-          "importance": 7.0,
-          "link": "https://blog.florianherrengt.com/ai-removing-middle-class-software-engineering.html",
-          "title": "AI正在消灭软件工程的中产阶级？",
-          "topics": [
-            "policy_safety"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/11/googles-gemini-app-surges-to-one-billion-users",
-          "title": "谷歌 Gemini 应用用户突破 10 亿",
-          "topics": [
-            "foundation_models"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/11/brad-lightcap-openais-longtime-coo-is-leaving-to-start-something-new",
-          "title": "OpenAI长期首席运营官布拉德·莱特卡普离职，将开启新事业",
+          "link": "https://techcrunch.com/2026/08/13/apple-in-talks-to-pay-publishers-to-provide-siri-with-current-news-report",
+          "title": "报道：苹果与出版商洽谈付费，为Siri提供时事新闻",
           "topics": [
             "unclassified"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://www.reddit.com/r/singularity/comments/1vljb4r/did_pathway_just_reveal_the_architecture",
-          "title": "Pathway 刚刚揭示了 Andrew Curran 预测的架构突破吗？其 1.5 亿参数模型创下 ARC-AGI-1 成本效率新纪录",
-          "topics": [
-            "applications"
-          ]
-        },
-        {
-          "date": "2026-08-11",
-          "importance": 7.0,
-          "link": "https://www.stoaexchange.com",
-          "title": "Stoa Markets (YC S26) 推出GPU与AI服务器交易平台",
-          "topics": [
-            "chips_compute",
-            "funding_ma"
           ]
         }
       ],
       "market": {
-        "average_breadth": 0.522728,
-        "latest_momentum": -0.041367,
-        "momentum": 0.037828,
+        "average_breadth": 0.527273,
+        "latest_momentum": 0.034397,
+        "momentum": 0.037141,
         "news_risk": 0
       },
-      "market_sessions": 4,
-      "news_days": 4,
+      "market_sessions": 5,
+      "news_days": 5,
       "period": "quarter",
-      "sample_days": 4,
+      "sample_days": 5,
       "schema_version": 1,
       "series": [
         {
@@ -657,59 +682,65 @@
           "date": "2026-08-13",
           "market": -0.041367,
           "technology": 4.95
+        },
+        {
+          "coverage": 1.0,
+          "date": "2026-08-14",
+          "market": 0.034397,
+          "technology": 6.455
         }
       ],
-      "start_date": "2026-05-15",
+      "start_date": "2026-05-16",
       "topics": {
         "applications": {
-          "activity": 0.935,
-          "average_daily_activity": 0.23375,
-          "event_count": 3,
+          "activity": 1.445,
+          "average_daily_activity": 0.289,
+          "event_count": 4,
           "momentum": 0.0,
           "name": "AI 应用与商业化",
-          "peak_daily_activity": 0.385,
+          "peak_daily_activity": 0.51,
           "source_count_peak": 1
         },
         "chips_compute": {
-          "activity": 3.4425,
-          "average_daily_activity": 0.860625,
-          "event_count": 10,
+          "activity": 4.2075,
+          "average_daily_activity": 0.8415,
+          "event_count": 12,
           "momentum": 0.0,
           "name": "芯片与算力",
           "peak_daily_activity": 1.255,
           "source_count_peak": 3
         },
         "foundation_models": {
-          "activity": 6.7825,
-          "average_daily_activity": 1.695625,
-          "event_count": 17,
+          "activity": 10.53,
+          "average_daily_activity": 2.106,
+          "event_count": 26,
           "momentum": 0.0,
           "name": "基础模型",
-          "peak_daily_activity": 2.0375,
+          "peak_daily_activity": 3.7475,
           "source_count_peak": 5
         },
         "funding_ma": {
-          "activity": 3.16,
-          "average_daily_activity": 0.79,
-          "event_count": 7,
+          "activity": 3.84,
+          "average_daily_activity": 0.768,
+          "event_count": 8,
           "momentum": 0.0,
           "name": "融资与并购",
           "peak_daily_activity": 1.955,
           "source_count_peak": 2
         },
         "open_source": {
-          "activity": 0.99,
+          "activity": 1.2375,
           "average_daily_activity": 0.2475,
-          "event_count": 4,
+          "event_count": 5,
           "momentum": 0.0,
           "name": "开源生态",
           "peak_daily_activity": 0.66,
           "source_count_peak": 2
         },
         "policy_safety": {
-          "activity": 6.32,
-          "average_daily_activity": 1.58,
-          "event_count": 17,
+          "activity": 6.825,
+          "average_daily_activity": 1.365,
+          "event_count": 19,
           "momentum": 0.0,
           "name": "政策、安全与监管",
           "peak_daily_activity": 2.3825,
@@ -719,14 +750,30 @@
     },
     "week": {
       "data_quality": {
-        "ratio": 0.5714,
-        "status": "partial",
-        "warnings": [
-          "news coverage 4/5"
-        ]
+        "ratio": 0.7143,
+        "status": "ok",
+        "warnings": []
       },
-      "end_date": "2026-08-13",
+      "end_date": "2026-08-14",
       "evidence": [
+        {
+          "date": "2026-08-14",
+          "importance": 9.0,
+          "link": "https://techcrunch.com/2026/08/13/openai-introduces-ultrafast-a-new-mode-that-makes-gpt-5-6-sol-work-at-14x-the-speed",
+          "title": "OpenAI推出“Ultrafast”新模式，使GPT-5.6 Sol运行速度提升14倍",
+          "topics": [
+            "foundation_models"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 9.0,
+          "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash",
+          "title": "谷歌发布 Gemini 3.7 Flash 模型文档",
+          "topics": [
+            "foundation_models"
+          ]
+        },
         {
           "date": "2026-08-13",
           "importance": 9.0,
@@ -772,6 +819,34 @@
           "title": "克劳德将黎曼ζ函数零点满足猜想的比例下界从41.6%提高到67.2%",
           "topics": [
             "unclassified"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://techcrunch.com/2026/08/13/databricks-wanted-to-raise-1b-investors-wanted-15b-it-settled-on-5b-at-a-190b-valuation",
+          "title": "Databricks原计划融资10亿，投资者欲投150亿，最终以1900亿估值融资50亿",
+          "topics": [
+            "funding_ma"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://techcrunch.com/2026/08/13/nvidias-new-500b-plan-is-risky-but-brilliant-especially-for-aging-gpus",
+          "title": "英伟达5000亿美元新计划：风险高但精妙，尤其利好旧款GPU",
+          "topics": [
+            "chips_compute",
+            "policy_safety"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://deepseek.com/harness/en",
+          "title": "DeepSeek Harness 开发者预览版发布",
+          "topics": [
+            "foundation_models"
           ]
         },
         {
@@ -848,80 +923,34 @@
           ]
         },
         {
-          "date": "2026-08-13",
+          "date": "2026-08-14",
           "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/12/amazon-will-train-on-twitch-streamers-content-by-default-unless-they-opt-out",
-          "title": "亚马逊将默认使用Twitch主播内容训练AI，除非主播选择退出",
+          "link": "https://techcrunch.com/2026/08/13/ibm-partners-with-openai-to-bolster-enterprise-ai-push",
+          "title": "IBM与OpenAI合作，加强企业人工智能布局",
           "topics": [
             "unclassified"
           ]
         },
         {
-          "date": "2026-08-13",
+          "date": "2026-08-14",
           "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/12/openai-backed-thrive-holdings-raises-2b-to-bring-ai-to-the-enterprise",
-          "title": "OpenAI支持的Thrive Holdings融资20亿美元，将AI引入企业",
-          "topics": [
-            "funding_ma"
-          ]
-        },
-        {
-          "date": "2026-08-13",
-          "importance": 7.0,
-          "link": "https://blog.florianherrengt.com/ai-removing-middle-class-software-engineering.html",
-          "title": "AI正在消灭软件工程的中产阶级？",
-          "topics": [
-            "policy_safety"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/11/googles-gemini-app-surges-to-one-billion-users",
-          "title": "谷歌 Gemini 应用用户突破 10 亿",
-          "topics": [
-            "foundation_models"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/11/brad-lightcap-openais-longtime-coo-is-leaving-to-start-something-new",
-          "title": "OpenAI长期首席运营官布拉德·莱特卡普离职，将开启新事业",
+          "link": "https://techcrunch.com/2026/08/13/apple-in-talks-to-pay-publishers-to-provide-siri-with-current-news-report",
+          "title": "报道：苹果与出版商洽谈付费，为Siri提供时事新闻",
           "topics": [
             "unclassified"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://www.reddit.com/r/singularity/comments/1vljb4r/did_pathway_just_reveal_the_architecture",
-          "title": "Pathway 刚刚揭示了 Andrew Curran 预测的架构突破吗？其 1.5 亿参数模型创下 ARC-AGI-1 成本效率新纪录",
-          "topics": [
-            "applications"
-          ]
-        },
-        {
-          "date": "2026-08-11",
-          "importance": 7.0,
-          "link": "https://www.stoaexchange.com",
-          "title": "Stoa Markets (YC S26) 推出GPU与AI服务器交易平台",
-          "topics": [
-            "chips_compute",
-            "funding_ma"
           ]
         }
       ],
       "market": {
-        "average_breadth": 0.522728,
-        "latest_momentum": -0.041367,
-        "momentum": 0.037828,
+        "average_breadth": 0.527273,
+        "latest_momentum": 0.034397,
+        "momentum": 0.037141,
         "news_risk": 0
       },
-      "market_sessions": 4,
-      "news_days": 4,
+      "market_sessions": 5,
+      "news_days": 5,
       "period": "week",
-      "sample_days": 4,
+      "sample_days": 5,
       "schema_version": 1,
       "series": [
         {
@@ -947,59 +976,65 @@
           "date": "2026-08-13",
           "market": -0.041367,
           "technology": 4.95
+        },
+        {
+          "coverage": 1.0,
+          "date": "2026-08-14",
+          "market": 0.034397,
+          "technology": 6.455
         }
       ],
-      "start_date": "2026-08-07",
+      "start_date": "2026-08-08",
       "topics": {
         "applications": {
-          "activity": 0.935,
-          "average_daily_activity": 0.23375,
-          "event_count": 3,
+          "activity": 1.445,
+          "average_daily_activity": 0.289,
+          "event_count": 4,
           "momentum": 0.0,
           "name": "AI 应用与商业化",
-          "peak_daily_activity": 0.385,
+          "peak_daily_activity": 0.51,
           "source_count_peak": 1
         },
         "chips_compute": {
-          "activity": 3.4425,
-          "average_daily_activity": 0.860625,
-          "event_count": 10,
+          "activity": 4.2075,
+          "average_daily_activity": 0.8415,
+          "event_count": 12,
           "momentum": 0.0,
           "name": "芯片与算力",
           "peak_daily_activity": 1.255,
           "source_count_peak": 3
         },
         "foundation_models": {
-          "activity": 6.7825,
-          "average_daily_activity": 1.695625,
-          "event_count": 17,
+          "activity": 10.53,
+          "average_daily_activity": 2.106,
+          "event_count": 26,
           "momentum": 0.0,
           "name": "基础模型",
-          "peak_daily_activity": 2.0375,
+          "peak_daily_activity": 3.7475,
           "source_count_peak": 5
         },
         "funding_ma": {
-          "activity": 3.16,
-          "average_daily_activity": 0.79,
-          "event_count": 7,
+          "activity": 3.84,
+          "average_daily_activity": 0.768,
+          "event_count": 8,
           "momentum": 0.0,
           "name": "融资与并购",
           "peak_daily_activity": 1.955,
           "source_count_peak": 2
         },
         "open_source": {
-          "activity": 0.99,
+          "activity": 1.2375,
           "average_daily_activity": 0.2475,
-          "event_count": 4,
+          "event_count": 5,
           "momentum": 0.0,
           "name": "开源生态",
           "peak_daily_activity": 0.66,
           "source_count_peak": 2
         },
         "policy_safety": {
-          "activity": 6.32,
-          "average_daily_activity": 1.58,
-          "event_count": 17,
+          "activity": 6.825,
+          "average_daily_activity": 1.365,
+          "event_count": 19,
           "momentum": 0.0,
           "name": "政策、安全与监管",
           "peak_daily_activity": 2.3825,
@@ -1009,15 +1044,33 @@
     },
     "year": {
       "data_quality": {
-        "ratio": 0.011,
+        "ratio": 0.0137,
         "status": "partial",
         "warnings": [
-          "news coverage 4/274",
-          "market sessions 4/180"
+          "news coverage 5/274",
+          "market sessions 5/180"
         ]
       },
-      "end_date": "2026-08-13",
+      "end_date": "2026-08-14",
       "evidence": [
+        {
+          "date": "2026-08-14",
+          "importance": 9.0,
+          "link": "https://techcrunch.com/2026/08/13/openai-introduces-ultrafast-a-new-mode-that-makes-gpt-5-6-sol-work-at-14x-the-speed",
+          "title": "OpenAI推出“Ultrafast”新模式，使GPT-5.6 Sol运行速度提升14倍",
+          "topics": [
+            "foundation_models"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 9.0,
+          "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash",
+          "title": "谷歌发布 Gemini 3.7 Flash 模型文档",
+          "topics": [
+            "foundation_models"
+          ]
+        },
         {
           "date": "2026-08-13",
           "importance": 9.0,
@@ -1063,6 +1116,34 @@
           "title": "克劳德将黎曼ζ函数零点满足猜想的比例下界从41.6%提高到67.2%",
           "topics": [
             "unclassified"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://techcrunch.com/2026/08/13/databricks-wanted-to-raise-1b-investors-wanted-15b-it-settled-on-5b-at-a-190b-valuation",
+          "title": "Databricks原计划融资10亿，投资者欲投150亿，最终以1900亿估值融资50亿",
+          "topics": [
+            "funding_ma"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://techcrunch.com/2026/08/13/nvidias-new-500b-plan-is-risky-but-brilliant-especially-for-aging-gpus",
+          "title": "英伟达5000亿美元新计划：风险高但精妙，尤其利好旧款GPU",
+          "topics": [
+            "chips_compute",
+            "policy_safety"
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "importance": 8.0,
+          "link": "https://deepseek.com/harness/en",
+          "title": "DeepSeek Harness 开发者预览版发布",
+          "topics": [
+            "foundation_models"
           ]
         },
         {
@@ -1139,80 +1220,34 @@
           ]
         },
         {
-          "date": "2026-08-13",
+          "date": "2026-08-14",
           "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/12/amazon-will-train-on-twitch-streamers-content-by-default-unless-they-opt-out",
-          "title": "亚马逊将默认使用Twitch主播内容训练AI，除非主播选择退出",
+          "link": "https://techcrunch.com/2026/08/13/ibm-partners-with-openai-to-bolster-enterprise-ai-push",
+          "title": "IBM与OpenAI合作，加强企业人工智能布局",
           "topics": [
             "unclassified"
           ]
         },
         {
-          "date": "2026-08-13",
+          "date": "2026-08-14",
           "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/12/openai-backed-thrive-holdings-raises-2b-to-bring-ai-to-the-enterprise",
-          "title": "OpenAI支持的Thrive Holdings融资20亿美元，将AI引入企业",
-          "topics": [
-            "funding_ma"
-          ]
-        },
-        {
-          "date": "2026-08-13",
-          "importance": 7.0,
-          "link": "https://blog.florianherrengt.com/ai-removing-middle-class-software-engineering.html",
-          "title": "AI正在消灭软件工程的中产阶级？",
-          "topics": [
-            "policy_safety"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/11/googles-gemini-app-surges-to-one-billion-users",
-          "title": "谷歌 Gemini 应用用户突破 10 亿",
-          "topics": [
-            "foundation_models"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://techcrunch.com/2026/08/11/brad-lightcap-openais-longtime-coo-is-leaving-to-start-something-new",
-          "title": "OpenAI长期首席运营官布拉德·莱特卡普离职，将开启新事业",
+          "link": "https://techcrunch.com/2026/08/13/apple-in-talks-to-pay-publishers-to-provide-siri-with-current-news-report",
+          "title": "报道：苹果与出版商洽谈付费，为Siri提供时事新闻",
           "topics": [
             "unclassified"
-          ]
-        },
-        {
-          "date": "2026-08-12",
-          "importance": 7.0,
-          "link": "https://www.reddit.com/r/singularity/comments/1vljb4r/did_pathway_just_reveal_the_architecture",
-          "title": "Pathway 刚刚揭示了 Andrew Curran 预测的架构突破吗？其 1.5 亿参数模型创下 ARC-AGI-1 成本效率新纪录",
-          "topics": [
-            "applications"
-          ]
-        },
-        {
-          "date": "2026-08-11",
-          "importance": 7.0,
-          "link": "https://www.stoaexchange.com",
-          "title": "Stoa Markets (YC S26) 推出GPU与AI服务器交易平台",
-          "topics": [
-            "chips_compute",
-            "funding_ma"
           ]
         }
       ],
       "market": {
-        "average_breadth": 0.522728,
-        "latest_momentum": -0.041367,
-        "momentum": 0.037828,
+        "average_breadth": 0.527273,
+        "latest_momentum": 0.034397,
+        "momentum": 0.037141,
         "news_risk": 0
       },
-      "market_sessions": 4,
-      "news_days": 4,
+      "market_sessions": 5,
+      "news_days": 5,
       "period": "year",
-      "sample_days": 4,
+      "sample_days": 5,
       "schema_version": 1,
       "series": [
         {
@@ -1238,59 +1273,65 @@
           "date": "2026-08-13",
           "market": -0.041367,
           "technology": 4.95
+        },
+        {
+          "coverage": 1.0,
+          "date": "2026-08-14",
+          "market": 0.034397,
+          "technology": 6.455
         }
       ],
-      "start_date": "2025-08-14",
+      "start_date": "2025-08-15",
       "topics": {
         "applications": {
-          "activity": 0.935,
-          "average_daily_activity": 0.23375,
-          "event_count": 3,
+          "activity": 1.445,
+          "average_daily_activity": 0.289,
+          "event_count": 4,
           "momentum": 0.0,
           "name": "AI 应用与商业化",
-          "peak_daily_activity": 0.385,
+          "peak_daily_activity": 0.51,
           "source_count_peak": 1
         },
         "chips_compute": {
-          "activity": 3.4425,
-          "average_daily_activity": 0.860625,
-          "event_count": 10,
+          "activity": 4.2075,
+          "average_daily_activity": 0.8415,
+          "event_count": 12,
           "momentum": 0.0,
           "name": "芯片与算力",
           "peak_daily_activity": 1.255,
           "source_count_peak": 3
         },
         "foundation_models": {
-          "activity": 6.7825,
-          "average_daily_activity": 1.695625,
-          "event_count": 17,
+          "activity": 10.53,
+          "average_daily_activity": 2.106,
+          "event_count": 26,
           "momentum": 0.0,
           "name": "基础模型",
-          "peak_daily_activity": 2.0375,
+          "peak_daily_activity": 3.7475,
           "source_count_peak": 5
         },
         "funding_ma": {
-          "activity": 3.16,
-          "average_daily_activity": 0.79,
-          "event_count": 7,
+          "activity": 3.84,
+          "average_daily_activity": 0.768,
+          "event_count": 8,
           "momentum": 0.0,
           "name": "融资与并购",
           "peak_daily_activity": 1.955,
           "source_count_peak": 2
         },
         "open_source": {
-          "activity": 0.99,
+          "activity": 1.2375,
           "average_daily_activity": 0.2475,
-          "event_count": 4,
+          "event_count": 5,
           "momentum": 0.0,
           "name": "开源生态",
           "peak_daily_activity": 0.66,
           "source_count_peak": 2
         },
         "policy_safety": {
-          "activity": 6.32,
-          "average_daily_activity": 1.58,
-          "event_count": 17,
+          "activity": 6.825,
+          "average_daily_activity": 1.365,
+          "event_count": 19,
           "momentum": 0.0,
           "name": "政策、安全与监管",
           "peak_daily_activity": 2.3825,
@@ -1307,798 +1348,812 @@
       "overall_ratio": 1.0
     },
     "data_warnings": [],
-    "date": "2026-08-13",
-    "generated_at": "2026-08-12T23:48:59.188962+00:00",
+    "date": "2026-08-14",
+    "generated_at": "2026-08-13T23:51:07.597159+00:00",
     "macro_events": [
-      {
-        "actual": "",
-        "consensus": "",
-        "country": "NZD",
-        "previous": "2.53%",
-        "title": "NZD Inflation Expectations q/q"
-      },
-      {
-        "actual": "",
-        "consensus": "0.0%",
-        "country": "GBP",
-        "previous": "0.1%",
-        "title": "GBP GDP m/m"
-      },
-      {
-        "actual": "",
-        "consensus": "0.4%",
-        "country": "GBP",
-        "previous": "0.6%",
-        "title": "GBP Prelim GDP q/q"
-      },
-      {
-        "actual": "",
-        "consensus": "0.3%",
-        "country": "USD",
-        "previous": "0.2%",
-        "title": "USD Core PPI m/m"
-      },
       {
         "actual": "",
         "consensus": "0.2%",
         "country": "USD",
-        "previous": "-0.3%",
-        "title": "USD PPI m/m"
+        "previous": "-0.2%",
+        "title": "USD Core Retail Sales m/m"
       },
       {
         "actual": "",
-        "consensus": "202K",
+        "consensus": "0.1%",
         "country": "USD",
-        "previous": "199K",
-        "title": "USD Unemployment Claims"
+        "previous": "0.2%",
+        "title": "USD Retail Sales m/m"
+      },
+      {
+        "actual": "",
+        "consensus": "54.7",
+        "country": "USD",
+        "previous": "54.4",
+        "title": "USD Prelim UoM Consumer Sentiment"
+      },
+      {
+        "actual": "",
+        "consensus": "",
+        "country": "USD",
+        "previous": "4.2%",
+        "title": "USD Prelim UoM Inflation Expectations"
       }
     ],
     "market_metrics": {
       "breadth": 0.545455,
-      "cross_asset_momentum": -0.041367,
-      "liquidity": 986122393817.1,
-      "macro_event_count": 6,
+      "cross_asset_momentum": 0.034397,
+      "liquidity": 1164203068529.8,
+      "macro_event_count": 4,
       "metric_version": "metric-v1",
       "news_risk": 0,
       "valid_quote_count": 11,
-      "volatility": 4.777487
+      "volatility": 0.549828
     },
     "market_quotes": [
       {
-        "amount": 986122393817.1,
-        "change_pct": 0.32,
+        "amount": 1164203068529.8,
+        "change_pct": -0.5,
         "currency": "CNY",
         "is_stale": false,
         "market": "CN",
         "name": "上证指数",
         "observed_at": null,
-        "price": 3946.68,
+        "price": 3926.96,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "上证指数",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
-        "amount": 1166300715998.245,
-        "change_pct": 1.09,
+        "amount": 1386713670829.0396,
+        "change_pct": -0.87,
         "currency": "CNY",
         "is_stale": false,
         "market": "CN",
         "name": "深证成指",
         "observed_at": null,
-        "price": 14414.43,
+        "price": 14289.44,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "深证成指",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
-        "amount": 564721503052.82,
-        "change_pct": 1.49,
+        "amount": 665249480855.28,
+        "change_pct": -0.45,
         "currency": "CNY",
         "is_stale": false,
         "market": "CN",
         "name": "创业板指",
         "observed_at": null,
-        "price": 3602.08,
+        "price": 3586.04,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "创业板指",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
-        "amount": 216779079680.0,
-        "change_pct": -0.83,
+        "amount": 263710064640.0,
+        "change_pct": -0.17,
         "currency": "USD",
         "is_stale": false,
         "market": "HK",
         "name": "恒生指数",
         "observed_at": null,
-        "price": 25440.17,
+        "price": 25396.51,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "恒生指数",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
-        "amount": 62153599232.0,
-        "change_pct": -0.99,
+        "amount": 92760453120.0,
+        "change_pct": 0.33,
         "currency": "USD",
         "is_stale": false,
         "market": "HK",
         "name": "恒生科技",
         "observed_at": null,
-        "price": 4776.44,
+        "price": 4792.39,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "恒生科技",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
         "amount": null,
-        "change_pct": 0.26,
+        "change_pct": 0.65,
         "currency": "USD",
         "is_stale": false,
         "market": "US",
         "name": "标普500",
         "observed_at": null,
-        "price": 7748.5,
+        "price": 7798.99,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "标普500",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
         "amount": null,
-        "change_pct": 0.54,
+        "change_pct": 0.81,
         "currency": "USD",
         "is_stale": false,
         "market": "US",
         "name": "纳斯达克",
         "observed_at": null,
-        "price": 26588.49,
+        "price": 26803.03,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "纳斯达克",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
         "amount": null,
-        "change_pct": -0.04,
+        "change_pct": 0.13,
         "currency": "USD",
         "is_stale": false,
         "market": "US",
         "name": "道琼斯",
         "observed_at": null,
-        "price": 53770.27,
+        "price": 53839.99,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "道琼斯",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
         "amount": null,
-        "change_pct": 0.02,
+        "change_pct": 0.29,
         "currency": "USD",
         "is_stale": false,
         "market": "GLOBAL",
         "name": "黄金",
         "observed_at": null,
-        "price": 4409.48,
+        "price": 4363.9,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "黄金",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
         "amount": null,
-        "change_pct": -0.6,
+        "change_pct": 0.0,
         "currency": "USD",
         "is_stale": false,
         "market": "GLOBAL",
         "name": "原油",
         "observed_at": null,
-        "price": 82.77,
+        "price": 81.25,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "原油",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       },
       {
         "amount": null,
-        "change_pct": -4.777486910994756,
+        "change_pct": 0.5498281786941586,
         "currency": "USD",
         "is_stale": false,
         "market": "GLOBAL",
         "name": "VIX",
         "observed_at": null,
-        "price": 14.55,
+        "price": 14.63,
         "session_status": "unknown",
         "source": "yahoo",
         "symbol": "VIX",
-        "trading_date": "2026-08-13"
+        "trading_date": "2026-08-14"
       }
     ],
     "news_signals": [
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "2ed099075ce2c9bad9d0efc91180cd9928c5b0c3",
-        "id": "2f233deb4aaf7bc5edac10363f8c06ed6d6f67a3",
-        "importance": 7.0,
-        "link": "https://techcrunch.com/2026/08/12/amazon-will-train-on-twitch-streamers-content-by-default-unless-they-opt-out",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T20:10:40+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "TechCrunch AI",
-        "source_ids": [
-          "2f233deb4aaf7bc5edac10363f8c06ed6d6f67a3"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "亚马逊旗下Twitch将默认使用主播内容训练AI，除非主播主动选择退出。Twitch首席产品官迈克·明顿在直播中回应称，如果改为选择加入，没有人会加入。",
-        "title": "亚马逊将默认使用Twitch主播内容训练AI，除非主播选择退出",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "f26aed3136bf4dbb963a435f734742c82fe24142",
-        "id": "8a66cb32dff8afdbcadc2078ad41427eabebb1ea",
+        "event_id": "4f345b2d1559c2a535b216a758f9fac9a9983d42",
+        "id": "72c1714eb2a2ff3f6474bba304d93b025fc32e2f",
         "importance": 8.0,
-        "link": "https://techcrunch.com/2026/08/12/ai-coding-startup-cognition-reportedly-already-in-talks-to-raise-at-40b-valuation",
+        "link": "https://techcrunch.com/2026/08/13/databricks-wanted-to-raise-1b-investors-wanted-15b-it-settled-on-5b-at-a-190b-valuation",
         "novelty": 1.0,
-        "published_at": "2026-08-12T18:19:12+00:00",
+        "published_at": "2026-08-13T20:14:39+00:00",
         "section": "ai",
         "sentiment": 0.0,
         "source": "TechCrunch AI",
         "source_ids": [
-          "8a66cb32dff8afdbcadc2078ad41427eabebb1ea"
+          "72c1714eb2a2ff3f6474bba304d93b025fc32e2f"
         ],
         "source_quality": 0.85,
         "source_type": "media",
-        "summary": "Cognition在数月前以260亿美元估值完成10亿美元融资后，可能正寻求新一轮巨额融资，目标估值达400亿美元。这显示AI编程领域资本追捧热度持续升温。",
-        "title": "AI编程初创公司Cognition据报已在洽谈以400亿美元估值融资",
+        "summary": "AI成本高昂，Databricks首席执行官Ali Ghodsi表示，因投资者需求旺盛，公司接受了超出计划的融资。最终以1900亿美元估值筹集50亿美元，而原计划仅为10亿美元，投资者曾希望投入150亿美元。",
+        "title": "Databricks原计划融资10亿，投资者欲投150亿，最终以1900亿估值融资50亿",
         "topics": [
           "funding_ma"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "acf2a972f195263ec61cba92d586a34beaf5541a",
-        "id": "6585ea3c34af1d0dbd88146e6dacda3637b9f2ee",
-        "importance": 7.0,
-        "link": "https://techcrunch.com/2026/08/12/openai-backed-thrive-holdings-raises-2b-to-bring-ai-to-the-enterprise",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T17:41:29+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "TechCrunch AI",
-        "source_ids": [
-          "6585ea3c34af1d0dbd88146e6dacda3637b9f2ee"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "Thrive Holdings以120亿美元估值完成20亿美元新一轮融资，投资方包括软银、D1 Capital Partners和Altimeter Capital。该公司由OpenAI支持，计划利用资金将人工智能技术引入企业市场。",
-        "title": "OpenAI支持的Thrive Holdings融资20亿美元，将AI引入企业",
-        "topics": [
-          "funding_ma"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "dc82507db6914e1a5a2334d8e01694870a446ae3",
-        "id": "fbdfaa10f2aa8cf25060a89506238197bec9738d",
+        "event_id": "ea3319675cb2f062b24cd35ff79a3bd2a4acf47f",
+        "id": "71f28f1b3fcc8fba872f6c883bdcaa32b7b82b3b",
         "importance": 9.0,
-        "link": "https://openrouter.ai/deepseek/deepseek-v4-pro-0813",
+        "link": "https://techcrunch.com/2026/08/13/openai-introduces-ultrafast-a-new-mode-that-makes-gpt-5-6-sol-work-at-14x-the-speed",
         "novelty": 1.0,
-        "published_at": "2026-08-12T16:04:50+00:00",
+        "published_at": "2026-08-13T19:22:40+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "Hacker News Frontpage",
+        "source": "TechCrunch AI",
         "source_ids": [
-          "fbdfaa10f2aa8cf25060a89506238197bec9738d"
+          "71f28f1b3fcc8fba872f6c883bdcaa32b7b82b3b"
         ],
-        "source_quality": 0.55,
-        "source_type": "community",
-        "summary": "该条目分享了DeepSeek V4 Pro 0813的链接，在Hacker News上获得678分和239条评论，关注度较高。但未提供文章具体内容。",
-        "title": "DeepSeek V4 Pro 0813",
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "OpenAI正在发布其最新最强大模型的加速版本预览，旨在吸引企业用户。该新模式名为“Ultrafast”，可让GPT-5.6 Sol以原速度的14倍运行。",
+        "title": "OpenAI推出“Ultrafast”新模式，使GPT-5.6 Sol运行速度提升14倍",
         "topics": [
           "foundation_models"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "1adce1b4e617733bb7d36249fdbda352a0377241",
-        "id": "b1e003665ffe2f401527ba595b97a0be69c409e5",
-        "importance": 8.0,
-        "link": "https://techcrunch.com/2026/08/12/lovable-confirms-new-13-3b-valuation-raises-another-400m",
+        "event_id": "e7ce34b6296a21c59e3e23213215578e6896329a",
+        "id": "a4456a2f31b5558d6580100f5d815926c144ff1b",
+        "importance": 7.0,
+        "link": "https://techcrunch.com/2026/08/13/ibm-partners-with-openai-to-bolster-enterprise-ai-push",
         "novelty": 1.0,
-        "published_at": "2026-08-12T16:04:27+00:00",
+        "published_at": "2026-08-13T19:19:49+00:00",
         "section": "ai",
         "sentiment": 0.0,
         "source": "TechCrunch AI",
         "source_ids": [
-          "b1e003665ffe2f401527ba595b97a0be69c409e5"
+          "a4456a2f31b5558d6580100f5d815926c144ff1b"
         ],
         "source_quality": 0.85,
         "source_type": "media",
-        "summary": "初创公司Lovable确认完成新一轮4亿美元融资，估值升至133亿美元。该公司此前在6月实现年化经常性收入5亿美元。",
-        "title": "Lovable确认新估值达133亿美元，再获4亿美元融资",
+        "summary": "IBM计划培训并认证数万名顾问掌握OpenAI技术，作为此次合作的一部分。该合作旨在强化IBM在企业人工智能领域的竞争力。",
+        "title": "IBM与OpenAI合作，加强企业人工智能布局",
         "topics": [
-          "funding_ma"
+          "unclassified"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "237fba3cbb975bdf20f0db9cc20c7fc44012d9f5",
-        "id": "abadfb45f943fcd5c50b47d2f18462ba3144cbba",
-        "importance": 8.0,
-        "link": "https://x.ai/news/grok-4-6",
+        "event_id": "e9c90220ad6fe77e5910fd9ff8fd71b4a14e3245",
+        "id": "230c52ca08f0c0ca512522f24d7f83d4d1c5f112",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1kN2xzQXlIOHVtQzhCZks1UXJpR3ptZENaMmR5Z3Y3c0QyMW90XzZUT1AwdTZXdEZSNVRIdzFMWkJzM0tPTG5VdVZBeGpmR2pCcnBVaA?oc=5",
         "novelty": 1.0,
-        "published_at": "2026-08-12T15:32:50+00:00",
+        "published_at": "2026-08-13T18:30:44+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "第一财经",
+        "source_ids": [
+          "230c52ca08f0c0ca512522f24d7f83d4d1c5f112",
+          "230c52ca08f0c0ca512522f24d7f83d4d1c5f112"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "生态环境部宣布，石化、化工等高排放行业将纳入全国碳市场。此举意味着全国约80%的二氧化碳排放将得到有效管控。",
+        "title": "石化、化工等高排放行业将纳入全国碳市场 生态环境部：全国约80%二氧化碳排放被有效管控",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "7d5fe69d1f325d3e10e1dd7aa81c513eceb8c0c5",
+        "id": "dd378ea08187ffc514680b6ebeec11fe5f10a53d",
+        "importance": 9.0,
+        "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash",
+        "novelty": 1.0,
+        "published_at": "2026-08-13T17:23:22+00:00",
         "section": "ai",
         "sentiment": 0.0,
         "source": "Hacker News Frontpage",
         "source_ids": [
-          "abadfb45f943fcd5c50b47d2f18462ba3144cbba"
+          "dd378ea08187ffc514680b6ebeec11fe5f10a53d"
         ],
         "source_quality": 0.55,
         "source_type": "community",
-        "summary": "xAI发布了Grok 4.6。该新闻在Hacker News上获得352个点赞和359条评论，详情可查看x.ai官网公告。",
-        "title": "Grok 4.6",
+        "summary": "谷歌更新了 Gemini API 文档，新增 Gemini 3.7 Flash 模型介绍。该消息在 Hacker News 上引发热议，获得 540 点积分和 315 条评论，显示开发者高度关注。",
+        "title": "谷歌发布 Gemini 3.7 Flash 模型文档",
         "topics": [
-          "unclassified"
+          "foundation_models"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "711b283e05ac22022f6287a86fb26cacd5aada03",
-        "id": "acb41fc1e8c975526f002750a05c9060d190145d",
-        "importance": 8.0,
-        "link": "https://www.reddit.com/r/singularity/comments/1vmflo1/deepmind_just_released_sl2t_sign_languagetotext",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T14:24:01+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "Reddit r/singularity Top",
-        "source_ids": [
-          "acb41fc1e8c975526f002750a05c9060d190145d"
-        ],
-        "source_quality": 0.55,
-        "source_type": "community",
-        "summary": "DeepMind推出SL2T手语转文字模型，可实时将手部、身体和面部动作转化为英文文本，让聋人用户无需打字即可在手机上输入。该模型与聋人社区共同开发，支持单手持机等实际场景，姿态跟踪在设备端完成以保护隐私，翻译在服务器运行。",
-        "title": "DeepMind发布手语转文字模型SL2T，聋人用户可用手语输入手机",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "67eb033cf24de40f031638ec734a22d2c0e622c7",
-        "id": "52fa033e5f1f88fe1fbecaafd4a117291bb0cbc2",
-        "importance": 7.0,
-        "link": "https://blog.florianherrengt.com/ai-removing-middle-class-software-engineering.html",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T13:20:05+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "Hacker News Frontpage",
-        "source_ids": [
-          "52fa033e5f1f88fe1fbecaafd4a117291bb0cbc2"
-        ],
-        "source_quality": 0.55,
-        "source_type": "community",
-        "summary": "本文探讨人工智能对软件工程行业的影响，认为AI正逐步取代中级软件工程师的工作，导致该群体面临被淘汰的风险。文章在 Hacker News 上引发热议，获得 662 个点赞和 582 条评论。",
-        "title": "AI正在消灭软件工程的中产阶级？",
-        "topics": [
-          "policy_safety"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "1380bf81920bbf2ccd76b352754dd83ae1551bc6",
-        "id": "99ec528ba3a13b093999a59ef896a3d64b92214d",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9HN05ySm1yZUxvVE9PbG81SmtNMFpJY2lrZjNkdERjdjlOZTBwTEN0bzVFUU4ybkZPWDRzSktDMGVBQWY0a2w4ek1nZ1hoYm9YaTVGOQ?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T10:38:20+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "第一财经",
-        "source_ids": [
-          "99ec528ba3a13b093999a59ef896a3d64b92214d",
-          "99ec528ba3a13b093999a59ef896a3d64b92214d"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "第一财经推出专题报道“跨越山海”，关注中国优秀出海企业。报道展现中国企业在全球市场的发展与成就。",
-        "title": "中国那些了不起的出海企业 | 跨越山海 - 第一财经",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "544117b7a0e31f9ec0d93cd7e32587e4cef033ff",
-        "id": "811b3d3b88fcfbbba64d1d376e93177e45d32108",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBWemJNOVNOZDJ5enZONWZMaGNjZTdudUxnRkpUZmpJd3luVjJXanM0Q0NSV1ZYbkdQOENUR0VMX0dSemlZeERNOWhBX1owcmtlOWln?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T08:31:42+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "第一财经",
-        "source_ids": [
-          "811b3d3b88fcfbbba64d1d376e93177e45d32108",
-          "811b3d3b88fcfbbba64d1d376e93177e45d32108"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "俄罗斯总统普京称，北约向太平洋地区渗透对俄构成威胁。该表态凸显俄方对北约在亚太扩张的警惕。",
-        "title": "普京：北约向太平洋地区渗透对俄造成威胁",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "a7f0d52b77714087b523db1f37d485a7c89ad4c2",
-        "id": "bfaa83742b45e8015f2666d155a03f0e3a13d771",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE0zeS1vS0N4bTBMR2tZbDZPUlY5VWxDeWF4ZEtLZUVVRWh0TDdHTm5tMTg5NFlZNl9EYk1kY3N6MTJmODczZnFwQ3BFRV9LS25wM1l1OQ?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T07:38:15+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "第一财经",
-        "source_ids": [
-          "bfaa83742b45e8015f2666d155a03f0e3a13d771",
-          "bfaa83742b45e8015f2666d155a03f0e3a13d771"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "美元信用担忧重燃，叠加AI领域资金释放，推动金价出现修复性上涨。分析认为，后市金价有望继续走强，目标区间看至4500-5000美元。",
-        "title": "美元信用担忧重燃叠加AI资金释放，金价迎修复行情，后市或冲击4500-5000美元",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "1c04b832b7064684cffea96861e49fa5a2729a0c",
-        "id": "f47ac79cb77e7f594f632c53957e4de402baa598",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5HbUN2N3hTUVl1RUpBNHI2cmhRQzV3cjR5UmxJVnZaeENDSDVCbnB3QjdhODNrMEtGaTNxdERtaUJ4Z1RYWlNtWXdkTERuTW5saW5Jaw?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T06:30:51+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "第一财经",
-        "source_ids": [
-          "f47ac79cb77e7f594f632c53957e4de402baa598",
-          "f47ac79cb77e7f594f632c53957e4de402baa598"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "7月深圳新房销售同比增长超过30%，部分楼盘开盘去化率达四成。限购放松后外地购房客数量翻倍增长，业内对“金九银十”市场行情持乐观态度。",
-        "title": "深圳7月新房销售同比增超30% 限购放松后外地客翻倍 业内看好金九银十",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "caf0102c9518d46e92eaab204db018925effd8f9",
-        "id": "245a11ae836888cee69f4584fc597a38a23ac5fc",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1WVVhidHlrQ0Rqd3U3TUQxeWZLeUZFMlJvdWpSZnRhejRFbDVBbmxNQ2RUdm5zRFVGRU1FeTFNQ0doSS1qSTlCUXVseWlHMDZWWDdj?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T03:26:11+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "第一财经",
-        "source_ids": [
-          "245a11ae836888cee69f4584fc597a38a23ac5fc",
-          "e3d886d2f8db93cd4bae6b159389f977b68cf0fe",
-          "245a11ae836888cee69f4584fc597a38a23ac5fc",
-          "e3d886d2f8db93cd4bae6b159389f977b68cf0fe"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "阿里云灵骏真武M890超节点实例正式上线，首发地点为乌兰察布。该消息来自第一财经。",
-        "title": "阿里云灵骏真武M890超节点实例正式上线，首发乌兰察布",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "a37b949bba6dd318183b234b7651f43f4f64b7a9",
-        "id": "f2104edf38b1381c8ffd397bc79366c19941bb14",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5GbFRhZFlHU0x5eGF0M08zZFVfWmtkSnZEU1k3aWxqbkgxVWdXVXVrZF9UNi1BeTBxX0k4MnNBdzJ0NWNlUGRCeFBoWTNldlg2c0ZN?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-08-12T00:12:22+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "第一财经",
-        "source_ids": [
-          "f2104edf38b1381c8ffd397bc79366c19941bb14",
-          "f2104edf38b1381c8ffd397bc79366c19941bb14"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "中信证券表示，存储产业当前维持较高景气度。后续应重点关注长期协议（LTA）的推进情况以及相关公司的股东回报表现。",
-        "title": "中信证券：存储产业保持高景气度，后续关注LTA进展与股东回报",
-        "topics": [
-          "chips_compute"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "fd4ea388734946abbaf7d1f50af8c65f0977d84b",
-        "id": "b27577b38f6761c67ea9c99ee78088b586c6f907",
+        "event_id": "c8a8ddc35f39216a22efb41f11fcbd3ff5b73daf",
+        "id": "7e04a9e0c364740aa9b5cca896d6004376013c3d",
         "importance": 6.0,
-        "link": "https://tencent-hunyuan.github.io/Hunyuan3D-WorldClaw",
+        "link": "https://techcrunch.com/2026/08/13/microsoft-kills-off-unsuccessful-ai-features-while-merging-its-separate-copilot-apps",
         "novelty": 1.0,
-        "published_at": "2026-08-11T21:56:18+00:00",
+        "published_at": "2026-08-13T15:30:52+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "Hacker News Best",
+        "source": "TechCrunch AI",
         "source_ids": [
-          "b27577b38f6761c67ea9c99ee78088b586c6f907"
+          "7e04a9e0c364740aa9b5cca896d6004376013c3d"
         ],
-        "source_quality": 0.55,
-        "source_type": "community",
-        "summary": "该新闻介绍 WorldClaw 系统，采用智能体方法实现大规模 3D 开放世界生成。页面来自腾讯混元项目，在 Hacker News 上获得 269 点、90 条讨论。",
-        "title": "WorldClaw：大规模智能体化 3D 开放世界生成",
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "微软正在简化 Copilot，将消费者版与企业版应用合并，并移除多项表现不佳的 AI 功能，包括 AI 生成播客、群聊、深度研究及 Mico 角色。此举旨在整合产品线，集中资源优化核心体验。",
+        "title": "微软合并独立的 Copilot 应用并砍掉失败的 AI 功能",
         "topics": [
           "applications"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "a54193b2efabb3bd6298d5e648cb2fcfa259c775",
-        "id": "72f52ad1b9387ca67cbba8a267cac8ee6e559423",
-        "importance": 9.0,
-        "link": "https://www.theverge.com/ai-artificial-intelligence/978113/chatgpt-gemini-1-billion-users",
+        "event_id": "e625df3fafa37cbfc38a0dbff5844887a2113463",
+        "id": "d410f7210702f9482c24871e5a5e05706fe26dbc",
+        "importance": 8.0,
+        "link": "https://techcrunch.com/2026/08/13/nvidias-new-500b-plan-is-risky-but-brilliant-especially-for-aging-gpus",
         "novelty": 1.0,
-        "published_at": "2026-08-11T19:41:42+00:00",
+        "published_at": "2026-08-13T15:08:00+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "The Verge AI",
+        "source": "TechCrunch AI",
         "source_ids": [
-          "72f52ad1b9387ca67cbba8a267cac8ee6e559423"
+          "d410f7210702f9482c24871e5a5e05706fe26dbc"
         ],
         "source_quality": 0.85,
         "source_type": "media",
-        "summary": "谷歌CEO桑达尔·皮查伊宣布，Gemini 月活用户已达 10 亿，成为谷歌增长最快的产品。这已是谷歌第14款用户破10亿的产品，但并非首款达成此里程碑的 AI 应用；OpenAI 的 ChatGPT 此前也已达到 10 亿用户。",
-        "title": "ChatGPT 和 Gemini 双双突破 10 亿用户",
+        "summary": "英伟达推出5000亿美元计划，旨在确保其GPU不会贬值，并吸引新一批金融家继续为AI基础设施建设提供贷款。该计划被认为风险较高但策略精明，尤其有助于维持老款GPU的价值。",
+        "title": "英伟达5000亿美元新计划：风险高但精妙，尤其利好旧款GPU",
         "topics": [
-          "foundation_models"
+          "chips_compute",
+          "policy_safety"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "71746812c2e22adb2b2bb2eba6230682ddca83c4",
-        "id": "272ea1dc49ecaa485d7f9a74346cc654fce9b76e",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBhSUllOWpjcnl1aWFjbklfT19RQkxuemZFbjNseG9wZnJvVVJxZHhaTll5TUM0NklWeHdBdUdfaTZQYUJINVFzZkhEdFZJLThleE00?oc=5",
+        "event_id": "e59e1617472162ba96973f854a38a492f6a40fe2",
+        "id": "e149f6dcb3a527870d9b3a9bfca0255f9e87fa17",
+        "importance": 7.0,
+        "link": "https://techcrunch.com/2026/08/13/apple-in-talks-to-pay-publishers-to-provide-siri-with-current-news-report",
         "novelty": 1.0,
-        "published_at": "2026-08-11T19:05:53+00:00",
+        "published_at": "2026-08-13T14:34:43+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "TechCrunch AI",
+        "source_ids": [
+          "e149f6dcb3a527870d9b3a9bfca0255f9e87fa17"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "据报道，苹果正与出版商洽谈，付费获取新闻内容供Siri使用。据《华尔街日报》消息，该公司已考虑为此投入九位数预算。",
+        "title": "报道：苹果与出版商洽谈付费，为Siri提供时事新闻",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "7ec6d53011a6c372bb015713a07ec4afd1bc84ae",
+        "id": "18bf2029a5b9e3253d02e3d894968c43f94f1a39",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5qcFBheEdENmduZ3NnV2tZQ1pMU2NJRDZWSTV5X0NiUjRJYjJDd1hWQlNtNTRsOWRaYjVqbnpNdWR2eExVZXdHODM5NnVNai1aaWpj?oc=5",
+        "novelty": 1.0,
+        "published_at": "2026-08-13T13:01:51+00:00",
         "section": "market",
         "sentiment": 0.0,
         "source": "第一财经",
         "source_ids": [
-          "272ea1dc49ecaa485d7f9a74346cc654fce9b76e",
-          "272ea1dc49ecaa485d7f9a74346cc654fce9b76e"
+          "18bf2029a5b9e3253d02e3d894968c43f94f1a39",
+          "18bf2029a5b9e3253d02e3d894968c43f94f1a39"
         ],
         "source_quality": 0.85,
         "source_type": "media",
-        "summary": "据报道，共有53只理财产品成功获配宇树科技股份。其中，宁银理财和光大理财占据了约八成的理财获配份额。",
-        "title": "53只理财产品获配宇树科技，宁银、光大揽下八成理财份额",
+        "summary": "中芯国际与华虹半导体二季度利润大幅增长，晶圆代工行业景气度提升，两家公司盈利能力显著增强。",
+        "title": "晶圆代工“双雄”争锋：中芯、华虹二季度利润飙升 - 第一财经",
         "topics": [
-          "unclassified"
+          "chips_compute"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "08aca81f53a15de7fe6f06d5bbb1d091cb6513cb",
-        "id": "4b76f34b9372d46036fe75e6d8119b3054b4b90f",
-        "importance": 7.0,
-        "link": "https://www.theverge.com/ai-artificial-intelligence/978048/brad-lightcap-openai-executive-departure",
+        "event_id": "125fadaa4dfff8806ad5c01edf2a2f80672b3dda",
+        "id": "bb2f1e13a8a210d1e30749b3121587c993726d9f",
+        "importance": 8.0,
+        "link": "https://deepseek.com/harness/en",
         "novelty": 1.0,
-        "published_at": "2026-08-11T17:50:01+00:00",
+        "published_at": "2026-08-13T12:58:02+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "The Verge AI",
+        "source": "Hacker News Best",
         "source_ids": [
-          "4b76f34b9372d46036fe75e6d8119b3054b4b90f"
+          "bb2f1e13a8a210d1e30749b3121587c993726d9f"
         ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "OpenAI特殊项目负责人、前首席运营官Brad Lightcap在任职八年后宣布离职。他在内部备忘录中告知同事将开启新事业，并表示最近几个月一直专注于下一阶段的发展。",
-        "title": "OpenAI再失一位高管：特殊项目负责人宣布离职",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "aea43b7ed7e6a4fe76de5cfa2c56030ba6f883ef",
-        "id": "816ed2f1a2f28b410a1b3e884ac1e6c9f55dd96d",
-        "importance": 7.0,
-        "link": "https://www.theverge.com/tech/977561/made-by-google-2026-pixel-11-news",
-        "novelty": 1.0,
-        "published_at": "2026-08-11T17:00:00+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "The Verge AI",
-        "source_ids": [
-          "816ed2f1a2f28b410a1b3e884ac1e6c9f55dd96d"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "2026年8月12日，谷歌发布多款全新Pixel设备，包括升级摄像头和性能的彩色Pixel 11系列，Pro机型内置可随Gemini AI等亮起的LED环。谷歌还展示了边框更薄的下一代Pixel Fold。",
-        "title": "谷歌制造2026：Pixel 系列新品与发布汇总",
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "DeepSeek Harness 开发者预览版已上线，提供 GitHub 仓库与使用文档。Hacker News 上该条目获得519分和231条评论，引发开发者广泛关注。",
+        "title": "DeepSeek Harness 开发者预览版发布",
         "topics": [
           "foundation_models"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "3f8f810245e8eb965eb41b7ce314b82574710e17",
-        "id": "5a70573ea4d6aac7e8c0b71cd5be482f88652ca0",
+        "event_id": "00b9c640c9f1055d177e5c1ba386ba7e0e5f1343",
+        "id": "9bbc0b5fcd2365f1c726f69d59712851032d5f88",
         "importance": 7.0,
-        "link": "https://www.modular.com/blog/modular-26-5-mojo-1-0-is-here",
+        "link": "https://www.reddit.com/r/singularity/comments/1vn8qsr/deepseek_announce_price_increases_of_501000",
         "novelty": 1.0,
-        "published_at": "2026-08-11T16:56:46+00:00",
+        "published_at": "2026-08-13T12:01:43+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "Hacker News Best",
+        "source": "Reddit r/singularity Top",
         "source_ids": [
-          "5a70573ea4d6aac7e8c0b71cd5be482f88652ca0"
+          "9bbc0b5fcd2365f1c726f69d59712851032d5f88"
         ],
         "source_quality": 0.55,
         "source_type": "community",
-        "summary": "Modular 发布了 Mojo 1.0，这是一种面向 AI 开发者的高性能编程语言，兼具 Python 的易用性和系统级性能。该版本标志着语言成熟，提供稳定 API 与工具链，在 Hacker News 上引发广泛关注。",
-        "title": "Mojo 1.0 正式发布",
+        "summary": "DeepSeek宣布将服务价格上调50%至1000%。此次提价幅度较大，但具体适用范围和时间尚未披露。",
+        "title": "DeepSeek宣布提价50%至1000%",
         "topics": [
-          "unclassified"
+          "foundation_models"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "4aa988e36ddcbc4ba907937c8e2c1f8d8eb57f89",
-        "id": "95bd5da674d923a0fbda7007fcdd2c48f7e6547a",
-        "importance": 6.0,
-        "link": "https://www.theverge.com/tech/977921/apple-reference-image-iphone-metadata",
+        "event_id": "0bde70c5f232113c1e0f62739dca11fca26b4015",
+        "id": "11c62b55dfd85921758223805f6ea974b96cd90e",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1vYTJjTVNKeldKbldrTFI2OWNWbTBWZ1gyS3lDLXFNMjZDVGx0Nmo3V2VuWkV3ckVxQ0VaTEZyTXNjLXBSSnVQUEp2ZTBiRHd3RVctQQ?oc=5",
         "novelty": 1.0,
-        "published_at": "2026-08-11T16:19:15+00:00",
-        "section": "ai",
+        "published_at": "2026-08-13T11:50:41+00:00",
+        "section": "market",
         "sentiment": 0.0,
-        "source": "The Verge AI",
+        "source": "第一财经",
         "source_ids": [
-          "95bd5da674d923a0fbda7007fcdd2c48f7e6547a"
+          "11c62b55dfd85921758223805f6ea974b96cd90e",
+          "11c62b55dfd85921758223805f6ea974b96cd90e"
         ],
         "source_quality": 0.85,
         "source_type": "media",
-        "summary": "苹果正在开发一项iOS功能，可在拍摄时验证照片由iPhone相机拍摄。据报道，iOS 27 beta 5代码中包含“Apple Reference Image”系统，能在照片中嵌入来源元数据，帮助用户证明照片真实性，抵御深度伪造。",
-        "title": "苹果可以帮助你证明你的 iPhone 照片并非深度伪造",
+        "summary": "茅台自营店虽小幅多次提价，但经销商利润并未同步增长，经营主要依赖客户回购。报道探讨经销商如何摆脱“二道贩子”困境，寻找可持续发展路径。",
+        "title": "茅台自营店涨价“小步快跑” 经销商利润仍在“原地踏步”",
         "topics": [
           "unclassified"
         ]
       },
       {
-        "as_of": "2026-08-12T23:48:59.188962+00:00",
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "be58b875d437f2ad7952e7dca48fb275c3d87bab",
-        "id": "61e20f5e633e309e62bf50ff252975cb97671128",
-        "importance": 8.0,
-        "link": "https://www.ft.com/content/e49dfb75-f841-4466-a577-f7aaff8779a0",
+        "event_id": "c703bff426e261766ea88a6e45141d532bb6c671",
+        "id": "44572bc5143492335fc88d0ef87e4500a997a6f7",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1VTGR3a3JFaHJiYTljRENmT2lTbGhPemxQTHdJVkVrczU2YnYyVms2YjkwSlpQcGtFcXN6UTR2SkhUSGM1Nkh0bjVRN0hXckFac19VSQ?oc=5",
         "novelty": 1.0,
-        "published_at": "2026-08-11T12:23:07+00:00",
+        "published_at": "2026-08-13T06:33:30+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "第一财经",
+        "source_ids": [
+          "44572bc5143492335fc88d0ef87e4500a997a6f7",
+          "44572bc5143492335fc88d0ef87e4500a997a6f7"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "生态环境部在发布会上表示，预计到2030年中国运行核电机组将接近100台，届时核电运行规模将跃居世界首位。",
+        "title": "2030年运行核电机组接近100台 生态环境部：将跃居世界首位",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "442b2a47e52a9745f5e00a7b46bf871a5ddb1c1b",
+        "id": "2f81df1e7be22b2544938513264bb44cb4be8e9f",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1CaXRDS0w4aER5eHE0ZlRFZ2ZxaERmbEdKU0dXdk5MdUlQWFNHaXEwRFBVZFJqazFCVnVQVFV1c1FDaFU5NkRxbVZPckpxN3gtcXNfUQ?oc=5",
+        "novelty": 1.0,
+        "published_at": "2026-08-13T05:29:43+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "第一财经",
+        "source_ids": [
+          "2f81df1e7be22b2544938513264bb44cb4be8e9f",
+          "2f81df1e7be22b2544938513264bb44cb4be8e9f"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "巴拿马运河因罕见干旱导致通航能力骤降，船只竞拍优先通行权费用高达400万美元。受此影响，美东航线运价暴涨3倍，全球供应链面临严峻挑战。",
+        "title": "400万美元“买插队”！巴拿马运河反季节危机致美东航线暴涨3倍",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "f178cf03b90731c7b0227d92f70ee123beb861f1",
+        "id": "f4499451c6efa50425eb97e2505e72254b7ae9f4",
+        "importance": 7.0,
+        "link": "https://community.openai.com/t/codex-in-chatgpt-desktop-app-for-linux-is-now-in-preview/1390027",
+        "novelty": 1.0,
+        "published_at": "2026-08-13T04:53:41+00:00",
         "section": "ai",
         "sentiment": 0.0,
         "source": "Hacker News Best",
         "source_ids": [
-          "61e20f5e633e309e62bf50ff252975cb97671128"
+          "f4499451c6efa50425eb97e2505e72254b7ae9f4"
         ],
         "source_quality": 0.55,
         "source_type": "community",
-        "summary": "OpenAI 的伦理负责人在加入公司不到一年后离职，具体原因尚未公开。这一人事变动引发外界对该公司在人工智能伦理治理方面稳定性的关注。",
-        "title": "OpenAI 伦理负责人入职不到一年离职",
+        "summary": "OpenAI 宣布 ChatGPT 桌面应用 Linux 版中的 Codex 功能进入预览阶段。该功能为 Linux 用户带来编程助手体验，并已在技术社区引发大量关注与讨论。",
+        "title": "Linux 版 ChatGPT 桌面应用 Codex 现已推出预览版",
+        "topics": [
+          "foundation_models"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "d4e460e6be765be66d9ab285e79d75c1da0684c8",
+        "id": "b409ae32f5b17e4b2f48590188f7e5b3c5b9102b",
+        "importance": 8.0,
+        "link": "https://www.reddit.com/r/singularity/comments/1vmxvud/deepseek_v4_pro_0813_leaps_over_glm52",
+        "novelty": 1.0,
+        "published_at": "2026-08-13T02:13:17+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "Reddit r/singularity Top",
+        "source_ids": [
+          "b409ae32f5b17e4b2f48590188f7e5b3c5b9102b"
+        ],
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "DeepSeek V4 Pro 0813 在性能上超越 GLM-5.2。该消息由 Reddit 用户 RetiredApostle 发布，具体评测细节未提供。",
+        "title": "DeepSeek V4 Pro 0813 超越 GLM-5.2",
+        "topics": [
+          "foundation_models"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "db62270ff654234bd7ea066a9bec6fcea98f0977",
+        "id": "d72fe254542cbf34187cc9154b8e4ed2aa642492",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE8wd3M2SW1wcUpsTllwSU0zYjVSdHdLblVOZzJlYU1hYkZKd3hVeGE5V0tTSm5EN05DVkpZLURyRC1vZVhqaEdpQjdfYjlGMTNYYjh3?oc=5",
+        "novelty": 1.0,
+        "published_at": "2026-08-13T01:16:56+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "第一财经",
+        "source_ids": [
+          "d72fe254542cbf34187cc9154b8e4ed2aa642492",
+          "d72fe254542cbf34187cc9154b8e4ed2aa642492"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "第一财经报道，DeepSeek发布V4 Pro版本，其定位对标Fable 5。该版本价格是DeepSeek Flash版的三倍。",
+        "title": "DeepSeek V4 Pro来了！对标Fable 5、价格是flash版的三倍 - 第一财经",
+        "topics": [
+          "foundation_models"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "f6111b36f287aceec39741e8183346ed1c792e06",
+        "id": "de89a36be8b4b99077c2decc798b0ed51699c42f",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1MR0ZmWWcxQ2NjZ3YzekV0TUI0ZzEyZUREcG5jdnJnRTVPbkt3UTgxakEzc0RKbFFxT1MwdUFuMUF6WXNiN0M5V1AwZXpqM1RTZ2ZGcg?oc=5",
+        "novelty": 1.0,
+        "published_at": "2026-08-12T18:45:16+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "第一财经",
+        "source_ids": [
+          "de89a36be8b4b99077c2decc798b0ed51699c42f",
+          "de89a36be8b4b99077c2decc798b0ed51699c42f"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "金价上涨带动黄金变现需求升温，深圳水贝市场出现黄金回收多、购买少的现象。部分投资者获利离场，部分则割肉出局，商家因回收量激增面临资金周转压力。",
+        "title": "金价大涨催热变现需求 水贝黄金“回收的多买的少” 有人获利出有人割肉跑 商家：资金都差点周转不过来了",
         "topics": [
           "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "d6e9eef4cfc2543e9372fc7c7c64d17753e86c0d",
+        "id": "32cdb4e18a7ec1e9ef2673a3359ad7870728dc48",
+        "importance": 8.0,
+        "link": "https://artificialanalysis.ai/articles/grok-4-6-benchmarks-and-analysis",
+        "novelty": 1.0,
+        "published_at": "2026-08-12T16:54:25+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "Hacker News Best",
+        "source_ids": [
+          "32cdb4e18a7ec1e9ef2673a3359ad7870728dc48"
+        ],
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "xAI的Grok 4.6在Artificial Analysis Intelligence Index中取得61分。该指数用于评估AI模型的综合智能表现，Grok 4.6的得分体现了其在多方面的能力水平。",
+        "title": "Grok 4.6在Artificial Analysis智能指数上得分为61",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "b66603a2f54f08c4e7e2b6adcb2c432c19245f53",
+        "id": "f9e1ef66ab3da5c60dafd5b54edf0f328df3b39e",
+        "importance": 9.0,
+        "link": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+        "novelty": 1.0,
+        "published_at": "2026-08-12T15:01:17+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "Hacker News Best",
+        "source_ids": [
+          "f9e1ef66ab3da5c60dafd5b54edf0f328df3b39e"
+        ],
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "Qwen发布大型混合专家模型Qwen3.8-2.4T-A95B-FP8，并在Hugging Face上公开。该模型在Hacker News上引发广泛讨论，获得700分和168条评论。",
+        "title": "Qwen3.8-2.4T",
+        "topics": [
+          "foundation_models",
+          "open_source"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "073165434a4096e78d677dbe53fd2c67eeec4b78",
+        "id": "d81a3b92e377f29719659235412cbe3b016b85a8",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBiZ3FrS1JNdDduejBsUHVkb2ZsaXRzZ0swME9HbDRyMmZocFB0Z1BhaXFsVk1QUDVXdlVMVE52bnI1M3BTdWE2cGFPV3ZUSVJBRTJv?oc=5",
+        "novelty": 1.0,
+        "published_at": "2026-08-12T14:41:11+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "第一财经",
+        "source_ids": [
+          "d81a3b92e377f29719659235412cbe3b016b85a8",
+          "d81a3b92e377f29719659235412cbe3b016b85a8"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "市值1400亿元的粮油龙头企业上半年营收保持增长，但净利润增速有所回落。直销渠道成为该公司核心增长点。",
+        "title": "1400亿市值粮油龙头上半年营收增长净利润增速回落，直销渠道成核心增长点 - 第一财经",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "d3519a37583ea550c138ae3a9163778fd1dbc1b7",
+        "id": "550006791bdd55579ec98d34ac6fbd9c6ddd0d79",
+        "importance": 6.0,
+        "link": "https://tailscale.com/blog/sqlite-wal-reset-bug",
+        "novelty": 1.0,
+        "published_at": "2026-08-12T14:22:30+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "Hacker News Best",
+        "source_ids": [
+          "550006791bdd55579ec98d34ac6fbd9c6ddd0d79"
+        ],
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "本文介绍了对SQLite中一个存续16年的WAL（预写式日志）重置bug的定位与修复过程，分析了该问题的成因及其对数据库操作的影响。",
+        "title": "追踪存在16年的SQLite WAL重置bug",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-08-13T23:51:07.597159+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "66113d506f14dbd676874c159e252e5389372ffc",
+        "id": "6a35fe7f03ed472b5678fb255c8c0cfdbb810e68",
+        "importance": 6.0,
+        "link": "https://knownagents.com/insights",
+        "novelty": 1.0,
+        "published_at": "2026-08-12T14:02:46+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "Hacker News Best",
+        "source_ids": [
+          "6a35fe7f03ed472b5678fb255c8c0cfdbb810e68"
+        ],
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "有人正在大规模进行漏洞扫描，并伪装成ClaudeBot等AI爬虫机器人，以规避网站检测或实施攻击。此类行为引发安全关注，建议网站管理员加强识别与防护。",
+        "title": "有人正进行大规模漏洞扫描并伪装成ClaudeBot等AI机器人",
+        "topics": [
+          "foundation_models",
+          "policy_safety"
         ]
       }
     ],
@@ -2106,7 +2161,7 @@
     "schema_version": 1,
     "topic_metrics": {
       "applications": {
-        "activity": 0.33,
+        "activity": 0.51,
         "event_count": 1,
         "metric_version": "metric-v1",
         "name": "AI 应用与商业化",
@@ -2114,44 +2169,44 @@
         "source_count": 1
       },
       "chips_compute": {
-        "activity": 0.425,
-        "event_count": 1,
+        "activity": 0.765,
+        "event_count": 2,
         "metric_version": "metric-v1",
         "name": "芯片与算力",
         "sentiment": 0.0,
-        "source_count": 1
+        "source_count": 2
       },
       "foundation_models": {
-        "activity": 1.855,
-        "event_count": 3,
+        "activity": 3.7475,
+        "event_count": 9,
         "metric_version": "metric-v1",
         "name": "基础模型",
         "sentiment": 0.0,
-        "source_count": 2
+        "source_count": 5
       },
       "funding_ma": {
-        "activity": 1.955,
-        "event_count": 3,
+        "activity": 0.68,
+        "event_count": 1,
         "metric_version": "metric-v1",
         "name": "融资与并购",
         "sentiment": 0.0,
         "source_count": 1
       },
       "open_source": {
-        "activity": 0.0,
-        "event_count": 0,
+        "activity": 0.2475,
+        "event_count": 1,
         "metric_version": "metric-v1",
         "name": "开源生态",
         "sentiment": 0.0,
-        "source_count": 0
+        "source_count": 1
       },
       "policy_safety": {
-        "activity": 0.385,
-        "event_count": 1,
+        "activity": 0.505,
+        "event_count": 2,
         "metric_version": "metric-v1",
         "name": "政策、安全与监管",
         "sentiment": 0.0,
-        "source_count": 1
+        "source_count": 2
       }
     }
   }
