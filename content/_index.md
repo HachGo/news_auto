@@ -1,7 +1,7 @@
 ---
 title: "首页"
 layout: "home"
-date: 2026-08-14T07:51:07+0800
+date: 2026-08-15T07:28:54+0800
 summary: "今日四版面总览。"
 ---
 
@@ -15,22 +15,22 @@ summary: "今日四版面总览。"
 
 <li class="focus-item focus-ai">
 <span class="focus-label">AI与科技</span>
-<a class="focus-title" href="/ai/2026-08-14/">OpenAI推出“Ultrafast”新模式，使GPT-5.6 Sol运行速度提升14倍</a>
+<a class="focus-title" href="/ai/2026-08-15/">GLM-5.3：具备涌现网络安全能力的前沿编码模型</a>
 </li>
 
 <li class="focus-item focus-world">
 <span class="focus-label">国际资讯</span>
-<a class="focus-title" href="/world/2026-08-14/">刚果（金）快速增长的埃博拉疫情扩散至第六省</a>
+<a class="focus-title" href="/world/2026-08-15/">曼吉奥内承认杀害医疗CEO并就联邦指控认罪</a>
 </li>
 
 <li class="focus-item focus-market">
 <span class="focus-label">金融市场与股市</span>
-<a class="focus-title" href="/market/2026-08-14/">1400亿市值粮油龙头上半年营收增长净利润增速回落，直销渠道成核心增长点 - 第一财经</a>
+<a class="focus-title" href="/market/2026-08-15/">智谱发布GLM-5.3模型 拥有更强编程能力</a>
 </li>
 
 <li class="focus-item focus-deep">
 <span class="focus-label">深度阅读与学习</span>
-<a class="focus-title" href="/deep/2026-08-14/">伦敦公交车司机抗议酷热工作条件</a>
+<a class="focus-title" href="/deep/2026-08-15/">气候问题通讯：欧洲热浪的惊人影响</a>
 </li>
 
 </ul>
@@ -43,28 +43,28 @@ summary: "今日四版面总览。"
 
 <div class="section-grid">
 
-<a class="section-card section-ai" href="/ai/2026-08-14/">
+<a class="section-card section-ai" href="/ai/2026-08-15/">
 <h3>AI与科技</h3>
-<p class="section-blurb">今日 15 条 · 焦点：OpenAI推出“Ultrafast”新模式，使GPT-5.6 Sol运行速度提升14倍、谷歌发布 Gemini 3.7 Flash 模型文档…</p>
+<p class="section-blurb">今日 15 条 · 焦点：GLM-5.3：具备涌现网络安全能力的前沿编码模型、加速 GPT-5.6 Sol Ultrafast…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-world" href="/world/2026-08-14/">
+<a class="section-card section-world" href="/world/2026-08-15/">
 <h3>国际资讯</h3>
-<p class="section-blurb">今日 15 条 · 焦点：刚果（金）快速增长的埃博拉疫情扩散至第六省、以色列定居者围攻村庄，巴勒斯坦人被告知撤离住所…</p>
+<p class="section-blurb">今日 15 条 · 焦点：曼吉奥内承认杀害医疗CEO并就联邦指控认罪、独家：消息人士称银湖资本洽谈收购Workday…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-market" href="/market/2026-08-14/">
+<a class="section-card section-market" href="/market/2026-08-15/">
 <h3>金融市场与股市</h3>
-<p class="section-quotes">上证 ▼0.50% · 纳斯达克 ▲0.81%</p>
-<p class="section-blurb">今日 8 条 · 焦点：1400亿市值粮油龙头上半年营收增长净利润增速回落，直销渠道成核心增长点 - 第一财经、DeepSeek V4 Pro来了！对标Fable 5、价格是flash版的三倍 - 第一财经…</p>
+<p class="section-quotes">上证 ▲0.01% · 纳斯达克 ▼0.28%</p>
+<p class="section-blurb">今日 8 条 · 焦点：智谱发布GLM-5.3模型 拥有更强编程能力、机构策略：A股市场景气逻辑正在回归…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-deep section-card-deep" href="/deep/2026-08-14/">
+<a class="section-card section-deep section-card-deep" href="/deep/2026-08-15/">
 <h3>深度阅读与学习</h3>
-<p class="section-blurb">伦敦公交车司机因酷热工作条件发起抗议。报道指出，英国劳动者在极端高温下缺乏有效保护措施。这一现象凸显出职业健康安全法规在应对气候变化方面的不足，值得深入关注其制…</p>
+<p class="section-blurb">欧洲今年夏天异常炎热干燥，热浪不仅威胁公众健康，更暴露出能源、交通、水利等基础设施的脆弱性。本文作者奥利弗·莫顿深入分析了高温如何考验欧洲大陆的基础设施，以及各…</p>
 <span class="section-more">查看全文</span>
 </a>
 
