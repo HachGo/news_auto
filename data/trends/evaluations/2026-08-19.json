@@ -1,0 +1,42 @@
+{
+  "date": "2026-08-19",
+  "evaluations": [
+    {
+      "confidence": "low",
+      "created_at": "2026-08-11T23:45:16.832106+00:00",
+      "data_snapshot": "2026-08-12",
+      "direction": "insufficient_data",
+      "drivers": [],
+      "forecast_id": "trend-week-2026-08-12",
+      "horizon": "week",
+      "invalidation_conditions": [],
+      "model_version": "rules-v1",
+      "realized_result": {
+        "direction": "negative",
+        "evaluated_at": "2026-08-19",
+        "value": -0.076375
+      },
+      "reason": "数据不足",
+      "scenarios": [
+        {
+          "description": "多空信号接近，趋势暂未确认。",
+          "direction": "neutral",
+          "name": "基准"
+        },
+        {
+          "description": "主题动量重新加速。",
+          "direction": "positive",
+          "name": "上行"
+        },
+        {
+          "description": "风险事件增加且市场广度收缩。",
+          "direction": "negative",
+          "name": "下行"
+        }
+      ],
+      "status": "incorrect",
+      "target": "combined_trend",
+      "target_date": "2026-08-19"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 ---
 title: "首页"
 layout: "home"
-date: 2026-08-18T07:28:03+0800
+date: 2026-08-19T07:31:15+0800
 summary: "今日四版面总览。"
 ---
 
@@ -15,22 +15,22 @@ summary: "今日四版面总览。"
 
 <li class="focus-item focus-ai">
 <span class="focus-label">AI与科技</span>
-<a class="focus-title" href="/ai/2026-08-18/">Qwen3.8 27B在Artificial Analysis上得分52</a>
+<a class="focus-title" href="/ai/2026-08-19/">Anthropic年化营收飙升至650亿美元</a>
 </li>
 
 <li class="focus-item focus-world">
 <span class="focus-label">国际资讯</span>
-<a class="focus-title" href="/world/2026-08-18/">刚果民主共和国埃博拉疫情成为该国历史上最致命疫情</a>
+<a class="focus-title" href="/world/2026-08-19/">法庭听取：Meta使儿童沉迷于Facebook和Instagram</a>
 </li>
 
 <li class="focus-item focus-market">
 <span class="focus-label">金融市场与股市</span>
-<a class="focus-title" href="/market/2026-08-18/">多名水兵被曝出精神崩溃、企图自杀后，美军中央司令部司令登“林肯”号航母视察</a>
+<a class="focus-title" href="/market/2026-08-19/">4S店“爆改”大排档健身房 分割空间降房租</a>
 </li>
 
 <li class="focus-item focus-deep">
 <span class="focus-label">深度阅读与学习</span>
-<a class="focus-title" href="/deep/2026-08-18/">共和党筹款的问题</a>
+<a class="focus-title" href="/deep/2026-08-19/">Meta重磅审判被比作大烟草公司案</a>
 </li>
 
 </ul>
@@ -43,28 +43,28 @@ summary: "今日四版面总览。"
 
 <div class="section-grid">
 
-<a class="section-card section-ai" href="/ai/2026-08-18/">
+<a class="section-card section-ai" href="/ai/2026-08-19/">
 <h3>AI与科技</h3>
-<p class="section-blurb">今日 15 条 · 焦点：Qwen3.8 27B在Artificial Analysis上得分52、GPT 5.6 Sol是OpenAI有史以来发布的最佳“视觉”模型…</p>
+<p class="section-blurb">今日 15 条 · 焦点：Anthropic年化营收飙升至650亿美元、Cursor 推出 Origin，成为 GitHub 的替代代码托管平台…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-world" href="/world/2026-08-18/">
+<a class="section-card section-world" href="/world/2026-08-19/">
 <h3>国际资讯</h3>
-<p class="section-blurb">今日 9 条 · 焦点：刚果民主共和国埃博拉疫情成为该国历史上最致命疫情、印尼遭遇致命地震，援助短缺引发饥荒担忧…</p>
+<p class="section-blurb">今日 15 条 · 焦点：法庭听取：Meta使儿童沉迷于Facebook和Instagram、美国军事资金如何推动中国机器狗发展…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-market" href="/market/2026-08-18/">
+<a class="section-card section-market" href="/market/2026-08-19/">
 <h3>金融市场与股市</h3>
-<p class="section-quotes">上证 ▲1.41% · 纳斯达克 ▼0.32%</p>
-<p class="section-blurb">今日 8 条 · 焦点：多名水兵被曝出精神崩溃、企图自杀后，美军中央司令部司令登“林肯”号航母视察、“商品+服务”双轮驱动 消费启动结构转换新阶段｜首席读数据 - 第一财经…</p>
+<p class="section-quotes">上证 ▲0.19% · 纳斯达克 ▼1.33%</p>
+<p class="section-blurb">今日 8 条 · 焦点：4S店“爆改”大排档健身房 分割空间降房租、优刻得公有云正式上线海光天曦系列…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-deep section-card-deep" href="/deep/2026-08-18/">
+<a class="section-card section-deep section-card-deep" href="/deep/2026-08-19/">
 <h3>深度阅读与学习</h3>
-<p class="section-blurb">民主党候选人筹款额超过共和党对手，凸显共和党在资金竞争中的劣势。这一趋势可能影响选战资源分配与选举结果。文章分析了共和党筹款困境的成因和影响，值得深入阅读以理解…</p>
+<p class="section-blurb">Meta正面临一场备受瞩目的法律诉讼，外界将其与上世纪大烟草公司遭遇的诉讼相提并论。尽管案件可能对其商业模式构成重大挑战，投资者目前仍保持相对平静，未出现恐慌性…</p>
 <span class="section-more">查看全文</span>
 </a>
 
