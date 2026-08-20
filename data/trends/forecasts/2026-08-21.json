@@ -1,0 +1,156 @@
+{
+  "date": "2026-08-21",
+  "forecasts": [
+    {
+      "confidence": "high",
+      "created_at": "2026-08-20T23:37:40.350385+00:00",
+      "data_snapshot": "2026-08-21",
+      "direction": "positive",
+      "drivers": [
+        {
+          "momentum": 0.0,
+          "name": "基础模型",
+          "topic": "foundation_models"
+        },
+        {
+          "momentum": 0.0,
+          "name": "芯片与算力",
+          "topic": "chips_compute"
+        },
+        {
+          "momentum": 0.0,
+          "name": "AI 应用与商业化",
+          "topic": "applications"
+        }
+      ],
+      "forecast_id": "trend-week-2026-08-21",
+      "horizon": "week",
+      "invalidation_conditions": [
+        "数据覆盖率低于最低阈值",
+        "主要驱动主题在下一周期明显降温"
+      ],
+      "model_version": "rules-v1",
+      "realized_result": null,
+      "reason": "规则模型",
+      "scenarios": [
+        {
+          "description": "主题动量与市场信号维持当前方向。",
+          "direction": "positive",
+          "name": "基准"
+        },
+        {
+          "description": "多源事件持续确认，风险偏好继续改善。",
+          "direction": "positive",
+          "name": "上行"
+        },
+        {
+          "description": "热点退潮或宏观风险重新抬升。",
+          "direction": "negative",
+          "name": "下行"
+        }
+      ],
+      "status": "open",
+      "target": "combined_trend",
+      "target_date": "2026-08-28"
+    },
+    {
+      "confidence": "low",
+      "created_at": "2026-08-20T23:37:40.350416+00:00",
+      "data_snapshot": "2026-08-21",
+      "direction": "insufficient_data",
+      "drivers": [],
+      "forecast_id": "trend-month-2026-08-21",
+      "horizon": "month",
+      "invalidation_conditions": [],
+      "model_version": "rules-v1",
+      "realized_result": null,
+      "reason": "数据不足",
+      "scenarios": [
+        {
+          "description": "多空信号接近，趋势暂未确认。",
+          "direction": "neutral",
+          "name": "基准"
+        },
+        {
+          "description": "主题动量重新加速。",
+          "direction": "positive",
+          "name": "上行"
+        },
+        {
+          "description": "风险事件增加且市场广度收缩。",
+          "direction": "negative",
+          "name": "下行"
+        }
+      ],
+      "status": "open",
+      "target": "combined_trend",
+      "target_date": "2026-09-20"
+    },
+    {
+      "confidence": "low",
+      "created_at": "2026-08-20T23:37:40.350427+00:00",
+      "data_snapshot": "2026-08-21",
+      "direction": "insufficient_data",
+      "drivers": [],
+      "forecast_id": "trend-quarter-2026-08-21",
+      "horizon": "quarter",
+      "invalidation_conditions": [],
+      "model_version": "rules-v1",
+      "realized_result": null,
+      "reason": "数据不足",
+      "scenarios": [
+        {
+          "description": "多空信号接近，趋势暂未确认。",
+          "direction": "neutral",
+          "name": "基准"
+        },
+        {
+          "description": "主题动量重新加速。",
+          "direction": "positive",
+          "name": "上行"
+        },
+        {
+          "description": "风险事件增加且市场广度收缩。",
+          "direction": "negative",
+          "name": "下行"
+        }
+      ],
+      "status": "open",
+      "target": "combined_trend",
+      "target_date": "2026-11-20"
+    },
+    {
+      "confidence": "low",
+      "created_at": "2026-08-20T23:37:40.350434+00:00",
+      "data_snapshot": "2026-08-21",
+      "direction": "insufficient_data",
+      "drivers": [],
+      "forecast_id": "trend-year-2026-08-21",
+      "horizon": "year",
+      "invalidation_conditions": [],
+      "model_version": "rules-v1",
+      "realized_result": null,
+      "reason": "数据不足",
+      "scenarios": [
+        {
+          "description": "多空信号接近，趋势暂未确认。",
+          "direction": "neutral",
+          "name": "基准"
+        },
+        {
+          "description": "主题动量重新加速。",
+          "direction": "positive",
+          "name": "上行"
+        },
+        {
+          "description": "风险事件增加且市场广度收缩。",
+          "direction": "negative",
+          "name": "下行"
+        }
+      ],
+      "status": "open",
+      "target": "combined_trend",
+      "target_date": "2027-08-21"
+    }
+  ]
+}
