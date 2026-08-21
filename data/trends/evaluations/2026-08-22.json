@@ -1,0 +1,61 @@
+{
+  "date": "2026-08-22",
+  "evaluations": [
+    {
+      "confidence": "medium",
+      "created_at": "2026-08-14T23:28:54.995715+00:00",
+      "data_snapshot": "2026-08-15",
+      "direction": "negative",
+      "drivers": [
+        {
+          "momentum": 0.0,
+          "name": "基础模型",
+          "topic": "foundation_models"
+        },
+        {
+          "momentum": 0.0,
+          "name": "芯片与算力",
+          "topic": "chips_compute"
+        },
+        {
+          "momentum": 0.0,
+          "name": "AI 应用与商业化",
+          "topic": "applications"
+        }
+      ],
+      "forecast_id": "trend-week-2026-08-15",
+      "horizon": "week",
+      "invalidation_conditions": [
+        "数据覆盖率低于最低阈值",
+        "主要驱动主题在下一周期明显降温"
+      ],
+      "model_version": "rules-v1",
+      "realized_result": {
+        "direction": "positive",
+        "evaluated_at": "2026-08-22",
+        "value": 0.245436
+      },
+      "reason": "规则模型",
+      "scenarios": [
+        {
+          "description": "风险信号延续，市场偏向防御。",
+          "direction": "negative",
+          "name": "基准"
+        },
+        {
+          "description": "流动性改善并出现新的产业催化。",
+          "direction": "positive",
+          "name": "上行"
+        },
+        {
+          "description": "波动率和负面事件同时上升。",
+          "direction": "negative",
+          "name": "下行"
+        }
+      ],
+      "status": "incorrect",
+      "target": "combined_trend",
+      "target_date": "2026-08-22"
+    }
+  ]
+}

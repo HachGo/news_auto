@@ -1,7 +1,7 @@
 ---
 title: "首页"
 layout: "home"
-date: 2026-08-21T07:37:40+0800
+date: 2026-08-22T07:33:44+0800
 summary: "今日四版面总览。"
 ---
 
@@ -15,22 +15,22 @@ summary: "今日四版面总览。"
 
 <li class="focus-item focus-ai">
 <span class="focus-label">AI与科技</span>
-<a class="focus-title" href="/ai/2026-08-21/">OpenRouter 加入 Stripe</a>
+<a class="focus-title" href="/ai/2026-08-22/">亚伦·斯沃茨因数据抓取被起诉，Meta同类行为却几乎无后果</a>
 </li>
 
 <li class="focus-item focus-world">
 <span class="focus-label">国际资讯</span>
-<a class="focus-title" href="/world/2026-08-21/">中国房地产巨头恒大创始人许家印被判无期徒刑</a>
+<a class="focus-title" href="/world/2026-08-22/">刚果民主共和国将启动埃博拉疫苗试验 感染速度引发警告</a>
 </li>
 
 <li class="focus-item focus-market">
 <span class="focus-label">金融市场与股市</span>
-<a class="focus-title" href="/market/2026-08-21/">昆仑万维：上半年净利润10.88亿元 同比扭亏为盈</a>
+<a class="focus-title" href="/market/2026-08-22/">林园预判下半年行情：全球科技股都还在走牛市，但我们看到的是“风险”</a>
 </li>
 
 <li class="focus-item focus-deep">
 <span class="focus-label">深度阅读与学习</span>
-<a class="focus-title" href="/deep/2026-08-21/">尤瓦尔·诺亚·赫拉利谈人工智能的经济与政治风险</a>
+<a class="focus-title" href="/deep/2026-08-22/">封面故事通讯：AI 能否产生意识？</a>
 </li>
 
 </ul>
@@ -43,28 +43,28 @@ summary: "今日四版面总览。"
 
 <div class="section-grid">
 
-<a class="section-card section-ai" href="/ai/2026-08-21/">
+<a class="section-card section-ai" href="/ai/2026-08-22/">
 <h3>AI与科技</h3>
-<p class="section-blurb">今日 15 条 · 焦点：OpenRouter 加入 Stripe、OpenAI进入格雷格·布罗克曼时代…</p>
+<p class="section-blurb">今日 15 条 · 焦点：亚伦·斯沃茨因数据抓取被起诉，Meta同类行为却几乎无后果、DeepSeek-v4-flash-vision-exp 视觉模型实验版…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-world" href="/world/2026-08-21/">
+<a class="section-card section-world" href="/world/2026-08-22/">
 <h3>国际资讯</h3>
-<p class="section-blurb">今日 13 条 · 焦点：中国房地产巨头恒大创始人许家印被判无期徒刑、机器人即将迎来“ChatGPT时刻”，宇树科技CEO表示…</p>
+<p class="section-blurb">今日 14 条 · 焦点：刚果民主共和国将启动埃博拉疫苗试验 感染速度引发警告、天气追踪：极端降雨袭击日本和韩国…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-market" href="/market/2026-08-21/">
+<a class="section-card section-market" href="/market/2026-08-22/">
 <h3>金融市场与股市</h3>
-<p class="section-quotes">上证 ▲0.24% · 纳斯达克 ▼1.00%</p>
-<p class="section-blurb">今日 8 条 · 焦点：昆仑万维：上半年净利润10.88亿元 同比扭亏为盈、林园回应净值大幅波动：我从未紧张焦虑，很多传统行业股票处于“几十年低位”…</p>
+<p class="section-quotes">上证 ▲0.04% · 纳斯达克 ▲0.43%</p>
+<p class="section-blurb">今日 8 条 · 焦点：林园预判下半年行情：全球科技股都还在走牛市，但我们看到的是“风险”、中国机器人全球受追捧 海外采购商WRC现场“追单”…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-deep section-card-deep" href="/deep/2026-08-21/">
+<a class="section-card section-deep section-card-deep" href="/deep/2026-08-22/">
 <h3>深度阅读与学习</h3>
-<p class="section-blurb">畅销书历史学家尤瓦尔·赫拉利警告，人类不应将自身命运托付给聪明机器。本文聚焦人工智能带来的经济与政治双重风险，分析技术失控可能如何重塑权力与不平等。作为当代最具…</p>
+<p class="section-blurb">本期通讯聚焦 AI 能否产生意识这一前沿议题。文章独家展示封面设计幕后，从创意构思到视觉呈现，解析编辑团队如何将抽象的哲学与技术命题转化为具体图像。对于关注人工…</p>
 <span class="section-more">查看全文</span>
 </a>
 
