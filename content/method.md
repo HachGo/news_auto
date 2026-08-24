@@ -1,14 +1,14 @@
 ---
 title: "网站规则"
 url: "/rules/"
-date: 2026-08-24T07:29:02+0800
+date: 2026-08-25T07:33:36+0800
 summary: "本站抓取哪些网站，以及如何筛选、评分与排序每日资讯。"
 body_class: "section-rules"
 ShowToc: true
 TocOpen: true
 ---
 
-> 本页由脚本根据 `scripts/feeds.yaml` 与 `scripts/common.py` 中的公开规则自动生成，列出当前实际抓取的网站与筛选权重。更新源或规则后，重新跑抓取流水线即可同步。上次生成：2026-08-24 07:29 +0800。
+> 本页由脚本根据 `scripts/feeds.yaml` 与 `scripts/common.py` 中的公开规则自动生成，列出当前实际抓取的网站与筛选权重。更新源或规则后，重新跑抓取流水线即可同步。上次生成：2026-08-25 07:33 +0800。
 
 ## 获取哪些网站
 
