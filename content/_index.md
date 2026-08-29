@@ -1,7 +1,7 @@
 ---
 title: "首页"
 layout: "home"
-date: 2026-08-28T15:00:36+0800
+date: 2026-08-29T12:13:33+0800
 summary: "今日四版面总览。"
 ---
 
@@ -15,22 +15,22 @@ summary: "今日四版面总览。"
 
 <li class="focus-item focus-ai">
 <span class="focus-label">AI与科技</span>
-<a class="focus-title" href="/ai/2026-08-28/">英伟达同意以130亿美元收购Hugging Face</a>
+<a class="focus-title" href="/ai/2026-08-29/">GLM-5.3 现已开放权重</a>
 </li>
 
 <li class="focus-item focus-world">
 <span class="focus-label">国际资讯</span>
-<a class="focus-title" href="/world/2026-08-28/">尼泊尔-西藏山洪：湖泊溢流导致直升机救援暂停；死亡人数升至469</a>
+<a class="focus-title" href="/world/2026-08-29/">红十字会：尼泊尔-西藏山洪后至少9.3万人“急需援助”</a>
 </li>
 
 <li class="focus-item focus-market">
 <span class="focus-label">金融市场与股市</span>
-<a class="focus-title" href="/market/2026-08-28/">机器人竞技赛场：自主运控与灵巧性的实战检验</a>
+<a class="focus-title" href="/market/2026-08-29/">国家发改委驳斥“中国挤压”论：基于零和博弈逻辑完全错误是对中国的又一次攻击抹黑</a>
 </li>
 
 <li class="focus-item focus-deep">
 <span class="focus-label">深度阅读与学习</span>
-<a class="focus-title" href="/deep/2026-08-28/">2026年迄今佳作：“换了其他孩子早就死了”——纳达·伊特拉布的奇迹生还</a>
+<a class="focus-title" href="/deep/2026-08-29/">外星人都去哪儿了？一本新书探寻可能的答案</a>
 </li>
 
 </ul>
@@ -43,28 +43,28 @@ summary: "今日四版面总览。"
 
 <div class="section-grid">
 
-<a class="section-card section-ai" href="/ai/2026-08-28/">
+<a class="section-card section-ai" href="/ai/2026-08-29/">
 <h3>AI与科技</h3>
-<p class="section-blurb">今日 15 条 · 焦点：英伟达同意以130亿美元收购Hugging Face、FrontierMath已正式将椭圆曲线秩问题标记为已解决…</p>
+<p class="section-blurb">今日 15 条 · 焦点：GLM-5.3 现已开放权重、腾讯推出Hy4预览版开源权重：770B MoE、490亿活跃参数、100万上下文…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-world" href="/world/2026-08-28/">
+<a class="section-card section-world" href="/world/2026-08-29/">
 <h3>国际资讯</h3>
-<p class="section-blurb">今日 13 条 · 焦点：尼泊尔-西藏山洪：湖泊溢流导致直升机救援暂停；死亡人数升至469、研究人员在中国制造的Zbtlink路由器中发现更多后门…</p>
+<p class="section-blurb">今日 13 条 · 焦点：红十字会：尼泊尔-西藏山洪后至少9.3万人“急需援助”、西藏洪灾画面未在中国播出，当地受灾者情况鲜为人知…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-market" href="/market/2026-08-28/">
+<a class="section-card section-market" href="/market/2026-08-29/">
 <h3>金融市场与股市</h3>
-<p class="section-quotes">上证 ▼0.10% · 纳斯达克 ▲1.57%</p>
-<p class="section-blurb">今日 8 条 · 焦点：机器人竞技赛场：自主运控与灵巧性的实战检验、黄金概念持续走强…</p>
+<p class="section-quotes">上证 ▼0.11% · 纳斯达克 ▼0.52%</p>
+<p class="section-blurb">今日 8 条 · 焦点：国家发改委驳斥“中国挤压”论：基于零和博弈逻辑完全错误是对中国的又一次攻击抹黑、开学季电脑品牌集体涨价9月1日最高涨15% 低端机型已从3000涨到6000元门店称3年内价格回不来…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-deep section-card-deep" href="/deep/2026-08-28/">
+<a class="section-card section-deep section-card-deep" href="/deep/2026-08-29/">
 <h3>深度阅读与学习</h3>
-<p class="section-blurb">九岁女孩纳达·伊特拉布被绑架后从西班牙被带到玻利维亚，当局一度担心最坏情况。九个月后她在雨林中被找到，但磨难并未结束。作者 Giles Tremlett 记录了…</p>
+<p class="section-blurb">天体生物学家塞文·拉斯穆森在新书《多云，或有星际飞船》中，以清晰笔触梳理了现代地外生命搜寻的惊人科学进展。作者从系外行星、生命起源等角度，系统探讨了“外星人为何…</p>
 <span class="section-more">查看全文</span>
 </a>
 
