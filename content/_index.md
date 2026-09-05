@@ -1,7 +1,7 @@
 ---
 title: "首页"
 layout: "home"
-date: 2026-09-04T08:59:40+0800
+date: 2026-09-05T08:49:17+0800
 summary: "今日四版面总览。"
 ---
 
@@ -15,22 +15,22 @@ summary: "今日四版面总览。"
 
 <li class="focus-item focus-ai">
 <span class="focus-label">AI与科技</span>
-<a class="focus-title" href="/ai/2026-09-04/">OpenAI发布Astra：强大且备受争议的新模型</a>
+<a class="focus-title" href="/ai/2026-09-05/">发现新的OpenAI智能体留言板</a>
 </li>
 
 <li class="focus-item focus-world">
 <span class="focus-label">国际资讯</span>
-<a class="focus-title" href="/world/2026-09-04/">联合国警告“超强”厄尔尼诺现象，各国准备应对影响</a>
+<a class="focus-title" href="/world/2026-09-05/">粮农组织称全球粮食价格创2022年以来新高 供应风险上升</a>
 </li>
 
 <li class="focus-item focus-market">
 <span class="focus-label">金融市场与股市</span>
-<a class="focus-title" href="/market/2026-09-04/">价值与投资——破茧：化工新材料的质变时刻</a>
+<a class="focus-title" href="/market/2026-09-05/">欧陆通：谷歌GPU电源项目合作推进越南高功率服务器电源产线2027年量产</a>
 </li>
 
 <li class="focus-item focus-deep">
 <span class="focus-label">深度阅读与学习</span>
-<a class="focus-title" href="/deep/2026-09-04/">“前所未有”的研究发现裸盖菇素可预防化疗神经损伤</a>
+<a class="focus-title" href="/deep/2026-09-05/">大众出人意料的裁员协议是其高层的重大胜利</a>
 </li>
 
 </ul>
@@ -43,28 +43,28 @@ summary: "今日四版面总览。"
 
 <div class="section-grid">
 
-<a class="section-card section-ai" href="/ai/2026-09-04/">
+<a class="section-card section-ai" href="/ai/2026-09-05/">
 <h3>AI与科技</h3>
-<p class="section-blurb">今日 15 条 · 焦点：OpenAI发布Astra：强大且备受争议的新模型、英伟达确认将以129亿美元收购Hugging Face…</p>
+<p class="section-blurb">今日 15 条 · 焦点：发现新的OpenAI智能体留言板、OpenAI 的下一个大型 AI 模型已“进入 AGI 时代”…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-world" href="/world/2026-09-04/">
+<a class="section-card section-world" href="/world/2026-09-05/">
 <h3>国际资讯</h3>
-<p class="section-blurb">今日 14 条 · 焦点：联合国警告“超强”厄尔尼诺现象，各国准备应对影响、移植猪肾在美国男子体内工作创纪录271天…</p>
+<p class="section-blurb">今日 11 条 · 焦点：粮农组织称全球粮食价格创2022年以来新高 供应风险上升、罕见欢乐时刻：尼泊尔隧道救援为更多洪水幸存者带来希望…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-market" href="/market/2026-09-04/">
+<a class="section-card section-market" href="/market/2026-09-05/">
 <h3>金融市场与股市</h3>
-<p class="section-quotes">上证 ▲0.00% · 纳斯达克 ▲1.40%</p>
-<p class="section-blurb">今日 8 条 · 焦点：价值与投资——破茧：化工新材料的质变时刻、甘李药业：子公司获GZC8072片新适应症临床试验批准…</p>
+<p class="section-quotes">上证 ▼0.30% · 纳斯达克 ▼0.29%</p>
+<p class="section-blurb">今日 8 条 · 焦点：欧陆通：谷歌GPU电源项目合作推进越南高功率服务器电源产线2027年量产、原油单周暴涨超13%，地缘风险如何重塑商品市场格局？…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-deep section-card-deep" href="/deep/2026-09-04/">
+<a class="section-card section-deep section-card-deep" href="/deep/2026-09-05/">
 <h3>深度阅读与学习</h3>
-<p class="section-blurb">一项“前所未有”的小鼠研究发现，裸盖菇素能保护神经、预防化疗引起的神经损伤。该副作用在癌症患者中常见，且可能持续到治疗结束后很久。这一发现若能在人体试验中验证，…</p>
+<p class="section-blurb">大众与工会达成的裁员协议出人意料，管理层在削减成本与调整产能上取得显著突破，工人代表在就业保障上做出重大让步。此事不仅关乎大众自身转型，更冲击了德国长期奉行的劳…</p>
 <span class="section-more">查看全文</span>
 </a>
 
