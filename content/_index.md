@@ -1,7 +1,7 @@
 ---
 title: "首页"
 layout: "home"
-date: 2026-09-05T08:49:17+0800
+date: 2026-09-06T08:45:03+0800
 summary: "今日四版面总览。"
 ---
 
@@ -15,22 +15,22 @@ summary: "今日四版面总览。"
 
 <li class="focus-item focus-ai">
 <span class="focus-label">AI与科技</span>
-<a class="focus-title" href="/ai/2026-09-05/">发现新的OpenAI智能体留言板</a>
+<a class="focus-title" href="/ai/2026-09-06/">GPT-6 Astra 上线 OpenRouter</a>
 </li>
 
 <li class="focus-item focus-world">
 <span class="focus-label">国际资讯</span>
-<a class="focus-title" href="/world/2026-09-05/">粮农组织称全球粮食价格创2022年以来新高 供应风险上升</a>
+<a class="focus-title" href="/world/2026-09-06/">埃及毒品案中11人被判死刑，包括一名电视主持人</a>
 </li>
 
 <li class="focus-item focus-market">
 <span class="focus-label">金融市场与股市</span>
-<a class="focus-title" href="/market/2026-09-05/">欧陆通：谷歌GPU电源项目合作推进越南高功率服务器电源产线2027年量产</a>
+<a class="focus-title" href="/market/2026-09-06/">短视频｜一财带你逛IFA：中国科技企业秀“硬实力”</a>
 </li>
 
 <li class="focus-item focus-deep">
 <span class="focus-label">深度阅读与学习</span>
-<a class="focus-title" href="/deep/2026-09-05/">大众出人意料的裁员协议是其高层的重大胜利</a>
+<a class="focus-title" href="/deep/2026-09-06/">《制衡》通讯：美国有了新反派</a>
 </li>
 
 </ul>
@@ -43,28 +43,28 @@ summary: "今日四版面总览。"
 
 <div class="section-grid">
 
-<a class="section-card section-ai" href="/ai/2026-09-05/">
+<a class="section-card section-ai" href="/ai/2026-09-06/">
 <h3>AI与科技</h3>
-<p class="section-blurb">今日 15 条 · 焦点：发现新的OpenAI智能体留言板、OpenAI 的下一个大型 AI 模型已“进入 AGI 时代”…</p>
+<p class="section-blurb">今日 15 条 · 焦点：GPT-6 Astra 上线 OpenRouter、OpenAI确认“维基事件”，称正制定加强披露框架…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-world" href="/world/2026-09-05/">
+<a class="section-card section-world" href="/world/2026-09-06/">
 <h3>国际资讯</h3>
-<p class="section-blurb">今日 11 条 · 焦点：粮农组织称全球粮食价格创2022年以来新高 供应风险上升、罕见欢乐时刻：尼泊尔隧道救援为更多洪水幸存者带来希望…</p>
+<p class="section-blurb">今日 9 条 · 焦点：埃及毒品案中11人被判死刑，包括一名电视主持人、特朗普签署命令取消灰狼的濒危物种保护…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-market" href="/market/2026-09-05/">
+<a class="section-card section-market" href="/market/2026-09-06/">
 <h3>金融市场与股市</h3>
 <p class="section-quotes">上证 ▼0.30% · 纳斯达克 ▼0.29%</p>
-<p class="section-blurb">今日 8 条 · 焦点：欧陆通：谷歌GPU电源项目合作推进越南高功率服务器电源产线2027年量产、原油单周暴涨超13%，地缘风险如何重塑商品市场格局？…</p>
+<p class="section-blurb">今日 8 条 · 焦点：短视频｜一财带你逛IFA：中国科技企业秀“硬实力”、下周财经日历（9月7日-9月13日） - 第一财经…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-deep section-card-deep" href="/deep/2026-09-05/">
+<a class="section-card section-deep section-card-deep" href="/deep/2026-09-06/">
 <h3>深度阅读与学习</h3>
-<p class="section-blurb">大众与工会达成的裁员协议出人意料，管理层在削减成本与调整产能上取得显著突破，工人代表在就业保障上做出重大让步。此事不仅关乎大众自身转型，更冲击了德国长期奉行的劳…</p>
+<p class="section-blurb">本刊华盛顿分社社长沙尚克·乔希撰文指出，当前美国将数据中心视为新祸首的反弹情绪有失偏颇。文章剖析了数据中心在能源消耗、土地利用和就业方面被夸大的负面影响，并指出…</p>
 <span class="section-more">查看全文</span>
 </a>
 
