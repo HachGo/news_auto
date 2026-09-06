@@ -39,8 +39,8 @@ def fetch_feed(url, retries=3):
     return None
 
 
-def fetch_candidates(config, seen):
-    """按 feeds.yaml 配置抓取所有源，返回候选条目列表（已去重+过滤）。"""
+def fetch_candidates(config, seen, return_failures=False, empty_is_failure=False):
+    """抓取所有源；可同时返回失败来源，供强制刷新保留旧条目。"""
     settings = config.get("settings", {})
     hours_window = settings.get("hours_window", 36)
     cutoff = datetime.now(timezone.utc) - timedelta(hours=hours_window)
@@ -48,6 +48,7 @@ def fetch_candidates(config, seen):
     block_keywords = config.get("block_keywords", [])
 
     candidates = []
+    failed_sources = set()
     run_seen = set()  # 本次运行内去重
     blocked = 0
     for feed_idx, feed_cfg in enumerate(config.get("feeds", [])):
@@ -56,12 +57,15 @@ def fetch_candidates(config, seen):
             time.sleep(2)  # 部分站点对连续请求限流
         print(f"[fetch] {name} ...", flush=True)
         parsed = fetch_feed(feed_cfg["url"])
-        if parsed is None:
+        entries = list(getattr(parsed, "entries", []) or []) if parsed is not None else []
+        malformed_empty = not entries and bool(getattr(parsed, "bozo", False))
+        if parsed is None or malformed_empty or (empty_is_failure and not entries):
             print(f"[warn] {name} fetch failed, skipped", file=sys.stderr)
+            failed_sources.add(name)
             continue
 
         count = 0
-        for entry in parsed.entries:
+        for entry in entries:
             if count >= feed_cfg.get("max_items", 10):
                 break
             link = entry.get("link")
@@ -77,9 +81,9 @@ def fetch_candidates(config, seen):
             if is_blocked(entry, block_keywords):
                 blocked += 1
                 continue
-            run_seen.add(h)
             if feed_cfg.get("ai_filter") and not matches_keywords(entry, keywords):
                 continue
+            run_seen.add(h)
             candidates.append(
                 {
                     "title": title,
@@ -95,4 +99,6 @@ def fetch_candidates(config, seen):
         print(f"[fetch] {name}: {count} new items", flush=True)
     if blocked:
         print(f"[info] 屏蔽词过滤 {blocked} 条（政治/台湾等）", flush=True)
+    if return_failures:
+        return candidates, failed_sources
     return candidates

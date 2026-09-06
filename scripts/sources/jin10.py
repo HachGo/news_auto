@@ -46,17 +46,30 @@ def fetch_calendar_json(retries=2):
 def _parse_jin10(raw, today_str):
     out = []
     for item in raw or []:
+        if not isinstance(item, dict):
+            continue
         pub = item.get("pub_time") or item.get("publication_time") or ""
+        if not isinstance(pub, str):
+            continue
         if not pub.startswith(today_str):
             continue
         out.append({
             "title": item.get("title") or item.get("event") or "",
-            "actual": item.get("current_actual") or item.get("actual") or "",
-            "previous": item.get("previous") or "",
-            "consensus": item.get("consensus") or "",
+            "actual": _first_present(item, "current_actual", "actual"),
+            "previous": _first_present(item, "previous"),
+            "consensus": _first_present(item, "consensus"),
             "country": item.get("country") or "",
         })
     return out
+
+
+def _first_present(item, *keys):
+    """返回第一个非 None/空字符串字段，同时保留有效的数值 0。"""
+    for key in keys:
+        value = item.get(key)
+        if value is not None and value != "":
+            return value
+    return ""
 
 
 def _parse_ff_items(raw, today):
@@ -79,9 +92,9 @@ def _parse_ff_items(raw, today):
             title = f"{country} {title}".strip()
         out.append({
             "title": title,
-            "actual": item.get("actual") or "",
-            "previous": item.get("previous") or "",
-            "consensus": item.get("forecast") or "",
+            "actual": _first_present(item, "actual"),
+            "previous": _first_present(item, "previous"),
+            "consensus": _first_present(item, "forecast"),
             "country": country,
         })
     return out
@@ -104,8 +117,20 @@ def fetch_calendar(today):
     """返回当日公布的数据项列表。无数据返回空列表，抓取失败返回 None。"""
     today_str = today.isoformat()
     raw = fetch_calendar_json()
-    if raw is not None:
+    if _valid_calendar_payload(raw):
         return _parse_jin10(raw, today_str)
 
     print("[info] jin10 不可用，回退 Forex Factory 日历", file=sys.stderr)
     return _fetch_forexfactory(today)
+
+
+def _valid_calendar_payload(raw):
+    if not isinstance(raw, list):
+        return False
+    for item in raw:
+        if not isinstance(item, dict):
+            return False
+        pub = item.get("pub_time") or item.get("publication_time") or ""
+        if not isinstance(pub, str):
+            return False
+    return True

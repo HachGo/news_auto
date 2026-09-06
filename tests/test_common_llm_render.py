@@ -1,4 +1,6 @@
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
+
+import yaml
 
 from common import (
     summarize,
@@ -27,7 +29,8 @@ def test_summarize_returns_zh_fields():
 
 def test_summarize_returns_none_on_bad_json():
     client = _client_returning("not json")
-    assert summarize(client, {"title": "x", "summary": "y"}) is None
+    with patch("common.time.sleep"):
+        assert summarize(client, {"title": "x", "summary": "y"}) is None
 
 
 def test_summarize_returns_none_when_no_client():
@@ -121,3 +124,17 @@ def test_render_deep_magazine_markup():
     assert "今日精选" in out
     assert "按刊物" in out
     assert "经济学人" in out
+
+
+def test_render_sectioned_escapes_quotes_in_front_matter():
+    output = render_sectioned(
+        [],
+        'AI "研究" 2026-09-05',
+        '包含 "引号" 的摘要。',
+    )
+
+    front_matter = output.removeprefix("---\n").split("\n---\n", 1)[0]
+    metadata = yaml.safe_load(front_matter)
+
+    assert metadata["title"] == 'AI "研究" 2026-09-05'
+    assert metadata["summary"] == '包含 "引号" 的摘要。'

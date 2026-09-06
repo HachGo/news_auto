@@ -4,11 +4,7 @@
 市场焦点：优先财经要闻最高分；无要闻取行情首条指数。
 """
 
-from datetime import datetime
 from html import escape
-
-from common import CST
-
 SECTION_NAMES = {
     "ai": "AI与科技",
     "world": "国际资讯",
@@ -24,7 +20,7 @@ def build_homepage(sections, date_str):
         "---",
         'title: "首页"',
         'layout: "home"',
-        f"date: {datetime.now(CST).strftime('%Y-%m-%dT%H:%M:%S%z')}",
+        f"date: {date_str}T00:00:00+0800",
         'summary: "今日四版面总览。"',
         "---",
         "",
@@ -80,7 +76,14 @@ def build_homepage(sections, date_str):
     for key in SECTION_ORDER:
         sec = sections.get(key)
         name = SECTION_NAMES[key]
-        if sec:
+        if sec and sec.get("status") == "empty":
+            lines.append(f'<a class="section-card section-{key} is-empty" href="/{key}/">')
+            lines.append(f"<h3>{escape(name)}</h3>")
+            lines.append('<p class="section-blurb">今日暂无新条目，查看历史</p>')
+            lines.append('<span class="section-more">查看历史</span>')
+            lines.append("</a>")
+            lines.append("")
+        elif sec:
             url = sec.get("url") or f"/{key}/"
             blurb = _section_blurb(sec, key)
             extra_class = " section-card-deep" if key == "deep" else ""

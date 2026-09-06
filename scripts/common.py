@@ -6,6 +6,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -103,7 +104,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SEEN_FILE_DEFAULT = ROOT / "data" / "seen.json"
 
 DEEPSEEK_BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
-DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-pro")
+DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash")
 
 
 def load_seen(path=None):
@@ -120,8 +121,25 @@ def save_seen(path, seen):
     # 只保留最近 30 天的指纹，防止文件无限增长
     cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
     pruned = {k: v for k, v in seen.items() if v >= cutoff}
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(pruned, f, ensure_ascii=False, indent=0, sort_keys=True)
+    atomic_write_text(path, json.dumps(pruned, ensure_ascii=False, indent=0, sort_keys=True))
+
+
+def atomic_write_text(path, content):
+    """在同一目录写临时文件后原子替换，避免中途失败截断原文件。"""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(content)
+        os.chmod(temporary, path.stat().st_mode if path.exists() else 0o644)
+        os.replace(temporary, path)
+    except BaseException:
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
+        raise
 
 
 def build_llm_client():
@@ -226,6 +244,17 @@ def select_deep(candidates, config):
     return selected
 
 
+def _normalize_score(value):
+    """模型分数统一为 1–10 的数值，非法值按默认 5 分处理。"""
+    if isinstance(value, bool):
+        return 5
+    try:
+        score = float(value)
+    except (TypeError, ValueError, OverflowError):
+        return 5
+    return score if 1 <= score <= 10 else 5
+
+
 def rank_and_select(client, candidates, config):
     """用 LLM 按重要性排序选取；失败时降级为来源均衡策略。"""
     settings = config.get("settings", {})
@@ -258,12 +287,14 @@ def rank_and_select(client, candidates, config):
             picked = []
             seen_idx = set()
             for entry in data.get("selected", []):
+                if not isinstance(entry, dict):
+                    continue
                 idx = entry.get("index")
-                if not isinstance(idx, int) or idx in seen_idx:
+                if type(idx) is not int or idx in seen_idx:
                     continue
                 if 0 <= idx < len(candidates):
-                    item = candidates[idx]
-                    item["score"] = entry.get("score", 5)
+                    item = candidates[idx].copy()
+                    item["score"] = _normalize_score(entry.get("score", 5))
                     picked.append(item)
                     seen_idx.add(idx)
                 if len(picked) >= total_limit:
@@ -309,8 +340,14 @@ def _llm_summarize(client, item, prompt_tmpl, summary_chars, retries=2):
                 extra_body={"thinking": {"type": "enabled"}},
             )
             data = json.loads(resp.choices[0].message.content)
-            title_zh = str(data.get("title_zh", "")).strip()
-            summary_zh = str(data.get("summary_zh", "")).strip()
+            if not isinstance(data, dict):
+                continue
+            title_zh = data.get("title_zh")
+            summary_zh = data.get("summary_zh")
+            if not isinstance(title_zh, str) or not isinstance(summary_zh, str):
+                continue
+            title_zh = title_zh.strip()
+            summary_zh = summary_zh.strip()
             if title_zh and summary_zh:
                 return {"title_zh": title_zh, "summary_zh": summary_zh}
         except Exception as exc:
@@ -353,10 +390,10 @@ def render_sectioned(items, title, summary, focus_count=3):
     """渲染带焦点区 + 分类区的版面文章。ai/world 版面共用。"""
     lines = [
         "---",
-        f'title: "{title}"',
+        f"title: {json.dumps(title, ensure_ascii=False)}",
         f"date: {datetime.now(CST).strftime('%Y-%m-%dT%H:%M:%S%z')}",
         'tags: ["每日简报"]',
-        f'summary: "{summary}"',
+        f"summary: {json.dumps(summary, ensure_ascii=False)}",
         "---",
         "",
     ]

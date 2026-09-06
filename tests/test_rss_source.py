@@ -37,7 +37,8 @@ def test_fetch_feed_parses_rss():
 
 
 def test_fetch_feed_returns_none_on_failure():
-    with patch("sources.rss.requests.get", side_effect=Exception("boom")):
+    with patch("sources.rss.requests.get", side_effect=Exception("boom")), \
+         patch("sources.rss.time.sleep"):
         assert rss.fetch_feed("https://x") is None
 
 
@@ -99,3 +100,27 @@ def test_fetch_candidates_applies_block_keywords():
         cands = rss.fetch_candidates(config, {})
     assert len(cands) == 1
     assert cands[0]["title"] == "New chip breakthrough"
+
+
+def test_empty_feed_is_reported_as_failed_during_protected_refresh():
+    config = {
+        "settings": {},
+        "feeds": [{"name": "T", "url": "https://x", "section": "ai"}],
+    }
+    with patch("sources.rss.fetch_feed", return_value=MagicMock(entries=[], bozo=False)):
+        candidates, failures = rss.fetch_candidates(
+            config, {}, return_failures=True, empty_is_failure=True,
+        )
+    assert candidates == []
+    assert failures == {"T"}
+
+
+def test_malformed_empty_feed_is_reported_as_failed():
+    config = {
+        "settings": {},
+        "feeds": [{"name": "T", "url": "https://x", "section": "ai"}],
+    }
+    with patch("sources.rss.fetch_feed", return_value=MagicMock(entries=[], bozo=True)):
+        candidates, failures = rss.fetch_candidates(config, {}, return_failures=True)
+    assert candidates == []
+    assert failures == {"T"}

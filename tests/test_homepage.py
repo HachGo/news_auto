@@ -48,6 +48,7 @@ def test_build_homepage_with_all_sections(tmp_path):
     assert "section-grid" in out
     assert "section-card-deep" in out
     assert "上证" in out  # market quote summary
+    assert "date: 2026-08-01T00:00:00+0800" in out
 
 
 def test_build_homepage_degraded_section(tmp_path):

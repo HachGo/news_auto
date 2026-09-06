@@ -1,5 +1,4 @@
-import json
-from pathlib import Path
+from datetime import datetime, timezone
 
 from common import load_seen, save_seen
 
@@ -10,9 +9,10 @@ def test_load_seen_returns_empty_when_missing(tmp_path):
 
 def test_save_then_load_roundtrip(tmp_path):
     seen_file = tmp_path / "seen.json"
-    save_seen(seen_file, {"abc": "2026-08-01T00:00:00+00:00"})
+    timestamp = datetime.now(timezone.utc).isoformat()
+    save_seen(seen_file, {"abc": timestamp})
     loaded = load_seen(seen_file)
-    assert loaded["abc"] == "2026-08-01T00:00:00+00:00"
+    assert loaded["abc"] == timestamp
 
 
 def test_save_seen_prunes_old_entries(tmp_path):

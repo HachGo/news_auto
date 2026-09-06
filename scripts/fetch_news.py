@@ -5,11 +5,12 @@
 任一版面异常被捕获，不阻塞其他版面。
 """
 
+import os
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-from common import load_config, load_seen, save_seen, build_llm_client, link_hash
+from common import atomic_write_text, load_config, load_seen, save_seen, build_llm_client, link_hash
 from generators import ai, world, market, deep
 from homepage import build_homepage
 from method import write_method_page
@@ -29,7 +30,11 @@ SECTION_NAMES = {
 }
 
 
-def main():
+def main(force_refresh=None):
+    if force_refresh is None:
+        force_refresh = os.getenv("NEWS_FORCE_REFRESH", "").strip().lower() in {
+            "1", "true", "yes", "on",
+        }
     config = load_config(FEEDS_FILE)
     seen = load_seen(SEEN_FILE)
     client = build_llm_client()
@@ -41,10 +46,12 @@ def main():
     for key, gen in (("ai", ai), ("world", world), ("market", market), ("deep", deep)):
         try:
             result = gen.generate(config, seen, client, date_str,
-                                  posts_dir=CONTENT_DIR / key)
+                                  posts_dir=CONTENT_DIR / key,
+                                  force_refresh=force_refresh)
             if result:
                 raw_results[key] = result
-                sections[key] = _to_section_summary(key, result, date_str)
+            sections[key] = _to_section_summary(key, result or {}, date_str)
+            sections[key]["status"] = "empty" if result is None else "ready"
         except Exception as exc:
             print(f"[error] {key} 版面生成失败: {exc}", file=sys.stderr)
             sections[key] = None
@@ -52,7 +59,7 @@ def main():
     # 首页
     try:
         homepage_md = build_homepage(sections, date_str)
-        (CONTENT_DIR / "_index.md").write_text(homepage_md, encoding="utf-8")
+        atomic_write_text(CONTENT_DIR / "_index.md", homepage_md)
         print("[info] 首页已生成")
     except Exception as exc:
         print(f"[error] 首页生成失败: {exc}", file=sys.stderr)
@@ -61,19 +68,30 @@ def main():
     try:
         trend_data_dir = CONTENT_DIR.parent / "data" / "trends"
         trend_export_dir = CONTENT_DIR.parent / "static" / "data" / "trends"
-        trend_pipeline.run(
-            date_str=date_str,
-            sections=raw_results,
-            data_dir=trend_data_dir,
-            export_dir=trend_export_dir,
+        trend_exists = (
+            (trend_data_dir / "daily" / f"{date_str}.json").exists()
+            and (trend_export_dir / "latest.json").exists()
         )
-        print("[info] 趋势数据已生成")
+        if trend_exists and not force_refresh:
+            print("[info] 复用已生成趋势数据")
+        else:
+            trend_pipeline.run(
+                date_str=date_str,
+                sections=raw_results,
+                data_dir=trend_data_dir,
+                export_dir=trend_export_dir,
+            )
+            print("[info] 趋势数据已生成")
     except Exception as exc:
         print(f"[warn] 趋势数据生成失败，不影响日报发布: {exc}", file=sys.stderr)
 
     # 网站规则页（与 feeds / 评分规则同步）
     try:
-        write_method_page(config, path=CONTENT_DIR / "method.md")
+        method_path = CONTENT_DIR / "method.md"
+        if method_path.exists() and not force_refresh:
+            print("[info] 复用已生成网站规则页")
+        else:
+            write_method_page(config, path=method_path)
     except Exception as exc:
         print(f"[error] 网站规则页生成失败: {exc}", file=sys.stderr)
 
@@ -84,7 +102,7 @@ def main():
         if not sec:
             continue
         for item in sec.get("_raw_items", []):
-            seen[link_hash(item["link"])] = now_iso
+            seen.setdefault(link_hash(item["link"]), now_iso)
     save_seen(SEEN_FILE, seen)
     print("[info] seen.json 已更新")
 

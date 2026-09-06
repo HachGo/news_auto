@@ -6,9 +6,11 @@
 
 import sys
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 import requests
+
+from common import CST
 
 URL = "http://www.cninfo.com.cn/new/hisAnnouncement/query"
 
@@ -53,7 +55,7 @@ def _parse_rows(raw, limit):
         ts = a.get("announcementTime")
         pub = ""
         if isinstance(ts, (int, float)):
-            pub = datetime.fromtimestamp(ts / 1000, tz=timezone.utc).strftime("%Y-%m-%d")
+            pub = datetime.fromtimestamp(ts / 1000, tz=CST).strftime("%Y-%m-%d")
         out.append({
             "sec_code": a.get("secCode") or "",
             "sec_name": a.get("secName") or "",
@@ -67,7 +69,7 @@ def _parse_rows(raw, limit):
 
 def fetch_announcements(limit=10, days=14):
     """返回公告摘要列表。抓取失败返回 None。"""
-    end = datetime.now(timezone.utc).date()
+    end = datetime.now(CST).date()
     start = end - timedelta(days=days)
     se_date = f"{start.isoformat()}~{end.isoformat()}"
 

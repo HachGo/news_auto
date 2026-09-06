@@ -1,13 +1,13 @@
 # news_auto — 每日资讯自动博客
 
-每天定时抓取 AI、国际、市场与深度刊物 RSS，用 DeepSeek 生成中英双语精简摘要，并把结构化新闻、行情和宏观信号聚合为趋势研判页，通过 Hugo + PaperMod 构建成静态博客，托管在 GitHub Pages。
+每天定时或在 `main` 分支收到新推送时抓取 AI、国际、市场与深度刊物 RSS，用 DeepSeek 生成中英双语精简摘要，并把结构化新闻、行情和宏观信号聚合为趋势研判页，通过 Hugo + PaperMod 构建成静态博客，托管在 GitHub Pages。
 
 站点地址：<https://hachgo.github.io/news_auto/>
 
 ## 工作原理
 
 ```
-GitHub Actions (每日 UTC 23:00 / 北京 07:00)
+GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
   → scripts/fetch_news.py 编排四版面：
     - AI与科技：RSS 抓取 → LLM 排序 + 摘要 → content/ai/YYYY-MM-DD.md
     - 国际资讯：RSS 抓取 → LLM 排序 + 摘要 → content/world/YYYY-MM-DD.md
@@ -19,12 +19,14 @@ GitHub Actions (每日 UTC 23:00 / 北京 07:00)
   → 提交回仓库 → Hugo 构建 → 部署 GitHub Pages
 ```
 
+定时和手动执行会复用当天已经生成的日报；`main` 分支的新推送会强制重新抓取并覆盖当天文件。若刷新没有取得任何候选新闻，则保留已有日报，避免短时网络故障清空内容。工作流生成的机器人提交不会再次抓取，防止递归执行。
+
 ## 首次部署配置（必做）
 
 1. **配置 API Key**：仓库 Settings → Secrets and variables → Actions → New repository secret
    - Name: `DEEPSEEK_API_KEY`
    - Value: 你的 DeepSeek API Key（<https://platform.deepseek.com> 获取）
-   - 未配置时脚本会降级为直接使用英文 RSS 摘要，不会报错。
+   - GitHub Actions 要求必须配置；本地运行未配置时会降级为直接使用 RSS 原文摘要。
 2. **开启 GitHub Pages**：仓库 Settings → Pages → Build and deployment → Source 选择 **GitHub Actions**。
 3. 推送代码后，到 Actions 页面手动触发一次 **Daily News** workflow（workflow_dispatch）验证。
 
@@ -50,14 +52,14 @@ GitHub Actions (每日 UTC 23:00 / 北京 07:00)
 | `scripts/common.py` | 共享工具（seen/LLM/渲染） |
 | `data/seen.json` | 已处理文章指纹（自动维护，保留 30 天） |
 | `data/trends/` | 趋势每日快照、周期聚合、预测与评估记录 |
-| `.github/workflows/daily.yml` | 定时任务 + 构建 + 部署 |
+| `.github/workflows/daily.yml` | 定时与推送触发任务 + 构建 + 部署 |
 
 ## 自定义
 
 - **增删新闻源**：编辑 `scripts/feeds.yaml` 的 `feeds` 列表；`ai_filter: true` 表示按 `ai_keywords` 关键词过滤。
 - **调整条数**：`feeds.yaml` 中 `settings.total_limit`（ai/world 每日上限）、`per_source_limit`（单来源上限）、`deep_limit`（深度版面上限）。
 - **调整发布时间**：修改 `.github/workflows/daily.yml` 中的 cron 表达式（UTC 时间）。
-- **换模型**：设置环境变量 `DEEPSEEK_MODEL`（默认 `deepseek-v4-pro`，thinking 模式开启）或 `DEEPSEEK_BASE_URL`（任意 OpenAI 兼容接口）。
+- **换模型**：设置环境变量 `DEEPSEEK_MODEL`（默认 `deepseek-v4-flash`，thinking 模式开启）或 `DEEPSEEK_BASE_URL`（任意 OpenAI 兼容接口）。
 
 ## 本地开发
 
