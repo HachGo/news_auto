@@ -1,7 +1,7 @@
 ---
 title: "首页"
 layout: "home"
-date: 2026-09-15T00:00:00+0800
+date: 2026-09-16T00:00:00+0800
 summary: "今日四版面总览。"
 ---
 
@@ -15,22 +15,22 @@ summary: "今日四版面总览。"
 
 <li class="focus-item focus-ai">
 <span class="focus-label">AI与科技</span>
-<a class="focus-title" href="/ai/2026-09-15/">报道称OpenAI以3亿美元收购智能手机相机公司Glass Imaging</a>
+<a class="focus-title" href="/ai/2026-09-16/">谷歌发布 Gemini 3.8 Live 及扩展思考版本</a>
 </li>
 
 <li class="focus-item focus-world">
 <span class="focus-label">国际资讯</span>
-<a class="focus-title" href="/world/2026-09-15/">印尼渡轮爪哇海倾覆：至少6人死亡、130人失踪</a>
+<a class="focus-title" href="/world/2026-09-16/">政府被指为AI巨头放宽版权保护，将创意工作者‘出卖’</a>
 </li>
 
 <li class="focus-item focus-market">
 <span class="focus-label">金融市场与股市</span>
-<a class="focus-title" href="/market/2026-09-15/">东风汽车第十届科技创新周暨首届用户生活节在武汉开幕</a>
+<a class="focus-title" href="/market/2026-09-16/">美国原油价格突破105美元 沙特据报因管道关闭取消部分原油货载</a>
 </li>
 
 <li class="focus-item focus-deep">
 <span class="focus-label">深度阅读与学习</span>
-<a class="focus-title" href="/deep/2026-09-15/">法国中间派只有一个问题：谁能击败玛丽娜·勒庞？</a>
+<a class="focus-title" href="/deep/2026-09-16/">让AI更安全并非不可能，但达成一致或许才是难题</a>
 </li>
 
 </ul>
@@ -43,28 +43,28 @@ summary: "今日四版面总览。"
 
 <div class="section-grid">
 
-<a class="section-card section-ai" href="/ai/2026-09-15/">
+<a class="section-card section-ai" href="/ai/2026-09-16/">
 <h3>AI与科技</h3>
-<p class="section-blurb">今日 15 条 · 焦点：报道称OpenAI以3亿美元收购智能手机相机公司Glass Imaging、Signal 无需手机号注册将使用零知识证明…</p>
+<p class="section-blurb">今日 15 条 · 焦点：谷歌发布 Gemini 3.8 Live 及扩展思考版本、推出 System One 模型与 Jev…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-world" href="/world/2026-09-15/">
+<a class="section-card section-world" href="/world/2026-09-16/">
 <h3>国际资讯</h3>
-<p class="section-blurb">今日 15 条 · 焦点：印尼渡轮爪哇海倾覆：至少6人死亡、130人失踪、世界粮食计划署负责人：苏丹援助资金骤降，饥饿加剧…</p>
+<p class="section-blurb">今日 15 条 · 焦点：政府被指为AI巨头放宽版权保护，将创意工作者‘出卖’、巴拿马运河因厄尔尼诺干旱加剧拟进一步削减通航量…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-market" href="/market/2026-09-15/">
+<a class="section-card section-market" href="/market/2026-09-16/">
 <h3>金融市场与股市</h3>
-<p class="section-quotes">上证 ▼0.07% · 纳斯达克 ▼0.56%</p>
-<p class="section-blurb">今日 8 条 · 焦点：东风汽车第十届科技创新周暨首届用户生活节在武汉开幕、库里亮相粤BA赛场，携手李宁点燃草根运动激情…</p>
+<p class="section-quotes">上证 ▼0.54% · 纳斯达克 ▼0.78%</p>
+<p class="section-blurb">今日 4 条 · 焦点：美国原油价格突破105美元 沙特据报因管道关闭取消部分原油货载、美国人口普查局：2025年美国人收入上升，贫困率下降…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-deep section-card-deep" href="/deep/2026-09-15/">
+<a class="section-card section-deep section-card-deep" href="/deep/2026-09-16/">
 <h3>深度阅读与学习</h3>
-<p class="section-blurb">距离法国总统选举还有七个月，潜在候选人缺乏亮点，且参选者过多。中间派阵营面临核心难题：如何推出一位能击败玛丽娜·勒庞的候选人。文章剖析中间派的分裂与整合困境，以…</p>
+<p class="section-blurb">本文讨论AI安全治理：让AI更安全并非技术上不可能，真正的难题在于各方能否达成共识。美国AI实验室与监管机构之间存在分歧，美中两国也在安全议题上立场相左。文章剖…</p>
 <span class="section-more">查看全文</span>
 </a>
 
