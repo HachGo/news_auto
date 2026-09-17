@@ -1,7 +1,7 @@
 ---
 title: "首页"
 layout: "home"
-date: 2026-09-16T00:00:00+0800
+date: 2026-09-17T00:00:00+0800
 summary: "今日四版面总览。"
 ---
 
@@ -15,22 +15,22 @@ summary: "今日四版面总览。"
 
 <li class="focus-item focus-ai">
 <span class="focus-label">AI与科技</span>
-<a class="focus-title" href="/ai/2026-09-16/">谷歌发布 Gemini 3.8 Live 及扩展思考版本</a>
+<a class="focus-title" href="/ai/2026-09-17/">Sam Altman：GPT 5.5相当于普通数学教授，5.6达前1%-2%，Astra更强</a>
 </li>
 
 <li class="focus-item focus-world">
 <span class="focus-label">国际资讯</span>
-<a class="focus-title" href="/world/2026-09-16/">政府被指为AI巨头放宽版权保护，将创意工作者‘出卖’</a>
+<a class="focus-title" href="/world/2026-09-17/">OpenAI老板称世界“有权害怕”，但应信任AI公司</a>
 </li>
 
 <li class="focus-item focus-market">
 <span class="focus-label">金融市场与股市</span>
-<a class="focus-title" href="/market/2026-09-16/">美国原油价格突破105美元 沙特据报因管道关闭取消部分原油货载</a>
+<a class="focus-title" href="/market/2026-09-17/">赛诺菲在华规模最大的转化医学研究中心在上海揭牌</a>
 </li>
 
 <li class="focus-item focus-deep">
 <span class="focus-label">深度阅读与学习</span>
-<a class="focus-title" href="/deep/2026-09-16/">让AI更安全并非不可能，但达成一致或许才是难题</a>
+<a class="focus-title" href="/deep/2026-09-17/">亨利八世时代珍贵手稿的失踪书页终被找到</a>
 </li>
 
 </ul>
@@ -43,28 +43,28 @@ summary: "今日四版面总览。"
 
 <div class="section-grid">
 
-<a class="section-card section-ai" href="/ai/2026-09-16/">
+<a class="section-card section-ai" href="/ai/2026-09-17/">
 <h3>AI与科技</h3>
-<p class="section-blurb">今日 15 条 · 焦点：谷歌发布 Gemini 3.8 Live 及扩展思考版本、推出 System One 模型与 Jev…</p>
+<p class="section-blurb">今日 15 条 · 焦点：Sam Altman：GPT 5.5相当于普通数学教授，5.6达前1%-2%，Astra更强、GPT-6 家族新模型预告，被称为重大“发布”周…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-world" href="/world/2026-09-16/">
+<a class="section-card section-world" href="/world/2026-09-17/">
 <h3>国际资讯</h3>
-<p class="section-blurb">今日 15 条 · 焦点：政府被指为AI巨头放宽版权保护，将创意工作者‘出卖’、巴拿马运河因厄尔尼诺干旱加剧拟进一步削减通航量…</p>
+<p class="section-blurb">今日 12 条 · 焦点：OpenAI老板称世界“有权害怕”，但应信任AI公司、非洲萨赫勒地区与基地组织和“伊斯兰国”相关暴力今年料创新高…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-market" href="/market/2026-09-16/">
+<a class="section-card section-market" href="/market/2026-09-17/">
 <h3>金融市场与股市</h3>
-<p class="section-quotes">上证 ▼0.54% · 纳斯达克 ▼0.78%</p>
-<p class="section-blurb">今日 4 条 · 焦点：美国原油价格突破105美元 沙特据报因管道关闭取消部分原油货载、美国人口普查局：2025年美国人收入上升，贫困率下降…</p>
+<p class="section-quotes">上证 ▲0.71% · 纳斯达克 ▼0.01%</p>
+<p class="section-blurb">今日 8 条 · 焦点：赛诺菲在华规模最大的转化医学研究中心在上海揭牌、石油美元的拐点：波斯湾战争如何重塑全球金融秩序…</p>
 <span class="section-more">查看全文</span>
 </a>
 
-<a class="section-card section-deep section-card-deep" href="/deep/2026-09-16/">
+<a class="section-card section-deep section-card-deep" href="/deep/2026-09-17/">
 <h3>深度阅读与学习</h3>
-<p class="section-blurb">本文讨论AI安全治理：让AI更安全并非技术上不可能，真正的难题在于各方能否达成共识。美国AI实验室与监管机构之间存在分歧，美中两国也在安全议题上立场相左。文章剖…</p>
+<p class="section-blurb">这些书页出自《耶稣基督蒙福生平之镜》的一个抄本，该抄本曾属于亨利八世宫廷执法者约翰·盖奇——他在解散修道院的历史中扮演关键角色。失踪书页重现，为研究都铎宫廷、宗…</p>
 <span class="section-more">查看全文</span>
 </a>
 
