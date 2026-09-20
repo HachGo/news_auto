@@ -40,7 +40,7 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
         config.get("settings", {}).get("deep_limit", 8),
     )
 
-    ok = apply_summaries(client, selected, style="deep")
+    ok = apply_summaries(client, selected, style="deep", config=config)
 
     if client is not None and ok == 0 and selected:
         if existing is not None:

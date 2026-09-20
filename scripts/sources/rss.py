@@ -5,13 +5,20 @@
 
 import re
 import sys
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
+from urllib.parse import urlparse
 
 import feedparser
 import requests
 
 from common import link_hash, strip_html, entry_time, matches_keywords, is_blocked
+
+DEFAULT_WORKERS = 4          # 并发抓取的站点数
+DEFAULT_HOST_INTERVAL = 2.0  # 同一域名两次请求的最小间隔（秒），避免被限流
+_slot_lock = threading.Lock()
 
 
 def fetch_feed(url, retries=3):
@@ -39,24 +46,66 @@ def fetch_feed(url, retries=3):
     return None
 
 
+def _reserve_host_slot(slots, url, interval):
+    """同域名排队取号：不同站点并行，同站点保持最小间隔，避免触发限流。
+
+    先占坑再睡（锁内只做记账），否则所有站点会被一把锁串起来。
+    """
+    if interval <= 0:
+        return
+    host = urlparse(url).netloc or url
+    with _slot_lock:
+        start = max(time.monotonic(), slots.get(host, 0.0))
+        slots[host] = start + interval
+    delay = start - time.monotonic()
+    if delay > 0:
+        time.sleep(delay)
+
+
+def _fetch_one(feed_cfg, slots, host_interval):
+    """并发单元：给源排队取号后抓取。"""
+    _reserve_host_slot(slots, feed_cfg["url"], host_interval)
+    print(f"[fetch] {feed_cfg['name']} ...", flush=True)
+    return fetch_feed(feed_cfg["url"])
+
+
+def _safe_fetch(feed_cfg, slots, host_interval):
+    """单个源出任何意外都只算这一个源失败，不能拖垮整轮抓取。"""
+    try:
+        return _fetch_one(feed_cfg, slots, host_interval)
+    except Exception as exc:  # noqa: BLE001
+        print(f"[warn] {feed_cfg.get('name')} fetch crashed: {exc}", file=sys.stderr)
+        return None
+
+
 def fetch_candidates(config, seen, return_failures=False, empty_is_failure=False):
-    """抓取所有源；可同时返回失败来源，供强制刷新保留旧条目。"""
+    """抓取所有源；可同时返回失败来源，供强制刷新保留旧条目。
+
+    各源并发抓取（默认 4 个），同域名之间仍按 host_interval 间隔；
+    结果按 feeds 顺序回收，保证候选顺序与串行时一致。
+    """
     settings = config.get("settings", {})
     hours_window = settings.get("hours_window", 36)
     cutoff = datetime.now(timezone.utc) - timedelta(hours=hours_window)
     keywords = config.get("ai_keywords", [])
     block_keywords = config.get("block_keywords", [])
 
+    feeds = list(config.get("feeds", []))
+    workers = max(1, int(settings.get("fetch_workers", DEFAULT_WORKERS)))
+    host_interval = float(settings.get("per_host_interval", DEFAULT_HOST_INTERVAL))
+    slots = {}  # 每次运行重置，只约束同一轮里的同源请求
+    if feeds:
+        with ThreadPoolExecutor(max_workers=min(workers, len(feeds))) as pool:
+            parsed_feeds = list(pool.map(lambda cfg: _safe_fetch(cfg, slots, host_interval), feeds))
+    else:
+        parsed_feeds = []
+
     candidates = []
     failed_sources = set()
     run_seen = set()  # 本次运行内去重
     blocked = 0
-    for feed_idx, feed_cfg in enumerate(config.get("feeds", [])):
+    for feed_cfg, parsed in zip(feeds, parsed_feeds):
         name = feed_cfg["name"]
-        if feed_idx > 0:
-            time.sleep(2)  # 部分站点对连续请求限流
-        print(f"[fetch] {name} ...", flush=True)
-        parsed = fetch_feed(feed_cfg["url"])
         entries = list(getattr(parsed, "entries", []) or []) if parsed is not None else []
         malformed_empty = not entries and bool(getattr(parsed, "bozo", False))
         if parsed is None or malformed_empty or (empty_is_failure and not entries):

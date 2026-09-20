@@ -435,12 +435,27 @@ def _parse_batch(content, size):
     return results if filled else None
 
 
-def summarize_all(client, items, style="short", batch_size=BATCH_SIZE, retries=1):
+def batch_size_from(config, batch_size=None):
+    """每批条数：显式参数 > feeds.yaml 的 settings.batch_size > 默认值。"""
+    if batch_size:
+        try:
+            return max(1, int(batch_size))
+        except (TypeError, ValueError):
+            return BATCH_SIZE
+    try:
+        value = int((config or {}).get("settings", {}).get("batch_size", BATCH_SIZE))
+    except (TypeError, ValueError, AttributeError):
+        return BATCH_SIZE
+    return value if value > 0 else BATCH_SIZE
+
+
+def summarize_all(client, items, style="short", batch_size=None, retries=1, config=None):
     """批量摘要，返回与 items 等长的结果列表（失败项为 None）。
 
     一次请求处理 batch_size 条，把每日请求数从「每条一次」压到十分之一左右；
     整批失败时退回逐条调用，漏项也只补那几条，不会因为一次失败丢掉整批摘要。
     """
+    batch_size = batch_size_from(config, batch_size)
     items = list(items)
     results = [None] * len(items)
     if client is None or not items:
@@ -470,9 +485,10 @@ def summarize_all(client, items, style="short", batch_size=BATCH_SIZE, retries=1
     return results
 
 
-def apply_summaries(client, items, style="short", batch_size=BATCH_SIZE, retries=1):
+def apply_summaries(client, items, style="short", batch_size=None, retries=1, config=None):
     """批量摘要并写回 items 的 title_zh/summary_zh，返回成功条数。"""
-    results = summarize_all(client, items, style=style, batch_size=batch_size, retries=retries)
+    results = summarize_all(client, items, style=style, batch_size=batch_size,
+                            retries=retries, config=config)
     ok = 0
     for item, result in zip(items, results):
         if result:

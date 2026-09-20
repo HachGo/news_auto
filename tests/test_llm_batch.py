@@ -166,3 +166,23 @@ def test_single_item_helpers_unchanged():
     client = FakeClient(['{"title_zh": "单", "summary_zh": "摘"}'])
     assert common.summarize(client, {"title": "T", "summary": "S"}) == {"title_zh": "单", "summary_zh": "摘"}
     assert common.summarize(None, {"title": "T", "summary": "S"}) is None
+
+
+def test_batch_size_comes_from_config_settings():
+    client = FakeClient([
+        _batch((0, "A", "a"), (1, "B", "b")),
+        _batch((0, "C", "c")),
+    ])
+
+    out = common.summarize_all(client, _items(3), config={"settings": {"batch_size": 2}})
+
+    assert len(client.prompts) == 2          # 按配置切成 2 + 1
+    assert [o["title_zh"] for o in out] == ["A", "B", "C"]
+
+
+def test_batch_size_falls_back_on_bad_config():
+    assert common.batch_size_from(None) == common.BATCH_SIZE
+    assert common.batch_size_from({"settings": {"batch_size": 0}}) == common.BATCH_SIZE
+    assert common.batch_size_from({"settings": {"batch_size": "x"}}) == common.BATCH_SIZE
+    assert common.batch_size_from({"settings": {"batch_size": 3}}) == 3
+    assert common.batch_size_from({}, batch_size=2) == 2

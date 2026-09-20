@@ -11,6 +11,9 @@ settings:
   hours_window: 36         # 只取最近 N 小时内发布的条目
   deep_limit: 8            # 「深度阅读」每日最多条数
   deep_per_source_limit: 2 # 「深度阅读」单来源最多条数
+  fetch_workers: 4         # 并发抓取的源数量（同域名仍按间隔排队）
+  per_host_interval: 2     # 同一域名两次请求的最小间隔（秒），防限流
+  batch_size: 6            # 一次 LLM 请求处理几条摘要（越大越省调用，越容易漏项）
 
 feeds:
   # ---------- AI与科技（section: ai） ----------
