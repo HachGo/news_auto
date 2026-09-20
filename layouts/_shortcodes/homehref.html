@@ -1,0 +1,16 @@
+{{- /* 首页站内链接：由 Hugo 解析，生成脚本不需要知道 baseURL。
+       先找站点里真实存在的页面（找不到就用 relURL 兜底），
+       避免子路径部署（GitHub Pages 的 /news_auto/）时写死的 /ai/xxx/ 变成 404。
+
+       注意：shortcode 里不能用 return，直接输出结果即可。 */ -}}
+{{- $url := .Get 0 | default "" -}}
+{{- $href := "" -}}
+{{- with $url -}}
+  {{- $path := strings.TrimSuffix "/" (strings.TrimPrefix "/" .) -}}
+  {{- with site.GetPage $path -}}
+    {{- $href = .RelPermalink -}}
+  {{- else -}}
+    {{- $href = relURL (strings.TrimPrefix "/" $url) -}}
+  {{- end -}}
+{{- end -}}
+{{- $href -}}

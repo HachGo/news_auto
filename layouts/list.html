@@ -44,7 +44,8 @@
 {{- partial "home_info.html" . }}
 {{- end }}
 
-{{- if .Content }}
+{{- /* 首页今日总览只在第一页渲染，分页后续页不再重复同一块内容 */ -}}
+{{- if and .Content (or (not .IsHome) (eq $paginator.PageNumber 1)) }}
 <div class="post-content md-content{{ if .IsHome }} home-body{{ end }}">
   {{- if not (.Param "disableAnchoredHeadings") }}
   {{- partial "anchored_headings.html" .Content -}}

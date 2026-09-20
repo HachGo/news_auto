@@ -2,9 +2,14 @@
 
 跨版面取今日焦点（AI/国际/市场/深度各一），下方 2×2 版面入口。
 市场焦点：优先财经要闻最高分；无要闻取行情首条指数。
+
+站内链接统一写成 {{< homehref "/ai/...." >}} 短代码：baseURL 只有 Hugo 知道，
+写死根路径在子路径部署（GitHub Pages 的 /news_auto/）时会 404。
 """
 
+import re
 from html import escape
+
 SECTION_NAMES = {
     "ai": "AI与科技",
     "world": "国际资讯",
@@ -51,7 +56,7 @@ def build_homepage(sections, date_str):
             lines.append(f'<li class="focus-item focus-{key}">')
             lines.append(f'<span class="focus-label">{escape(name)}</span>')
             lines.append(
-                f'<a class="focus-title" href="{escape(url, quote=True)}">'
+                f'<a class="focus-title" href="{_href(url)}">'
                 f"{escape(title)}</a>"
             )
             lines.append("</li>")
@@ -77,7 +82,7 @@ def build_homepage(sections, date_str):
         sec = sections.get(key)
         name = SECTION_NAMES[key]
         if sec and sec.get("status") == "empty":
-            lines.append(f'<a class="section-card section-{key} is-empty" href="/{key}/">')
+            lines.append(f'<a class="section-card section-{key} is-empty" href="{_href(f"/{key}/")}">')
             lines.append(f"<h3>{escape(name)}</h3>")
             lines.append('<p class="section-blurb">今日暂无新条目，查看历史</p>')
             lines.append('<span class="section-more">查看历史</span>')
@@ -89,7 +94,7 @@ def build_homepage(sections, date_str):
             extra_class = " section-card-deep" if key == "deep" else ""
             lines.append(
                 f'<a class="section-card section-{key}{extra_class}" '
-                f'href="{escape(url, quote=True)}">'
+                f'href="{_href(url)}">'
             )
             lines.append(f"<h3>{escape(name)}</h3>")
             if key == "market":
@@ -101,7 +106,7 @@ def build_homepage(sections, date_str):
             lines.append("</a>")
             lines.append("")
         else:
-            lines.append(f'<a class="section-card section-{key} is-empty" href="/{key}/">')
+            lines.append(f'<a class="section-card section-{key} is-empty" href="{_href(f"/{key}/")}">')
             lines.append(f"<h3>{escape(name)}</h3>")
             lines.append('<p class="section-blurb">今日生成异常，查看历史</p>')
             lines.append('<span class="section-more">查看历史</span>')
@@ -117,6 +122,17 @@ def build_homepage(sections, date_str):
         "",
     ])
     return "\n".join(lines)
+
+
+def _href(url):
+    """把站内路径包成 Hugo 短代码，由 Hugo 在构建时解析 baseURL。
+
+    只接受站内绝对路径；含引号/尖括号/空白等会破坏短代码语法的值退回 "/"。
+    """
+    url = (url or "").strip()
+    if not url.startswith("/") or re.search(r"[\s\"'<>{}|]", url):
+        return "{{< homehref \"/\" >}}"
+    return '{{< homehref "%s" >}}' % url
 
 
 def _pick_focus(sec, key):
