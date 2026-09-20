@@ -58,6 +58,9 @@ GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
 
 - **增删新闻源**：编辑 `scripts/feeds.yaml` 的 `feeds` 列表；`ai_filter: true` 表示按 `ai_keywords` 关键词过滤。
 - **调整条数**：`feeds.yaml` 中 `settings.total_limit`（ai/world 每日上限）、`per_source_limit`（单来源上限）、`deep_limit`（深度版面上限）。
+- **调整抓取并发**：`feeds.yaml` 中 `settings.fetch_workers`（并发源数，默认 4）、`per_host_interval`（同域名最小间隔秒数，默认 2）。
+- **调整 LLM 批量**：`feeds.yaml` 中 `settings.batch_size`（一次请求处理几条摘要，默认 6；越大越省调用，越容易漏项）。
+- **搜索索引体积**：`hugo.toml` 中 `params.searchIndexDays`（默认 365 天）、`params.searchIndexChars`（每条正文截断字数，默认 400）。
 - **调整发布时间**：修改 `.github/workflows/daily.yml` 中的 cron 表达式（UTC 时间）。
 - **换模型**：设置环境变量 `DEEPSEEK_MODEL`（默认 `deepseek-v4-flash`，thinking 模式开启）或 `DEEPSEEK_BASE_URL`（任意 OpenAI 兼容接口）。
 
@@ -66,8 +69,12 @@ GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
 ```bash
 git clone --recurse-submodules https://github.com/HachGo/news_auto.git
 cd news_auto
-pip install -r scripts/requirements.txt
+pip install -r scripts/requirements.txt        # 运行依赖
+pip install -r scripts/requirements-dev.txt    # 含 pytest，跑测试需要
 export DEEPSEEK_API_KEY=sk-xxx   # 可选
 python scripts/fetch_news.py     # 生成当日文章
+python -m pytest -q              # 跑测试（无 hugo / 无主题时相关用例自动 skip）
 hugo server                       # 需要 Hugo extended >= 0.146
 ```
+
+依赖用 `~=` 锁到次版本：新的大版本不会自动进来，避免某次库升级把每日任务搞挂。

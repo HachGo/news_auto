@@ -1,8 +1,8 @@
-feedparser>=6.0
-requests>=2.31
-PyYAML>=6.0
-python-dateutil>=2.8
-openai>=1.30
-beautifulsoup4>=4.12
-lxml>=5.0
-pytest>=8.0
+# 运行时依赖：用 ~= 锁到次版本，避免某个大版本升级把每日任务悄悄搞挂
+feedparser~=6.0
+requests~=2.33
+PyYAML~=6.0
+python-dateutil~=2.9
+openai>=1.30,<3        # 1.x / 2.x 的 chat.completions 接口都兼容
+beautifulsoup4~=4.12
+lxml>=5.0,<7
