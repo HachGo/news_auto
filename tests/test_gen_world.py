@@ -11,7 +11,7 @@ def _client(content):
     return client
 
 
-def test_generate_regular_only(tmp_path):
+def test_generate_regular_only(tmp_path, fake_summaries):
     config = {
         "settings": {"total_limit": 5, "per_source_limit": 4, "hours_window": 240},
         "ai_keywords": [], "feeds": [],
@@ -24,7 +24,7 @@ def test_generate_regular_only(tmp_path):
     ]
     with patch("generators.world.rss.fetch_candidates", return_value=candidates), \
          patch("generators.world.rank_and_select", side_effect=lambda c, cs, cfg: list(cs)), \
-         patch("generators.world.summarize", return_value={"title_zh": "中", "summary_zh": "摘"}):
+         patch("generators.world.apply_summaries", side_effect=fake_summaries):
         result = world.generate(config, {}, None, date_str="2026-08-01", posts_dir=tmp_path)
     assert result["path"].exists()
     text = result["path"].read_text(encoding="utf-8")

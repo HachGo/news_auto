@@ -11,7 +11,7 @@ def _client_returning(content):
     return client
 
 
-def test_generate_writes_sectioned_post(tmp_path):
+def test_generate_writes_sectioned_post(tmp_path, fake_summaries):
     config = {
         "settings": {"total_limit": 5, "per_source_limit": 4, "hours_window": 240, "deep_limit": 6, "deep_per_source_limit": 2},
         "ai_keywords": ["ai"],
@@ -24,7 +24,7 @@ def test_generate_writes_sectioned_post(tmp_path):
     client = _client_returning('{"selected": [{"index": 0, "score": 9}]}')
 
     with patch("generators.ai.rss.fetch_candidates", return_value=candidates), \
-         patch("generators.ai.summarize", return_value={"title_zh": "中文", "summary_zh": "摘要"}):
+         patch("generators.ai.apply_summaries", side_effect=fake_summaries):
         result = ai.generate(config, {}, client, date_str="2026-08-01", posts_dir=tmp_path)
     assert result["path"].exists()
     text = result["path"].read_text(encoding="utf-8")

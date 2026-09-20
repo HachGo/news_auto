@@ -323,11 +323,39 @@ DEEP_PROMPT_TMPL = """你是深度刊物编辑。请将下面这篇长读翻译�
 英文内容: {summary}
 """
 
+# 批量摘要：一次请求处理多条，把每天 50 次左右的调用压到 10 次上下
+BATCH_PROMPT_TMPL = """你是新闻编辑。下面有 {count} 条英文新闻，请逐条翻译并总结，返回 JSON（不要包含其他文字）：
+{{"items": [{{"index": 编号, "title_zh": "中文标题", "summary_zh": "{rule}"}}, ...]}}
 
-def _llm_summarize(client, item, prompt_tmpl, summary_chars, retries=2):
-    if client is None:
+要求：index 必须与下面给出的编号一一对应，不得遗漏或新增条目。
+
+{blocks}"""
+
+SUMMARY_RULES = {
+    "short": "中文摘要，2-3句话，120字以内，客观精炼",
+    "deep": "中文导读，3-4句话，180字以内，客观精炼，并点明为何值得深入阅读",
+}
+
+BATCH_SIZE = 6
+
+
+def _clean_summary(data):
+    """校验并规整 {title_zh, summary_zh}；字段类型不对或为空一律视为无效。"""
+    if not isinstance(data, dict):
         return None
-    prompt = prompt_tmpl.format(title=item["title"], summary=item["summary"][:summary_chars])
+    title_zh = data.get("title_zh")
+    summary_zh = data.get("summary_zh")
+    if not isinstance(title_zh, str) or not isinstance(summary_zh, str):
+        return None
+    title_zh = title_zh.strip()
+    summary_zh = summary_zh.strip()
+    if not title_zh or not summary_zh:
+        return None
+    return {"title_zh": title_zh, "summary_zh": summary_zh}
+
+
+def _llm_call(client, prompt, max_tokens, retries, parse=None, timeout=120):
+    """调用 LLM 并把回复交给 parse()；parse 返回 None 就重试，最终失败返回 None。"""
     for attempt in range(retries + 1):
         try:
             resp = client.chat.completions.create(
@@ -335,25 +363,33 @@ def _llm_summarize(client, item, prompt_tmpl, summary_chars, retries=2):
                 messages=[{"role": "user", "content": prompt}],
                 response_format={"type": "json_object"},
                 reasoning_effort="high",
-                max_tokens=2000,
-                timeout=120,
+                max_tokens=max_tokens,
+                timeout=timeout,
                 extra_body={"thinking": {"type": "enabled"}},
             )
-            data = json.loads(resp.choices[0].message.content)
-            if not isinstance(data, dict):
-                continue
-            title_zh = data.get("title_zh")
-            summary_zh = data.get("summary_zh")
-            if not isinstance(title_zh, str) or not isinstance(summary_zh, str):
-                continue
-            title_zh = title_zh.strip()
-            summary_zh = summary_zh.strip()
-            if title_zh and summary_zh:
-                return {"title_zh": title_zh, "summary_zh": summary_zh}
+            value = parse(resp.choices[0].message.content) if parse else json.loads(
+                resp.choices[0].message.content)
+            if value is not None:
+                return value
         except Exception as exc:
             print(f"[warn] LLM 调用失败 (attempt {attempt + 1}): {exc}", file=sys.stderr)
-            time.sleep(2 * (attempt + 1))
+        time.sleep(2 * (attempt + 1))
     return None
+
+
+def _parse_summary(content):
+    try:
+        data = json.loads(content)
+    except (TypeError, ValueError):
+        return None
+    return _clean_summary(data)
+
+
+def _llm_summarize(client, item, prompt_tmpl, summary_chars, retries=2):
+    if client is None:
+        return None
+    prompt = prompt_tmpl.format(title=item["title"], summary=item["summary"][:summary_chars])
+    return _llm_call(client, prompt, max_tokens=2000, retries=retries, parse=_parse_summary)
 
 
 def summarize(client, item, retries=2):
@@ -364,6 +400,85 @@ def summarize(client, item, retries=2):
 def summarize_deep(client, item, retries=2):
     """深度阅读：加长导读摘要。"""
     return _llm_summarize(client, item, DEEP_PROMPT_TMPL, 900, retries=retries)
+
+
+def _batch_prompt(items, style, summary_chars):
+    blocks = [
+        f"编号: {index}\n英文标题: {item['title']}\n英文内容: {item['summary'][:summary_chars]}"
+        for index, item in enumerate(items)
+    ]
+    return BATCH_PROMPT_TMPL.format(
+        count=len(items), rule=SUMMARY_RULES[style], blocks="\n\n".join(blocks))
+
+
+def _parse_batch(content, size):
+    """解析批量回复，按 index 对齐成长度 size 的列表（无效项为 None）。"""
+    try:
+        data = json.loads(content)
+    except (TypeError, ValueError):
+        return None
+    entries = data.get("items") if isinstance(data, dict) else None
+    if not isinstance(entries, list) or not entries:
+        return None
+    results = [None] * size
+    filled = 0
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        index = entry.get("index")
+        if isinstance(index, bool) or not isinstance(index, int) or not 0 <= index < size:
+            continue
+        cleaned = _clean_summary(entry)
+        if cleaned:
+            results[index] = cleaned
+            filled += 1
+    return results if filled else None
+
+
+def summarize_all(client, items, style="short", batch_size=BATCH_SIZE, retries=1):
+    """批量摘要，返回与 items 等长的结果列表（失败项为 None）。
+
+    一次请求处理 batch_size 条，把每日请求数从「每条一次」压到十分之一左右；
+    整批失败时退回逐条调用，漏项也只补那几条，不会因为一次失败丢掉整批摘要。
+    """
+    items = list(items)
+    results = [None] * len(items)
+    if client is None or not items:
+        return results
+
+    style = style if style in SUMMARY_RULES else "short"
+    prompt_tmpl = DEEP_PROMPT_TMPL if style == "deep" else PROMPT_TMPL
+    summary_chars = 900 if style == "deep" else 500
+
+    for start in range(0, len(items), batch_size):
+        chunk = items[start:start + batch_size]
+        parsed = _llm_call(
+            client,
+            _batch_prompt(chunk, style, summary_chars),
+            max_tokens=min(8000, 1200 + 700 * len(chunk)),
+            retries=retries,
+            parse=lambda content, size=len(chunk): _parse_batch(content, size),
+        )
+        if parsed is None:
+            print(f"[warn] 批量摘要失败，退回逐条摘要（{len(chunk)} 条）", file=sys.stderr)
+            parsed = [None] * len(chunk)
+
+        for offset, value in enumerate(parsed):
+            if value is None:
+                value = _llm_summarize(client, chunk[offset], prompt_tmpl, summary_chars, retries=1)
+            results[start + offset] = value
+    return results
+
+
+def apply_summaries(client, items, style="short", batch_size=BATCH_SIZE, retries=1):
+    """批量摘要并写回 items 的 title_zh/summary_zh，返回成功条数。"""
+    results = summarize_all(client, items, style=style, batch_size=batch_size, retries=retries)
+    ok = 0
+    for item, result in zip(items, results):
+        if result:
+            item.update(result)
+            ok += 1
+    return ok
 
 
 def render_item(item, num):

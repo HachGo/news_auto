@@ -5,7 +5,7 @@
 
 from pathlib import Path
 
-from common import atomic_write_text, select_deep, summarize_deep, render_deep
+from common import apply_summaries, atomic_write_text, select_deep, render_deep
 from published import load_published_post, retain_failed_source_items, seen_without_published
 from sources import rss
 
@@ -40,12 +40,7 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
         config.get("settings", {}).get("deep_limit", 8),
     )
 
-    ok = 0
-    for item in selected:
-        result = summarize_deep(client, item)
-        if result:
-            item.update(result)
-            ok += 1
+    ok = apply_summaries(client, selected, style="deep")
 
     if client is not None and ok == 0 and selected:
         if existing is not None:
