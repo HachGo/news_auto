@@ -1,6 +1,13 @@
-{{- /* 全文检索索引：每日简报拆成单条资讯 + 保留整页（行情表等） */ -}}
+{{- /* 全文检索索引：每日简报拆成单条资讯 + 保留整页（行情表等）。
+
+   体积控制：只收录最近 searchIndexDays 天（默认 365），每条正文截断到
+   searchIndexChars 字（默认 400）。按每天 40 条估算，索引每年增长约 5MB，
+   不设上限的话搜索页要下载整个历史。 */ -}}
+{{- $days := int (site.Params.searchIndexDays | default 365) -}}
+{{- $chars := int (site.Params.searchIndexChars | default 400) -}}
+{{- $cutoff := now.AddDate 0 0 (int (mul $days -1)) -}}
 {{- $.Scratch.Add "index" slice -}}
-{{- range site.RegularPages -}}
+{{- range where site.RegularPages "Date" "ge" $cutoff -}}
 {{- if and (not .Params.searchHidden) (ne .Layout "archives") (ne .Layout "search") -}}
 {{- $page := . -}}
 {{- $section := .Section -}}
@@ -23,7 +30,7 @@
 {{- $heading = replaceRE `^【重点】` "" $heading -}}
 {{- $heading = strings.TrimSpace $heading -}}
 {{- $body := delimit (after 1 $lines) "\n" -}}
-{{- $plain := $body | plainify | htmlUnescape | strings.TrimSpace -}}
+{{- $plain := $body | plainify | htmlUnescape | strings.TrimSpace | truncate $chars -}}
 {{- if $heading -}}
 {{- $.Scratch.Add "index" (dict "title" $heading "content" $plain "permalink" $page.Permalink "summary" $meta "section" $section) -}}
 {{- end -}}
@@ -37,11 +44,11 @@
 {{- $company := replaceRE `(?s)^-\s+([^：:]+)[：:].*$` "$1" $line | strings.TrimSpace -}}
 {{- $title := replaceRE `(?s)^.*\[([^\]]+)\].*$` "$1" $line | strings.TrimSpace -}}
 {{- $entryTitle := printf "%s：%s" $company $title -}}
-{{- $.Scratch.Add "index" (dict "title" $entryTitle "content" $entryTitle "permalink" $page.Permalink "summary" (printf "%s · 公告 · %s" $sectionLabel $date) "section" $section) -}}
+{{- $.Scratch.Add "index" (dict "title" $entryTitle "content" ($entryTitle | truncate $chars) "permalink" $page.Permalink "summary" (printf "%s · 公告 · %s" $sectionLabel $date) "section" $section) -}}
 {{- end -}}
 
 {{- /* 整页兜底：行情表、宏观日历、未拆分内容均可搜 */ -}}
-{{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" (.Params.summary | default $meta) "section" $section) -}}
+{{- $.Scratch.Add "index" (dict "title" .Title "content" (.Plain | truncate $chars) "permalink" .Permalink "summary" (.Params.summary | default $meta) "section" $section) -}}
 
 {{- end -}}
 {{- end -}}

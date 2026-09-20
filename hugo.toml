@@ -41,6 +41,9 @@ buildExpired = false
   tocopen = false
   # 归档 / 首页列表 / 上下篇：覆盖四版面（缺省会只取最大 section）
   mainSections = ["ai", "world", "market", "deep"]
+  # 搜索索引（index.json）体积控制：只收录最近 N 天，每条正文最多 M 字
+  searchIndexDays = 365
+  searchIndexChars = 400
 
   [params.fuseOpts]
     isCaseSensitive = false
