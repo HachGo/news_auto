@@ -38,3 +38,12 @@ def test_bot_generated_push_does_not_create_a_refresh_loop():
 def test_generated_commit_uses_beijing_calendar_date():
     steps = {step["name"]: step for step in _workflow()["jobs"]["build"]["steps"]}
     assert "TZ=Asia/Shanghai date +%Y-%m-%d" in steps["Commit new content"]["run"]
+
+
+def test_deploy_requires_passing_tests():
+    """测试不过就不该发布：build 依赖 test job，且 test job 真的跑 pytest。"""
+    workflow = _workflow()
+    assert workflow["jobs"]["build"]["needs"] == "test"
+
+    steps = {step["name"]: step for step in workflow["jobs"]["test"]["steps"]}
+    assert "pytest" in steps["Run tests"]["run"]
