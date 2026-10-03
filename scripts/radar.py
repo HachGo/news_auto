@@ -1,4 +1,8 @@
-"""话题趋势与规则预测的公共统计和展示数据。"""
+"""话题趋势与规则预测的公共统计和展示数据。
+
+趋势条目三类：AI 话题（趋势快照热度）、行情（日涨跌幅）、创意类别（data/ideas 每日新增条数，
+满 8 天历史后出现）。z ≥ 2 且有相关条目的项附“为何上升”模型解释（explain.py，无 Key 时不出现）。
+"""
 
 from __future__ import annotations
 
@@ -214,10 +218,55 @@ def build_trends(trend_dir, date_str):
     return output
 
 
-def write_radar(trend_dir, date_str, out_dir):
+IDEA_FLOOR = 1.0  # 创意条数的离散下限：一条之差不应被放大成显著上升
+
+
+def build_idea_trends(ideas_dir, date_str):
+    """创意类别：每日新抓条数相对近 30 日基线的 z 值；历史不足 8 天时为空。"""
+    from ideas import SOURCE_MODULES, TYPE_NAMES, TYPES
+    days = []
+    for path in sorted(Path(ideas_dir).glob("*.json")) if ideas_dir and Path(ideas_dir).exists() else []:
+        if path.stem <= date_str:
+            payload = _read_json(path)
+            days.append({"date": path.stem, "items": payload.get("items") or []})
+    days = days[-31:]
+    if len(days) < 8:
+        return []
+    entries = []
+    for kind in TYPES:
+        series = [float(sum(item.get("type") == kind for item in day["items"])) for day in days]
+        history = series[-31:-1]
+        z = zscore(series[-1], history, IDEA_FLOOR)
+        if z is None or not any(series):
+            continue
+        earlier = sum(series[-14:-7])
+        today = [item for item in days[-1]["items"] if item.get("type") == kind]
+        related = []
+        for day in reversed(days[-7:]):
+            for item in day["items"]:
+                if item.get("type") == kind and item["url"] not in {entry["link"] for entry in related}:
+                    title = item.get("title") if isinstance(item.get("title"), dict) else {"zh": item.get("title", ""), "en": item.get("title", "")}
+                    related.append({"title": title, "link": item["url"], "date": day["date"],
+                                    "source": SOURCE_MODULES[item["source"]].NAME if item.get("source") in SOURCE_MODULES else item.get("source", "")})
+        entries.append({
+            "id": f"idea-{kind}", "kind": "idea", "field": "ai_tech", "name": TYPE_NAMES[kind],
+            "z": z, "rising": z >= 2, "spark": bars(series[-14:]),
+            "stats": [{"k": "ideas_today", "v": str(int(series[-1]))}, {"k": "mean", "v": f"{mean(history):.1f}"},
+                      {"k": "change_7d", "v": f"{(sum(series[-7:]) / earlier - 1) * 100:+.0f}%" if earlier else "—"},
+                      {"k": "sources_today", "v": str(len({item.get("source") for item in today}))}],
+            "chart": _chart(days, series, history, IDEA_FLOOR, z >= 2), "related": related[:5], "forecasts": [],
+        })
+    return entries
+
+
+def write_radar(trend_dir, date_str, out_dir, ideas_dir=None, client=None):
     """仅在内容变化时原子写入两份展示数据。"""
+    from explain import attach_explanations
+    trends = build_trends(trend_dir, date_str)
+    trends["entries"] = sorted(trends["entries"] + build_idea_trends(ideas_dir, date_str), key=lambda entry: -entry["z"])
+    attach_explanations(trends["entries"], client, Path(out_dir) / "explanations" / f"{date_str}.json")
     changed = {}
-    for name, payload in (("trends", build_trends(trend_dir, date_str)), ("forecasts", build_forecasts(trend_dir, date_str))):
+    for name, payload in (("trends", trends), ("forecasts", build_forecasts(trend_dir, date_str))):
         path = Path(out_dir) / f"{name}.json"
         text = json.dumps(payload, ensure_ascii=False, indent=1) + "\n"
         changed[name] = not path.exists() or path.read_text(encoding="utf-8") != text

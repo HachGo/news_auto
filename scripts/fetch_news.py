@@ -105,7 +105,8 @@ def main(force_refresh=None):
 
     # 雷达页面数据，失败不影响日报和首页。
     try:
-        write_radar(trend_data_dir, date_str, CONTENT_DIR.parent / "data" / "radar")
+        write_radar(trend_data_dir, date_str, CONTENT_DIR.parent / "data" / "radar",
+                    ideas_dir=CONTENT_DIR.parent / "data" / "ideas", client=client)
     except Exception as exc:
         print(f"[error] 雷达数据生成失败: {exc}", file=sys.stderr)
 

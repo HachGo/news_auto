@@ -187,6 +187,8 @@ def build_rules(config):
                 _row("上升信号", "Rising signals", _pair("趋势页 z ≥ 2；首页显示 z > 0 的前 5 项", "Trends: z ≥ 2; home: top 5 with z > 0")),
                 _row("基线", "Baseline", _pair("30 天，至少 7 天", "30 days, minimum 7 days")),
                 _row("主题", "Topics", kind="chips", chips=[_pair(v["name"], v["name_en"]) for v in TOPICS.values()]),
+                _row("创意类别", "Idea categories", _pair("每日新增条数，满 8 天历史后参与", "Daily new ideas per type, once 8 days of history exist")),
+                _row("上升原因", "Why it is rising", _pair("模型只依据相关标题写一两句；无模型时不显示", "One or two model-written sentences grounded only in the related headlines; hidden without a model")),
             ]),
             group("创意评分", "Idea scoring", [
                 _row("信号权重", "Signal weights", kind="list", chips=[

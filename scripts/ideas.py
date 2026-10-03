@@ -25,6 +25,9 @@ from sources.ideas import github, hackaday, show_hn, sspai, v2ex
 SOURCE_MODULES = {"show_hn": show_hn, "github": github, "v2ex": v2ex, "hackaday": hackaday, "sspai": sspai}
 SOURCES = dict(SOURCE_MODULES)  # 本次运行要抓取的来源（测试可替换）；名称一律查 SOURCE_MODULES
 TYPES = ("hack", "product", "method", "wish", "design")
+TYPE_NAMES = {"hack": {"zh": "技术巧思", "en": "Tech hacks"}, "product": {"zh": "新产品", "en": "New products"},
+              "method": {"zh": "好方法", "en": "Clever methods"}, "wish": {"zh": "许愿", "en": "Wished-for"},
+              "design": {"zh": "设计", "en": "Design"}}
 DEFAULT_TYPE = {"show_hn": "hack", "github": "hack", "hackaday": "hack", "v2ex": "product", "sspai": "method"}
 # 信号权重：金额与支持者 > 收藏与星标 > 点赞 > 评论（当前来源没有金额信号，保留权重备用）
 WEIGHTS = {"money": 1.0, "stars": 0.8, "upvotes": 0.6, "comments": 0.4}
