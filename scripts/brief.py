@@ -18,12 +18,11 @@ from __future__ import annotations
 import json
 from datetime import datetime
 from pathlib import Path
-from statistics import mean, pstdev
 
 from common import atomic_write_text, category_en, has_cjk, item_id, strip_html, summary_en, title_en
 from generators.market import QUOTE_NAMES_EN
 from trends.config import TOPICS
-from trends.forecast import SCENARIO_EN
+from radar import bars, forecast_entry, load_daily, quote_field, topic_activity, zscore
 
 SCHEMA_VERSION = 1
 FIELD_BY_SECTION = {"ai": "ai_tech", "world": "world", "market": "finance"}
@@ -44,7 +43,7 @@ def build_brief(results, date_str, generated_at, trend_dir=None, previous=None, 
     events.sort(key=lambda event: (-event["score"], -_timestamp(event["published_at"])))
 
     trend_dir = Path(trend_dir) if trend_dir else None
-    rows = _load_daily(trend_dir / "daily", date_str) if trend_dir else []
+    rows = load_daily(trend_dir / "daily", date_str) if trend_dir else []
     return {
         "schema": SCHEMA_VERSION,
         "date": date_str,
@@ -89,8 +88,8 @@ def rising(rows, limit=RISING_LIMIT):
         return []
     signals = []
     for key, spec in TOPICS.items():
-        series = [_topic_activity(row, key) for row in rows]
-        z = _zscore(series[-1], series[-(BASELINE_DAYS + 1):-1], floor=0.1)
+        series = [topic_activity(row, key) for row in rows]
+        z = zscore(series[-1], series[-(BASELINE_DAYS + 1):-1], floor=0.1)
         if z is not None:
             signals.append({
                 "id": key,
@@ -99,15 +98,15 @@ def rising(rows, limit=RISING_LIMIT):
                 "name": {"zh": spec["name"], "en": spec.get("name_en", spec["name"])},
                 "z": z,
                 "value": round(series[-1], 2),
-                "bars": _bars(series[-SPARK_DAYS:]),
+                "bars": bars(series[-SPARK_DAYS:]),
             })
     for quote in rows[-1].get("market_quotes") or []:
         name = quote.get("name")
-        changes = [_quote_field(row, name, "change_pct") for row in rows]
+        changes = [quote_field(row, name, "change_pct") for row in rows]
         history = [value for value in changes[-(BASELINE_DAYS + 1):-1] if value is not None]
-        z = _zscore(changes[-1], history, floor=0.25)
+        z = zscore(changes[-1], history, floor=0.25)
         if z is not None:
-            prices = [_quote_field(row, name, "price") for row in rows][-SPARK_DAYS:]
+            prices = [quote_field(row, name, "price") for row in rows][-SPARK_DAYS:]
             signals.append({
                 "id": f"quote-{name}",
                 "kind": "market",
@@ -115,7 +114,7 @@ def rising(rows, limit=RISING_LIMIT):
                 "name": {"zh": name, "en": QUOTE_NAMES_EN.get(name, name)},
                 "z": z,
                 "value": round(changes[-1], 2),
-                "bars": _bars(prices, relative=True),
+                "bars": bars(prices, relative=True),
             })
     rising_only = [signal for signal in signals if signal["z"] > 0]
     return sorted(rising_only, key=lambda signal: -signal["z"])[:limit]
@@ -209,29 +208,9 @@ def _forecasts(trend_dir, date_str):
         return []
     output = []
     for forecast in payload.get("forecasts") or []:
-        scenarios = [
-            {
-                "name": {"zh": s.get("name", ""), "en": s.get("name_en") or SCENARIO_EN.get(s.get("name"), s.get("name", ""))},
-                "direction": s.get("direction"),
-                "description": {
-                    "zh": s.get("description", ""),
-                    "en": s.get("description_en") or SCENARIO_EN.get(s.get("description"), s.get("description", "")),
-                },
-            }
-            for s in forecast.get("scenarios") or []
-        ]
-        drivers = [
-            {"zh": d.get("name", ""), "en": d.get("name_en") or TOPICS.get(d.get("topic"), {}).get("name_en", d.get("name", ""))}
-            for d in forecast.get("drivers") or []
-        ]
-        output.append({
-            "horizon": forecast.get("horizon"),
-            "direction": forecast.get("direction"),
-            "confidence": forecast.get("confidence"),
-            "target_date": forecast.get("target_date"),
-            "scenarios": scenarios,
-            "drivers": drivers,
-        })
+        entry = forecast_entry(forecast)
+        entry["drivers"] = [driver["name"] for driver in entry["drivers"]]
+        output.append(entry)
     return output
 
 
@@ -247,55 +226,6 @@ def _track_record(trend_dir):
             if evaluation.get("status") in counts:
                 counts[evaluation["status"]] += 1
     return {"resolved": counts["correct"] + counts["incorrect"], "correct": counts["correct"]}
-
-
-def _load_daily(folder, date_str):
-    rows = []
-    for path in sorted(folder.glob("*.json")) if folder.exists() else []:
-        if path.stem > date_str:
-            continue
-        try:
-            rows.append(json.loads(path.read_text(encoding="utf-8")))
-        except (OSError, ValueError):
-            continue
-    return rows[-(BASELINE_DAYS + 1):]
-
-
-def _topic_activity(row, key):
-    value = (row.get("topic_metrics") or {}).get(key, {}).get("activity")
-    return float(value) if isinstance(value, (int, float)) else 0.0
-
-
-def _quote_field(row, name, field):
-    for quote in row.get("market_quotes") or []:
-        if quote.get("name") == name and isinstance(quote.get(field), (int, float)):
-            return float(quote[field])
-    return None
-
-
-def _zscore(value, history, floor):
-    """value 相对 history 的 z 值；样本不足返回 None。标准差设下限，避免平稳序列被放大。"""
-    if value is None or len(history) < MIN_BASELINE_DAYS:
-        return None
-    spread = max(pstdev(history), abs(mean(history)) * 0.25, floor)
-    return round(max(-9.9, min(9.9, (value - mean(history)) / spread)), 1)
-
-
-def _bars(values, relative=False):
-    """迷你柱高（0–100）：热度按最大值缩放；价格按区间缩放并留底，便于看出起伏。"""
-    known = [value for value in values if value is not None]
-    if not known:
-        return []
-    high, low = max(known), min(known)
-    bars = []
-    for value in values:
-        if value is None:
-            bars.append(0)
-        elif relative:
-            bars.append(round(20 + 80 * (value - low) / (high - low)) if high > low else 60)
-        else:
-            bars.append(round(100 * value / high) if high > 0 else 0)
-    return bars
 
 
 def _iso(value):

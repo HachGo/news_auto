@@ -67,6 +67,13 @@ SCENARIO_EN = {
 }
 
 
+INVALIDATION_EN = {
+    "数据覆盖率低于最低阈值": "Data coverage falls below the minimum threshold",
+    "主要驱动主题在下一周期明显降温": "The main driving topics cool significantly in the next period",
+}
+REASON_EN = {"数据不足": "Insufficient data", "规则模型": "Rule-based model"}
+
+
 def _with_en(scenarios):
     return [
         {**item, "name_en": SCENARIO_EN.get(item["name"], item["name"]),

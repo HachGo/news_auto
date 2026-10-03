@@ -13,7 +13,8 @@ from pathlib import Path
 from common import load_config, load_seen, save_seen, build_llm_client, link_hash
 from generators import ai, world, market, deep
 from brief import build_brief, load_brief, write_brief
-from method import write_method_page
+from method import write_rules
+from radar import write_radar
 from trends import pipeline as trend_pipeline
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -94,15 +95,17 @@ def main(force_refresh=None):
     except Exception as exc:
         print(f"[error] 今日简报数据生成失败: {exc}", file=sys.stderr)
 
-    # 网站规则页（与 feeds / 评分规则同步）
+    # 雷达页面数据，失败不影响日报和首页。
     try:
-        method_path = CONTENT_DIR / "method.md"
-        if method_path.exists() and not force_refresh:
-            print("[info] 复用已生成网站规则页")
-        else:
-            write_method_page(config, path=method_path)
+        write_radar(trend_data_dir, date_str, CONTENT_DIR.parent / "data" / "radar")
     except Exception as exc:
-        print(f"[error] 网站规则页生成失败: {exc}", file=sys.stderr)
+        print(f"[error] 雷达数据生成失败: {exc}", file=sys.stderr)
+
+    # 网站规则每次同步，内容未变时不写入。
+    try:
+        write_rules(config, CONTENT_DIR.parent / "data" / "radar" / "rules.json")
+    except Exception as exc:
+        print(f"[error] 网站规则数据生成失败: {exc}", file=sys.stderr)
 
     # 更新 seen
     now_iso = datetime.now(timezone.utc).isoformat()

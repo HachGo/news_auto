@@ -4,12 +4,13 @@
 每日 fetch_news 主流程会自动调用。
 """
 
-from datetime import datetime
+import json
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 from common import (
-    CST,
+    atomic_write_text,
+    category_en,
     SCORE_BANDS,
     RANK_RULES,
     HIGHLIGHT_SCORE,
@@ -19,7 +20,7 @@ from common import (
 
 ROOT = Path(__file__).resolve().parent.parent
 FEEDS_FILE = Path(__file__).resolve().parent / "feeds.yaml"
-METHOD_PATH = ROOT / "content" / "method.md"
+RULES_PATH = ROOT / "data" / "radar" / "rules.json"
 
 SECTION_META = {
     "ai": {
@@ -111,176 +112,111 @@ def feed_link_cell(feed):
     return cell
 
 
-def build_method_page(config=None):
-    config = config or load_config(FEEDS_FILE)
+SCORE_BANDS_EN = {
+    "9-10": "Major global events (major AI model/product releases such as new GPT, Kimi or DeepSeek versions, major geopolitical events, important international conferences such as WAIC, acquisitions or policies that reshape an industry)",
+    "7-8": "Industry news with broad impact, major policies in important countries, significant moves by well-known companies, highly discussed community stories",
+    "5-6": "General industry news and regional events",
+    "1-4": "Minor updates, marketing articles, pure opinion commentary and local news with limited impact",
+}
+RANK_RULES_EN = {
+    0: "Community picks (top Hacker News stories and the day's hottest Reddit AI posts) reflect what the tech community is sharing: popular stories (for example HN 500+ points) about major topics deserve significantly higher scores; memes, spam and unrelated entertainment still receive low scores.",
+    1: "For duplicate reports of the same event, select only the most authoritative report.",
+    2: "Prioritize importance without forcing equal numbers in each category.",
+}
+
+
+def _pair(zh, en):
+    return {"zh": str(zh), "en": str(en)}
+
+
+def _row(zh, en, value=None, desc=None, kind="value", chips=None):
+    return {"label": _pair(zh, en), "desc": desc or _pair("", ""),
+            "kind": kind, "value": value or _pair("", ""), "chips": chips or []}
+
+
+def build_rules(config):
+    """仅导出公开规则和真实配置，不包含后台过滤内容。"""
+    from trends.config import TOPICS
     settings = config.get("settings") or {}
-    feeds = config.get("feeds") or []
-    keywords = config.get("ai_keywords") or []
-    now = datetime.now(CST).strftime("%Y-%m-%d %H:%M %z")
-
-    by_section = {key: [] for key in SECTION_ORDER}
-    for feed in feeds:
-        sec = feed.get("section")
-        if sec in by_section:
-            by_section[sec].append(feed)
-
-    total_feeds = sum(len(by_section[k]) for k in SECTION_ORDER)
-
-    lines = [
-        "---",
-        'title: "网站规则"',
-        'url: "/rules/"',
-        f"date: {datetime.now(CST).strftime('%Y-%m-%dT%H:%M:%S%z')}",
-        'summary: "本站抓取哪些网站，以及如何筛选、评分与排序每日资讯。"',
-        'body_class: "section-rules"',
-        "ShowToc: true",
-        "TocOpen: true",
-        "---",
-        "",
-        "> 本页由脚本根据 `scripts/feeds.yaml` 与 `scripts/common.py` 中的公开规则自动生成，"
-        "列出当前实际抓取的网站与筛选权重。"
-        f"更新源或规则后，重新跑抓取流水线即可同步。上次生成：{now}。",
-        "",
-        "## 获取哪些网站",
-        "",
-        f"当前共配置 **{total_feeds}** 个 RSS / 新闻源，另加市场专用接口。"
-        "下表即本站实际拉取的来源（含网站链接），增删改 `scripts/feeds.yaml` 后会自动反映到本页。",
-        "",
+    group = lambda zh, en, rows: {"title": _pair(zh, en), "rows": rows}
+    section = lambda key, steps, zh, en, dz, de, groups: {
+        "key": key, "steps": steps, "name": _pair(zh, en), "desc": _pair(dz, de), "groups": groups}
+    locked = lambda zh, en: _row(zh, en, kind="locked")
+    limits = [("hours_window", 36), ("total_limit", 15), ("per_source_limit", 4),
+              ("deep_limit", 8), ("deep_per_source_limit", 2)]
+    sections = [
+        section("fetch", [0, 1], "获取", "Fetch", "来源、时间窗与上限", "Sources, window and limits", [
+            group("运行安排", "Schedule", [
+                _row("抓取时间", "Fetch schedule", _pair("每日北京时间 06:00，以及每次推送到 main", "Daily 06:00 Beijing time, and on every push to main")),
+                _row("同日重跑", "Same-day reruns", _pair("复用已完成的版面", "Reuse finished sections")),
+            ]),
+            group("抓取上限", "Limits", [_row(k, k, _pair(str(settings.get(k, default)) + (" h" if k == "hours_window" else ""), str(settings.get(k, default)) + (" h" if k == "hours_window" else ""))) for k, default in limits]),
+            group("获取原则", "Fetch principles", [
+                locked("仅存储链接和短摘要", "Store link + short summary only"),
+                locked("版面失败不阻塞其他版面，错误记录来源名称", "A failed section never blocks the others; errors are logged with the source name"),
+            ]),
+        ]),
+        section("filter", [2], "筛选", "Filter", "关键词与去重", "Keywords and dedupe", [
+            group("AI 关键词过滤", "AI keyword filter", [_row("关键词", "Keywords", kind="chips", chips=[_pair(k, k) for k in config.get("ai_keywords", [])], desc=_pair("适用于 ai_filter: true 的来源", "Applies to feeds with ai_filter: true"))]),
+            group("去重", "Dedupe", [
+                _row("链接指纹", "Seen-link fingerprints", _pair("保留约 30 天", "Kept about 30 days")),
+                _row("同一事件", "Same story", _pair(RANK_RULES[1], RANK_RULES_EN[1])),
+            ]),
+        ]),
+        section("analyze", [3, 5], "分析", "Analyze", "评分、趋势与预测", "Scoring, trends and forecasts", [
+            group("内容分析", "Content analysis", [
+                _row("模型", "Model", _pair(DEEPSEEK_MODEL, DEEPSEEK_MODEL)),
+                _row("重要性评分", "Importance bands", kind="list", chips=[{"label": _pair(b, b), "desc": _pair(d, SCORE_BANDS_EN[b])} for b, d in SCORE_BANDS]),
+                _row("排序规则", "Ranking rules", kind="list", chips=[{"label": _pair(str(i + 1), str(i + 1)), "desc": _pair(r, RANK_RULES_EN[i])} for i, r in enumerate(RANK_RULES)]),
+                _row("重点门槛", "Highlight threshold", _pair(f"≥ {HIGHLIGHT_SCORE}", f"≥ {HIGHLIGHT_SCORE}")),
+            ]),
+            group("趋势", "Trends", [
+                _row("上升信号", "Rising signals", _pair("趋势页 z ≥ 2；首页显示 z > 0 的前 5 项", "Trends: z ≥ 2; home: top 5 with z > 0")),
+                _row("基线", "Baseline", _pair("30 天，至少 7 天", "30 days, minimum 7 days")),
+                _row("主题", "Topics", kind="chips", chips=[_pair(v["name"], v["name_en"]) for v in TOPICS.values()]),
+            ]),
+            group("预测", "Forecasts", [
+                _row("规则模型", "Rule model", _pair("rules-v1 · 4 个周期", "rules-v1 · 4 horizons")),
+                _row("验证方式", "Resolution", _pair("按目标日跨资产市场动量的正负方向验证", "Resolved by the sign of cross-asset market momentum on the target date")),
+                locked("校准前不提供概率", "No probabilities until calibrated"),
+            ]),
+        ]),
+        section("publish", [4, 6], "发布", "Publish", "静态站点与边界", "Static site and boundaries", [
+            group("网站", "Website", [_row("发布方式", "Publishing", _pair("GitHub Pages 静态站点 · 中文与英文", "Static site on GitHub Pages · Chinese + English"))]),
+            group("发布原则", "Publishing principles", [
+                locked("内容不构成投资建议", "Not financial advice"),
+                locked("不进行自动交易", "No automated trading"),
+                locked("API 密钥存于 GitHub Actions secrets，绝不提交", "API key lives in GitHub Actions secrets and is never committed"),
+                locked("预测记录不覆盖，结果追加保存", "Forecast records are never overwritten; results are appended"),
+            ]),
+        ]),
     ]
-
-    for key in SECTION_ORDER:
-        meta = SECTION_META[key]
-        lines.append(f"### {meta['name']}")
-        lines.append("")
-        lines.append("| 来源名称 | 网站 | 分类 | AI 过滤 | 候选上限 |")
-        lines.append("|---|---|---|---|---|")
-        for feed in by_section[key]:
-            name = feed.get("name", "")
-            cat = feed.get("category", "")
-            ai_f = "是" if feed.get("ai_filter") else "否"
-            max_items = feed.get("max_items", "—")
-            lines.append(
-                f"| {name} | {feed_link_cell(feed)} | {cat} | {ai_f} | {max_items} |"
-            )
-        if not by_section[key]:
-            lines.append("| （暂无） | — | — | — | — |")
-        lines.append("")
-
-    lines.extend([
-        "### 市场专用数据源（非 RSS）",
-        "",
-        "| 来源 | 网站 | 板块 | 说明 |",
-        "|---|---|---|---|",
-    ])
-    for name, url, block, note in MARKET_EXTRA_SOURCES:
-        label = site_label(url)
-        lines.append(f"| {name} | [{label}]({url}) | {block} | {note} |")
-    lines.append("")
-
-    lines.extend([
-        "## 筛选与排序规则",
-        "",
-        "### 流水线概览",
-        "",
-        "1. 按版面拉取上表中的 RSS / 专用数据源，过滤时间窗与已读指纹（`data/seen.json`，保留约 30 天）。",
-        "2. **AI / 国际**：LLM 重要性排序 → 中文标题与摘要 → 写入当日 markdown。",
-        "3. **市场**：行情 + 宏观日历 + 公告 + 财经 RSS（概览截取）→ 摘要要闻。",
-        "4. **深度**：来源均衡选刊 → 加长导读 → 刊物式排版。",
-        "5. 汇总四版面焦点，生成首页；并刷新本「网站规则」页。",
-        "6. 趋势模块保存 AI / 市场的结构化每日快照，按周期聚合并记录可追溯的情景判断；趋势数据不足时不生成高可信度预测。",
-        "",
-        f"默认摘要模型：`{DEEPSEEK_MODEL}`（可通过环境变量 `DEEPSEEK_MODEL` 覆盖）。"
-        "未配置 API Key 时降级为英文 RSS 原文摘要，排序改为来源轮询。",
-        "",
-        "### 全局参数",
-        "",
-        "| 参数 | 当前值 | 含义 |",
-        "|---|---|---|",
-        f"| `total_limit` | {settings.get('total_limit', 15)} | AI / 国际每日最多精选条数 |",
-        f"| `per_source_limit` | {settings.get('per_source_limit', 4)} | AI / 国际单来源最多入选 |",
-        f"| `hours_window` | {settings.get('hours_window', 36)} | 只取最近 N 小时内发布的条目 |",
-        f"| `deep_limit` | {settings.get('deep_limit', 8)} | 深度版面每日最多条数 |",
-        f"| `deep_per_source_limit` | {settings.get('deep_per_source_limit', 2)} | 深度版面单来源最多条数 |",
-        "",
-        "### 各版面选取策略",
-        "",
-    ])
-
-    for key in SECTION_ORDER:
-        meta = SECTION_META[key]
-        count = len(by_section[key])
-        lines.append(f"#### {meta['name']}（`{key}`）")
-        lines.append("")
-        lines.append(f"- 配置源数量：{count}")
-        lines.append(f"- 选取策略：{meta['select']}")
-        lines.append(f"- 摘要形态：{meta['summary']}")
-        lines.append("")
-
-    lines.extend([
-        "### LLM 重要性评分（AI / 国际）",
-        "",
-        "评分范围 1–10，由模型给出；分数越高越优先入选与进入「今日焦点」。",
-        "",
-        "| 分数段 | 含义 |",
-        "|---|---|",
-    ])
-    for band, desc in SCORE_BANDS:
-        lines.append(f"| {band} | {desc} |")
-    lines.append("")
-    lines.append("附加规则：")
-    lines.append("")
-    for i, rule in enumerate(RANK_RULES, 1):
-        lines.append(f"{i}. {rule}")
-    lines.append(
-        f"{len(RANK_RULES) + 1}. 评分 ≥ {HIGHLIGHT_SCORE} 的条目在正文标记【重点】，并优先进入「今日焦点」。"
-    )
-    lines.append("")
-
-    lines.extend([
-        "### AI 关键词过滤",
-        "",
-        "对 `ai_filter: true` 的源（如 Hacker News Frontpage），标题/摘要需命中下列关键词之一才会进入候选"
-        "（短词按单词边界匹配）：",
-        "",
-    ])
-    if keywords:
-        lines.append(", ".join(f"`{kw}`" for kw in keywords))
-    else:
-        lines.append("（当前未配置）")
-    lines.append("")
-
-    lines.extend([
-        "### 去重与降级",
-        "",
-        "- 链接指纹写入 `data/seen.json`，已见条目不再重复入选。",
-        "- LLM 排序失败：按来源轮询均衡选取（`select_items`）。",
-        "- LLM 摘要失败：使用 RSS 原始英文摘要；若配置了 Key 且该版面全部摘要失败则跳过发布。",
-        "",
-        "### 趋势研判边界",
-        "",
-        "- 趋势只使用 AI 与市场版面的结构化数据，保留来源、交易日期、覆盖率和数据警告。",
-        "- 周、月、季度、年度分别设有最低样本要求，覆盖不足时显示数据不足，不用 0 补齐。",
-        "- 第一版预测使用可解释规则和情景描述，不输出未经回测校准的精确概率或个股目标价。",
-        "- 预测记录不可覆盖，目标周期结束后追加实际结果与复盘状态。内容仅供信息参考，不构成投资建议。",
-        "",
-        "## 如何更新本页",
-        "",
-        "1. 改 `scripts/feeds.yaml`（源、网站、条数、时间窗等）。",
-        "2. 改 `scripts/common.py` 中的 `SCORE_BANDS` / `RANK_RULES` / `HIGHLIGHT_SCORE`（公开评分权重）。",
-        "3. 运行 `python scripts/fetch_news.py`（或单独 `python scripts/method.py`）。",
-        "",
-    ])
-    return "\n".join(lines)
+    names_en = {"第一财经": "Yicai", "财新": "Caixin", "界面新闻": "Jiemian", "华尔街见闻": "Wallstreetcn", "券商研报": "Broker research"}
+    sources = []
+    for feed in config.get("feeds", []):
+        url = feed.get("url") or ""
+        homepage = feed.get("homepage") or site_home(url)
+        name = feed.get("name", "")
+        sources.append({"name": _pair(name, feed.get("name_en") or names_en.get(name, name)),
+                        "section": feed.get("section"), "site": site_label(feed.get("homepage") or url),
+                        "href": homepage, "rss": url,
+                        "category": _pair(feed.get("category", ""), category_en(feed.get("category", ""))),
+                        "access": "RSS", "max_items": feed.get("max_items", 10), "ai_filter": bool(feed.get("ai_filter"))})
+    for (name, url, category, _), en in zip(MARKET_EXTRA_SOURCES, ["Eastmoney", "Jin10 / Forex Factory", "CNINFO"]):
+        sources.append({"name": _pair(name, en), "section": "market", "site": site_label(url), "href": url,
+                        "rss": "", "category": _pair(category, {"行情速览": "Market quotes", "宏观与政策": "Macro & policy", "公告与研报": "Filings & research"}[category]),
+                        "access": "API", "max_items": None, "ai_filter": False})
+    return {"sections": sections, "sources": sources}
 
 
-def write_method_page(config=None, path=None):
-    path = Path(path) if path else METHOD_PATH
-    path.parent.mkdir(parents=True, exist_ok=True)
-    text = build_method_page(config)
-    path.write_text(text, encoding="utf-8")
-    print(f"[info] 网站规则页已生成 {path}")
+def write_rules(config, path=RULES_PATH):
+    """内容不变时保留文件，避免同日重跑产生提交。"""
+    path = Path(path)
+    text = json.dumps(build_rules(config), ensure_ascii=False, indent=2) + "\n"
+    if not path.exists() or path.read_text(encoding="utf-8") != text:
+        atomic_write_text(path, text)
     return path
 
 
 if __name__ == "__main__":
-    write_method_page()
+    write_rules(load_config(FEEDS_FILE))
