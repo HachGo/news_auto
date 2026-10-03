@@ -75,3 +75,15 @@ body:is(.section-trends, .section-forecasts, .section-rules) .main {
   .forecast-tabs { gap: 24px; }
   .radar-table { min-width: 640px; }
 }
+/* 行情概率问题：概率条 + 基准刻度，校准折线。 */
+.question-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.question-p { font-size: 28px; font-weight: 500; }
+.question-top small { color: var(--muted); font-size: 11px; white-space: nowrap; }
+.question-bar, .fc-prob { position: relative; height: 4px; margin-top: 10px; border-radius: 2px; background: var(--soft); }
+.question-bar i, .fc-prob i { position: absolute; inset: 0 auto 0 0; border-radius: 2px; background: var(--field-finance); }
+.question-bar b, .fc-prob b { position: absolute; top: -4px; width: 2px; height: 12px; margin-left: -1px; background: var(--ink); }
+.question-detail h3 { font-size: 16px; line-height: 1.4; text-wrap: pretty; }
+.calibration-predicted { position: absolute; left: -3px; right: -3px; height: 2px; background: var(--field-ai_tech); }
+.calibration-wait { margin-top: 18px; }
+#directions .forecast-record { margin-top: 16px; }
+#directions > .block-head, #directions .forecast-cards + .block-head { margin-top: 24px; }

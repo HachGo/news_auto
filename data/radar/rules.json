@@ -145,6 +145,30 @@
         },
         {
           "title": {
+            "zh": "实验室跟踪器",
+            "en": "Lab trackers"
+          },
+          "rows": [
+            {
+              "label": {
+                "zh": "跟踪器",
+                "en": "Trackers"
+              },
+              "desc": {
+                "zh": "按别名匹配本站已存储新闻的标题；英文按单词边界，中文按子串",
+                "en": "Aliases are matched against stored headlines: English on word boundaries, Chinese as substrings"
+              },
+              "kind": "value",
+              "value": {
+                "zh": "2 个，配置在 scripts/trackers.yaml",
+                "en": "2, configured in scripts/trackers.yaml"
+              },
+              "chips": []
+            }
+          ]
+        },
+        {
+          "title": {
             "zh": "获取原则",
             "en": "Fetch principles"
           },
@@ -339,6 +363,22 @@
               "value": {
                 "zh": "同一事件的多条重复报道只选最权威的一条。",
                 "en": "For duplicate reports of the same event, select only the most authoritative report."
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "合并报道",
+                "en": "Merged reports"
+              },
+              "desc": {
+                "zh": "同日候选中报道同一事件的其他来源并入该事件；英文与中文报道分别与事件的英文、中文标题比对，不调用模型",
+                "en": "Other same-day reports of the story join the event; English and Chinese reports are compared with the event's English and Chinese text. No model is used."
+              },
+              "kind": "value",
+              "value": {
+                "zh": "标题与摘要 TF-IDF 相似度 ≥ 0.25",
+                "en": "Title + summary TF-IDF similarity ≥ 0.25"
               },
               "chips": []
             }
@@ -583,6 +623,151 @@
                   "en": "Policy, safety & regulation"
                 }
               ]
+            },
+            {
+              "label": {
+                "zh": "创意类别",
+                "en": "Idea categories"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "每日新增条数，满 8 天历史后参与",
+                "en": "Daily new ideas per type, once 8 days of history exist"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "上升原因",
+                "en": "Why it is rising"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "模型只依据相关标题写一两句；无模型时不显示",
+                "en": "One or two model-written sentences grounded only in the related headlines; hidden without a model"
+              },
+              "chips": []
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "创意评分",
+            "en": "Idea scoring"
+          },
+          "rows": [
+            {
+              "label": {
+                "zh": "信号权重",
+                "en": "Signal weights"
+              },
+              "desc": {
+                "zh": "各信号先换算为该来源近 30 天内的百分位，再加权平均；无信号的来源记 50",
+                "en": "Each signal becomes a percentile within its source over 30 days, then a weighted mean; sources without signals score 50"
+              },
+              "kind": "list",
+              "value": {
+                "zh": "",
+                "en": ""
+              },
+              "chips": [
+                {
+                  "label": {
+                    "zh": "×1.0",
+                    "en": "×1.0"
+                  },
+                  "desc": {
+                    "zh": "金额与支持者",
+                    "en": "Money & backers"
+                  }
+                },
+                {
+                  "label": {
+                    "zh": "×0.8",
+                    "en": "×0.8"
+                  },
+                  "desc": {
+                    "zh": "收藏与星标",
+                    "en": "Saves & stars"
+                  }
+                },
+                {
+                  "label": {
+                    "zh": "×0.6",
+                    "en": "×0.6"
+                  },
+                  "desc": {
+                    "zh": "点赞",
+                    "en": "Upvotes"
+                  }
+                },
+                {
+                  "label": {
+                    "zh": "×0.4",
+                    "en": "×0.4"
+                  },
+                  "desc": {
+                    "zh": "评论",
+                    "en": "Comments"
+                  }
+                }
+              ]
+            },
+            {
+              "label": {
+                "zh": "时间衰减",
+                "en": "Time decay"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "半衰期 7 天",
+                "en": "Half-life 7 days"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "跨站加分",
+                "en": "Cross-site boost"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "每多一个站点 +3",
+                "en": "+3 for each extra site"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "模型标注",
+                "en": "Model labels"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "类型、为何巧妙、适合谁、上手难度；剔除非创意内容",
+                "en": "Type, why it is clever, who it is for, effort; non-ideas are dropped"
+              },
+              "chips": []
             }
           ]
         },
@@ -626,8 +811,56 @@
             },
             {
               "label": {
-                "zh": "校准前不提供概率",
-                "en": "No probabilities until calibrated"
+                "zh": "行情概率问题",
+                "en": "Market questions"
+              },
+              "desc": {
+                "zh": "概率来自近 20 个交易日的波动与平均涨跌（按一半计入），截断在 5%–95%；不用模型",
+                "en": "Probability from 20-day volatility and average move (half weight), capped to 5%–95%; no model"
+              },
+              "kind": "value",
+              "value": {
+                "zh": "market-v1 · 每个资产每周、每月各一个",
+                "en": "market-v1 · one per asset per week and per month"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "问题结算",
+                "en": "Question resolution"
+              },
+              "desc": {
+                "zh": "不比较点位：不同行情来源的点位口径可能不同；休市重复的数据不计入",
+                "en": "Price levels are not compared because sources quote them differently; repeated holiday values are skipped"
+              },
+              "kind": "value",
+              "value": {
+                "zh": "提问次日起每日涨跌幅复利累计至截止日后首个交易日",
+                "en": "Daily % changes compounded to the first trading day on or after the deadline"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "对照基准",
+                "en": "Baseline"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "同期上涨天数占比（不是预测市场价格）",
+                "en": "Share of up days over the same period (not a prediction market)"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "方向判断不给概率",
+                "en": "Direction calls carry no probabilities"
               },
               "desc": {
                 "zh": "",
@@ -1216,6 +1449,91 @@
       },
       "access": "API",
       "max_items": null,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "Show HN",
+        "en": "Show HN"
+      },
+      "section": "ideas",
+      "site": "hn.algolia.com",
+      "href": "https://hn.algolia.com/",
+      "rss": "",
+      "category": {
+        "zh": "作品展示",
+        "en": "Show HN posts"
+      },
+      "access": "API",
+      "max_items": 30,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "GitHub",
+        "en": "GitHub"
+      },
+      "section": "ideas",
+      "site": "api.github.com",
+      "href": "https://api.github.com/",
+      "rss": "",
+      "category": {
+        "zh": "新仓库",
+        "en": "New repositories"
+      },
+      "access": "API",
+      "max_items": 30,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "V2EX",
+        "en": "V2EX"
+      },
+      "section": "ideas",
+      "site": "v2ex.com",
+      "href": "https://www.v2ex.com/",
+      "rss": "",
+      "category": {
+        "zh": "分享创造",
+        "en": "Shared creations"
+      },
+      "access": "API",
+      "max_items": 30,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "Hackaday",
+        "en": "Hackaday"
+      },
+      "section": "ideas",
+      "site": "hackaday.com",
+      "href": "https://hackaday.com/",
+      "rss": "https://hackaday.com/blog/feed/",
+      "category": {
+        "zh": "硬件巧思",
+        "en": "Hardware hacks"
+      },
+      "access": "RSS",
+      "max_items": 30,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "少数派",
+        "en": "SSPAI"
+      },
+      "section": "ideas",
+      "site": "sspai.com",
+      "href": "https://sspai.com/",
+      "rss": "https://sspai.com/feed",
+      "category": {
+        "zh": "工具与方法",
+        "en": "Tools & methods"
+      },
+      "access": "RSS",
+      "max_items": 30,
       "ai_filter": false
     }
   ]

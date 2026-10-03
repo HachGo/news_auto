@@ -3,6 +3,11 @@
 {{- $lang := cond (eq site.Language.Lang "en") "en" "zh" -}}
 {{- $fields := slice "finance" "ai_tech" "world" -}}
 {{- $short := site.Params.sectionShort -}}
+{{- /* 创意板块（data/radar/ideas.json）有 7 天内条目时，首页 02 区块显示创意，否则沿用深度阅读 */ -}}
+{{- $ideaData := site.Data.radar.ideas | default dict -}}
+{{- $ideas := first 6 (where ($ideaData.ideas | default slice) "age_h" "le" 168) -}}
+{{- $questions := site.Data.radar.forecasts.questions | default dict -}}
+{{- $openQuestions := first 3 ($questions.open | default slice) -}}
 <div class="today">
   {{- if not $brief }}
   <section class="today-hero">
@@ -30,7 +35,11 @@
     </div>
     <dl class="today-stats">
       <div><dt>{{ i18n "stat_events" }}</dt><dd>{{ $brief.stats.events }}</dd></div>
+      {{- with $ideas }}
+      <div><dt>{{ i18n "stat_ideas" }}</dt><dd>{{ $ideaData.stats.today }}</dd></div>
+      {{- else }}
       <div><dt>{{ i18n "stat_deep" }}</dt><dd>{{ $brief.stats.deep }}</dd></div>
+      {{- end }}
       <div><dt>{{ i18n "stat_sources" }}</dt><dd>{{ $brief.stats.sources }}</dd></div>
     </dl>
   </section>
@@ -103,12 +112,31 @@
           <h2 id="outlook-title">{{ i18n "outlook" }}</h2>
           {{- $record := $brief.track_record }}
           {{- with site.GetPage "/forecasts" }}
-          <a class="mono" href="{{ .RelPermalink }}">{{ if gt $record.resolved 0 }}{{ i18n "track_record" (dict "Resolved" $record.resolved "Correct" $record.correct) }}{{ else }}{{ i18n "track_record_none" }}{{ end }}</a>
+          {{- $qrec := $questions.record | default dict }}
+          <a class="mono" href="{{ .RelPermalink }}">{{ if $qrec.brier }}{{ i18n "outlook_brier" (dict "Brier" (printf "%.3f" $qrec.brier) "Count" $qrec.resolved) }}{{ else if $openQuestions }}{{ i18n "outlook_open" (dict "Count" (len $questions.open)) }}{{ else if gt $record.resolved 0 }}{{ i18n "track_record" (dict "Resolved" $record.resolved "Correct" $record.correct) }}{{ else }}{{ i18n "track_record_none" }}{{ end }}</a>
           {{- end }}
         </div>
         <div class="forecast-stack">
-          {{- range . }}
-          {{- if eq .horizon "year" }}{{ $year = . }}{{ continue }}{{ end }}
+          {{- range . }}{{ if eq .horizon "year" }}{{ $year = . }}{{ end }}{{ end }}
+          {{- /* 有行情概率问题时首页显示前 3 个（设计稿 v2 样式），否则沿用方向判断卡片 */ -}}
+          {{- range $openQuestions }}
+          <div class="panel fc-card fc-market">
+            <div class="fc-top">
+              <div>
+                <div class="fc-horizon">{{ i18n (printf "horizon_%s" .horizon) }}</div>
+                <div class="fc-q">{{ index .question $lang }}</div>
+              </div>
+              <div class="fc-val mono">{{ .p }}%</div>
+            </div>
+            <div class="fc-prob" role="img" aria-label="{{ .p }}% · {{ i18n "baseline_value" (dict "P" .baseline) }}"><i style="width: {{ .p }}%"></i><b style="left: {{ .baseline }}%"></b></div>
+            <div class="fc-foot">
+              <span>{{ i18n "due" (dict "Date" .deadline) }}</span>
+              <span>{{ i18n "baseline_value" (dict "P" .baseline) }}</span>
+            </div>
+          </div>
+          {{- end }}
+          {{- range (cond (gt (len $openQuestions) 0) slice .) }}
+          {{- if eq .horizon "year" }}{{ continue }}{{ end }}
           {{- $level := index (dict "high" 3 "medium" 2 "low" 1) .confidence | default 1 }}
           <div class="panel fc-card" data-direction="{{ .direction }}">
             <div class="fc-top">
@@ -149,6 +177,36 @@
     </aside>
   </div>
 
+  {{- if $ideas }}
+  <section class="today-deep" aria-labelledby="ideas-title">
+    <div class="block-head block-head-rule">
+      <h2 id="ideas-title">02 · {{ i18n "ideas" }}</h2>
+      {{- with site.GetPage "/ideas" }}
+      {{- $ideasPage := . }}
+      <nav class="idea-tabs" aria-label="{{ i18n "idea_type_filter" }}">
+        <a href="{{ $ideasPage.RelPermalink }}">{{ i18n "field_all" }}</a>
+        {{- range slice "hack" "product" "method" "wish" "design" }}
+        {{- if gt (index (index $ideaData.types "7d") .) 0 }}<a href="{{ $ideasPage.RelPermalink }}?type={{ . }}">{{ i18n (printf "idea_type_%s" .) }}</a>{{ end }}
+        {{- end }}
+      </nav>
+      {{- end }}
+    </div>
+    <div class="deep-grid">
+      {{- range $ideas }}
+      {{- $src := index .srcs 0 }}
+      <a class="deep-card" href="{{ .url }}" target="_blank" rel="noopener">
+        <span class="deep-type-row"><span class="deep-type">{{ i18n (printf "idea_type_%s" .type) }}</span><span class="idea-score mono">{{ .final }}</span></span>
+        <span class="deep-title">{{ index .title $lang | default .title.en }}</span>
+        {{- with index .why $lang }}<span class="deep-why">{{ . | truncate 140 }}</span>{{ end }}
+        <span class="deep-foot"><span>{{ $src.name }}{{ if gt .n_sites 1 }} +{{ sub .n_sites 1 }}{{ end }}</span><span>{{ partial "idea_signal.html" $src.signal }}</span></span>
+      </a>
+      {{- end }}
+    </div>
+    {{- with site.GetPage "/deep" }}
+    <p class="today-more"><a class="text-link" href="{{ .RelPermalink }}">{{ i18n "all_deep_reads" }} →</a></p>
+    {{- end }}
+  </section>
+  {{- else }}
   {{- with $brief.deep }}
   <section class="today-deep" aria-labelledby="deep-title">
     <div class="block-head block-head-rule">
@@ -176,6 +234,7 @@
       {{- end }}
     </div>
   </section>
+  {{- end }}
   {{- end }}
   {{- end }}
 </div>

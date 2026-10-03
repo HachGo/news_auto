@@ -8,6 +8,10 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 
+from cluster import SIMILARITY
+from lab import load_trackers
+from ideas import FETCH_LIMIT as IDEA_FETCH_LIMIT, HALF_LIFE_DAYS as IDEA_HALF_LIFE, SITE_BOOST as IDEA_BOOST
+from ideas import SOURCE_MODULES as IDEA_SOURCES, WEIGHTS as IDEA_WEIGHTS
 from common import (
     atomic_write_text,
     category_en,
@@ -125,6 +129,14 @@ RANK_RULES_EN = {
 }
 
 
+LAB_TRACKERS = load_trackers(Path(__file__).resolve().parent / "trackers.yaml")
+IDEA_WEIGHT_NAMES = {"money": ("金额与支持者", "Money & backers"), "stars": ("收藏与星标", "Saves & stars"),
+                     "upvotes": ("点赞", "Upvotes"), "comments": ("评论", "Comments")}
+IDEA_SOURCE_CATEGORY = {"show_hn": ("作品展示", "Show HN posts"), "github": ("新仓库", "New repositories"),
+                        "v2ex": ("分享创造", "Shared creations"), "hackaday": ("硬件巧思", "Hardware hacks"),
+                        "sspai": ("工具与方法", "Tools & methods")}
+
+
 def _pair(zh, en):
     return {"zh": str(zh), "en": str(en)}
 
@@ -151,6 +163,10 @@ def build_rules(config):
                 _row("同日重跑", "Same-day reruns", _pair("复用已完成的版面", "Reuse finished sections")),
             ]),
             group("抓取上限", "Limits", [_row(k, k, _pair(str(settings.get(k, default)) + (" h" if k == "hours_window" else ""), str(settings.get(k, default)) + (" h" if k == "hours_window" else ""))) for k, default in limits]),
+            group("实验室跟踪器", "Lab trackers", [
+                _row("跟踪器", "Trackers", _pair(f"{len(LAB_TRACKERS)} 个，配置在 scripts/trackers.yaml", f"{len(LAB_TRACKERS)}, configured in scripts/trackers.yaml"),
+                     desc=_pair("按别名匹配本站已存储新闻的标题；英文按单词边界，中文按子串", "Aliases are matched against stored headlines: English on word boundaries, Chinese as substrings")),
+            ]),
             group("获取原则", "Fetch principles", [
                 locked("仅存储链接和短摘要", "Store link + short summary only"),
                 locked("版面失败不阻塞其他版面，错误记录来源名称", "A failed section never blocks the others; errors are logged with the source name"),
@@ -161,6 +177,9 @@ def build_rules(config):
             group("去重", "Dedupe", [
                 _row("链接指纹", "Seen-link fingerprints", _pair("保留约 30 天", "Kept about 30 days")),
                 _row("同一事件", "Same story", _pair(RANK_RULES[1], RANK_RULES_EN[1])),
+                _row("合并报道", "Merged reports", _pair(f"标题与摘要 TF-IDF 相似度 ≥ {SIMILARITY}", f"Title + summary TF-IDF similarity ≥ {SIMILARITY}"),
+                     desc=_pair("同日候选中报道同一事件的其他来源并入该事件；英文与中文报道分别与事件的英文、中文标题比对，不调用模型",
+                                "Other same-day reports of the story join the event; English and Chinese reports are compared with the event's English and Chinese text. No model is used.")),
             ]),
         ]),
         section("analyze", [3, 5], "分析", "Analyze", "评分、趋势与预测", "Scoring, trends and forecasts", [
@@ -174,11 +193,28 @@ def build_rules(config):
                 _row("上升信号", "Rising signals", _pair("趋势页 z ≥ 2；首页显示 z > 0 的前 5 项", "Trends: z ≥ 2; home: top 5 with z > 0")),
                 _row("基线", "Baseline", _pair("30 天，至少 7 天", "30 days, minimum 7 days")),
                 _row("主题", "Topics", kind="chips", chips=[_pair(v["name"], v["name_en"]) for v in TOPICS.values()]),
+                _row("创意类别", "Idea categories", _pair("每日新增条数，满 8 天历史后参与", "Daily new ideas per type, once 8 days of history exist")),
+                _row("上升原因", "Why it is rising", _pair("模型只依据相关标题写一两句；无模型时不显示", "One or two model-written sentences grounded only in the related headlines; hidden without a model")),
+            ]),
+            group("创意评分", "Idea scoring", [
+                _row("信号权重", "Signal weights", kind="list", chips=[
+                    {"label": _pair(f"×{w}", f"×{w}"), "desc": _pair(IDEA_WEIGHT_NAMES[k][0], IDEA_WEIGHT_NAMES[k][1])} for k, w in IDEA_WEIGHTS.items()],
+                    desc=_pair("各信号先换算为该来源近 30 天内的百分位，再加权平均；无信号的来源记 50",
+                               "Each signal becomes a percentile within its source over 30 days, then a weighted mean; sources without signals score 50")),
+                _row("时间衰减", "Time decay", _pair(f"半衰期 {IDEA_HALF_LIFE} 天", f"Half-life {IDEA_HALF_LIFE} days")),
+                _row("跨站加分", "Cross-site boost", _pair(f"每多一个站点 +{IDEA_BOOST}", f"+{IDEA_BOOST} for each extra site")),
+                _row("模型标注", "Model labels", _pair("类型、为何巧妙、适合谁、上手难度；剔除非创意内容", "Type, why it is clever, who it is for, effort; non-ideas are dropped")),
             ]),
             group("预测", "Forecasts", [
                 _row("规则模型", "Rule model", _pair("rules-v1 · 4 个周期", "rules-v1 · 4 horizons")),
                 _row("验证方式", "Resolution", _pair("按目标日跨资产市场动量的正负方向验证", "Resolved by the sign of cross-asset market momentum on the target date")),
-                locked("校准前不提供概率", "No probabilities until calibrated"),
+                _row("行情概率问题", "Market questions", _pair("market-v1 · 每个资产每周、每月各一个", "market-v1 · one per asset per week and per month"),
+                     desc=_pair("概率来自近 20 个交易日的波动与平均涨跌（按一半计入），截断在 5%–95%；不用模型",
+                                "Probability from 20-day volatility and average move (half weight), capped to 5%–95%; no model")),
+                _row("问题结算", "Question resolution", _pair("提问次日起每日涨跌幅复利累计至截止日后首个交易日", "Daily % changes compounded to the first trading day on or after the deadline"),
+                     desc=_pair("不比较点位：不同行情来源的点位口径可能不同；休市重复的数据不计入", "Price levels are not compared because sources quote them differently; repeated holiday values are skipped")),
+                _row("对照基准", "Baseline", _pair("同期上涨天数占比（不是预测市场价格）", "Share of up days over the same period (not a prediction market)")),
+                locked("方向判断不给概率", "Direction calls carry no probabilities"),
             ]),
         ]),
         section("publish", [4, 6], "发布", "Publish", "静态站点与边界", "Static site and boundaries", [
@@ -206,6 +242,12 @@ def build_rules(config):
         sources.append({"name": _pair(name, en), "section": "market", "site": site_label(url), "href": url,
                         "rss": "", "category": _pair(category, {"行情速览": "Market quotes", "宏观与政策": "Macro & policy", "公告与研报": "Filings & research"}[category]),
                         "access": "API", "max_items": None, "ai_filter": False})
+    for key, module in IDEA_SOURCES.items():
+        url = module.URL.split("?")[0] if module.ACCESS == "API" else module.URL
+        sources.append({"name": _pair(module.NAME, getattr(module, "NAME_EN", module.NAME)), "section": "ideas",
+                        "site": site_label(url), "href": site_home(url), "rss": module.URL if module.ACCESS == "RSS" else "",
+                        "category": _pair(*IDEA_SOURCE_CATEGORY[key]), "access": module.ACCESS,
+                        "max_items": IDEA_FETCH_LIMIT, "ai_filter": False})
     return {"sections": sections, "sources": sources}
 
 

@@ -1,0 +1,110 @@
+{{- define "main" -}}
+{{- /* 创意页（World Radar v2）：数据来自 data/radar/ideas.json（scripts/ideas.py）。
+     服务端按“7 天 · 最佳”渲染全部 30 天条目，脚本负责切换范围、排序与类型。 */ -}}
+{{- $lang := cond (eq site.Language.Lang "en") "en" "zh" -}}
+{{- $data := site.Data.radar.ideas | default dict -}}
+{{- $ideas := $data.ideas | default slice -}}
+{{- $types := slice "hack" "product" "method" "wish" "design" -}}
+{{- $week := 168 -}}
+<div class="radar-page ideas-page" data-ideas>
+  <header class="radar-header">
+    <div>
+      {{- with $data.as_of }}<p class="radar-updated mono"><span class="live-dot" aria-hidden="true"></span>{{ i18n "updated_at" (dict "Time" .) }}</p>{{ end }}
+      <h1>{{ .Title }}</h1>
+      <p class="radar-description">{{ i18n "ideas_desc" }}</p>
+    </div>
+    {{- with $data.stats }}
+    <div class="radar-stats mono">
+      <div><strong>{{ .today }}</strong><span>{{ i18n "ideas_today" }}</span></div>
+      <div><strong>{{ .sources }}</strong><span>{{ i18n "stat_sources" }}</span></div>
+      <div><strong>{{ .multi }}</strong><span>{{ i18n "ideas_multi" }}</span></div>
+    </div>
+    {{- end }}
+  </header>
+
+  {{- if not $ideas }}
+  <p class="panel radar-empty">{{ i18n "ideas_empty_data" }}</p>
+  {{- else }}
+  <div class="ideas-filters">
+    <div class="field-filter" role="group" aria-label="{{ i18n "idea_type_filter" }}">
+      <button type="button" class="field-btn" data-idea-type="all" aria-pressed="true">{{ i18n "field_all" }}<span class="count" data-type-count="all">{{ index $data.counts "7d" }}</span></button>
+      {{- range $types }}
+      <button type="button" class="field-btn" data-idea-type="{{ . }}" aria-pressed="false">{{ i18n (printf "idea_type_%s" .) }}<span class="count" data-type-count="{{ . }}">{{ index (index $data.types "7d") . }}</span></button>
+      {{- end }}
+    </div>
+    <div class="ideas-controls" hidden data-idea-controls>
+      <div class="kind-filter" role="group" aria-label="{{ i18n "idea_sort" }}">
+        {{- range slice "top" "new" "multi" }}<button type="button" data-idea-sort="{{ . }}" aria-pressed="{{ eq . "top" }}">{{ i18n (printf "idea_sort_%s" .) }}</button>{{ end }}
+      </div>
+      <div class="kind-filter mono" role="group" aria-label="{{ i18n "idea_range" }}">
+        {{- range slice "24h" "7d" "30d" }}<button type="button" data-idea-range="{{ . }}" aria-pressed="{{ eq . "7d" }}">{{ . }}</button>{{ end }}
+      </div>
+    </div>
+  </div>
+  <script type="application/json" data-idea-counts>{{ dict "types" $data.types "counts" $data.counts | jsonify | safeJS }}</script>
+
+  <div class="ideas-layout">
+    <section class="ideas-main" aria-label="{{ .Title }}">
+      <ol class="idea-grid" data-idea-list>
+        {{- $rank := 0 }}
+        {{- range $ideas }}
+        {{- $inWeek := le .age_h $week }}
+        {{- if $inWeek }}{{ $rank = add $rank 1 }}{{ end }}
+        <li class="panel idea-card" data-type="{{ .type }}" data-age="{{ .age_h }}" data-final="{{ .final }}" data-sites="{{ .n_sites }}"{{ if not $inWeek }} hidden{{ end }}>
+          <div class="idea-head">
+            <span><span class="idea-rank mono" data-idea-rank>{{ if $inWeek }}{{ printf "%02d" $rank }}{{ end }}</span><span class="idea-type">{{ i18n (printf "idea_type_%s" .type) }}</span></span>
+            <span class="idea-score mono" title="{{ i18n "idea_score" }}">{{ .final }}</span>
+          </div>
+          <h3><a href="{{ .url }}" target="_blank" rel="noopener">{{ index .title $lang | default (index .title "en") }}</a></h3>
+          {{- with index .why $lang }}<p class="idea-why">{{ . }}</p>{{ end }}
+          <div class="idea-meta">
+            {{- with .who }}{{ with index . $lang }}<span>{{ i18n "idea_for" (dict "Who" .) }}</span>{{ end }}{{ end }}
+            {{- with .effort }}<span>{{ i18n (printf "idea_effort_%d" (int .)) }}</span>{{ end }}
+            <span class="mono">{{ partial "idea_age.html" .age_h }}</span>
+          </div>
+          <div class="idea-sources">
+            {{- if gt .n_sites 1 }}<span class="idea-multi">{{ i18n "idea_on_sites" (dict "Count" .n_sites) }}</span>{{ end }}
+            {{- range .srcs }}<a class="idea-src mono" href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}{{ with partial "idea_signal.html" .signal }} · {{ . }}{{ end }}</a>{{ end }}
+          </div>
+          <details class="idea-breakdown">
+            <summary>{{ i18n "idea_breakdown" }}</summary>
+            {{- range .srcs }}
+            <div class="idea-part"><span>{{ .name }}{{ with partial "idea_signal.html" .signal }} · {{ . }}{{ end }}</span><span class="idea-bar"><i style="width: {{ .p }}%"></i></span><span class="mono">p{{ .p }}</span></div>
+            {{- end }}
+            <dl class="idea-math">
+              <div><dt>{{ i18n "idea_weighted" }}</dt><dd class="mono">{{ .weighted }}</dd></div>
+              <div><dt>{{ i18n "idea_decay" }}</dt><dd class="mono">×{{ printf "%.2f" .decay }}</dd></div>
+              <div><dt>{{ i18n "idea_boost" }}</dt><dd class="mono">+{{ .boost }}</dd></div>
+              <div><dt>{{ i18n "idea_final" }}</dt><dd class="mono">{{ .final }}</dd></div>
+            </dl>
+          </details>
+        </li>
+        {{- end }}
+      </ol>
+      <p class="radar-empty" data-idea-empty hidden>{{ i18n "ideas_empty_filter" }}</p>
+    </section>
+
+    <aside class="ideas-aside">
+      {{- with $data.scoring }}
+      <section class="panel ideas-panel">
+        <h2>{{ i18n "idea_how_score" }}</h2>
+        {{- range .weights }}
+        <div class="idea-weight"><span>{{ i18n (printf "idea_weight_%s" .key) }}</span><span class="idea-bar"><i style="width: {{ mul .w 100 }}%"></i></span><span class="mono">×{{ printf "%.1f" .w }}</span></div>
+        {{- end }}
+        <p class="ideas-note">{{ i18n "idea_percentile_line" }}<br>{{ i18n "idea_decay_line" (dict "Days" .half_life_days) }}<br>{{ i18n "idea_boost_line" (dict "Boost" .boost) }}</p>
+      </section>
+      {{- end }}
+      <section class="panel ideas-panel ideas-sources">
+        <h2>{{ i18n "idea_sources_today" }}</h2>
+        {{- range $data.sources }}
+        <div class="idea-source-row"><span><strong>{{ index .name $lang }}</strong> <span class="mono">{{ .access }}</span></span><span class="idea-status is-{{ .status }}"><i aria-hidden="true"></i>{{ i18n (printf "idea_status_%s" .status) }}</span><span class="mono">{{ .count }}</span></div>
+        {{- end }}
+      </section>
+      {{- with site.GetPage "/deep" }}
+      <a class="scenario-card" href="{{ .RelPermalink }}"><span><span class="scenario-title">{{ i18n "deep_reads" }}</span><span class="scenario-sub">{{ i18n "deep_reads_sub" }}</span></span><span aria-hidden="true">→</span></a>
+      {{- end }}
+    </aside>
+  </div>
+  {{- end }}
+</div>
+{{- end -}}

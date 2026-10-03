@@ -4,7 +4,9 @@
 {{- if .IsHome }}{{ $current = "today" }}
 {{- else if eq .Layout "archives" }}{{ $current = "news" }}
 {{- else if in (slice "ai" "world" "market") .Section }}{{ $current = "news" }}
-{{- else if eq .Section "deep" }}{{ $current = "deep" }}
+{{- else if eq .Section "deep" }}{{ $current = "news" }}
+{{- else if eq .Section "ideas" }}{{ $current = "ideas" }}
+{{- else if eq .Section "lab" }}{{ $current = "lab" }}
 {{- else if eq .Section "trends" }}{{ $current = "trends" }}
 {{- else if eq .Section "forecasts" }}{{ $current = "forecasts" }}
 {{- else if eq .Layout "rules" }}{{ $current = "rules" }}

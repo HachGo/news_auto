@@ -36,7 +36,7 @@
 - id: disclaimer
   translation: "仅供信息参考，不构成投资建议。"
 - id: footer_sources
-  translation: "RSS · Hacker News · Reddit · 东方财富 · 金十数据 · 巨潮资讯"
+  translation: "RSS · Hacker News · Reddit · GitHub · V2EX · Hackaday · 少数派 · 东方财富 · 金十数据 · 巨潮资讯"
 - id: back_to_top
   translation: "回到顶部"
 
@@ -281,7 +281,7 @@
 - id: trends_filter_empty
   translation: "没有符合筛选条件的条目。"
 - id: forecasts_desc
-  translation: "基于规则判断科技与市场综合趋势，每条预测在目标日期自动核验。目前仅展示方向和可信度，在形成校准记录前不提供概率。"
+  translation: "带概率的具体行情问题：根据已存储的行情自动结算，用 Brier 分数评估。原有的规则方向判断保留在单独标签页。"
 - id: forecast_record
   translation: "历史表现"
 - id: hit_rate
@@ -332,3 +332,220 @@
   translation: "暂无年度情景。"
 - id: kind_market_trends
   translation: "市场"
+
+- id: merged_reports
+  translation: "合并报道"
+
+- id: report_count
+  translation: "{{ .Count }} 篇报道"
+
+- id: report_languages
+  translation: "EN {{ .En }} · 中 {{ .Zh }}"
+
+# Ideas
+- id: stat_ideas
+  translation: "创意"
+- id: ideas
+  translation: "创意"
+- id: ideas_desc
+  translation: "跨来源排序。每个信号先换算为该来源内的百分位，再加权、按时间衰减，并在同一创意出现在多个站点时加分。"
+- id: ideas_today
+  translation: "今日"
+- id: ideas_multi
+  translation: "多站点"
+- id: ideas_empty_data
+  translation: "创意数据尚未生成，下一次每日运行后出现。"
+- id: idea_type_filter
+  translation: "按类型筛选"
+- id: idea_type_hack
+  translation: "技术巧思"
+- id: idea_type_product
+  translation: "新产品"
+- id: idea_type_method
+  translation: "好方法"
+- id: idea_type_wish
+  translation: "许愿"
+- id: idea_type_design
+  translation: "设计"
+- id: idea_sort
+  translation: "排序"
+- id: idea_sort_top
+  translation: "最佳"
+- id: idea_sort_new
+  translation: "最新"
+- id: idea_sort_multi
+  translation: "多站点"
+- id: idea_range
+  translation: "时间范围"
+- id: idea_score
+  translation: "得分"
+- id: idea_for
+  translation: "适合：{{ .Who }}"
+- id: idea_effort_1
+  translation: "易上手"
+- id: idea_effort_2
+  translation: "中等投入"
+- id: idea_effort_3
+  translation: "投入较大"
+- id: idea_on_sites
+  translation: "出现在 {{ .Count }} 个站点"
+- id: idea_breakdown
+  translation: "评分拆解"
+- id: idea_weighted
+  translation: "加权信号"
+- id: idea_decay
+  translation: "时间衰减"
+- id: idea_boost
+  translation: "跨站加分"
+- id: idea_final
+  translation: "最终得分"
+- id: ideas_empty_filter
+  translation: "没有符合筛选条件的创意。"
+- id: idea_how_score
+  translation: "评分方式"
+- id: idea_weight_money
+  translation: "金额与支持者"
+- id: idea_weight_stars
+  translation: "收藏与星标"
+- id: idea_weight_upvotes
+  translation: "点赞"
+- id: idea_weight_comments
+  translation: "评论"
+- id: idea_percentile_line
+  translation: "信号在各来源近 30 天内比较；没有信号的来源记 50。"
+- id: idea_decay_line
+  translation: "时间衰减：半衰期 {{ .Days }} 天"
+- id: idea_boost_line
+  translation: "跨站加分：每多一个站点 +{{ .Boost }}"
+- id: idea_sources_today
+  translation: "今日来源"
+- id: idea_status_ok
+  translation: "正常"
+- id: idea_status_empty
+  translation: "无新内容"
+- id: idea_status_failed
+  translation: "失败"
+- id: deep_reads_sub
+  translation: "经济学人、大西洋月刊等刊物长读"
+- id: signal_upvotes
+  translation: "{{ .Count }} 赞"
+- id: signal_stars
+  translation: "{{ .Count }} ★"
+- id: signal_comments
+  translation: "{{ .Count }} 条评论"
+- id: signal_money
+  translation: "${{ .Count }}"
+- id: source_section_ideas
+  translation: "创意"
+
+# Trends: idea categories and explanations
+- id: kind_ideas
+  translation: "创意类别"
+- id: kind_label_topic
+  translation: "新闻话题"
+- id: kind_label_market
+  translation: "市场"
+- id: kind_label_idea
+  translation: "创意类别"
+- id: stat_ideas_today
+  translation: "今日创意"
+- id: stat_sources_today
+  translation: "今日来源"
+- id: why_rising
+  translation: "上升原因"
+- id: model_explanation
+  translation: "模型解释"
+- id: related_ideas
+  translation: "近期创意"
+
+# Market questions
+- id: brier_ours
+  translation: "我们的 Brier"
+- id: brier_baseline
+  translation: "基准 Brier"
+- id: brier_note
+  translation: "Brier 分数越低越好。始终给 50% 得 0.250；基准始终给出该资产的上涨天数占比。"
+- id: calibration_bins_note
+  translation: "柱：实际发生频率 · 线：平均预测概率"
+- id: calibration_collecting
+  translation: "数据积累中：已结算 {{ .Count }} 个，满 {{ .Min }} 个后校准图才有意义。"
+- id: direction_calls
+  translation: "方向判断"
+- id: direction_record
+  translation: "方向判断记录"
+- id: direction_calls_desc
+  translation: "对科技与市场综合趋势的规则判断，到目标日自动核对。只给方向与可信度。"
+- id: rationale
+  translation: "理由"
+- id: question_resolution
+  translation: "把行情来源（东方财富 / 新浪 / Yahoo）报告的每日涨跌幅，从提问次日复利累计到截止日当天或之后的首个交易日；累计为正即“是”。截止后 7 天内仍无行情则作废。"
+- id: baseline
+  translation: "基准"
+- id: baseline_text
+  translation: "不是预测市场价格：同一 20 个交易日内上涨天数的占比，用来对照我们的 Brier 分数。"
+- id: baseline_value
+  translation: "基准 {{ .P }}%"
+- id: questions_empty
+  translation: "暂无进行中的问题：资产需先积累 20 个交易日的行情。"
+- id: question
+  translation: "问题"
+- id: outcome
+  translation: "结果"
+- id: ours
+  translation: "我们"
+- id: answer_yes
+  translation: "是"
+- id: answer_no
+  translation: "否"
+- id: questions_resolved_empty
+  translation: "还没有问题到期。"
+- id: outlook_brier
+  translation: "Brier {{ .Brier }} · 已结算 {{ .Count }}"
+- id: outlook_open
+  translation: "{{ .Count }} 个进行中的问题"
+
+# Lab
+- id: lab_desc
+  translation: "对人物、公司和领域的长期跟踪。每个跟踪器用别名匹配本站存储的全部标题（含合并报道）。"
+- id: lab_add
+  translation: "新增跟踪器"
+- id: lab_empty_data
+  translation: "跟踪数据尚未生成，下一次每日运行后出现。"
+- id: lab_trackers
+  translation: "跟踪器"
+- id: lab_type_entities
+  translation: "人物与公司"
+- id: lab_type_domain
+  translation: "领域"
+- id: lab_week_count
+  translation: "本周 {{ .Count }} 条"
+- id: lab_since
+  translation: "{{ .Date }} 起跟踪"
+- id: lab_keywords
+  translation: "关键词与别名"
+- id: lab_m7
+  translation: "7 日提及"
+- id: lab_m30
+  translation: "30 日报道"
+- id: lab_sources
+  translation: "来源"
+- id: lab_langs
+  translation: "英 / 中"
+- id: lab_backfilled
+  translation: "{{ .Date }} 之前的报道为从本站存档回填。"
+- id: lab_backfilled_badge
+  translation: "回填"
+- id: lab_collecting
+  translation: "采集中"
+- id: lab_collecting_note
+  translation: "近 30 天的存档标题中还没有匹配这些别名的报道。"
+- id: lab_no_mentions
+  translation: "30 天内无提及"
+- id: lab_rising
+  translation: "领域内上升话题"
+- id: lab_timeline
+  translation: "时间线"
+- id: lab_showing
+  translation: "当前："
+- id: lab_clear
+  translation: "清除"

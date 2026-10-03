@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """每日资讯抓取主入口。
 
-编排四版面生成（ai/world/market/deep，中英文各一份）+ 趋势快照 + 今日简报数据
-（首页）+ 网站规则页，更新 seen.json。任一版面异常被捕获，不阻塞其他版面。
+编排四版面生成（ai/world/market/deep，中英文各一份）+ 创意抓取与评分 + 趋势快照 +
+今日简报数据（首页）+ 雷达页面数据 + 实验室跟踪器 + 网站规则，更新 seen.json。任一版面异常被捕获，不阻塞其他版面。
 """
 
 import os
@@ -12,10 +12,12 @@ from pathlib import Path
 
 from common import load_config, load_seen, save_seen, build_llm_client, link_hash
 from generators import ai, world, market, deep
+import ideas
+import lab
 from brief import build_brief, load_brief, write_brief
 from method import write_rules
 from radar import write_radar
-from trends import pipeline as trend_pipeline
+from trends import market_forecast, pipeline as trend_pipeline
 
 ROOT = Path(__file__).resolve().parent.parent
 FEEDS_FILE = Path(__file__).resolve().parent / "feeds.yaml"
@@ -80,6 +82,13 @@ def main(force_refresh=None):
     except Exception as exc:
         print(f"[warn] 趋势数据生成失败，不影响日报发布: {exc}", file=sys.stderr)
 
+    # 行情概率问题：生成与到期结算只追加记录，失败不影响其他内容。
+    try:
+        outcome = market_forecast.run(trend_data_dir, date_str)
+        print(f"[info] 行情问题新增 {len(outcome['created'])} 个，结算 {len(outcome['resolved'])} 个")
+    except Exception as exc:
+        print(f"[error] 行情概率问题生成失败: {exc}", file=sys.stderr)
+
     # 今日简报数据（首页）：在趋势之后，上升信号与预测依赖当日快照
     try:
         brief_path = CONTENT_DIR.parent / "data" / "brief" / f"{date_str}.json"
@@ -95,11 +104,26 @@ def main(force_refresh=None):
     except Exception as exc:
         print(f"[error] 今日简报数据生成失败: {exc}", file=sys.stderr)
 
+    # 创意板块：独立抓取与评分，失败只影响创意页。
+    try:
+        ideas.run(date_str, config, client, CONTENT_DIR.parent / "data" / "ideas",
+                  CONTENT_DIR.parent / "data" / "radar" / "ideas.json", force_refresh=force_refresh)
+    except Exception as exc:
+        print(f"[error] 创意数据生成失败: {exc}", file=sys.stderr)
+
     # 雷达页面数据，失败不影响日报和首页。
     try:
-        write_radar(trend_data_dir, date_str, CONTENT_DIR.parent / "data" / "radar")
+        write_radar(trend_data_dir, date_str, CONTENT_DIR.parent / "data" / "radar",
+                    ideas_dir=CONTENT_DIR.parent / "data" / "ideas", client=client)
     except Exception as exc:
         print(f"[error] 雷达数据生成失败: {exc}", file=sys.stderr)
+
+    # 实验室跟踪器：在雷达数据之后（领域内上升话题读取 trends.json）。
+    try:
+        lab.write_lab(CONTENT_DIR.parent, date_str, Path(__file__).resolve().parent / "trackers.yaml",
+                      CONTENT_DIR.parent / "data" / "radar" / "lab.json")
+    except Exception as exc:
+        print(f"[error] 实验室数据生成失败: {exc}", file=sys.stderr)
 
     # 网站规则每次同步，内容未变时不写入。
     try:

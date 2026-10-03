@@ -1,0 +1,8 @@
+{{- /* 创意信号文字：“412 pts”“2.1k ★”“18 条评论”；千位以上缩写为 k */ -}}
+{{- $out := "" -}}
+{{- with . -}}
+  {{- $n := .value -}}
+  {{- $num := cond (ge $n 1000) (printf "%.1fk" (div (float $n) 1000)) (string $n) -}}
+  {{- $out = i18n (printf "signal_%s" .kind) (dict "Count" $num) -}}
+{{- end -}}
+{{- return $out -}}

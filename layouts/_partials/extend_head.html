@@ -13,3 +13,13 @@
   {{- $forecasts := resources.Get "js/forecasts.js" | minify | fingerprint -}}
   <script defer src="{{ $forecasts.RelPermalink }}" integrity="{{ $forecasts.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end -}}
+
+{{- if eq .Layout "ideas" -}}
+  {{- $ideas := resources.Get "js/ideas.js" | minify | fingerprint -}}
+  <script defer src="{{ $ideas.RelPermalink }}" integrity="{{ $ideas.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end -}}
+
+{{- if eq .Layout "lab" -}}
+  {{- $lab := resources.Get "js/lab.js" | minify | fingerprint -}}
+  <script defer src="{{ $lab.RelPermalink }}" integrity="{{ $lab.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end -}}

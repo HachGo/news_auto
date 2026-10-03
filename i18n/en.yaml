@@ -36,7 +36,7 @@
 - id: disclaimer
   translation: "For information only, not financial advice."
 - id: footer_sources
-  translation: "RSS · Hacker News · Reddit · Eastmoney · Jin10 · CNINFO"
+  translation: "RSS · Hacker News · Reddit · GitHub · V2EX · Hackaday · SSPAI · Eastmoney · Jin10 · CNINFO"
 - id: back_to_top
   translation: "Back to top"
 
@@ -283,7 +283,7 @@
 - id: trends_filter_empty
   translation: "No entries match these filters."
 - id: forecasts_desc
-  translation: "Rule-based calls on the combined tech-and-market trend. Each is checked automatically at its target date. Directions and confidence only, no probabilities until we have a calibrated record."
+  translation: "Concrete market questions with probabilities, resolved automatically from stored prices and scored with the Brier score. The older rule-based direction calls are kept under their own tab."
 - id: forecast_record
   translation: "Track record"
 - id: hit_rate
@@ -334,3 +334,220 @@
   translation: "No year scenarios available yet."
 - id: kind_market_trends
   translation: "Market"
+
+- id: merged_reports
+  translation: "Merged reports"
+
+- id: report_count
+  translation: "{{ .Count }} reports"
+
+- id: report_languages
+  translation: "EN {{ .En }} · 中 {{ .Zh }}"
+
+# Ideas
+- id: stat_ideas
+  translation: "Ideas"
+- id: ideas
+  translation: "Ideas"
+- id: ideas_desc
+  translation: "Ranked across sources. Each signal becomes a percentile within its own source, then it is weighted, decayed over time, and boosted when the same idea appears on several sites."
+- id: ideas_today
+  translation: "Today"
+- id: ideas_multi
+  translation: "Multi-site"
+- id: ideas_empty_data
+  translation: "Idea data isn't ready yet; it appears after the next daily run."
+- id: idea_type_filter
+  translation: "Filter by type"
+- id: idea_type_hack
+  translation: "Tech hacks"
+- id: idea_type_product
+  translation: "New products"
+- id: idea_type_method
+  translation: "Clever methods"
+- id: idea_type_wish
+  translation: "Wished-for"
+- id: idea_type_design
+  translation: "Design"
+- id: idea_sort
+  translation: "Sort"
+- id: idea_sort_top
+  translation: "Top"
+- id: idea_sort_new
+  translation: "New"
+- id: idea_sort_multi
+  translation: "Multi-site"
+- id: idea_range
+  translation: "Time range"
+- id: idea_score
+  translation: "Score"
+- id: idea_for
+  translation: "For: {{ .Who }}"
+- id: idea_effort_1
+  translation: "Low effort"
+- id: idea_effort_2
+  translation: "Medium effort"
+- id: idea_effort_3
+  translation: "High effort"
+- id: idea_on_sites
+  translation: "On {{ .Count }} sites"
+- id: idea_breakdown
+  translation: "Score breakdown"
+- id: idea_weighted
+  translation: "Weighted signal"
+- id: idea_decay
+  translation: "Time decay"
+- id: idea_boost
+  translation: "Cross-site boost"
+- id: idea_final
+  translation: "Final score"
+- id: ideas_empty_filter
+  translation: "No ideas match these filters."
+- id: idea_how_score
+  translation: "How the score works"
+- id: idea_weight_money
+  translation: "Money & backers"
+- id: idea_weight_stars
+  translation: "Saves & stars"
+- id: idea_weight_upvotes
+  translation: "Upvotes"
+- id: idea_weight_comments
+  translation: "Comments"
+- id: idea_percentile_line
+  translation: "Signals are compared within each source over 30 days; sources without signals score 50."
+- id: idea_decay_line
+  translation: "Time decay: half-life of {{ .Days }} days"
+- id: idea_boost_line
+  translation: "Cross-site boost: +{{ .Boost }} for each extra site"
+- id: idea_sources_today
+  translation: "Sources today"
+- id: idea_status_ok
+  translation: "OK"
+- id: idea_status_empty
+  translation: "Nothing new"
+- id: idea_status_failed
+  translation: "Failed"
+- id: deep_reads_sub
+  translation: "Long reads from the Economist, the Atlantic and more"
+- id: signal_upvotes
+  translation: "{{ .Count }} pts"
+- id: signal_stars
+  translation: "{{ .Count }} ★"
+- id: signal_comments
+  translation: "{{ .Count }} comments"
+- id: signal_money
+  translation: "${{ .Count }}"
+- id: source_section_ideas
+  translation: "Ideas"
+
+# Trends: idea categories and explanations
+- id: kind_ideas
+  translation: "Idea categories"
+- id: kind_label_topic
+  translation: "News topic"
+- id: kind_label_market
+  translation: "Market"
+- id: kind_label_idea
+  translation: "Idea category"
+- id: stat_ideas_today
+  translation: "Ideas today"
+- id: stat_sources_today
+  translation: "Sources today"
+- id: why_rising
+  translation: "Why it is rising"
+- id: model_explanation
+  translation: "Model explanation"
+- id: related_ideas
+  translation: "Recent ideas"
+
+# Market questions
+- id: brier_ours
+  translation: "Our Brier"
+- id: brier_baseline
+  translation: "Baseline Brier"
+- id: brier_note
+  translation: "Brier score: lower is better. Always saying 50% scores 0.250; the baseline always predicts each asset's share of up days."
+- id: calibration_bins_note
+  translation: "Bar: how often it happened · line: average predicted probability"
+- id: calibration_collecting
+  translation: "Collecting data: {{ .Count }} of {{ .Min }} resolved questions needed before a calibration chart is meaningful."
+- id: direction_calls
+  translation: "Direction calls"
+- id: direction_record
+  translation: "Direction track record"
+- id: direction_calls_desc
+  translation: "Rule-based calls on the combined tech-and-market trend, checked at each target date. Directions and confidence only."
+- id: rationale
+  translation: "Rationale"
+- id: question_resolution
+  translation: "Daily % changes reported by the market sources (Eastmoney / Sina / Yahoo) are compounded from the day after the question to the first trading day on or after the deadline. Yes if the total is above zero. With no market data within 7 days of the deadline, the question is voided."
+- id: baseline
+  translation: "Baseline"
+- id: baseline_text
+  translation: "Not a prediction market: the share of up days over the same 20 trading days. Our Brier score is compared with it."
+- id: baseline_value
+  translation: "Baseline {{ .P }}%"
+- id: questions_empty
+  translation: "No open questions yet. An asset needs 20 trading days of stored prices first."
+- id: question
+  translation: "Question"
+- id: outcome
+  translation: "Outcome"
+- id: ours
+  translation: "Ours"
+- id: answer_yes
+  translation: "Yes"
+- id: answer_no
+  translation: "No"
+- id: questions_resolved_empty
+  translation: "No question has reached its deadline yet."
+- id: outlook_brier
+  translation: "Brier {{ .Brier }} · {{ .Count }} resolved"
+- id: outlook_open
+  translation: "{{ .Count }} open questions"
+
+# Lab
+- id: lab_desc
+  translation: "Long-term trackers for people, companies and domains. Each tracker matches its aliases against every headline the site has stored, including merged reports."
+- id: lab_add
+  translation: "Add a tracker"
+- id: lab_empty_data
+  translation: "Tracker data isn't ready yet; it appears after the next daily run."
+- id: lab_trackers
+  translation: "Trackers"
+- id: lab_type_entities
+  translation: "People & companies"
+- id: lab_type_domain
+  translation: "Domain"
+- id: lab_week_count
+  translation: "{{ .Count }} this week"
+- id: lab_since
+  translation: "Tracking since {{ .Date }}"
+- id: lab_keywords
+  translation: "Keywords & aliases"
+- id: lab_m7
+  translation: "Mentions 7d"
+- id: lab_m30
+  translation: "Stories 30d"
+- id: lab_sources
+  translation: "Sources"
+- id: lab_langs
+  translation: "EN / 中"
+- id: lab_backfilled
+  translation: "Stories before {{ .Date }} are backfilled from the site archive."
+- id: lab_backfilled_badge
+  translation: "Backfilled"
+- id: lab_collecting
+  translation: "Collecting"
+- id: lab_collecting_note
+  translation: "No stored headline matches these aliases in the last 30 days yet."
+- id: lab_no_mentions
+  translation: "No mentions in 30 days"
+- id: lab_rising
+  translation: "Rising in this domain"
+- id: lab_timeline
+  translation: "Timeline"
+- id: lab_showing
+  translation: "Showing:"
+- id: lab_clear
+  translation: "Clear"

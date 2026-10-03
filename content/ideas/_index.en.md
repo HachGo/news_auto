@@ -1,0 +1,4 @@
+---
+title: "Ideas"
+layout: "ideas"
+---

@@ -1,0 +1,71 @@
+/* 实验室（World Radar v2）：左侧跟踪器卡片，右侧详情、实体卡与时间线。 */
+body.section-lab .main { max-width: var(--wide-width); padding: 44px 28px 72px; }
+.lab-add { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 13px; font-weight: 500; white-space: nowrap; }
+.lab-add:hover { color: var(--bg); opacity: 0.9; }
+.lab-add span { font-size: 15px; line-height: 1; }
+.lab-layout { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+.lab-trackers { flex: 0 1 270px; min-width: 230px; display: flex; flex-direction: column; gap: 8px; position: sticky; top: 84px; }
+.lab-tracker { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; }
+.lab-tracker[aria-current], .lab-page:not(.is-enhanced) .lab-tracker:first-child { border-color: var(--ink); background: var(--surface); }
+.lab-tracker-top { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.lab-new { padding: 1px 6px; border-radius: 4px; background: var(--soft); color: var(--ink); text-transform: none; letter-spacing: 0; }
+.lab-tracker strong { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.lab-kw { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 12px; }
+.lab-since { color: var(--muted); font-size: 11px; }
+.lab-details { flex: 1 1 620px; min-width: 0; }
+.lab-detail { display: none; flex-direction: column; gap: 20px; scroll-margin-top: 80px; }
+.lab-detail.is-default, .lab-detail:target { display: flex; }
+.lab-details:has(.lab-detail:target) .lab-detail.is-default:not(:target) { display: none; }
+.lab-page.is-enhanced .lab-detail { display: flex; }
+.lab-page.is-enhanced .lab-detail[hidden] { display: none; }
+.lab-head { padding: 22px 24px; }
+.lab-meta { margin: 0; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+.lab-head h2 { margin: 6px 0 0; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
+.lab-keywords { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 14px; font-size: 12px; color: var(--muted); }
+.lab-keywords .mono { padding: 2px 8px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); font-size: 11px; white-space: nowrap; }
+.lab-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 16px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.lab-stats strong { display: block; font-size: 20px; font-weight: 500; }
+.lab-stats small { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+.lab-note { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
+.lab-entities { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.lab-entity { display: flex; flex-direction: column; gap: 8px; padding: 14px; text-align: left; cursor: pointer; font: inherit; color: inherit; }
+.lab-entity[aria-pressed="true"] { border-color: var(--ink); }
+.lab-entity-name { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.lab-entity-name strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; }
+.lab-entity-name small { color: var(--muted); font-size: 11px; white-space: nowrap; }
+.lab-entity-num { display: flex; justify-content: space-between; align-items: baseline; }
+.lab-entity-num .mono:first-child { font-size: 20px; font-weight: 500; }
+.lab-change { font-size: 12px; color: var(--muted); }
+.lab-change.is-up { color: var(--field-finance-fg); }
+.lab-change.is-down { color: var(--field-world-fg); }
+.lab-spark { height: 22px; }
+.lab-latest { color: var(--muted); font-size: 12px; line-height: 1.4; text-wrap: pretty; }
+.lab-rising { padding: 4px 0; }
+.lab-rising h3, .lab-timeline-head h3 { margin: 0; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.lab-rising h3 { padding: 12px 16px 8px; }
+.lab-rising a { display: flex; justify-content: space-between; gap: 12px; padding: 10px 16px; border-top: 1px solid var(--line); font-size: 14px; }
+.lab-rising a > span:first-child { display: flex; align-items: center; gap: 8px; }
+.lab-timeline-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.lab-showing { color: var(--muted); font-size: 12px; }
+.lab-showing strong { color: var(--ink); font-weight: 500; }
+.lab-showing button { margin-left: 4px; padding: 2px 8px; border-radius: 4px; background: var(--soft); color: var(--ink); cursor: pointer; }
+.lab-timeline { margin: 0; padding: 0; list-style: none; }
+.lab-timeline li { display: grid; grid-template-columns: 84px 14px minmax(0, 1fr); gap: 12px; }
+.lab-date { padding-top: 14px; color: var(--muted); font-size: 12px; white-space: nowrap; }
+.lab-line { display: flex; flex-direction: column; align-items: center; }
+.lab-line::after { content: ""; flex: 1; width: 1px; background: var(--line); }
+.lab-line .dot { width: 9px; height: 9px; margin-top: 17px; flex-shrink: 0; }
+.lab-item { display: flex; flex-direction: column; gap: 5px; padding: 12px 0 16px; min-width: 0; }
+.lab-item-top { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12px; }
+.lab-item a { font-size: 15px; font-weight: 500; line-height: 1.4; text-wrap: pretty; overflow-wrap: anywhere; }
+.lab-source { color: var(--muted); font-size: 11px; }
+.lab-badge { padding: 1px 6px; border-radius: 4px; background: var(--soft); color: var(--muted); font-size: 11px; }
+.lab-collecting { padding: 40px 24px; border: 1px dashed var(--line); border-radius: 14px; text-align: center; }
+.lab-collecting strong { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+.lab-collecting strong span { width: 7px; height: 7px; border-radius: 50%; background: oklch(0.72 0.15 60); }
+.lab-collecting p { max-width: 420px; margin: 8px auto 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+@media (max-width: 600px) {
+  body.section-lab .main { padding: 28px 16px 56px; }
+  .lab-trackers { position: static; flex-basis: 100%; }
+  .lab-timeline li { grid-template-columns: 72px 14px minmax(0, 1fr); gap: 8px; }
+}

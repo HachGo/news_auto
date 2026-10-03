@@ -27,6 +27,9 @@
     <div class="kind-filter" aria-label="{{ i18n "kind_filter" }}">
       <button type="button" data-kind="all" aria-pressed="true">{{ i18n "field_all" }}</button>
       <button type="button" data-kind="topic" aria-pressed="false">{{ i18n "kind_topics" }}</button>
+      {{- if where $entries "kind" "idea" }}
+      <button type="button" data-kind="idea" aria-pressed="false">{{ i18n "kind_ideas" }}</button>
+      {{- end }}
       <button type="button" data-kind="market" aria-pressed="false">{{ i18n "kind_market_trends" }}</button>
     </div>
   </div>
@@ -34,7 +37,7 @@
     <nav class="trend-entries" aria-label="{{ .Title }}">
       {{- range $entries }}
       <a class="trend-entry" href="#{{ .id }}" data-entry="{{ .id }}" data-field="{{ .field }}" data-kind="{{ .kind }}">
-        <div class="trend-name"><strong>{{ index .name $lang }}</strong><small><span class="dot dot-{{ .field }}" aria-hidden="true"></span>{{ i18n (cond (eq .kind "market") "kind_market_trends" "kind_topic") }}</small></div>
+        <div class="trend-name"><strong>{{ index .name $lang }}</strong><small><span class="dot dot-{{ .field }}" aria-hidden="true"></span>{{ i18n (printf "kind_label_%s" .kind) }}</small></div>
         <div class="spark" aria-hidden="true">{{ $rising := .rising }}{{ $n := len .spark }}{{ range $k, $h := .spark }}<i{{ if and $rising (ge $k (sub $n 3)) }} class="is-recent"{{ end }} style="--h: {{ $h }}"></i>{{ end }}</div>
         <span class="trend-z mono{{ if .rising }} z-{{ .field }}{{ end }}">{{ printf "%+.1f" .z }}</span>
       </a>
@@ -45,7 +48,7 @@
       {{- range $i, $entry := $entries }}
       <section id="{{ .id }}" class="panel topic-detail{{ if eq $i 0 }} is-default{{ end }}" data-field="{{ .field }}" aria-labelledby="name-{{ .id }}">
         <header class="topic-heading">
-          <div><div class="topic-chips"><span class="tag-{{ .field }}">{{ i18n (printf "field_%s" .field) }}</span><span>{{ i18n (cond (eq .kind "market") "kind_market_trends" "kind_topic") }}</span></div><h2 id="name-{{ .id }}">{{ index .name $lang }}</h2></div>
+          <div><div class="topic-chips"><span class="tag-{{ .field }}">{{ i18n (printf "field_%s" .field) }}</span><span>{{ i18n (printf "kind_label_%s" .kind) }}</span></div><h2 id="name-{{ .id }}">{{ index .name $lang }}</h2></div>
           <div class="topic-score"><strong class="mono{{ if .rising }} z-{{ .field }}{{ end }}">{{ printf "%+.1f" .z }}</strong><small>{{ if .rising }}{{ i18n "z_score" }}{{ else }}{{ i18n "watching" }}{{ end }}</small></div>
         </header>
         <div class="topic-stats">{{ range .stats }}<div><small>{{ i18n (printf "stat_%s" .k) }}</small><strong class="mono">{{ .v }}</strong></div>{{ end }}</div>
@@ -56,8 +59,11 @@
         </div>
         <div class="topic-dates mono">{{ range .chart.dates }}<span>{{ . }}</span>{{ end }}</div>
         <p class="topic-note">{{ i18n "trends_band" }}</p>
+        {{- with .why }}
+        <div class="topic-why"><div class="block-head"><h3>{{ i18n "why_rising" }}</h3><span class="topic-model">{{ i18n "model_explanation" }}</span></div><p>{{ index . $lang }}</p></div>
+        {{- end }}
         {{- with .related }}
-        <div class="topic-related"><div class="block-head"><h3>{{ i18n "related_events" }}</h3></div>{{ range . }}<a href="{{ .link }}" target="_blank" rel="noopener noreferrer"><strong>{{ index .title $lang }}</strong><small class="mono">{{ .source }} · {{ .date }}</small></a>{{ end }}</div>
+        <div class="topic-related"><div class="block-head"><h3>{{ i18n (cond (eq $entry.kind "idea") "related_ideas" "related_events") }}</h3></div>{{ range . }}<a href="{{ .link }}" target="_blank" rel="noopener noreferrer"><strong>{{ index .title $lang }}</strong><small class="mono">{{ .source }} · {{ .date }}</small></a>{{ end }}</div>
         {{- end }}
         {{- range .forecasts }}{{ $horizon := . }}{{ range site.Data.radar.forecasts.open }}{{ if eq .horizon $horizon }}
         <a class="topic-forecast" href="{{ "forecasts/" | relLangURL }}#open"><div><small>{{ i18n "linked_forecast" }}</small><strong>{{ i18n (printf "horizon_%s" .horizon) }}</strong></div><span class="direction-{{ .direction }}">{{ i18n (printf "direction_%s" .direction) }} →</span></a>
