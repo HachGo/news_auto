@@ -1,0 +1,6 @@
+{{- /* 星期：英文用 Go 自带名称；Hugo 不会为 zh-cn 本地化 time.Format（会输出 Sunday）。用法：partial "weekday.html" .Date */ -}}
+{{- $name := .Format "Mon" -}}
+{{- if ne site.Language.Lang "en" -}}
+  {{- $name = index (dict "Sun" "周日" "Mon" "周一" "Tue" "周二" "Wed" "周三" "Thu" "周四" "Fri" "周五" "Sat" "周六") $name -}}
+{{- end -}}
+{{- return $name -}}

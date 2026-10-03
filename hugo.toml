@@ -1,7 +1,8 @@
 baseURL = "https://hachgo.github.io/news_auto/"
-languageCode = "zh-cn"
+# 中文为默认语言，保持现有网址；英文版在 /en/ 下
 defaultContentLanguage = "zh-cn"
-title = "每日资讯"
+defaultContentLanguageInSubdir = false
+title = "世界雷达"
 theme = "PaperMod"
 
 enableRobotsTXT = true
@@ -18,9 +19,6 @@ buildExpired = false
 
 [params]
   env = "production"
-  title = "每日资讯"
-  description = "每日自动汇总 AI、国际、市场与深度阅读，并生成可追溯的科技与市场趋势研判。"
-  keywords = ["AI", "资讯", "国际新闻", "金融市场", "趋势分析", "深度阅读", "每日简报"]
   author = "news_auto"
   DateFormat = "2006-01-02"
   defaultTheme = "auto"
@@ -32,15 +30,21 @@ buildExpired = false
   ShowCodeCopyButtons = false
   ShowWordCount = false
   ShowRssButtonInSectionTermList = true
+  ShowPageNums = true
   UseHugoToc = true
   disableSpecial1stPost = false
   disableScrollToTop = false
   hidemeta = false
   hideSummary = false
-  showtoc = false
-  tocopen = false
-  # 归档 / 首页列表 / 上下篇：覆盖四版面（缺省会只取最大 section）
+  hideAuthor = true
+  # 每日简报条目多：桌面端右侧目录，小屏默认折叠
+  ShowToc = true
+  TocOpen = false
+  # 归档 / 列表 / 上下篇：覆盖四版面（缺省会只取最大 section）
   mainSections = ["ai", "world", "market", "deep"]
+  # 首页“重要事件”默认展示条数（其余点“显示全部”）
+  todayEventLimit = 10
+  githubURL = "https://github.com/HachGo/news_auto"
 
   [params.fuseOpts]
     isCaseSensitive = false
@@ -58,58 +62,80 @@ buildExpired = false
     disableHLJS = true
     favicon = "favicon.ico"
 
-[[params.socialIcons]]
-  name = "github"
-  url = "https://github.com/HachGo/news_auto"
+[languages]
+  [languages.zh-cn]
+    languageCode = "zh-cn"
+    languageName = "中文"
+    title = "世界雷达"
+    weight = 1
+    [languages.zh-cn.params]
+      description = "全球新闻按领域整理，附上升信号与趋势研判。"
+      keywords = ["AI", "资讯", "国际新闻", "金融市场", "趋势分析", "深度阅读", "每日简报"]
+      langLabel = "中文"
+      # 版面短名：同日切换、按日归档、搜索结果共用
+      [languages.zh-cn.params.sectionShort]
+        ai = "AI"
+        world = "国际"
+        market = "财经"
+        deep = "深度"
+    [[languages.zh-cn.menus.main]]
+      identifier = "today"
+      name = "今日"
+      pageRef = "/"
+      weight = 10
+    [[languages.zh-cn.menus.main]]
+      identifier = "news"
+      name = "新闻"
+      pageRef = "/archives"
+      weight = 20
+    [[languages.zh-cn.menus.main]]
+      identifier = "deep"
+      name = "深度"
+      pageRef = "/deep"
+      weight = 30
+    [[languages.zh-cn.menus.main]]
+      identifier = "trends"
+      name = "趋势"
+      pageRef = "/trends"
+      weight = 40
 
-[[params.socialIcons]]
-  name = "rss"
-  url = "index.xml"
+  [languages.en]
+    languageCode = "en"
+    languageName = "English"
+    title = "World Radar"
+    weight = 2
+    [languages.en.params]
+      description = "World news organized by field, with rising signals and a trend outlook."
+      keywords = ["AI", "world news", "markets", "trend analysis", "long reads", "daily brief"]
+      langLabel = "EN"
+      [languages.en.params.sectionShort]
+        ai = "AI"
+        world = "World"
+        market = "Finance"
+        deep = "Deep"
+    [[languages.en.menus.main]]
+      identifier = "today"
+      name = "Today"
+      pageRef = "/"
+      weight = 10
+    [[languages.en.menus.main]]
+      identifier = "news"
+      name = "News"
+      pageRef = "/archives"
+      weight = 20
+    [[languages.en.menus.main]]
+      identifier = "deep"
+      name = "Deep reads"
+      pageRef = "/deep"
+      weight = 30
+    [[languages.en.menus.main]]
+      identifier = "trends"
+      name = "Trends"
+      pageRef = "/trends"
+      weight = 40
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
-
-[menu]
-  [[menu.main]]
-    identifier = "ai"
-    name = "AI"
-    url = "/ai/"
-    weight = 10
-  [[menu.main]]
-    identifier = "world"
-    name = "国际"
-    url = "/world/"
-    weight = 20
-  [[menu.main]]
-    identifier = "market"
-    name = "市场"
-    url = "/market/"
-    weight = 30
-  [[menu.main]]
-    identifier = "trends"
-    name = "趋势"
-    url = "/trends/"
-    weight = 33
-  [[menu.main]]
-    identifier = "deep"
-    name = "深度"
-    url = "/deep/"
-    weight = 35
-  [[menu.main]]
-    identifier = "rules"
-    name = "网站规则"
-    url = "/rules/"
-    weight = 38
-  [[menu.main]]
-    identifier = "archives"
-    name = "归档"
-    url = "/archives/"
-    weight = 40
-  [[menu.main]]
-    identifier = "search"
-    name = "搜索"
-    url = "/search/"
-    weight = 50
 
 [markup]
   [markup.goldmark]

@@ -1,0 +1,40 @@
+{{- define "main" }}
+
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $months := $pages.GroupByDate "2006-01" }}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  <div class="post-description">
+    {{ i18n "archive_desc" (dict "Count" (len ($pages.GroupByDate "2006-01-02"))) }}
+  </div>
+  <nav class="archive-jump" aria-label="{{ i18n "archive_fields" }}">
+    {{- range site.Params.mainSections }}
+    {{- with site.GetPage (printf "/%s" .) }}
+    <a class="day-chip chip-{{ .Section }}" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{- end }}
+    {{- end }}
+  </nav>
+  {{- if gt (len $months) 1 }}
+  <nav class="archive-jump archive-months" aria-label="{{ i18n "jump_to_month" }}">
+    {{- range $months }}
+    {{- $first := index .Pages 0 }}
+    <a href="#m-{{ .Key }}">{{ $first.Date | time.Format (i18n "date_month") }}</a>
+    {{- end }}
+  </nav>
+  {{- end }}
+</header>
+
+{{- range $months }}
+{{- $first := index .Pages 0 }}
+{{- $days := .Pages.GroupByDate "2006-01-02" }}
+<section class="archive-month-block" id="m-{{ .Key }}" aria-labelledby="m-{{ .Key }}-title">
+  <h2 class="archive-month-title" id="m-{{ .Key }}-title">
+    {{ $first.Date | time.Format (i18n "date_month") }}
+    <span class="archive-count">{{ i18n "days_count" (len $days) }}</span>
+  </h2>
+  {{- partial "day_list.html" (dict "days" $days) }}
+</section>
+{{- end }}
+
+{{- end }}{{/* end main */}}

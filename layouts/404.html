@@ -1,0 +1,16 @@
+{{- define "main" }}
+<div class="not-found-page">
+  <p class="not-found-code" aria-hidden="true">404</p>
+  <h1>{{ i18n "not_found_title" }}</h1>
+  <p class="not-found-hint">{{ i18n "not_found_hint" }}</p>
+  <nav class="not-found-actions" aria-label="{{ i18n "nav_label" }}">
+    <a class="not-found-primary" href="{{ site.Home.RelPermalink }}">{{ i18n "back_home" }}</a>
+    {{- with site.GetPage "/archives" }}
+    <a href="{{ .RelPermalink }}">{{ i18n "browse_dates" }}</a>
+    {{- end }}
+    {{- with site.GetPage "/search" }}
+    <a href="{{ .RelPermalink }}">{{ i18n "search_news" }}</a>
+    {{- end }}
+  </nav>
+</div>
+{{- end }}{{/* end main */ -}}

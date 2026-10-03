@@ -1,0 +1,9 @@
+{{- /* 外部来源链接新标签页打开，读完原文可直接回到简报；站内链接保持当前页。
+       不用 safeURL：保留 html/template 对 javascript: 等危险协议的过滤（来源链接来自外部 RSS） */ -}}
+{{- $u := urls.Parse .Destination -}}
+<a href="{{ .Destination }}"
+  {{- with .Title }} title="{{ . }}"{{ end }}
+  {{- if $u.IsAbs }} target="_blank" rel="noopener"{{ end }}>
+  {{- .Text -}}
+</a>
+{{- /**/ -}}

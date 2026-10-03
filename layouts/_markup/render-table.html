@@ -1,0 +1,41 @@
+{{- /* 表格包一层横向滚动容器：桌面铺满正文宽度，小屏左右滑动而不挤压列宽 */ -}}
+<div class="table-wrap">
+<table
+  {{- range $k, $v := .Attributes }}
+    {{- if $v }}
+      {{- printf " %s=%q" $k $v | safeHTMLAttr }}
+    {{- end }}
+  {{- end }}>
+  <thead>
+    {{- range .THead }}
+    <tr>
+      {{- range . }}
+      <th
+        {{- with .Alignment }}
+          {{- printf " style=%q" (printf "text-align: %s" .) | safeHTMLAttr }}
+        {{- end -}}
+      >
+        {{- .Text -}}
+      </th>
+      {{- end }}
+    </tr>
+    {{- end }}
+  </thead>
+  <tbody>
+    {{- range .TBody }}
+    <tr>
+      {{- range . }}
+      <td
+        {{- with .Alignment }}
+          {{- printf " style=%q" (printf "text-align: %s" .) | safeHTMLAttr }}
+        {{- end -}}
+      >
+        {{- .Text -}}
+      </td>
+      {{- end }}
+    </tr>
+    {{- end }}
+  </tbody>
+</table>
+</div>
+{{- /**/ -}}

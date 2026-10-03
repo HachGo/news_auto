@@ -1,0 +1,181 @@
+{{- /* 首页“今日简报”（World Radar 设计）：数据来自 data/brief/<日期>.json，中英文共用 */ -}}
+{{- $brief := partial "brief_latest.html" . -}}
+{{- $lang := cond (eq site.Language.Lang "en") "en" "zh" -}}
+{{- $fields := slice "finance" "ai_tech" "world" -}}
+{{- $short := site.Params.sectionShort -}}
+<div class="today">
+  {{- if not $brief }}
+  <section class="today-hero">
+    <div>
+      <h1 class="today-title">{{ .Title }}</h1>
+      <p class="today-sub">{{ i18n "brief_missing" }}</p>
+      {{- with site.GetPage "/archives" }}
+      <p><a class="text-link" href="{{ .RelPermalink }}">{{ i18n "browse_by_date" }} →</a></p>
+      {{- end }}
+    </div>
+  </section>
+  {{- else }}
+  {{- $day := time.AsTime $brief.date "Asia/Shanghai" }}
+  {{- $updated := time.AsTime $brief.generated_at "Asia/Shanghai" }}
+  <section class="today-hero">
+    <div class="today-intro">
+      <p class="today-updated">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span>{{ $day | time.Format (i18n "date_long") }} {{ partial "weekday.html" $day }}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime="{{ $brief.generated_at }}" data-updated data-pattern="{{ i18n "updated_at" (dict "Time" "{t}") }}">{{ i18n "updated_at" (dict "Time" ($updated.Format "15:04")) }}</time>
+      </p>
+      <h1 class="today-title">{{ .Title }}</h1>
+      <p class="today-sub">{{ site.Params.description }}</p>
+    </div>
+    <dl class="today-stats">
+      <div><dt>{{ i18n "stat_events" }}</dt><dd>{{ $brief.stats.events }}</dd></div>
+      <div><dt>{{ i18n "stat_deep" }}</dt><dd>{{ $brief.stats.deep }}</dd></div>
+      <div><dt>{{ i18n "stat_sources" }}</dt><dd>{{ $brief.stats.sources }}</dd></div>
+    </dl>
+  </section>
+
+  <div class="field-filter" role="group" aria-label="{{ i18n "filter_by_field" }}" data-field-filter>
+    <button type="button" class="field-btn" data-field="all" aria-pressed="true">
+      <span class="dot" aria-hidden="true"></span>{{ i18n "field_all" }}<span class="count">{{ $brief.stats.events }}</span>
+    </button>
+    {{- range $fields }}
+    <button type="button" class="field-btn" data-field="{{ . }}" aria-pressed="false">
+      <span class="dot dot-{{ . }}" aria-hidden="true"></span>{{ i18n (printf "field_%s" .) }}<span class="count">{{ index $brief.stats.fields . | default 0 }}</span>
+    </button>
+    {{- end }}
+  </div>
+
+  <div class="today-grid">
+    <section class="today-main" aria-labelledby="events-title">
+      <div class="block-head">
+        <h2 id="events-title">01 · {{ i18n "top_events" }}</h2>
+        {{- with site.GetPage "/archives" }}
+        <a href="{{ .RelPermalink }}">{{ i18n "browse_by_date" }} →</a>
+        {{- end }}
+      </div>
+      {{- range $key, $status := $brief.sections }}
+      {{- if and (ne $key "deep") (in (slice "failed" "empty") $status) }}
+      <p class="section-note is-{{ $status }}">{{ i18n (printf "section_%s" $status) (dict "Section" (index $short $key)) }}</p>
+      {{- end }}
+      {{- end }}
+      <ol class="event-list" data-event-list data-limit="{{ site.Params.todayEventLimit | default 10 }}">
+        {{- range $i, $e := $brief.events }}
+        {{- partial "today_event.html" (dict "event" $e "rank" (add $i 1) "lang" $lang "date" $brief.date "open" (eq $i 0)) }}
+        {{- end }}
+      </ol>
+      <p class="event-empty" data-event-empty hidden>{{ i18n "no_events_in_field" }}</p>
+      <button type="button" class="show-all" data-show-all hidden
+        data-label-more="{{ i18n "show_all" (dict "Count" "{n}") }}" data-label-less="{{ i18n "show_less" }}"></button>
+    </section>
+
+    <aside class="today-aside">
+      <section aria-labelledby="rising-title">
+        <div class="block-head">
+          <h2 id="rising-title">03 · {{ i18n "rising" }}</h2>
+          <span class="mono" title="{{ i18n "rising_note" }}">{{ i18n "vs_baseline" }}</span>
+        </div>
+        {{- with $brief.rising }}
+        <div class="panel rise-list">
+          {{- range . }}
+          <div class="rise-row" data-field="{{ .field }}">
+            <div class="rise-name">
+              <div class="rise-title">{{ index .name $lang }}</div>
+              <div class="rise-kind"><span class="dot dot-{{ .field }}" aria-hidden="true"></span>{{ i18n (printf "kind_%s" .kind) }}{{ if eq .kind "market" }} · {{ printf "%+.2f%%" .value }}{{ end }}</div>
+            </div>
+            <div class="spark" aria-hidden="true">
+              {{- $n := len .bars }}
+              {{- range $k, $h := .bars }}<i class="{{ if ge $k (sub $n 3) }}is-recent{{ end }}" style="--h: {{ $h }}"></i>{{ end -}}
+            </div>
+            <div class="rise-z z-{{ .field }}">{{ printf "%+.1f" .z }}</div>
+          </div>
+          {{- end }}
+        </div>
+        {{- else }}
+        <p class="panel panel-empty">{{ i18n "rising_empty" }}</p>
+        {{- end }}
+      </section>
+
+      {{- $year := dict }}
+      {{- with $brief.forecasts }}
+      <section aria-labelledby="outlook-title">
+        <div class="block-head">
+          <h2 id="outlook-title">{{ i18n "outlook" }}</h2>
+          {{- $record := $brief.track_record }}
+          {{- with site.GetPage "/trends" }}
+          <a class="mono" href="{{ .RelPermalink }}">{{ if gt $record.resolved 0 }}{{ i18n "track_record" (dict "Resolved" $record.resolved "Correct" $record.correct) }}{{ else }}{{ i18n "track_record_none" }}{{ end }}</a>
+          {{- end }}
+        </div>
+        <div class="forecast-stack">
+          {{- range . }}
+          {{- if eq .horizon "year" }}{{ $year = . }}{{ continue }}{{ end }}
+          {{- $level := index (dict "high" 3 "medium" 2 "low" 1) .confidence | default 1 }}
+          <div class="panel fc-card" data-direction="{{ .direction }}">
+            <div class="fc-top">
+              <div>
+                <div class="fc-horizon">{{ i18n (printf "horizon_%s" .horizon) }}</div>
+                <div class="fc-q">{{ i18n "combined_trend" }}</div>
+              </div>
+              <div class="fc-val">{{ i18n (printf "direction_%s" .direction) }}</div>
+            </div>
+            <div class="fc-meter" role="img" aria-label="{{ i18n "confidence" }} {{ i18n (printf "confidence_%s" .confidence) }}">
+              {{- range seq 3 }}<i{{ if le . $level }} class="on"{{ end }}></i>{{ end -}}
+            </div>
+            <div class="fc-foot">
+              <span>{{ with .target_date }}{{ i18n "due" (dict "Date" .) }}{{ end }}</span>
+              <span>{{ i18n "confidence" }} {{ i18n (printf "confidence_%s" .confidence) }}</span>
+            </div>
+            {{- with .drivers }}
+            <div class="fc-drivers">{{ i18n "drivers" }}{{ cond (eq $lang "en") ": " "：" }}{{ range $k, $d := . }}{{ if $k }}{{ cond (eq $lang "en") ", " "、" }}{{ end }}{{ index $d $lang }}{{ end }}</div>
+            {{- end }}
+          </div>
+          {{- end }}
+        </div>
+      </section>
+      {{- end }}
+
+      {{- with $year }}
+      {{- $base := index .scenarios 0 }}
+      {{- with site.GetPage "/trends" }}
+      <a class="scenario-card" href="{{ .RelPermalink }}#year">
+        <span>
+          <span class="scenario-title">{{ i18n "scenarios" }}</span>
+          <span class="scenario-sub">{{ i18n "scenarios_sub" (dict "Count" (len $year.scenarios) "Base" (index $base.description $lang)) }}</span>
+        </span>
+        <span aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+      {{- end }}
+    </aside>
+  </div>
+
+  {{- with $brief.deep }}
+  <section class="today-deep" aria-labelledby="deep-title">
+    <div class="block-head block-head-rule">
+      <h2 id="deep-title">02 · {{ i18n "deep_reads" }}</h2>
+      {{- with site.GetPage "/deep" }}
+      <a href="{{ .RelPermalink }}">{{ i18n "all_deep_reads" }} →</a>
+      {{- end }}
+    </div>
+    {{- $path := printf "/deep/%s" $brief.date }}
+    {{- $daily := partial "page_any_lang.html" $path }}
+    <div class="deep-grid">
+      {{- range . }}
+      {{- $entry := . }}
+      {{- $summary := index .summary $lang }}
+      {{- $href := .link }}
+      {{- with $daily }}{{ $href = printf "%s#%s" .RelPermalink $entry.id }}{{ end }}
+      <a class="deep-card" href="{{ $href }}">
+        <span class="deep-type">{{ index .category $lang }}</span>
+        <span class="deep-title">{{ index .title $lang | default .title.zh }}</span>
+        {{- with $summary }}
+        <span class="deep-why">{{ . | truncate 140 }}</span>
+        {{- end }}
+        <span class="deep-foot"><span>{{ .source }}</span><span>{{ i18n "read_more" }} →</span></span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+  {{- end }}
+</div>

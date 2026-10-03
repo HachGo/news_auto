@@ -1,0 +1,21 @@
+{{- /* 上下篇：同一版面按日期翻阅（主题默认跨四版面混排，AI 页会翻到深度/市场） */ -}}
+{{- if in site.Params.mainSections .Section }}
+{{- $older := .PrevInSection }}
+{{- $newer := .NextInSection }}
+{{- if or $older $newer }}
+<nav class="paginav day-nav" aria-label="{{ i18n "by_date" }}">
+  {{- with $older }}
+  <a class="prev" href="{{ .RelPermalink }}" rel="prev">
+    <span class="title">{{ i18n "prev_day" }}</span>
+    <span>{{ .Date.Format "2006-01-02" }} {{ partial "weekday.html" .Date }}</span>
+  </a>
+  {{- end }}
+  {{- with $newer }}
+  <a class="next" href="{{ .RelPermalink }}" rel="next">
+    <span class="title">{{ i18n "next_day" }}</span>
+    <span>{{ .Date.Format "2006-01-02" }} {{ partial "weekday.html" .Date }}</span>
+  </a>
+  {{- end }}
+</nav>
+{{- end }}
+{{- end }}

@@ -1,0 +1,18 @@
+{{- /*
+  从日报正文取前 N 条 "### 序号. 标题"，返回 [{title, anchor}]。
+  anchor 与 Goldmark 自动标题 ID 一致，可直接跳到条目。
+  用法：partial "headlines.html" (dict "page" . "limit" 3)
+*/ -}}
+{{- $out := slice -}}
+{{- range findRE `(?m)^### .+$` .page.RawContent (.limit | default 3) -}}
+  {{- $raw := strings.TrimSpace (strings.TrimPrefix "### " .) -}}
+  {{- /* 新日报标题自带 {#i-…} 锚点；旧日报按标题文字生成 */ -}}
+  {{- $anchor := "" -}}
+  {{- with findRESubmatch `\{#([\w-]+)\}$` $raw 1 }}{{ $anchor = index (index . 0) 1 }}{{ end -}}
+  {{- $raw = replaceRE `\s*\{#[\w-]+\}$` "" $raw -}}
+  {{- $title := $raw | replaceRE `^\d+\.\s*` "" | replaceRE `^【重点】` "" | strings.TrimSpace -}}
+  {{- if $title -}}
+    {{- $out = $out | append (dict "title" $title "anchor" (or $anchor (anchorize $raw))) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

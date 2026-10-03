@@ -1,0 +1,9 @@
+{{- /* 按路径取页面：当前语言没有时退回其他语言（如英文页链接到只有中文的网站规则、旧日报） */ -}}
+{{- $found := site.GetPage . -}}
+{{- $path := . -}}
+{{- if not $found -}}
+  {{- range site.Home.AllTranslations -}}
+    {{- if not $found }}{{ $found = .Site.GetPage $path }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $found -}}

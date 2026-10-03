@@ -1,0 +1,29 @@
+{{- /*
+  按日期列出四版面入口（首页近期简报、归档共用）。
+  用法：partial "day_list.html" (dict "days" (pages.GroupByDate "2006-01-02"))
+*/ -}}
+{{- $short := site.Params.sectionShort -}}
+<ol class="day-list">
+  {{- range .days }}
+  {{- $group := .Pages }}
+  {{- $first := index $group 0 }}
+  <li class="day-row">
+    <time class="day-date" datetime="{{ .Key }}">
+      {{- $first.Date | time.Format "01-02" -}}
+      <span class="day-weekday">{{ partial "weekday.html" $first.Date }}</span>
+    </time>
+    <span class="day-links">
+      {{- range $sec := site.Params.mainSections }}
+      {{- $label := index $short $sec | default $sec }}
+      {{- with where $group "Section" $sec }}
+      {{- with index . 0 }}
+      <a class="day-chip chip-{{ $sec }}" href="{{ .RelPermalink }}" title="{{ .Title }}">{{ $label }}</a>
+      {{- end }}
+      {{- else }}
+      <span class="day-chip chip-{{ $sec }} is-missing" title="{{ i18n "missing_section" (dict "Label" $label) }}">{{ $label }}</span>
+      {{- end }}
+      {{- end }}
+    </span>
+  </li>
+  {{- end }}
+</ol>

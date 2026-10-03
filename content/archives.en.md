@@ -1,6 +1,5 @@
 ---
-title: "新闻归档"
+title: "News archive"
 layout: "archives"
-url: "/archives/"
 summary: "archives"
 ---

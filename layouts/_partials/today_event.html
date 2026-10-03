@@ -1,0 +1,53 @@
+{{- /* 首页事件行：排名 / 领域 / 标题 / 摘要 / 来源信息，展开后为来源与当日简报入口 */ -}}
+{{- $e := .event -}}
+{{- $lang := .lang -}}
+{{- $path := printf "/%s/%s" $e.section .date -}}
+{{- $daily := partial "page_any_lang.html" $path -}}
+{{- $title := or (index $e.title $lang) $e.title.zh -}}
+{{- $summary := index $e.summary $lang -}}
+{{- if and (not $summary) (eq $lang "zh") }}{{ $summary = $e.summary.en }}{{ end -}}
+<li class="event" data-field="{{ $e.field }}">
+  <details{{ if .open }} open{{ end }}>
+    <summary class="event-row">
+      <span class="event-rank">{{ printf "%02d" .rank }}</span>
+      <span class="event-body">
+        <span class="event-chips"><span class="tag tag-{{ $e.field }}">{{ i18n (printf "field_%s" $e.field) }}</span></span>
+        <span class="event-title">{{ $title }}</span>
+        {{- with $summary }}
+        <span class="event-summary">{{ . }}</span>
+        {{- end }}
+        <span class="event-meta">
+          <span>{{ $e.source }}</span>
+          <span>{{ cond (eq $e.lang "zh") "中" "EN" }}</span>
+          {{- with $e.published_at }}
+          {{- $t := time.AsTime . "Asia/Shanghai" }}
+          <time datetime="{{ $t.Format "2006-01-02T15:04:05-07:00" }}" data-relative>{{ $t.Format "01-02 15:04" }}</time>
+          {{- end }}
+        </span>
+      </span>
+      <span class="event-side">
+        <span class="imp-dots" role="img" aria-label="{{ i18n "importance" (dict "Count" $e.importance) }}">
+          {{- range seq 5 }}<i{{ if le . $e.importance }} class="on"{{ end }}></i>{{ end -}}
+        </span>
+        <span class="caret" aria-hidden="true"></span>
+      </span>
+    </summary>
+    <div class="event-panel">
+      <div class="panel-head">
+        <span>{{ i18n "source" }}</span>
+        <span class="mono">{{ index $e.category $lang }}</span>
+      </div>
+      <a class="panel-row" href="{{ $e.link }}" target="_blank" rel="noopener">
+        <span class="panel-source">{{ $e.source }}</span>
+        <span class="mono">{{ cond (eq $e.lang "zh") "ZH" "EN" }}</span>
+        <span class="panel-title">{{ cond (eq $e.lang "zh") $e.title.zh $e.title.en }}</span>
+        <span class="mono panel-arrow" aria-hidden="true">↗</span>
+      </a>
+      {{- with $daily }}
+      <a class="panel-row panel-brief" href="{{ .RelPermalink }}#{{ $e.id }}">
+        {{ i18n "read_in_brief" (dict "Section" (index site.Params.sectionShort $e.section)) }} →
+      </a>
+      {{- end }}
+    </div>
+  </details>
+</li>

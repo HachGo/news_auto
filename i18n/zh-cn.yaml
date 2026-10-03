@@ -1,4 +1,265 @@
+# PaperMod 主题自带键
+- id: prev_page
+  translation: "上一页"
+- id: next_page
+  translation: "下一页"
 - id: read_time
   translation:
-    one: "预计阅读时间：1 min"
-    other: "预计阅读时间：{{ .Count }} min"
+    one: "约 1 分钟"
+    other: "约 {{ .Count }} 分钟"
+- id: words
+  translation:
+    one: "1 字"
+    other: "{{ .Count }} 字"
+- id: toc
+  translation: "目录"
+- id: translations
+  translation: "语言"
+- id: home
+  translation: "首页"
+- id: edit_post
+  translation: "编辑"
+- id: code_copy
+  translation: "复制"
+- id: code_copied
+  translation: "已复制！"
+
+# 顶栏 / 页脚
+- id: nav_label
+  translation: "主导航"
+- id: search
+  translation: "搜索"
+- id: theme_toggle
+  translation: "切换明暗主题"
+- id: language
+  translation: "语言"
+- id: disclaimer
+  translation: "仅供信息参考，不构成投资建议。"
+- id: footer_sources
+  translation: "RSS · Hacker News · Reddit · 东方财富 · 金十数据 · 巨潮资讯"
+- id: methodology
+  translation: "网站规则"
+- id: back_to_top
+  translation: "回到顶部"
+
+# 日期
+- id: date_long
+  translation: "2006年1月2日"
+- id: date_month
+  translation: "2006年1月"
+- id: updated_at
+  translation: "{{ .Time }} 更新"
+
+# 今日简报
+- id: stat_events
+  translation: "事件"
+- id: stat_deep
+  translation: "深度"
+- id: stat_sources
+  translation: "来源"
+- id: filter_by_field
+  translation: "按领域筛选"
+- id: field_all
+  translation: "全部"
+- id: field_finance
+  translation: "财经"
+- id: field_ai_tech
+  translation: "AI 与科技"
+- id: field_world
+  translation: "国际"
+- id: top_events
+  translation: "重要事件"
+- id: browse_by_date
+  translation: "按日期浏览"
+- id: show_all
+  translation: "显示全部 {{ .Count }} 条"
+- id: show_less
+  translation: "收起"
+- id: importance
+  translation: "重要性 {{ .Count }}/5"
+- id: source
+  translation: "来源"
+- id: read_in_brief
+  translation: "在当日{{ .Section }}简报中查看"
+- id: lang_en
+  translation: "英文"
+- id: lang_zh
+  translation: "中文"
+- id: section_failed
+  translation: "{{ .Section }}版面今日生成异常，可先查看往期内容。"
+- id: section_empty
+  translation: "{{ .Section }}版面今日暂无新条目。"
+- id: brief_missing
+  translation: "今日简报尚未生成，可先浏览往期新闻。"
+- id: no_events_in_field
+  translation: "今日该领域暂无事件。"
+- id: rising
+  translation: "上升中"
+- id: vs_baseline
+  translation: "相对 30 日基线 z 值"
+- id: kind_topic
+  translation: "新闻话题"
+- id: kind_market
+  translation: "行情涨幅"
+- id: rising_empty
+  translation: "今日没有明显高于近 30 日基线的信号。"
+- id: rising_note
+  translation: "z 值 = 今日与近 30 日均值的差，除以波动幅度"
+- id: outlook
+  translation: "趋势预测"
+- id: track_record
+  translation: "已结算 {{ .Resolved }} · 命中 {{ .Correct }}"
+- id: track_record_none
+  translation: "暂无已结算预测"
+- id: horizon_week
+  translation: "未来一周"
+- id: horizon_month
+  translation: "未来一个月"
+- id: horizon_quarter
+  translation: "未来一个季度"
+- id: horizon_year
+  translation: "未来一年"
+- id: combined_trend
+  translation: "科技与市场综合走势"
+- id: direction_positive
+  translation: "偏强"
+- id: direction_neutral
+  translation: "震荡"
+- id: direction_negative
+  translation: "偏弱"
+- id: direction_insufficient_data
+  translation: "数据不足"
+- id: confidence
+  translation: "可信度"
+- id: confidence_high
+  translation: "高"
+- id: confidence_medium
+  translation: "中"
+- id: confidence_low
+  translation: "低"
+- id: due
+  translation: "截至 {{ .Date }}"
+- id: drivers
+  translation: "驱动"
+- id: scenarios
+  translation: "年度情景"
+- id: scenarios_sub
+  translation: "{{ .Count }} 个情景 · 基准：{{ .Base }}"
+- id: deep_reads
+  translation: "深度阅读"
+- id: all_deep_reads
+  translation: "全部深度"
+- id: read_more
+  translation: "阅读导读"
+
+# 日报 / 列表 / 归档
+- id: same_day
+  translation: "同日版面"
+- id: missing_section
+  translation: "当日无{{ .Label }}版面"
+- id: prev_day
+  translation: "« 前一天"
+- id: next_day
+  translation: "后一天 »"
+- id: by_date
+  translation: "按日期翻阅"
+- id: archive_desc
+  translation: "按日期浏览全部简报，共 {{ .Count }} 天。点击版面直达当日内容。"
+- id: archive_fields
+  translation: "按领域"
+- id: jump_to_month
+  translation: "按月份跳转"
+- id: days_count
+  translation: "{{ .Count }} 天"
+
+# 404
+- id: not_found_title
+  translation: "页面不存在"
+- id: not_found_hint
+  translation: "链接可能已失效，或当天的简报尚未生成。"
+- id: back_home
+  translation: "回到首页"
+- id: browse_dates
+  translation: "按日期浏览"
+- id: search_news
+  translation: "搜索资讯"
+
+# 搜索 / 趋势页
+- id: filings
+  translation: "公告"
+- id: search_default_desc
+  translation: "搜索 AI、国际、财经与深度版面的全部资讯标题与正文摘要。"
+- id: search_placeholder
+  translation: "搜索资讯..."
+- id: search_results
+  translation: "搜索结果"
+
+# 趋势页
+- id: trends_kicker
+  translation: "趋势研究"
+- id: trends_desc
+  translation: "把新闻、行情和宏观事件整理成可追溯的科技与市场判断。"
+- id: data_status
+  translation: "数据状态"
+- id: loading
+  translation: "正在读取"
+- id: waiting_data
+  translation: "等待数据"
+- id: period
+  translation: "趋势周期"
+- id: period_week
+  translation: "周"
+- id: period_month
+  translation: "月"
+- id: period_quarter
+  translation: "季度"
+- id: period_year
+  translation: "年"
+- id: this_period
+  translation: "本期判断"
+- id: tech_momentum
+  translation: "科技动量"
+- id: market_signal
+  translation: "市场信号"
+- id: coverage
+  translation: "数据覆盖"
+- id: loading_data
+  translation: "数据读取中"
+- id: waiting_snapshots
+  translation: "等待每日快照积累。"
+- id: waiting_market
+  translation: "等待行情和宏观数据。"
+- id: coverage_hint
+  translation: "数据覆盖越充分，判断可信度越高。"
+- id: trend_change
+  translation: "趋势变化"
+- id: chart_desc
+  translation: "科技动量与市场信号单位不同，上下分栏各用自己的刻度；市场信号以 0 为多空分界。悬停或聚焦图表后用方向键查看每日数值。"
+- id: chart_loading
+  translation: "趋势数据加载后显示科技动量和市场信号的每日变化。"
+- id: chart_empty
+  translation: "当前周期数据不足，暂不绘制趋势线。"
+- id: data_table
+  translation: "查看数据表"
+- id: date
+  translation: "日期"
+- id: coverage_rate
+  translation: "覆盖率"
+- id: topic_momentum
+  translation: "科技主题动量"
+- id: topic_desc
+  translation: "按事件权重、来源质量和持续性计算，不把转载数量直接当成热度。"
+- id: future_scenarios
+  translation: "未来情景"
+- id: scenario_desc
+  translation: "这是基于当前信号的情景推演，不是投资建议。"
+- id: key_evidence
+  translation: "关键证据"
+- id: evidence_desc
+  translation: "点击标题在新标签页打开原始新闻。相关性不等同于因果关系。"
+- id: method_summary
+  translation: "查看方法与边界"
+- id: method_p1
+  translation: "趋势模块每天保存不可变快照，再按周、月、季度和年聚合。数据不足时不会用 0 补齐，也不会生成高可信度预测。"
+- id: method_p2
+  translation: "行情数据带有交易日期和来源时间。科技主题来自新闻与公告的规则分类，模型只用于补充解释。内容仅供信息参考，不构成投资建议。"

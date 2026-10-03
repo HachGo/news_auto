@@ -1,0 +1,20 @@
+{{- /* 单篇日报：切换同一天的其他版面 */ -}}
+{{- if in site.Params.mainSections .Section -}}
+{{- $current := . -}}
+{{- $date := .File.ContentBaseName -}}
+<nav class="day-switch" aria-label="{{ i18n "same_day" }}">
+  <span class="day-switch-label">{{ i18n "same_day" }}</span>
+  {{- range $sec := site.Params.mainSections }}
+  {{- $label := index site.Params.sectionShort $sec | default $sec }}
+  {{- if eq $sec $current.Section }}
+  <a class="day-chip chip-{{ $sec }} is-current" href="{{ $current.RelPermalink }}" aria-current="page">{{ $label }}</a>
+  {{- else }}
+  {{- with site.GetPage (printf "/%s/%s" $sec $date) }}
+  <a class="day-chip chip-{{ $sec }}" href="{{ .RelPermalink }}">{{ $label }}</a>
+  {{- else }}
+  <span class="day-chip chip-{{ $sec }} is-missing" title="{{ i18n "missing_section" (dict "Label" $label) }}">{{ $label }}</span>
+  {{- end }}
+  {{- end }}
+  {{- end }}
+</nav>
+{{- end -}}
