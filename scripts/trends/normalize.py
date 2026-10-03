@@ -7,6 +7,8 @@ import re
 from datetime import datetime, timezone
 from urllib.parse import urlsplit, urlunsplit
 
+from common import title_en
+
 from .config import SOURCE_QUALITY, TAXONOMY_VERSION, TOPICS
 
 
@@ -107,6 +109,7 @@ def normalize_news(item: dict, section: str, as_of: str) -> dict:
         "id": stable_id(link or title),
         "event_id": event_cluster_id(title),
         "title": title,
+        "title_en": clean_text(title_en(item)) or title,
         "summary": summary[:800],
         "link": link,
         "source": clean_text(item.get("source") or "未知来源"),

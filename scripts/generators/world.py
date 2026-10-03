@@ -57,6 +57,12 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
         path,
         render_sectioned(selected, f"国际资讯 {date_str}", f"今日 {len(selected)} 条国际资讯。"),
     )
+    atomic_write_text(
+        path.with_name(f"{date_str}.en.md"),
+        render_sectioned(
+            selected, f"World {date_str}", f"{len(selected)} world stories.", lang="en",
+        ),
+    )
     print(f"[info] 国际版面已生成 {path}")
     return {"path": path, "items": selected, "all_rss_items": selected}
 

@@ -41,15 +41,19 @@ def load_published_post(path, section):
             elif section == "market" and category == "公告与研报":
                 announces = _read_announces(block)
             continue
-        heading = re.match(r"### \d+\. ([^\n]+)", block)
+        heading = re.match(r"### \d+\. ([^\n]+?)(?:\s*\{#[\w-]+\})?[ \t]*$", block, re.M)
         source = re.search(r"^来源：\[([^\n]*)\]\(([^\n]+)\)[ \t]*$", block, re.M)
         if source is None and section == "deep":
             source = re.search(
-                r'<p class="deep-source"><a href="([^"]+)">([^<]+)</a></p>', block,
+                r'<p class="deep-source"><a href="([^"]+)"[^>]*>([^<]+)</a></p>', block,
             )
         if not heading or not source:
             continue
         title = heading[1].strip()
+        # 原文标题：AI/国际为引用行，深度为 deep-dek；行情类中文源没有
+        original = re.search(r"^> ([^\n]+)$", block, re.M)
+        if original is None and section == "deep":
+            original = re.search(r'<p class="deep-dek">([^<]+)</p>', block)
         source_name, source_link = (
             (source[2], source[1]) if section == "deep" else (source[1], source[2])
         )
@@ -69,13 +73,16 @@ def load_published_post(path, section):
             item_category = "研报要点"
         elif section == "deep" and category == "今日精选":
             item_category = "深度精选"
+        title_zh = title.removeprefix("【重点】")
         item = {
-            "title": title.removeprefix("【重点】"),
+            "title": unescape(original[1].strip()) if original else title_zh,
             "source": source_name,
             "link": source_link,
             "category": item_category,
             "summary": "\n".join(summary_lines),
         }
+        if original:
+            item["title_zh"] = title_zh
         if title.startswith("【重点】"):
             item["score"] = 9
         items.append(item)

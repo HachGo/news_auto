@@ -1,4 +1,5 @@
 """生产回归：仅模拟外部服务，实际执行抓取、生成、持久化和首页流程。"""
+import json
 from datetime import date, datetime, timezone
 from types import SimpleNamespace
 from unittest.mock import MagicMock
@@ -42,7 +43,8 @@ def repeated_run(tmp_path, monkeypatch):
     fetch_news.main()
     assert "Original AI item" in ai_path.read_text()
     assert "Original market item" in market_path.read_text()
-    home_first = (tmp_path / "content" / "_index.md").read_bytes()
+    brief_path = tmp_path / "data" / "brief" / f"{today}.json"
+    home_first = brief_path.read_bytes()
     seen_first = (tmp_path / "seen.json").read_bytes()
     trend_first = (tmp_path / "data" / "trends" / "daily" / f"{today}.json").read_bytes()
     method_first = (tmp_path / "content" / "method.md").read_bytes()
@@ -51,7 +53,7 @@ def repeated_run(tmp_path, monkeypatch):
     ai_second = ai_path.read_text()
     market_second = market_path.read_text()
     fetch_news.main()
-    home_third = (tmp_path / "content" / "_index.md").read_text()
+    home_third = brief_path.read_text(encoding="utf-8")
     seen_third = (tmp_path / "seen.json").read_bytes()
     trend_third = (tmp_path / "data" / "trends" / "daily" / f"{today}.json").read_bytes()
     method_third = (tmp_path / "content" / "method.md").read_bytes()
@@ -68,8 +70,9 @@ def test_same_day_rerun_keeps_earlier_market_articles(repeated_run):
 
 
 def test_no_new_items_does_not_report_existing_ai_page_as_failed(repeated_run):
-    ai_card = repeated_run[2].split('class="section-card section-ai', 1)[1].split("</a>", 1)[0]
-    assert "今日生成异常" not in ai_card
+    brief = json.loads(repeated_run[2])
+    assert brief["sections"]["ai"] == "ready"
+    assert any(event["title"]["zh"] == "Original AI item" for event in brief["events"])
 
 
 def test_same_day_non_forced_rerun_is_byte_stable(repeated_run):
@@ -431,16 +434,9 @@ def test_total_summary_failure_is_not_reported_as_empty(tmp_path, monkeypatch, g
     assert not (tmp_path / "2026-09-05.md").exists()
 
 
-def test_homepage_distinguishes_empty_from_failed():
-    from homepage import build_homepage
-    sections = {
-        "ai": {"name": "AI 与科技社区", "url": "/ai/2026-09-05/",
-               "status": "empty", "items": [], "count": 0},
-        "world": None,
-    }
-    markdown = build_homepage(sections, "2026-09-05")
-    ai_card = markdown.split('class="section-card section-ai', 1)[1].split("</a>", 1)[0]
-    world_card = markdown.split('class="section-card section-world', 1)[1].split("</a>", 1)[0]
-    assert "今日暂无新条目" in ai_card
-    assert "查看全文" not in ai_card
-    assert "今日生成异常" in world_card
+def test_brief_distinguishes_empty_from_failed():
+    from brief import build_brief
+    brief = build_brief({}, "2026-09-05", "2026-09-05T08:00:00+08:00",
+                        statuses={"ai": "empty", "world": "failed"})
+    assert brief["sections"] == {"ai": "empty", "world": "failed"}
+    assert brief["events"] == []

@@ -1,4 +1,4 @@
-from method import build_method_page, site_label, write_method_page
+from method import build_method_page, feed_link_cell, site_label, write_method_page
 
 
 def test_site_label_extracts_host_and_google_news_site():
@@ -7,6 +7,24 @@ def test_site_label_extracts_host_and_google_news_site():
         "https://news.google.com/rss/search?q=site:yicai.com&hl=zh-CN"
     ) == "yicai.com"
     assert site_label("") == "—"
+
+
+def test_feed_link_cell_links_site_home_not_rss_xml():
+    assert feed_link_cell({"url": "https://techcrunch.com/category/ai/feed/"}) == (
+        "[techcrunch.com](https://techcrunch.com/) · [RSS](https://techcrunch.com/category/ai/feed/)"
+    )
+    # Google News 定向站点：落到目标站首页
+    assert feed_link_cell(
+        {"url": "https://news.google.com/rss/search?q=site:yicai.com&hl=zh-CN"}
+    ).startswith("[yicai.com](https://yicai.com/)")
+    # Google News 关键词聚合：落到网页版搜索结果
+    assert "(https://news.google.com/search?q=" in feed_link_cell(
+        {"url": "https://news.google.com/rss/search?q=%E5%88%B8%E5%95%86&hl=zh-CN"}
+    )
+    # 纯 RSS 域名用 homepage 覆盖
+    assert feed_link_cell(
+        {"url": "https://feeds.bbci.co.uk/news/world/rss.xml", "homepage": "https://www.bbc.com/news/world"}
+    ).startswith("[bbc.com](https://www.bbc.com/news/world) · [RSS](")
 
 
 def test_build_method_page_includes_feeds_and_scores():
@@ -42,7 +60,7 @@ def test_build_method_page_includes_feeds_and_scores():
     assert "流水线概览" in out
     assert "total_limit" in out
     assert "TechCrunch AI" in out
-    assert "[techcrunch.com](https://techcrunch.com/category/ai/feed/)" in out
+    assert "[techcrunch.com](https://techcrunch.com/) · [RSS](https://techcrunch.com/category/ai/feed/)" in out
     assert "[yicai.com]" in out
     assert "The Atlantic" in out
     assert "9-10" in out

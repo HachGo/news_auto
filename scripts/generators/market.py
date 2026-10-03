@@ -9,7 +9,10 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
-from common import atomic_write_text, select_items, summarize, CST
+from common import (
+    atomic_write_text, select_items, summarize, translate_lines, CST,
+    item_id, title_en, summary_en,
+)
 from published import load_published_post, retain_failed_source_items, seen_without_published
 from sources import rss, eastmoney, jin10, cninfo
 
@@ -17,6 +20,47 @@ FAIL_BLOCK = "📊 数据获取失败，请稍后查看原文。"
 EMPTY_CALENDAR = "今日无重要宏观数据公布。"
 EMPTY_NEWS = "今日暂无新要闻。"
 EMPTY_ANNOUNCE = "今日暂无新公告。"
+
+# 行情表英文名（东方财富返回中文名）；首页 / 英文版共用
+QUOTE_NAMES_EN = {
+    "上证指数": "SSE Composite",
+    "深证成指": "SZSE Component",
+    "创业板指": "ChiNext",
+    "恒生指数": "Hang Seng",
+    "恒生科技": "Hang Seng Tech",
+    "标普500": "S&P 500",
+    "纳斯达克": "Nasdaq",
+    "道琼斯": "Dow Jones",
+    "黄金": "Gold",
+    "原油": "Crude oil",
+    "VIX": "VIX",
+}
+
+# 英文版各段文案：键与中文版一一对应
+LABELS = {
+    "zh": {
+        "title": "金融市场与股市 {date}", "tags": "每日简报",
+        "summary": "今日行情速览 + {n} 条财经要闻。",
+        "quotes": "行情速览", "quote_head": "| 指数 | 点位 | 涨跌幅 |", "turnover": "沪市成交额：{v:.0f} 亿元",
+        "macro": "宏观与政策", "macro_head": "| 指标 | 预期 | 前值 | 公布值 |",
+        "news": "财经要闻", "filings": "公告与研报", "filings_label": "公告：",
+        "announces": "**公司公告**（巨潮）", "research": "**研报要点**",
+        "fail": FAIL_BLOCK, "empty_calendar": EMPTY_CALENDAR, "empty_news": EMPTY_NEWS,
+        "empty_announce": EMPTY_ANNOUNCE, "source": "来源",
+    },
+    "en": {
+        "title": "Finance {date}", "tags": "Daily brief",
+        "summary": "Market snapshot + {n} finance stories.",
+        "quotes": "Market snapshot", "quote_head": "| Index | Level | Change |",
+        "turnover": "Shanghai turnover: CNY {bn:.1f}bn",
+        "macro": "Macro & policy", "macro_head": "| Indicator | Forecast | Previous | Actual |",
+        "news": "Finance news", "filings": "Filings & research", "filings_label": "Filings:",
+        "announces": "**Company filings** (CNINFO, titles in Chinese)", "research": "**Research notes**",
+        "fail": "📊 Data unavailable; please check the original sources.",
+        "empty_calendar": "No major macro releases today.", "empty_news": "No new finance stories today.",
+        "empty_announce": "No new filings today.", "source": "Source",
+    },
+}
 
 
 def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False):
@@ -82,6 +126,18 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
     atomic_write_text(
         path, _render(date_str, quotes, calendar, announces, news_items, research_items),
     )
+    calendar_en = None
+    if calendar:
+        titles = translate_lines(client, [c["title"] for c in calendar])
+        if titles:
+            calendar_en = [{**c, "title": t} for c, t in zip(calendar, titles)]
+    atomic_write_text(
+        path.with_name(f"{date_str}.en.md"),
+        _render(
+            date_str, quotes, calendar_en or calendar, announces, news_items, research_items,
+            lang="en",
+        ),
+    )
     print(f"[info] 市场版面已生成 {path}")
     return {"path": path, "items": news_items, "quotes": quotes,
             "calendar": calendar, "news_items": news_items,
@@ -97,42 +153,44 @@ def _safe(fn, label):
         return None
 
 
-def _render(date_str, quotes, calendar, announces, news_items, research_items):
+def _render(date_str, quotes, calendar, announces, news_items, research_items, lang="zh"):
+    t = LABELS[lang]
     lines = [
         "---",
-        f'title: "金融市场与股市 {date_str}"',
+        f'title: "{t["title"].format(date=date_str)}"',
         f"date: {datetime.now(CST).strftime('%Y-%m-%dT%H:%M:%S%z')}",
-        'tags: ["每日简报"]',
-        f'summary: "今日行情速览 + {len(news_items)} 条财经要闻。"',
+        f'tags: ["{t["tags"]}"]',
+        f'summary: "{t["summary"].format(n=len(news_items))}"',
         "---",
         "",
     ]
     # 行情速览
-    lines.append("## 行情速览")
+    lines.append(f"## {t['quotes']}")
     lines.append("")
     if quotes:
-        lines.append("| 指数 | 点位 | 涨跌幅 |")
+        lines.append(t["quote_head"])
         lines.append("|---|---|---|")
         for q in quotes:
             arrow = "▲" if q["change_pct"] >= 0 else "▼"
-            lines.append(f"| {q['name']} | {q['price']:.2f} | {arrow}{abs(q['change_pct']):.2f}% |")
+            name = QUOTE_NAMES_EN.get(q["name"], q["name"]) if lang == "en" else q["name"]
+            lines.append(f"| {name} | {q['price']:.2f} | {arrow}{abs(q['change_pct']):.2f}% |")
         sh = next((q for q in quotes if "上证" in q["name"]), None)
         if sh and sh.get("amount"):
             lines.append("")
-            lines.append(f"沪市成交额：{sh['amount']/1e8:.0f} 亿元")
+            lines.append(t["turnover"].format(v=sh["amount"] / 1e8, bn=sh["amount"] / 1e9))
     else:
-        lines.append(FAIL_BLOCK)
+        lines.append(t["fail"])
     lines.append("")
 
     # 宏观与政策：None=失败，[]=当日无数据
-    lines.append("## 宏观与政策")
+    lines.append(f"## {t['macro']}")
     lines.append("")
     if calendar is None:
-        lines.append(FAIL_BLOCK)
+        lines.append(t["fail"])
     elif not calendar:
-        lines.append(EMPTY_CALENDAR)
+        lines.append(t["empty_calendar"])
     else:
-        lines.append("| 指标 | 预期 | 前值 | 公布值 |")
+        lines.append(t["macro_head"])
         lines.append("|---|---|---|---|")
         for c in calendar:
             lines.append(
@@ -142,50 +200,55 @@ def _render(date_str, quotes, calendar, announces, news_items, research_items):
     lines.append("")
 
     # 财经要闻
-    lines.append("## 财经要闻")
+    lines.append(f"## {t['news']}")
     lines.append("")
     if news_items:
         for n, item in enumerate(news_items, 1):
-            lines.extend(_render_item(item, n))
+            lines.extend(_render_item(item, n, lang))
     else:
-        lines.append(EMPTY_NEWS)
+        lines.append(t["empty_news"])
     lines.append("")
 
     # 公告与研报
-    lines.append("## 公告与研报")
+    lines.append(f"## {t['filings']}")
     lines.append("")
     if announces is None:
-        lines.append("公告：")
-        lines.append(FAIL_BLOCK)
+        lines.append(t["filings_label"])
+        lines.append(t["fail"])
         lines.append("")
     elif not announces:
-        lines.append(EMPTY_ANNOUNCE)
+        lines.append(t["empty_announce"])
         lines.append("")
     else:
-        lines.append("**公司公告**（巨潮）")
+        lines.append(t["announces"])
         lines.append("")
         for a in announces:
             lines.append(f"- {a['sec_name']}：[{a['title']}]({a['url']})")
         lines.append("")
     if research_items:
-        lines.append("**研报要点**")
+        lines.append(t["research"])
         lines.append("")
         for n, item in enumerate(research_items, 1):
-            lines.extend(_render_item(item, n))
+            lines.extend(_render_item(item, n, lang))
 
     return "\n".join(lines)
 
 
-def _render_item(item, num):
+def _render_item(item, num, lang="zh"):
     block = []
-    title_zh = item.get("title_zh") or item["title"]
-    block.append(f"### {num}. {title_zh}")
+    anchor = f" {{#{item_id(item)}}}"
+    if lang == "en":
+        title, summary = title_en(item), summary_en(item)
+    else:
+        title = item.get("title_zh") or item["title"]
+        summary = item.get("summary_zh") or item.get("summary", "")[:200]
+    block.append(f"### {num}. {title}{anchor}")
     block.append("")
-    summary_zh = item.get("summary_zh") or item.get("summary", "")[:200]
-    if summary_zh:
-        block.append(summary_zh)
+    if summary:
+        block.append(summary)
         block.append("")
-    block.append(f"来源：[{item['source']}]({item['link']})")
+    separator = ": " if lang == "en" else "："
+    block.append(f"{LABELS[lang]['source']}{separator}[{item['source']}]({item['link']})")
     block.append("")
     return block
 

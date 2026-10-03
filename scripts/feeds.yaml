@@ -4,6 +4,7 @@
 # ai_filter: true 时按 ai_keywords 关键词过滤条目
 # block_keywords: 全局屏蔽（标题/摘要命中任一则不入选）
 # max_items: 单个源最多取多少条候选
+# homepage: 可选，「网站规则」页的站点链接（缺省取 RSS 域名首页；纯 RSS 域名需填写）
 
 settings:
   total_limit: 15          # 每版面每日最多精选条数（ai/world）
@@ -37,6 +38,7 @@ feeds:
 
   - name: Hacker News Frontpage
     url: https://hnrss.org/frontpage
+    homepage: https://news.ycombinator.com/
     section: ai
     category: AI 动态
     ai_filter: true
@@ -44,6 +46,7 @@ feeds:
 
   - name: Hacker News Best
     url: https://hnrss.org/best
+    homepage: https://news.ycombinator.com/best
     section: ai
     category: 社区热点
     ai_filter: false
@@ -80,6 +83,7 @@ feeds:
   # ---------- 国际资讯（section: world） ----------
   - name: BBC World
     url: https://feeds.bbci.co.uk/news/world/rss.xml
+    homepage: https://www.bbc.com/news/world
     section: world
     category: 国际新闻
     ai_filter: false
@@ -174,6 +178,7 @@ feeds:
 
   - name: WSJ Markets
     url: https://feeds.a.dj.com/rss/RSSMarketsMain.xml
+    homepage: https://www.wsj.com/finance
     section: market
     category: 财经要闻
     ai_filter: false

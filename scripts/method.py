@@ -80,13 +80,35 @@ def site_label(url):
     return host or url
 
 
+def site_home(url):
+    """「网站」链接的落点：站点首页，而不是 RSS XML（浏览器打开只会显示源码）。"""
+    parsed = urlparse(url)
+    host = (parsed.netloc or "").lower()
+    if "news.google.com" in host:
+        label = site_label(url)
+        if label != "news.google.com":
+            return f"https://{label}/"
+        # 关键词聚合：RSS 搜索换成网页版搜索结果
+        return url.replace("/rss/search", "/search", 1)
+    if not parsed.netloc:
+        return url
+    return f"{parsed.scheme or 'https'}://{parsed.netloc}/"
+
+
 def feed_link_cell(feed):
-    """表格中的「网站」列：可点击的站点标识。"""
+    """表格中的「网站」列：站点标识链到网站首页，附 RSS 原始地址。
+
+    feeds.yaml 可用 homepage 覆盖首页（hnrss.org、feeds.bbci.co.uk 这类纯 RSS 域名）。
+    """
     url = (feed.get("url") or "").strip()
-    label = site_label(url)
+    homepage = (feed.get("homepage") or "").strip()
+    if not url and not homepage:
+        return "—"
+    label = site_label(homepage or url)
+    cell = f"[{label}]({homepage or site_home(url)})"
     if url:
-        return f"[{label}]({url})"
-    return label
+        cell += f" · [RSS]({url})"
+    return cell
 
 
 def build_method_page(config=None):

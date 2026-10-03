@@ -1,3 +1,4 @@
+import json
 from unittest.mock import patch
 from datetime import datetime, timezone, timedelta
 
@@ -15,7 +16,7 @@ class FakeDateTime:
 
 def test_main_writes_all_sections_and_home(tmp_path, monkeypatch):
     monkeypatch.setattr(fetch_news, "datetime", FakeDateTime)
-    monkeypatch.setattr(fetch_news, "CONTENT_DIR", tmp_path)
+    monkeypatch.setattr(fetch_news, "CONTENT_DIR", tmp_path / "content")
     monkeypatch.setattr(fetch_news, "SEEN_FILE", tmp_path / "seen.json")
     monkeypatch.setattr(fetch_news, "load_config", lambda *a, **k: {"settings": {}, "ai_keywords": [], "feeds": []})
     monkeypatch.setattr(fetch_news, "load_seen", lambda *a, **k: {})
@@ -37,20 +38,22 @@ def test_main_writes_all_sections_and_home(tmp_path, monkeypatch):
          patch.object(fetch_news.deep, "generate", side_effect=fake_gen):
         fetch_news.main()
 
-    assert (tmp_path / "ai" / "2026-08-01.md").exists()
-    assert (tmp_path / "world" / "2026-08-01.md").exists()
-    assert (tmp_path / "market" / "2026-08-01.md").exists()
-    assert (tmp_path / "deep" / "2026-08-01.md").exists()
-    assert (tmp_path / "_index.md").exists()
-    assert "今日焦点" in (tmp_path / "_index.md").read_text(encoding="utf-8")
-    assert "home-overview" in (tmp_path / "_index.md").read_text(encoding="utf-8")
+    content = tmp_path / "content"
+    assert (content / "ai" / "2026-08-01.md").exists()
+    assert (content / "world" / "2026-08-01.md").exists()
+    assert (content / "market" / "2026-08-01.md").exists()
+    assert (content / "deep" / "2026-08-01.md").exists()
+    brief = json.loads((tmp_path / "data" / "brief" / "2026-08-01.json").read_text(encoding="utf-8"))
+    assert [event["field"] for event in brief["events"]] == ["ai_tech", "world", "finance"]
+    assert brief["events"][0]["title"]["zh"] == "焦点"
+    assert brief["sections"] == {"ai": "ready", "world": "ready", "market": "ready", "deep": "ready"}
     assert force_refresh_values == [False, False, False, False]
 
 
 def test_main_enables_force_refresh_from_environment(tmp_path, monkeypatch):
     monkeypatch.setenv("NEWS_FORCE_REFRESH", "1")
     monkeypatch.setattr(fetch_news, "datetime", FakeDateTime)
-    monkeypatch.setattr(fetch_news, "CONTENT_DIR", tmp_path)
+    monkeypatch.setattr(fetch_news, "CONTENT_DIR", tmp_path / "content")
     monkeypatch.setattr(fetch_news, "SEEN_FILE", tmp_path / "seen.json")
     monkeypatch.setattr(fetch_news, "load_config", lambda *a, **k: {"settings": {}, "feeds": []})
     monkeypatch.setattr(fetch_news, "load_seen", lambda *a, **k: {})
@@ -73,7 +76,7 @@ def test_main_enables_force_refresh_from_environment(tmp_path, monkeypatch):
 
 def test_main_continues_on_section_failure(tmp_path, monkeypatch):
     monkeypatch.setattr(fetch_news, "datetime", FakeDateTime)
-    monkeypatch.setattr(fetch_news, "CONTENT_DIR", tmp_path)
+    monkeypatch.setattr(fetch_news, "CONTENT_DIR", tmp_path / "content")
     monkeypatch.setattr(fetch_news, "SEEN_FILE", tmp_path / "seen.json")
     monkeypatch.setattr(fetch_news, "load_config", lambda *a, **k: {"settings": {}, "feeds": []})
     monkeypatch.setattr(fetch_news, "load_seen", lambda *a, **k: {})
@@ -93,4 +96,6 @@ def test_main_continues_on_section_failure(tmp_path, monkeypatch):
          patch.object(fetch_news.market, "generate", side_effect=ok), \
          patch.object(fetch_news.deep, "generate", side_effect=ok):
         fetch_news.main()
-    assert (tmp_path / "_index.md").exists()
+    brief = json.loads((tmp_path / "data" / "brief" / "2026-08-01.json").read_text(encoding="utf-8"))
+    assert brief["sections"]["ai"] == "failed"
+    assert brief["stats"]["events"] == 2
