@@ -1,14 +1,14 @@
 ---
 title: "网站规则"
 url: "/rules/"
-date: 2026-09-06T10:36:48+0800
+date: 2026-10-03T14:22:13+0800
 summary: "本站抓取哪些网站，以及如何筛选、评分与排序每日资讯。"
 body_class: "section-rules"
 ShowToc: true
 TocOpen: true
 ---
 
-> 本页由脚本根据 `scripts/feeds.yaml` 与 `scripts/common.py` 中的公开规则自动生成，列出当前实际抓取的网站与筛选权重。更新源或规则后，重新跑抓取流水线即可同步。上次生成：2026-09-06 10:36 +0800。
+> 本页由脚本根据 `scripts/feeds.yaml` 与 `scripts/common.py` 中的公开规则自动生成，列出当前实际抓取的网站与筛选权重。更新源或规则后，重新跑抓取流水线即可同步。上次生成：2026-10-03 14:22 +0800。
 
 ## 获取哪些网站
 
@@ -18,45 +18,45 @@ TocOpen: true
 
 | 来源名称 | 网站 | 分类 | AI 过滤 | 候选上限 |
 |---|---|---|---|---|
-| TechCrunch AI | [techcrunch.com](https://techcrunch.com/category/artificial-intelligence/feed/) | AI 动态 | 否 | 10 |
-| The Verge AI | [theverge.com](https://www.theverge.com/rss/ai-artificial-intelligence/index.xml) | AI 动态 | 否 | 10 |
-| VentureBeat AI | [venturebeat.com](https://venturebeat.com/category/ai/feed/) | AI 动态 | 否 | 8 |
-| Hacker News Frontpage | [hnrss.org](https://hnrss.org/frontpage) | AI 动态 | 是 | 20 |
-| Hacker News Best | [hnrss.org](https://hnrss.org/best) | 社区热点 | 否 | 15 |
-| Reddit r/singularity Top | [reddit.com](https://www.reddit.com/r/singularity/top/.rss?t=day) | 社区热点 | 否 | 10 |
-| Reddit r/OpenAI Top | [reddit.com](https://www.reddit.com/r/OpenAI/top/.rss?t=day) | 社区热点 | 否 | 8 |
-| Reddit r/LocalLLaMA Top | [reddit.com](https://www.reddit.com/r/LocalLLaMA/top/.rss?t=day) | 社区热点 | 否 | 8 |
-| MIT Technology Review AI | [technologyreview.com](https://www.technologyreview.com/topic/artificial-intelligence/feed) | AI 动态 | 否 | 6 |
+| TechCrunch AI | [techcrunch.com](https://techcrunch.com/) · [RSS](https://techcrunch.com/category/artificial-intelligence/feed/) | AI 动态 | 否 | 10 |
+| The Verge AI | [theverge.com](https://www.theverge.com/) · [RSS](https://www.theverge.com/rss/ai-artificial-intelligence/index.xml) | AI 动态 | 否 | 10 |
+| VentureBeat AI | [venturebeat.com](https://venturebeat.com/) · [RSS](https://venturebeat.com/category/ai/feed/) | AI 动态 | 否 | 8 |
+| Hacker News Frontpage | [news.ycombinator.com](https://news.ycombinator.com/) · [RSS](https://hnrss.org/frontpage) | AI 动态 | 是 | 20 |
+| Hacker News Best | [news.ycombinator.com](https://news.ycombinator.com/best) · [RSS](https://hnrss.org/best) | 社区热点 | 否 | 15 |
+| Reddit r/singularity Top | [reddit.com](https://www.reddit.com/) · [RSS](https://www.reddit.com/r/singularity/top/.rss?t=day) | 社区热点 | 否 | 10 |
+| Reddit r/OpenAI Top | [reddit.com](https://www.reddit.com/) · [RSS](https://www.reddit.com/r/OpenAI/top/.rss?t=day) | 社区热点 | 否 | 8 |
+| Reddit r/LocalLLaMA Top | [reddit.com](https://www.reddit.com/) · [RSS](https://www.reddit.com/r/LocalLLaMA/top/.rss?t=day) | 社区热点 | 否 | 8 |
+| MIT Technology Review AI | [technologyreview.com](https://www.technologyreview.com/) · [RSS](https://www.technologyreview.com/topic/artificial-intelligence/feed) | AI 动态 | 否 | 6 |
 
 ### 国际资讯
 
 | 来源名称 | 网站 | 分类 | AI 过滤 | 候选上限 |
 |---|---|---|---|---|
-| BBC World | [feeds.bbci.co.uk](https://feeds.bbci.co.uk/news/world/rss.xml) | 国际新闻 | 否 | 10 |
-| The Guardian World | [theguardian.com](https://www.theguardian.com/world/rss) | 国际新闻 | 否 | 10 |
-| Reuters World (via Google News) | [reuters.com](https://news.google.com/rss/search?q=site:reuters.com%20world&hl=en-US&gl=US&ceid=US:en) | 国际新闻 | 否 | 8 |
+| BBC World | [bbc.com](https://www.bbc.com/news/world) · [RSS](https://feeds.bbci.co.uk/news/world/rss.xml) | 国际新闻 | 否 | 10 |
+| The Guardian World | [theguardian.com](https://www.theguardian.com/) · [RSS](https://www.theguardian.com/world/rss) | 国际新闻 | 否 | 10 |
+| Reuters World (via Google News) | [reuters.com](https://reuters.com/) · [RSS](https://news.google.com/rss/search?q=site:reuters.com%20world&hl=en-US&gl=US&ceid=US:en) | 国际新闻 | 否 | 8 |
 
 ### 金融市场与股市
 
 | 来源名称 | 网站 | 分类 | AI 过滤 | 候选上限 |
 |---|---|---|---|---|
-| 第一财经 | [yicai.com](https://news.google.com/rss/search?q=site:yicai.com&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 财经要闻 | 否 | 8 |
-| 财新 | [caixin.com](https://news.google.com/rss/search?q=site:caixin.com&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 财经要闻 | 否 | 8 |
-| 华尔街见闻 | [wallstreetcn.com](https://news.google.com/rss/search?q=site:wallstreetcn.com&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 财经要闻 | 否 | 8 |
-| 界面新闻 | [jiemian.com](https://news.google.com/rss/search?q=site:jiemian.com+%E8%B4%A2%E7%BB%8F&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 财经要闻 | 否 | 6 |
-| CNBC Markets | [cnbc.com](https://www.cnbc.com/id/100003114/device/rss/rss.html) | 财经要闻 | 否 | 6 |
-| WSJ Markets | [feeds.a.dj.com](https://feeds.a.dj.com/rss/RSSMarketsMain.xml) | 财经要闻 | 否 | 6 |
-| 券商研报 | [news.google.com](https://news.google.com/rss/search?q=%E5%88%B8%E5%95%86%E7%A0%94%E6%8A%A5+%E5%AE%8F%E8%A7%82&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 研报要点 | 否 | 6 |
+| 第一财经 | [yicai.com](https://yicai.com/) · [RSS](https://news.google.com/rss/search?q=site:yicai.com&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 财经要闻 | 否 | 8 |
+| 财新 | [caixin.com](https://caixin.com/) · [RSS](https://news.google.com/rss/search?q=site:caixin.com&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 财经要闻 | 否 | 8 |
+| 华尔街见闻 | [wallstreetcn.com](https://wallstreetcn.com/) · [RSS](https://news.google.com/rss/search?q=site:wallstreetcn.com&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 财经要闻 | 否 | 8 |
+| 界面新闻 | [jiemian.com](https://jiemian.com/) · [RSS](https://news.google.com/rss/search?q=site:jiemian.com+%E8%B4%A2%E7%BB%8F&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 财经要闻 | 否 | 6 |
+| CNBC Markets | [cnbc.com](https://www.cnbc.com/) · [RSS](https://www.cnbc.com/id/100003114/device/rss/rss.html) | 财经要闻 | 否 | 6 |
+| WSJ Markets | [wsj.com](https://www.wsj.com/finance) · [RSS](https://feeds.a.dj.com/rss/RSSMarketsMain.xml) | 财经要闻 | 否 | 6 |
+| 券商研报 | [news.google.com](https://news.google.com/search?q=%E5%88%B8%E5%95%86%E7%A0%94%E6%8A%A5+%E5%AE%8F%E8%A7%82&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) · [RSS](https://news.google.com/rss/search?q=%E5%88%B8%E5%95%86%E7%A0%94%E6%8A%A5+%E5%AE%8F%E8%A7%82&hl=zh-CN&gl=CN&ceid=CN:zh-Hans) | 研报要点 | 否 | 6 |
 
 ### 深度阅读与学习
 
 | 来源名称 | 网站 | 分类 | AI 过滤 | 候选上限 |
 |---|---|---|---|---|
-| The Economist Latest | [economist.com](https://www.economist.com/latest/rss.xml) | 经济学人 | 否 | 8 |
-| The Economist Science & Tech | [economist.com](https://www.economist.com/science-and-technology/rss.xml) | 经济学人 | 否 | 6 |
-| The Guardian Long Read | [theguardian.com](https://www.theguardian.com/news/series/the-long-read/rss) | 长读 | 否 | 6 |
-| Scientific American | [scientificamerican.com](https://www.scientificamerican.com/platform/syndication/rss/) | 科学美国人 | 否 | 8 |
-| The Atlantic | [theatlantic.com](https://www.theatlantic.com/feed/all/) | 大西洋月刊 | 否 | 8 |
+| The Economist Latest | [economist.com](https://www.economist.com/) · [RSS](https://www.economist.com/latest/rss.xml) | 经济学人 | 否 | 8 |
+| The Economist Science & Tech | [economist.com](https://www.economist.com/) · [RSS](https://www.economist.com/science-and-technology/rss.xml) | 经济学人 | 否 | 6 |
+| The Guardian Long Read | [theguardian.com](https://www.theguardian.com/) · [RSS](https://www.theguardian.com/news/series/the-long-read/rss) | 长读 | 否 | 6 |
+| Scientific American | [scientificamerican.com](https://www.scientificamerican.com/) · [RSS](https://www.scientificamerican.com/platform/syndication/rss/) | 科学美国人 | 否 | 8 |
+| The Atlantic | [theatlantic.com](https://www.theatlantic.com/) · [RSS](https://www.theatlantic.com/feed/all/) | 大西洋月刊 | 否 | 8 |
 
 ### 市场专用数据源（非 RSS）
 
