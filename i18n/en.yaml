@@ -37,8 +37,6 @@
   translation: "For information only, not financial advice."
 - id: footer_sources
   translation: "RSS · Hacker News · Reddit · Eastmoney · Jin10 · CNINFO"
-- id: methodology
-  translation: "Methodology (Chinese)"
 - id: back_to_top
   translation: "Back to top"
 
@@ -196,72 +194,143 @@
 - id: search_results
   translation: "Search results"
 
-# Trends page
-- id: trends_kicker
-  translation: "Trend research"
+
+# 规则页
+- id: rules
+  translation: "Rules"
+- id: rules_subtitle
+  translation: "Principles for how the site fetches, filters and analyzes content. Values shown are the live configuration."
+- id: edit_github
+  translation: "Edit on GitHub ↗"
+- id: pipeline
+  translation: "Pipeline"
+- id: rules_sections
+  translation: "Rule sections"
+- id: always_on
+  translation: "Always on"
+- id: sources_title
+  translation: "Sources"
+- id: source_section
+  translation: "Section"
+- id: source_site
+  translation: "Website"
+- id: source_category
+  translation: "Category"
+- id: source_access
+  translation: "Access"
+- id: source_limit
+  translation: "Max items"
+- id: source_filter
+  translation: "AI filter"
+- id: source_section_ai
+  translation: "AI & Tech"
+- id: source_section_world
+  translation: "World"
+- id: source_section_market
+  translation: "Finance"
+- id: source_section_deep
+  translation: "Deep reads"
+- id: "yes"
+  translation: "Yes"
+- id: "no"
+  translation: "No"
+- id: step_adapters
+  translation: "Adapters"
+- id: step_normalize
+  translation: "Normalize"
+- id: step_dedupe
+  translation: "Dedupe"
+- id: step_enrich
+  translation: "Enrich"
+- id: step_store
+  translation: "Store"
+- id: step_analyze
+  translation: "Analyze"
+- id: step_website
+  translation: "Website"
 - id: trends_desc
-  translation: "Traceable technology and market calls built from news, prices and macro events."
-- id: data_status
-  translation: "Data status"
-- id: loading
-  translation: "Loading"
-- id: waiting_data
-  translation: "Waiting for data"
-- id: period
-  translation: "Period"
-- id: period_week
-  translation: "Week"
-- id: period_month
-  translation: "Month"
-- id: period_quarter
-  translation: "Quarter"
-- id: period_year
-  translation: "Year"
-- id: this_period
-  translation: "This period"
-- id: tech_momentum
-  translation: "Tech momentum"
-- id: market_signal
-  translation: "Market signal"
-- id: coverage
-  translation: "Coverage"
-- id: loading_data
-  translation: "Loading data"
-- id: waiting_snapshots
-  translation: "Waiting for daily snapshots to accumulate."
-- id: waiting_market
-  translation: "Waiting for market and macro data."
-- id: coverage_hint
-  translation: "The fuller the coverage, the more reliable the call."
-- id: trend_change
-  translation: "How the trend moved"
-- id: chart_desc
-  translation: "Tech momentum and the market signal use different units, so each panel has its own scale; the market signal splits bullish and bearish at 0. Hover, or focus the chart and use the arrow keys, to read daily values."
-- id: chart_loading
-  translation: "Daily tech momentum and market signal appear once the data loads."
-- id: chart_empty
-  translation: "Not enough data in this period to draw the trend."
-- id: data_table
-  translation: "Show data table"
-- id: date
-  translation: "Date"
-- id: coverage_rate
-  translation: "Coverage"
-- id: topic_momentum
-  translation: "Tech topic momentum"
-- id: topic_desc
-  translation: "Weighted by event importance, source quality and persistence; reposts don't count as heat."
-- id: future_scenarios
-  translation: "Scenarios ahead"
-- id: scenario_desc
-  translation: "Scenarios projected from current signals. Not investment advice."
-- id: key_evidence
-  translation: "Key evidence"
-- id: evidence_desc
-  translation: "Titles open the original story in a new tab. Correlation is not causation."
-- id: method_summary
-  translation: "Method and limits"
-- id: method_p1
-  translation: "The trend module stores an immutable snapshot every day, then aggregates by week, month, quarter and year. Missing data is never filled with zeros, and thin data never yields a high-confidence call."
-- id: method_p2
-  translation: "Market data carries its trading date and source time. Tech topics come from rule-based classification of news and filings; a model only adds explanation. For information only, not investment advice."
+  translation: "Daily volume per topic compared with its 30-day baseline. A z-score of 2 or more marks a topic as rising."
+- id: watching
+  translation: "Watching"
+- id: window
+  translation: "Window"
+- id: kind_filter
+  translation: "Filter by kind"
+- id: kind_topics
+  translation: "News topics"
+- id: stat_heat
+  translation: "Activity today"
+- id: stat_mean
+  translation: "Baseline mean"
+- id: stat_change_7d
+  translation: "7-day change"
+- id: stat_mentions
+  translation: "Events · sources"
+- id: stat_change
+  translation: "Daily change"
+- id: stat_price
+  translation: "Price"
+- id: z_score
+  translation: "z-score"
+- id: trends_band
+  translation: "Shaded band: 30-day baseline ± usual spread"
+- id: related_events
+  translation: "Related events"
+- id: linked_forecast
+  translation: "Linked forecast"
+- id: trends_empty
+  translation: "Not enough daily snapshots to compare with a baseline yet."
+- id: trends_filter_empty
+  translation: "No entries match these filters."
+- id: forecasts_desc
+  translation: "Rule-based calls on the combined tech-and-market trend. Each is checked automatically at its target date. Directions and confidence only, no probabilities until we have a calibrated record."
+- id: forecast_record
+  translation: "Track record"
+- id: hit_rate
+  translation: "Hit rate"
+- id: resolved
+  translation: "Resolved"
+- id: correct
+  translation: "Correct"
+- id: open
+  translation: "Open"
+- id: calibration
+  translation: "Calibration"
+- id: calibration_note
+  translation: "Hit rate by confidence · 50% coin-flip reference"
+- id: forecast_tabs
+  translation: "Forecast views"
+- id: forecast_scenarios
+  translation: "Scenarios"
+- id: days_left
+  translation: "{{ .Count }} days left"
+- id: how_resolves
+  translation: "How it resolves"
+- id: resolution_text
+  translation: "Checked by the sign of cross-asset market momentum on the target date."
+- id: what_changes
+  translation: "What would change it"
+- id: forecast
+  translation: "Forecast"
+- id: target_date
+  translation: "Target date"
+- id: called
+  translation: "Called"
+- id: actual
+  translation: "Actual"
+- id: result
+  translation: "Result"
+- id: incorrect
+  translation: "Incorrect"
+- id: resolved_note
+  translation: "Latest 50 shown; record covers all {{ .Count }}."
+- id: driving_forces
+  translation: "Driving forces"
+- id: forecasts_empty
+  translation: "No forecasts available yet."
+- id: resolved_empty
+  translation: "No resolved forecasts yet."
+- id: scenarios_empty
+  translation: "No year scenarios available yet."
+- id: kind_market_trends
+  translation: "Market"

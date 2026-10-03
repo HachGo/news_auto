@@ -1,119 +1,71 @@
 {{- define "main" -}}
-<div class="trends-page" data-trends-url="{{ "data/trends/latest.json" | relURL }}" data-manifest-url="{{ "data/trends/manifest.json" | relURL }}">
-  <header class="trends-header">
+{{- $lang := cond (eq site.Language.Lang "en") "en" "zh" -}}
+{{- $data := site.Data.radar.trends | default dict -}}
+{{- $entries := $data.entries | default slice -}}
+{{- $rising := where $entries "rising" true -}}
+<div class="radar-page trends-page">
+  <header class="radar-header">
     <div>
-      {{- partial "breadcrumbs.html" . }}
-      <p class="trends-kicker">{{ i18n "trends_kicker" }}</p>
+      {{- with $data.as_of }}<p class="radar-updated mono"><span class="dot dot-finance" aria-hidden="true"></span>{{ i18n "updated_at" (dict "Time" .) }}</p>{{ end }}
       <h1>{{ .Title }}</h1>
-      <p class="trends-description">{{ i18n "trends_desc" }}</p>
+      <p class="radar-description">{{ i18n "trends_desc" }}</p>
     </div>
-    <div class="trends-asof">
-      <span>{{ i18n "data_status" }}</span>
-      <strong data-trends-asof>{{ i18n "loading" }}</strong>
-      <small data-trends-quality>{{ i18n "waiting_data" }}</small>
+    <div class="radar-stats mono">
+      <div><strong>{{ len $rising }}</strong><span>{{ i18n "rising" }}</span></div>
+      <div><strong>{{ sub (len $entries) (len $rising) }}</strong><span>{{ i18n "watching" }}</span></div>
+      <div><strong>{{ $data.window | default 30 }}d</strong><span>{{ i18n "window" }}</span></div>
     </div>
   </header>
-
-  <nav class="trends-tabs" aria-label="{{ i18n "period" }}" role="tablist">
-    <button type="button" role="tab" aria-selected="true" tabindex="0" data-period="week" id="week">{{ i18n "period_week" }}</button>
-    <button type="button" role="tab" aria-selected="false" tabindex="-1" data-period="month" id="month">{{ i18n "period_month" }}</button>
-    <button type="button" role="tab" aria-selected="false" tabindex="-1" data-period="quarter" id="quarter">{{ i18n "period_quarter" }}</button>
-    <button type="button" role="tab" aria-selected="false" tabindex="-1" data-period="year" id="year">{{ i18n "period_year" }}</button>
-  </nav>
-
-  <section class="trends-summary" aria-labelledby="trends-summary-title">
-    <div class="section-heading">
-      <h2 id="trends-summary-title">{{ i18n "this_period" }}</h2>
-      <span data-period-label></span>
+  {{- if $entries }}
+  <div class="trends-filters" hidden data-trends-filters>
+    <div class="field-filter" aria-label="{{ i18n "filter_by_field" }}">
+      {{- range slice "all" "finance" "ai_tech" }}
+      {{- $count := len $entries }}{{ if ne . "all" }}{{ $count = len (where $entries "field" .) }}{{ end }}
+      <button type="button" class="field-btn" data-field="{{ . }}" aria-pressed="{{ eq . "all" }}"><span class="dot dot-{{ . }}" aria-hidden="true"></span>{{ i18n (printf "field_%s" .) }}<span class="mono">{{ $count }}</span></button>
+      {{- end }}
     </div>
-    <div class="summary-grid">
-      <article class="summary-item summary-technology">
-        <span>{{ i18n "tech_momentum" }}</span>
-        <strong data-technology-direction>{{ i18n "loading_data" }}</strong>
-        <p data-technology-summary>{{ i18n "waiting_snapshots" }}</p>
-      </article>
-      <article class="summary-item summary-market">
-        <span>{{ i18n "market_signal" }}</span>
-        <strong data-market-direction>{{ i18n "loading_data" }}</strong>
-        <p data-market-summary>{{ i18n "waiting_market" }}</p>
-      </article>
-      <article class="summary-item summary-quality">
-        <span>{{ i18n "coverage" }}</span>
-        <strong data-coverage>0%</strong>
-        <p data-coverage-summary>{{ i18n "coverage_hint" }}</p>
-      </article>
+    <div class="kind-filter" aria-label="{{ i18n "kind_filter" }}">
+      <button type="button" data-kind="all" aria-pressed="true">{{ i18n "field_all" }}</button>
+      <button type="button" data-kind="topic" aria-pressed="false">{{ i18n "kind_topics" }}</button>
+      <button type="button" data-kind="market" aria-pressed="false">{{ i18n "kind_market_trends" }}</button>
     </div>
-  </section>
-
-  <section class="trend-chart-panel" aria-labelledby="trend-chart-title">
-    <div class="section-heading">
-      <div>
-        <h2 id="trend-chart-title">{{ i18n "trend_change" }}</h2>
-        <p>{{ i18n "chart_desc" }}</p>
-      </div>
-    </div>
-    <div class="trend-chart-wrap" data-trend-chart-wrap>
-      <svg class="trend-chart" role="img" tabindex="0" aria-labelledby="trend-chart-title trend-chart-description" data-trend-chart>
-        <desc id="trend-chart-description">{{ i18n "chart_loading" }}</desc>
-      </svg>
-      <div class="trend-tooltip" data-trend-tooltip hidden></div>
-      <p class="chart-empty" data-chart-empty>{{ i18n "chart_empty" }}</p>
-    </div>
-    <details class="trend-table" data-trend-table hidden>
-      <summary>{{ i18n "data_table" }}</summary>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>{{ i18n "date" }}</th><th>{{ i18n "tech_momentum" }}</th><th>{{ i18n "market_signal" }}</th><th>{{ i18n "coverage_rate" }}</th></tr></thead>
-          <tbody data-trend-table-body></tbody>
-        </table>
-      </div>
-    </details>
-  </section>
-
-  <div class="trends-columns">
-    <section class="trend-panel" aria-labelledby="topic-title">
-      <div class="section-heading">
-        <div>
-          <h2 id="topic-title">{{ i18n "topic_momentum" }}</h2>
-          <p>{{ i18n "topic_desc" }}</p>
-        </div>
-      </div>
-      <div class="topic-list" data-topic-list>
-        <p class="muted">{{ i18n "loading_data" }}…</p>
-      </div>
-    </section>
-
-    <section class="trend-panel" aria-labelledby="forecast-title">
-      <div class="section-heading">
-        <div>
-          <h2 id="forecast-title">{{ i18n "future_scenarios" }}</h2>
-          <p>{{ i18n "scenario_desc" }}</p>
-        </div>
-      </div>
-      <div class="forecast-list" data-forecast-list>
-        <p class="muted">{{ i18n "loading_data" }}…</p>
-      </div>
-    </section>
   </div>
-
-  <section class="evidence-panel" aria-labelledby="evidence-title">
-    <div class="section-heading">
-      <div>
-        <h2 id="evidence-title">{{ i18n "key_evidence" }}</h2>
-        <p>{{ i18n "evidence_desc" }}</p>
-      </div>
+  <div class="trends-explorer">
+    <nav class="trend-entries" aria-label="{{ .Title }}">
+      {{- range $entries }}
+      <a class="trend-entry" href="#{{ .id }}" data-entry="{{ .id }}" data-field="{{ .field }}" data-kind="{{ .kind }}">
+        <div class="trend-name"><strong>{{ index .name $lang }}</strong><small><span class="dot dot-{{ .field }}" aria-hidden="true"></span>{{ i18n (cond (eq .kind "market") "kind_market_trends" "kind_topic") }}</small></div>
+        <div class="spark" aria-hidden="true">{{ $rising := .rising }}{{ $n := len .spark }}{{ range $k, $h := .spark }}<i{{ if and $rising (ge $k (sub $n 3)) }} class="is-recent"{{ end }} style="--h: {{ $h }}"></i>{{ end }}</div>
+        <span class="trend-z mono{{ if .rising }} z-{{ .field }}{{ end }}">{{ printf "%+.1f" .z }}</span>
+      </a>
+      {{- end }}
+      <p class="radar-empty" data-filter-empty hidden>{{ i18n "trends_filter_empty" }}</p>
+    </nav>
+    <div class="topic-details">
+      {{- range $i, $entry := $entries }}
+      <section id="{{ .id }}" class="panel topic-detail{{ if eq $i 0 }} is-default{{ end }}" data-field="{{ .field }}" aria-labelledby="name-{{ .id }}">
+        <header class="topic-heading">
+          <div><div class="topic-chips"><span class="tag-{{ .field }}">{{ i18n (printf "field_%s" .field) }}</span><span>{{ i18n (cond (eq .kind "market") "kind_market_trends" "kind_topic") }}</span></div><h2 id="name-{{ .id }}">{{ index .name $lang }}</h2></div>
+          <div class="topic-score"><strong class="mono{{ if .rising }} z-{{ .field }}{{ end }}">{{ printf "%+.1f" .z }}</strong><small>{{ if .rising }}{{ i18n "z_score" }}{{ else }}{{ i18n "watching" }}{{ end }}</small></div>
+        </header>
+        <div class="topic-stats">{{ range .stats }}<div><small>{{ i18n (printf "stat_%s" .k) }}</small><strong class="mono">{{ .v }}</strong></div>{{ end }}</div>
+        <div class="topic-chart" role="img" aria-label="{{ index .name $lang }} · {{ i18n "trends_band" }}">
+          <div class="topic-band" style="bottom: {{ .chart.band.b }}%; height: {{ .chart.band.h }}%"></div>
+          <div class="topic-zero" style="bottom: {{ .chart.zero }}%"></div>
+          <div class="topic-bars">{{ range .chart.bars }}<div class="topic-bar-slot"><i{{ if .recent }} class="is-recent"{{ end }} style="bottom: {{ .b }}%; height: {{ .h }}%" title="{{ .d }}: {{ .v }}"></i></div>{{ end }}</div>
+        </div>
+        <div class="topic-dates mono">{{ range .chart.dates }}<span>{{ . }}</span>{{ end }}</div>
+        <p class="topic-note">{{ i18n "trends_band" }}</p>
+        {{- with .related }}
+        <div class="topic-related"><div class="block-head"><h3>{{ i18n "related_events" }}</h3></div>{{ range . }}<a href="{{ .link }}" target="_blank" rel="noopener noreferrer"><strong>{{ index .title $lang }}</strong><small class="mono">{{ .source }} · {{ .date }}</small></a>{{ end }}</div>
+        {{- end }}
+        {{- range .forecasts }}{{ $horizon := . }}{{ range site.Data.radar.forecasts.open }}{{ if eq .horizon $horizon }}
+        <a class="topic-forecast" href="{{ "forecasts/" | relLangURL }}#open"><div><small>{{ i18n "linked_forecast" }}</small><strong>{{ i18n (printf "horizon_%s" .horizon) }}</strong></div><span class="direction-{{ .direction }}">{{ i18n (printf "direction_%s" .direction) }} →</span></a>
+        {{- end }}{{ end }}{{ end }}
+      </section>
+      {{- end }}
     </div>
-    <ol class="evidence-list" data-evidence-list>
-      <li class="muted">{{ i18n "loading_data" }}…</li>
-    </ol>
-  </section>
-
-  <details class="method-panel">
-    <summary>{{ i18n "method_summary" }}</summary>
-    <div>
-      <p>{{ i18n "method_p1" }}</p>
-      <p>{{ i18n "method_p2" }}</p>
-    </div>
-  </details>
+  </div>
+  {{- else }}<p class="panel radar-empty">{{ i18n "trends_empty" }}</p>{{ end }}
 </div>
 {{- end -}}

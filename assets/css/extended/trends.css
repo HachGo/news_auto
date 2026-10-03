@@ -1,265 +1,60 @@
-/* 趋势研判页：宽版但沿用全站冷灰、圆角和明暗主题。 */
-
-/* 两条趋势序列沿用 AI / 市场版面色（四版面色已过色觉校验，浅色深色各一组） */
-.trends-page {
-  --trend-tech: var(--section-ai);
-  --trend-market: var(--section-market);
-}
-
-/* 与顶栏同宽，左右边缘对齐 */
-body.section-trends .main {
-  max-width: var(--wide-width);
-  padding: 32px 28px 72px;
-}
-
+/* 主题探索：无脚本时以锚点选择详情，默认展示第一条。 */
+.trends-filters { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.trends-filters .field-filter { display: flex; gap: 6px; flex-wrap: wrap; padding: 0; margin: 0; border: 0; }
+.kind-filter { display: flex; padding: 2px; border-radius: 8px; background: var(--soft); font-size: 12px; }
+.kind-filter button { padding: 5px 10px; border-radius: 6px; color: var(--muted); cursor: pointer; }
+.kind-filter button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgb(0 0 0 / 0.1); }
+.trends-explorer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr); gap: 32px; align-items: start; margin-top: 24px; }
+.trend-entries { display: grid; gap: 2px; min-width: 0; }
+.trend-entry { display: grid; grid-template-columns: minmax(0, 1fr) 72px 44px; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 10px; }
+.trend-entry:hover, .trend-entry[aria-current] { color: var(--ink); background: var(--soft); }
+.trend-name { min-width: 0; }
+.trend-name strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; font-size: 14px; }
+.trend-name small { display: flex; gap: 6px; align-items: center; margin-top: 3px; font-size: 11px; color: var(--muted); }
+.trend-z { text-align: right; font-size: 13px; font-weight: 500; color: var(--muted); }
+.topic-details { min-width: 0; }
+.topic-detail { display: none; padding: 24px; scroll-margin-top: 80px; }
+.topic-detail.is-default, .topic-detail:target { display: block; }
+.topic-details:has(.topic-detail:target) .topic-detail.is-default:not(:target) { display: none; }
+.trends-page.is-enhanced .topic-detail { display: block; }
+.topic-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.topic-heading > div:first-child { min-width: 0; }
+.topic-heading h2 { margin-top: 10px; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; overflow-wrap: anywhere; }
+.topic-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.topic-chips span { padding: 2px 8px; border-radius: 4px; font-size: 11px; background: var(--soft); color: var(--muted); }
+.topic-chips .tag-finance { background: var(--field-finance-bg); color: var(--field-finance-fg); }
+.topic-chips .tag-ai_tech { background: var(--field-ai_tech-bg); color: var(--field-ai_tech-fg); }
+.topic-score { text-align: right; flex-shrink: 0; color: var(--muted); }
+.topic-score strong { display: block; font-weight: 500; font-size: 32px; line-height: 1; }
+.topic-score small { display: block; margin-top: 4px; font-size: 11px; }
+.topic-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 20px; padding: 16px 0; border-block: 1px solid var(--line); }
+.topic-stats small { display: block; font-size: 11px; color: var(--muted); }
+.topic-stats strong { display: block; margin-top: 4px; font-size: 18px; font-weight: 500; overflow-wrap: anywhere; }
+.topic-chart { position: relative; height: 180px; margin-top: 24px; }
+.topic-band { position: absolute; left: 0; right: 0; background: var(--soft); border-block: 1px dashed var(--line); }
+.topic-zero { position: absolute; left: 0; right: 0; border-top: 1px solid var(--muted); }
+.topic-bars { position: absolute; inset: 0; display: flex; gap: 3px; }
+.topic-bar-slot { position: relative; flex: 1; min-width: 0; }
+.topic-bar-slot i { position: absolute; left: 0; right: 0; background: var(--muted); opacity: 0.6; border-radius: 2px; }
+.topic-detail[data-field="finance"] .topic-bar-slot i.is-recent { background: var(--field-finance); opacity: 1; }
+.topic-detail[data-field="ai_tech"] .topic-bar-slot i.is-recent { background: var(--field-ai_tech); opacity: 1; }
+.topic-dates { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; color: var(--muted); font-size: 11px; }
+.topic-note { margin-top: 6px; font-size: 11px; color: var(--muted); }
+.topic-related { margin-top: 28px; }
+.topic-related h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.topic-related a { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.topic-related strong { font-size: 14px; font-weight: 500; }
+.topic-related small { color: var(--muted); font-size: 11px; }
+.topic-forecast { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 20px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; }
+.topic-forecast small { display: block; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; color: var(--muted); }
+.topic-forecast strong { display: block; font-size: 14px; font-weight: 500; margin-top: 4px; }
+.topic-forecast > span { font-size: 14px; }
+.trend-entry[data-field="finance"] .spark i.is-recent { background: var(--field-finance); }
+.trend-entry[data-field="ai_tech"] .spark i.is-recent { background: var(--field-ai_tech); }
+@media (max-width: 900px) { .trends-explorer { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
 @media (max-width: 767px) {
-  body.section-trends .main {
-    padding: 20px 16px 48px;
-  }
-}
-
-.trends-page {
-  margin: 0 auto;
-  padding: 0.6rem 0 3rem;
-  color: var(--primary);
-}
-
-.trends-header {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 0.5rem 0 1.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.trends-header .breadcrumbs {
-  margin-bottom: 0.75rem;
-}
-
-.trends-kicker {
-  margin: 0 0 0.45rem;
-  color: var(--accent);
-  font: 650 0.72rem/1.2 var(--font-mono);
-  letter-spacing: 0.12em;
-}
-
-.trends-header h1 {
-  margin: 0;
-  font-size: clamp(2rem, 4vw, 3.3rem);
-  letter-spacing: -0.04em;
-}
-
-.trends-description {
-  max-width: 42rem;
-  margin: 0.75rem 0 0;
-  color: var(--secondary);
-  font-size: 1rem;
-}
-
-.trends-asof {
-  min-width: 10rem;
-  padding-left: 1rem;
-  border-left: 2px solid var(--accent);
-  text-align: right;
-}
-
-.trends-asof span,
-.trends-asof small {
-  display: block;
-  color: var(--secondary);
-}
-
-.trends-asof span { font-size: 0.78rem; }
-.trends-asof strong { display: block; margin: 0.2rem 0; font-variant-numeric: tabular-nums; }
-.trends-asof small { font-size: 0.75rem; }
-
-.trends-tabs {
-  display: flex;
-  gap: 0.35rem;
-  margin: 1rem 0 1.75rem;
-}
-
-.trends-tabs button {
-  min-width: 4rem;
-  padding: 6px 14px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ink);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-/* 首页“年度情景”等链接用 #year 直达对应周期 */
-.trends-tabs button {
-  scroll-margin-top: calc(var(--header-height) + 1rem);
-}
-
-.trends-tabs button:hover {
-  border-color: var(--muted);
-}
-
-.trends-tabs button[aria-selected="true"] {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--bg);
-}
-
-.trends-tabs button:focus-visible {
-  outline: 2px solid var(--link-hover);
-  outline-offset: 2px;
-}
-
-.trends-summary,
-.trend-chart-panel,
-.trend-panel,
-.evidence-panel,
-.method-panel {
-  margin-top: 1rem;
-  padding: 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--entry) 92%, transparent);
-}
-
-.section-heading {
-  display: flex;
-  align-items: start;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.section-heading h2 { margin: 0; font-size: 1.2rem; letter-spacing: -0.02em; }
-.section-heading p { margin: 0.35rem 0 0; color: var(--secondary); font-size: 0.86rem; line-height: 1.5; }
-.section-heading > span { color: var(--secondary); font: 0.8rem var(--font-mono); white-space: nowrap; }
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.8rem;
-}
-
-.summary-item {
-  min-height: 7rem;
-  padding: 1rem;
-  border-top: 2px solid var(--secondary);
-  background: var(--surface-tint);
-}
-
-.summary-item span { color: var(--secondary); font-size: 0.78rem; }
-.summary-item strong { display: block; margin-top: 0.35rem; font-size: 1.2rem; }
-.summary-item p { margin: 0.45rem 0 0; color: var(--secondary); font-size: 0.86rem; line-height: 1.45; }
-.summary-technology { border-top-color: var(--trend-tech); }
-.summary-market { border-top-color: var(--trend-market); }
-.summary-quality { border-top-color: var(--accent); }
-
-/* ---- 趋势图：两栏小多图 ---- */
-.trend-chart-wrap { position: relative; }
-.trend-chart { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; }
-.trend-chart:focus { outline: none; }
-.trend-chart:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: var(--radius-sm); }
-.chart-empty { margin: 0; padding: 4rem 0; text-align: center; color: var(--secondary); }
-.chart-empty[hidden] { display: none; }
-
-.trend-chart .grid-line { stroke: var(--border); stroke-width: 1; shape-rendering: crispEdges; }
-.trend-chart .zero-line { stroke: var(--tertiary); stroke-width: 1; shape-rendering: crispEdges; }
-.trend-chart .tick { fill: var(--secondary); font-size: 12px; font-variant-numeric: tabular-nums; }
-.trend-chart .panel-title { fill: var(--primary); font-size: 13px; font-weight: 650; }
-.trend-chart .series-key { stroke-width: 2.5; stroke-linecap: round; }
-.trend-chart .series-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.trend-chart .series-dot { stroke: var(--entry); stroke-width: 2; }
-.trend-chart .end-label { fill: var(--primary); font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
-.trend-chart .crosshair-line { stroke: var(--secondary); stroke-width: 1; opacity: 0.6; }
-
-.trend-tooltip {
-  position: absolute;
-  z-index: 2;
-  min-width: 9rem;
-  padding: 0.55rem 0.7rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--entry);
-  box-shadow: var(--shadow-soft);
-  font-size: 0.8rem;
-  pointer-events: none;
-}
-.trend-tooltip[hidden] { display: none; }
-.trend-tooltip-date { margin-bottom: 0.3rem; color: var(--secondary); font-variant-numeric: tabular-nums; }
-.trend-tooltip-row { display: flex; align-items: center; gap: 0.45rem; line-height: 1.6; }
-.trend-tooltip-row strong { min-width: 3.2rem; color: var(--primary); font-variant-numeric: tabular-nums; }
-.trend-tooltip-row span { color: var(--secondary); }
-.trend-tooltip-key { display: inline-block; width: 0.9rem; height: 2px; border-radius: 1px; }
-
-.trend-table { margin-top: 0.75rem; font-size: 0.85rem; }
-.trend-table summary { cursor: pointer; color: var(--secondary); }
-.trend-table table { width: 100%; margin-top: 0.6rem; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-.trend-table th,
-.trend-table td { padding: 0.35rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
-.trend-table th:first-child,
-.trend-table td:first-child { text-align: left; }
-.trend-table th { color: var(--secondary); font-weight: 650; }
-
-.trends-columns {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: 1rem;
-}
-
-.topic-row {
-  display: grid;
-  grid-template-columns: minmax(9rem, 1fr) 4.5rem 5rem;
-  gap: 0.75rem;
-  align-items: center;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.topic-row:last-child { border-bottom: 0; }
-.topic-head { padding: 0 0 0.45rem; color: var(--secondary); font-size: 0.75rem; }
-.topic-name { font-weight: 650; }
-.topic-meta { color: var(--secondary); font-size: 0.78rem; }
-.topic-value { text-align: right; font: 0.82rem var(--font-mono); font-variant-numeric: tabular-nums; }
-.topic-momentum-positive { color: var(--accent); }
-.topic-momentum-negative { color: #b42318; }
-[data-theme="dark"] .topic-momentum-negative { color: #f87171; }
-
-.forecast-card {
-  padding: 0.9rem 0;
-  border-bottom: 1px solid var(--border);
-}
-.forecast-card:last-child { border-bottom: 0; }
-.forecast-top { display: flex; justify-content: space-between; gap: 0.75rem; }
-.forecast-name { font-weight: 700; }
-.forecast-direction { color: var(--secondary); font-size: 0.8rem; }
-.forecast-card p { margin: 0.45rem 0 0; color: var(--secondary); font-size: 0.88rem; line-height: 1.5; }
-.forecast-drivers { margin: 0.5rem 0 0; color: var(--secondary); font-size: 0.78rem; }
-
-.evidence-list { margin: 0; padding-left: 1.25rem; }
-.evidence-list li { padding: 0.65rem 0 0.65rem 0.25rem; border-bottom: 1px solid var(--border); }
-.evidence-list li:last-child { border-bottom: 0; }
-.evidence-list a { color: var(--primary); text-decoration-color: var(--tertiary); text-underline-offset: 0.15em; }
-.evidence-list a:hover { color: var(--accent); text-decoration-color: currentColor; }
-.evidence-meta { display: block; margin-top: 0.2rem; color: var(--secondary); font-size: 0.76rem; }
-
-.method-panel summary { cursor: pointer; color: var(--secondary); font-weight: 650; }
-.method-panel div { max-width: 70ch; color: var(--secondary); font-size: 0.88rem; line-height: 1.6; }
-.method-panel p:last-child { margin-bottom: 0; }
-.muted { color: var(--secondary); }
-
-@media (max-width: 760px) {
-  .trends-header { display: block; }
-  .trends-asof { margin-top: 1rem; padding: 0.7rem 0 0; border-top: 2px solid var(--accent); border-left: 0; text-align: left; }
-  .summary-grid, .trends-columns { grid-template-columns: 1fr; }
-  .section-heading { display: block; }
-  .section-heading > span { display: flex; margin-top: 0.7rem; }
-  .topic-row { grid-template-columns: minmax(8rem, 1fr) 4rem 4rem; }
-  .trends-page { padding-top: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .trends-tabs button { transition: none; }
+  .topic-detail { padding: 20px; }
+  .topic-heading h2 { font-size: 23px; }
+  .topic-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topic-dates { font-size: 9px; }
 }

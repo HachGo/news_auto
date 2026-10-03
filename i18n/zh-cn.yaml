@@ -37,8 +37,6 @@
   translation: "仅供信息参考，不构成投资建议。"
 - id: footer_sources
   translation: "RSS · Hacker News · Reddit · 东方财富 · 金十数据 · 巨潮资讯"
-- id: methodology
-  translation: "网站规则"
 - id: back_to_top
   translation: "回到顶部"
 
@@ -194,72 +192,143 @@
 - id: search_results
   translation: "搜索结果"
 
-# 趋势页
-- id: trends_kicker
-  translation: "趋势研究"
+
+# 规则页
+- id: rules
+  translation: "规则"
+- id: rules_subtitle
+  translation: "本站获取、筛选和分析内容的原则。这里展示的是当前实际配置。"
+- id: edit_github
+  translation: "在 GitHub 编辑 ↗"
+- id: pipeline
+  translation: "流水线"
+- id: rules_sections
+  translation: "规则分区"
+- id: always_on
+  translation: "始终启用"
+- id: sources_title
+  translation: "数据来源"
+- id: source_section
+  translation: "版面"
+- id: source_site
+  translation: "网站"
+- id: source_category
+  translation: "分类"
+- id: source_access
+  translation: "接入"
+- id: source_limit
+  translation: "候选上限"
+- id: source_filter
+  translation: "AI 过滤"
+- id: source_section_ai
+  translation: "AI 与科技"
+- id: source_section_world
+  translation: "国际"
+- id: source_section_market
+  translation: "金融"
+- id: source_section_deep
+  translation: "深度"
+- id: "yes"
+  translation: "是"
+- id: "no"
+  translation: "否"
+- id: step_adapters
+  translation: "适配器"
+- id: step_normalize
+  translation: "标准化"
+- id: step_dedupe
+  translation: "去重"
+- id: step_enrich
+  translation: "补充"
+- id: step_store
+  translation: "存储"
+- id: step_analyze
+  translation: "分析"
+- id: step_website
+  translation: "网站"
 - id: trends_desc
-  translation: "把新闻、行情和宏观事件整理成可追溯的科技与市场判断。"
-- id: data_status
-  translation: "数据状态"
-- id: loading
-  translation: "正在读取"
-- id: waiting_data
-  translation: "等待数据"
-- id: period
-  translation: "趋势周期"
-- id: period_week
-  translation: "周"
-- id: period_month
-  translation: "月"
-- id: period_quarter
-  translation: "季度"
-- id: period_year
-  translation: "年"
-- id: this_period
-  translation: "本期判断"
-- id: tech_momentum
-  translation: "科技动量"
-- id: market_signal
-  translation: "市场信号"
-- id: coverage
-  translation: "数据覆盖"
-- id: loading_data
-  translation: "数据读取中"
-- id: waiting_snapshots
-  translation: "等待每日快照积累。"
-- id: waiting_market
-  translation: "等待行情和宏观数据。"
-- id: coverage_hint
-  translation: "数据覆盖越充分，判断可信度越高。"
-- id: trend_change
-  translation: "趋势变化"
-- id: chart_desc
-  translation: "科技动量与市场信号单位不同，上下分栏各用自己的刻度；市场信号以 0 为多空分界。悬停或聚焦图表后用方向键查看每日数值。"
-- id: chart_loading
-  translation: "趋势数据加载后显示科技动量和市场信号的每日变化。"
-- id: chart_empty
-  translation: "当前周期数据不足，暂不绘制趋势线。"
-- id: data_table
-  translation: "查看数据表"
-- id: date
-  translation: "日期"
-- id: coverage_rate
-  translation: "覆盖率"
-- id: topic_momentum
-  translation: "科技主题动量"
-- id: topic_desc
-  translation: "按事件权重、来源质量和持续性计算，不把转载数量直接当成热度。"
-- id: future_scenarios
-  translation: "未来情景"
-- id: scenario_desc
-  translation: "这是基于当前信号的情景推演，不是投资建议。"
-- id: key_evidence
-  translation: "关键证据"
-- id: evidence_desc
-  translation: "点击标题在新标签页打开原始新闻。相关性不等同于因果关系。"
-- id: method_summary
-  translation: "查看方法与边界"
-- id: method_p1
-  translation: "趋势模块每天保存不可变快照，再按周、月、季度和年聚合。数据不足时不会用 0 补齐，也不会生成高可信度预测。"
-- id: method_p2
-  translation: "行情数据带有交易日期和来源时间。科技主题来自新闻与公告的规则分类，模型只用于补充解释。内容仅供信息参考，不构成投资建议。"
+  translation: "每日主题活跃度与其 30 天基线比较。z-score 达到 2 或以上表示主题正在升温。"
+- id: watching
+  translation: "观察中"
+- id: window
+  translation: "窗口"
+- id: kind_filter
+  translation: "按类型筛选"
+- id: kind_topics
+  translation: "新闻主题"
+- id: stat_heat
+  translation: "今日活跃度"
+- id: stat_mean
+  translation: "基线均值"
+- id: stat_change_7d
+  translation: "7 日变化"
+- id: stat_mentions
+  translation: "事件 · 来源"
+- id: stat_change
+  translation: "当日涨跌"
+- id: stat_price
+  translation: "价格"
+- id: z_score
+  translation: "z-score"
+- id: trends_band
+  translation: "阴影区：30 天基线 ± 通常波动范围"
+- id: related_events
+  translation: "相关事件"
+- id: linked_forecast
+  translation: "关联预测"
+- id: trends_empty
+  translation: "每日快照尚不足以与基线比较。"
+- id: trends_filter_empty
+  translation: "没有符合筛选条件的条目。"
+- id: forecasts_desc
+  translation: "基于规则判断科技与市场综合趋势，每条预测在目标日期自动核验。目前仅展示方向和可信度，在形成校准记录前不提供概率。"
+- id: forecast_record
+  translation: "历史表现"
+- id: hit_rate
+  translation: "命中率"
+- id: resolved
+  translation: "已核验"
+- id: correct
+  translation: "正确"
+- id: open
+  translation: "待核验"
+- id: calibration
+  translation: "校准"
+- id: calibration_note
+  translation: "各可信度命中率 · 50% 抛硬币参考线"
+- id: forecast_tabs
+  translation: "预测视图"
+- id: forecast_scenarios
+  translation: "情景"
+- id: days_left
+  translation: "剩余 {{ .Count }} 天"
+- id: how_resolves
+  translation: "核验方式"
+- id: resolution_text
+  translation: "按目标日期跨资产市场动量的正负方向核验。"
+- id: what_changes
+  translation: "失效条件"
+- id: forecast
+  translation: "预测"
+- id: target_date
+  translation: "目标日期"
+- id: called
+  translation: "预测方向"
+- id: actual
+  translation: "实际方向"
+- id: result
+  translation: "结果"
+- id: incorrect
+  translation: "错误"
+- id: resolved_note
+  translation: "展示最近 50 条；历史表现统计涵盖全部 {{ .Count }} 条。"
+- id: driving_forces
+  translation: "驱动力"
+- id: forecasts_empty
+  translation: "暂无可展示的预测。"
+- id: resolved_empty
+  translation: "暂无已核验预测。"
+- id: scenarios_empty
+  translation: "暂无年度情景。"
+- id: kind_market_trends
+  translation: "市场"

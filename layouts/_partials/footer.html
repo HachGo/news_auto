@@ -4,8 +4,8 @@
   <div class="footer-inner">
     <span class="footer-note">{{ i18n "disclaimer" }}</span>
     <nav class="footer-links" aria-label="footer">
-      {{- with partial "page_any_lang.html" "/method" }}
-      <a href="{{ .RelPermalink }}">{{ i18n "methodology" }}</a>
+      {{- with partial "page_any_lang.html" "/rules" }}
+      <a href="{{ .RelPermalink }}">{{ i18n "rules" }}</a>
       {{- end }}
       {{- with site.Home.OutputFormats.Get "rss" }}
       <a href="{{ .RelPermalink }}">RSS</a>

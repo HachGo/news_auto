@@ -6,6 +6,8 @@
 {{- else if in (slice "ai" "world" "market") .Section }}{{ $current = "news" }}
 {{- else if eq .Section "deep" }}{{ $current = "deep" }}
 {{- else if eq .Section "trends" }}{{ $current = "trends" }}
+{{- else if eq .Section "forecasts" }}{{ $current = "forecasts" }}
+{{- else if eq .Layout "rules" }}{{ $current = "rules" }}
 {{- end }}
 <header class="header site-header">
   <div class="header-inner">

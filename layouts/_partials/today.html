@@ -78,7 +78,7 @@
         {{- with $brief.rising }}
         <div class="panel rise-list">
           {{- range . }}
-          <div class="rise-row" data-field="{{ .field }}">
+          <a class="rise-row" href="{{ "trends/" | relLangURL }}#{{ .id }}" data-field="{{ .field }}">
             <div class="rise-name">
               <div class="rise-title">{{ index .name $lang }}</div>
               <div class="rise-kind"><span class="dot dot-{{ .field }}" aria-hidden="true"></span>{{ i18n (printf "kind_%s" .kind) }}{{ if eq .kind "market" }} · {{ printf "%+.2f%%" .value }}{{ end }}</div>
@@ -88,7 +88,7 @@
               {{- range $k, $h := .bars }}<i class="{{ if ge $k (sub $n 3) }}is-recent{{ end }}" style="--h: {{ $h }}"></i>{{ end -}}
             </div>
             <div class="rise-z z-{{ .field }}">{{ printf "%+.1f" .z }}</div>
-          </div>
+          </a>
           {{- end }}
         </div>
         {{- else }}
@@ -102,7 +102,7 @@
         <div class="block-head">
           <h2 id="outlook-title">{{ i18n "outlook" }}</h2>
           {{- $record := $brief.track_record }}
-          {{- with site.GetPage "/trends" }}
+          {{- with site.GetPage "/forecasts" }}
           <a class="mono" href="{{ .RelPermalink }}">{{ if gt $record.resolved 0 }}{{ i18n "track_record" (dict "Resolved" $record.resolved "Correct" $record.correct) }}{{ else }}{{ i18n "track_record_none" }}{{ end }}</a>
           {{- end }}
         </div>
@@ -136,8 +136,8 @@
 
       {{- with $year }}
       {{- $base := index .scenarios 0 }}
-      {{- with site.GetPage "/trends" }}
-      <a class="scenario-card" href="{{ .RelPermalink }}#year">
+      {{- with site.GetPage "/forecasts" }}
+      <a class="scenario-card" href="{{ .RelPermalink }}#scenarios">
         <span>
           <span class="scenario-title">{{ i18n "scenarios" }}</span>
           <span class="scenario-sub">{{ i18n "scenarios_sub" (dict "Count" (len $year.scenarios) "Base" (index $base.description $lang)) }}</span>

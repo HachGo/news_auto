@@ -98,6 +98,18 @@ buildExpired = false
       name = "趋势"
       pageRef = "/trends"
       weight = 40
+    [[languages.zh-cn.menus.main]]
+      identifier = "forecasts"
+      name = "预测"
+      pageRef = "/forecasts"
+      weight = 50
+
+    [[languages.zh-cn.menus.main]]
+      identifier = "rules"
+      name = "规则"
+      pageRef = "/rules"
+      weight = 60
+
 
   [languages.en]
     languageCode = "en"
@@ -133,6 +145,18 @@ buildExpired = false
       name = "Trends"
       pageRef = "/trends"
       weight = 40
+    [[languages.en.menus.main]]
+      identifier = "forecasts"
+      name = "Forecasts"
+      pageRef = "/forecasts"
+      weight = 50
+
+    [[languages.en.menus.main]]
+      identifier = "rules"
+      name = "Rules"
+      pageRef = "/rules"
+      weight = 60
+
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]

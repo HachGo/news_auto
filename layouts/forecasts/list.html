@@ -1,0 +1,47 @@
+{{- define "main" -}}
+{{- $lang := cond (eq site.Language.Lang "en") "en" "zh" -}}
+{{- $data := site.Data.radar.forecasts | default dict -}}
+{{- $record := $data.record | default dict -}}
+<div class="radar-page forecasts-page">
+  <header class="radar-header"><div>
+    {{- with $data.as_of }}<p class="radar-updated mono"><span class="dot dot-finance" aria-hidden="true"></span>{{ i18n "updated_at" (dict "Time" .) }}</p>{{ end }}
+    <h1>{{ .Title }}</h1><p class="radar-description">{{ i18n "forecasts_desc" }}</p>
+  </div></header>
+  <section class="panel forecast-record" aria-labelledby="record-title">
+    <div><div class="block-head"><h2 id="record-title">{{ i18n "forecast_record" }}</h2></div>
+      <div class="record-stats">
+        <div><strong class="mono">{{ if gt ($record.resolved | default 0) 0 }}{{ $record.rate }}%{{ else }}—{{ end }}</strong><small>{{ i18n "hit_rate" }}</small></div>
+        <div><strong class="mono">{{ $record.resolved | default 0 }}</strong><small>{{ i18n "resolved" }}</small></div>
+        <div><strong class="mono">{{ $record.correct | default 0 }}</strong><small>{{ i18n "correct" }}</small></div>
+        <div><strong class="mono">{{ $record.open | default 0 }}</strong><small>{{ i18n "open" }}</small></div>
+      </div>
+      <div class="record-horizons">{{ range $record.by_horizon }}<div><span>{{ i18n (printf "horizon_%s" .horizon) }}</span><span class="mono">{{ .rate }}% · {{ .correct }}/{{ .resolved }}</span></div>{{ end }}</div>
+    </div>
+    <div><div class="block-head"><h2>{{ i18n "calibration" }}</h2></div><p class="calibration-note">{{ i18n "calibration_note" }}</p>
+      <div class="calibration-bars">{{ range $data.calibration }}<div class="calibration-column"><div class="calibration-plot"><i style="height: {{ if gt .n 0 }}{{ .rate }}{{ else }}0{{ end }}%"></i><span class="calibration-reference"></span></div><strong class="mono">{{ if gt .n 0 }}{{ .rate }}%{{ else }}—{{ end }}</strong><small>{{ i18n (printf "confidence_%s" .confidence) }}</small><small class="mono">n={{ .n }}</small></div>{{ end }}</div>
+    </div>
+  </section>
+  <nav class="forecast-tabs" aria-label="{{ i18n "forecast_tabs" }}"><a href="#open" data-forecast-tab="open">{{ i18n "open" }}</a><a href="#resolved" data-forecast-tab="resolved">{{ i18n "resolved" }}</a><a href="#scenarios" data-forecast-tab="scenarios">{{ i18n "forecast_scenarios" }}</a></nav>
+  <section id="open" class="forecast-section" aria-labelledby="open-title"><div class="block-head"><h2 id="open-title">{{ i18n "open" }}</h2></div>
+    <div class="forecast-cards">{{ range $data.open }}
+      {{- $level := index (dict "high" 3 "medium" 2 "low" 1) .confidence | default 1 }}
+      <details class="panel forecast-detail">
+        <summary><div><span class="forecast-horizon">{{ i18n (printf "horizon_%s" .horizon) }}</span><h3>{{ i18n "combined_trend" }}</h3><div class="forecast-meta mono"><span>{{ i18n "due" (dict "Date" .target_date) }}</span><span>{{ i18n "days_left" (dict "Count" .days_left) }}</span></div></div><div><strong class="forecast-direction direction-{{ .direction }}">{{ i18n (printf "direction_%s" .direction) }}</strong><div class="fc-meter" role="img" aria-label="{{ i18n "confidence" }} {{ i18n (printf "confidence_%s" .confidence) }}">{{ range seq 3 }}<i{{ if le . $level }} class="on"{{ end }}></i>{{ end }}</div><small>{{ i18n "confidence" }} · {{ i18n (printf "confidence_%s" .confidence) }}</small></div></summary>
+        <div class="forecast-rationale"><div><h4>{{ i18n "drivers" }}</h4><ul>{{ range .drivers }}<li><span>{{ index .name $lang }}</span><span class="mono">{{ printf "%+.2f" .momentum }}</span></li>{{ end }}</ul></div><div><h4>{{ i18n "how_resolves" }}</h4><p>{{ i18n "resolution_text" }}</p></div><div><h4>{{ i18n "what_changes" }}</h4><ul>{{ range .invalidation }}<li>{{ index . $lang }}</li>{{ end }}</ul></div></div>
+      </details>
+    {{ else }}<p class="panel radar-empty">{{ i18n "forecasts_empty" }}</p>{{ end }}</div>
+  </section>
+  <section id="resolved" class="forecast-section" aria-labelledby="resolved-title"><div class="block-head"><h2 id="resolved-title">{{ i18n "resolved" }}</h2></div>
+    {{- if $data.resolved }}<div class="radar-table-wrap"><table class="radar-table"><thead><tr><th>{{ i18n "forecast" }}</th><th>{{ i18n "target_date" }}</th><th>{{ i18n "called" }}</th><th>{{ i18n "actual" }}</th><th>{{ i18n "result" }}</th></tr></thead><tbody>{{ range $data.resolved }}<tr><td><strong>{{ i18n (printf "horizon_%s" .horizon) }}</strong><small class="mono">{{ .created }}</small></td><td class="mono">{{ .target_date }}</td><td><span class="direction-{{ .direction }}">{{ i18n (printf "direction_%s" .direction) }}</span><small>{{ i18n (printf "confidence_%s" .confidence) }}</small></td><td>{{ i18n (printf "direction_%s" .observed) }}</td><td><span class="result-chip{{ if .correct }} is-correct{{ end }}">{{ if .correct }}✓ {{ i18n "correct" }}{{ else }}✗ {{ i18n "incorrect" }}{{ end }}</span></td></tr>{{ end }}</tbody></table></div>{{ else }}<p class="panel radar-empty">{{ i18n "resolved_empty" }}</p>{{ end }}
+    <p class="forecast-footnote">{{ i18n "resolved_note" (dict "Count" ($record.resolved | default 0)) }}</p>
+  </section>
+  <section id="scenarios" class="forecast-section" aria-labelledby="scenarios-title"><div class="block-head"><h2 id="scenarios-title">{{ i18n "forecast_scenarios" }}</h2></div>
+    {{- $year := where ($data.open | default slice) "horizon" "year" }}
+    {{- if $year }}{{ range $year }}
+      <div class="scenario-forces"><span>{{ i18n "driving_forces" }}</span>{{ range .drivers }}<span class="tag-ai_tech">{{ index .name $lang }}</span>{{ end }}</div>
+      <div class="scenario-grid">{{ range $i, $s := .scenarios }}<article class="panel forecast-scenario"><div class="scenario-letter mono">{{ index (slice "A" "B" "C") $i }}</div><h3>{{ index .name $lang }}</h3><span class="scenario-direction direction-{{ .direction }}">{{ i18n (printf "direction_%s" .direction) }}</span><p>{{ index .description $lang }}</p></article>{{ end }}</div>
+    {{- end }}{{ else }}<p class="panel radar-empty">{{ i18n "scenarios_empty" }}</p>{{ end }}
+    <p class="forecast-footnote">{{ i18n "disclaimer" }}</p>
+  </section>
+</div>
+{{- end -}}

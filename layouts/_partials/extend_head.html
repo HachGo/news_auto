@@ -8,3 +8,8 @@
   {{- $trends := resources.Get "js/trends.js" | minify | fingerprint -}}
   <script defer src="{{ $trends.RelPermalink }}" integrity="{{ $trends.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end -}}
+
+{{- if eq .Layout "forecasts" -}}
+  {{- $forecasts := resources.Get "js/forecasts.js" | minify | fingerprint -}}
+  <script defer src="{{ $forecasts.RelPermalink }}" integrity="{{ $forecasts.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end -}}

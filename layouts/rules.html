@@ -1,0 +1,52 @@
+{{ define "main" }}
+{{- $lang := cond (eq site.Language.Lang "en") "en" "zh" -}}
+{{- $rules := site.Data.radar.rules -}}
+<div class="radar-page rules-page">
+  <header class="radar-header">
+    <div><h1>{{ .Title }}</h1><p class="radar-description">{{ i18n "rules_subtitle" }}</p></div>
+    <a class="rules-edit" href="{{ site.Params.githubURL }}/blob/main/scripts/feeds.yaml" target="_blank" rel="noopener">{{ i18n "edit_github" }}</a>
+  </header>
+  <nav class="pipeline panel" aria-label="{{ i18n "pipeline" }}">
+    {{ range $i, $step := slice "adapters" "normalize" "dedupe" "enrich" "store" "analyze" "website" }}
+    {{ if $i }}<span aria-hidden="true">→</span>{{ end }}<span class="pipeline-step" data-step="{{ $i }}">{{ i18n (printf "step_%s" $step) }}</span>
+    {{ end }}
+  </nav>
+  <div class="rules-columns">
+    <nav class="rules-nav" aria-label="{{ i18n "rules_sections" }}">
+      {{ range $i, $section := $rules.sections }}
+      <a href="#{{ .key }}"><span class="mono">{{ printf "%02d" (add $i 1) }}</span><span>{{ index .name $lang }}<small>{{ index .desc $lang }}</small></span></a>
+      {{ end }}
+    </nav>
+    <div class="rules-content">
+      {{ range $rules.sections }}
+      <section id="{{ .key }}" class="rule-section" data-steps="{{ delimit .steps "," }}">
+        <h2>{{ index .name $lang }}</h2><p class="radar-muted">{{ index .desc $lang }}</p>
+        {{ range .groups }}
+        <div class="panel rule-group"><h3>{{ index .title $lang }}</h3>
+          {{ range .rows }}
+          <div class="rule-row">
+            <div class="rule-label">{{ index .label $lang }}{{ with index .desc $lang }}<small>{{ . }}</small>{{ end }}</div>
+            {{ if eq .kind "locked" }}<span class="rule-pill">{{ i18n "always_on" }}</span>
+            {{ else if eq .kind "chips" }}<div class="rule-chips">{{ range .chips }}<span class="rule-pill">{{ index . $lang }}</span>{{ end }}</div>
+            {{ else if eq .kind "list" }}<dl class="rule-list">{{ range .chips }}<div><dt class="mono">{{ index .label $lang }}</dt><dd>{{ index .desc $lang }}</dd></div>{{ end }}</dl>
+            {{ else }}<span class="rule-value mono">{{ index .value $lang }}</span>{{ end }}
+          </div>
+          {{ end }}
+        </div>
+        {{ end }}
+        {{ if eq .key "fetch" }}
+        <div class="panel rule-sources"><h3>{{ i18n "sources_title" }}</h3><div class="radar-table-wrap">
+          <table class="radar-table"><thead><tr>{{ range slice "source" "source_section" "source_site" "source_category" "source_access" "source_limit" "source_filter" }}<th>{{ i18n . }}</th>{{ end }}</tr></thead>
+          <tbody>{{ range $rules.sources }}<tr>
+            <td>{{ index .name $lang }}</td><td>{{ i18n (printf "source_section_%s" .section) }}</td>
+            <td><a href="{{ .href }}" target="_blank" rel="noopener">{{ .site }}</a>{{ with .rss }} · <a href="{{ . }}" target="_blank" rel="noopener">RSS</a>{{ end }}</td>
+            <td>{{ index .category $lang }}</td><td class="mono">{{ .access }}</td><td class="mono">{{ if ne .max_items nil }}{{ .max_items }}{{ else }}—{{ end }}</td><td>{{ if .ai_filter }}{{ i18n "yes" }}{{ else }}{{ i18n "no" }}{{ end }}</td>
+          </tr>{{ end }}</tbody></table>
+        </div></div>
+        {{ end }}
+      </section>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}
