@@ -9,6 +9,7 @@ from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 from cluster import SIMILARITY
+from lab import load_trackers
 from ideas import FETCH_LIMIT as IDEA_FETCH_LIMIT, HALF_LIFE_DAYS as IDEA_HALF_LIFE, SITE_BOOST as IDEA_BOOST
 from ideas import SOURCE_MODULES as IDEA_SOURCES, WEIGHTS as IDEA_WEIGHTS
 from common import (
@@ -128,6 +129,7 @@ RANK_RULES_EN = {
 }
 
 
+LAB_TRACKERS = load_trackers(Path(__file__).resolve().parent / "trackers.yaml")
 IDEA_WEIGHT_NAMES = {"money": ("金额与支持者", "Money & backers"), "stars": ("收藏与星标", "Saves & stars"),
                      "upvotes": ("点赞", "Upvotes"), "comments": ("评论", "Comments")}
 IDEA_SOURCE_CATEGORY = {"show_hn": ("作品展示", "Show HN posts"), "github": ("新仓库", "New repositories"),
@@ -161,6 +163,10 @@ def build_rules(config):
                 _row("同日重跑", "Same-day reruns", _pair("复用已完成的版面", "Reuse finished sections")),
             ]),
             group("抓取上限", "Limits", [_row(k, k, _pair(str(settings.get(k, default)) + (" h" if k == "hours_window" else ""), str(settings.get(k, default)) + (" h" if k == "hours_window" else ""))) for k, default in limits]),
+            group("实验室跟踪器", "Lab trackers", [
+                _row("跟踪器", "Trackers", _pair(f"{len(LAB_TRACKERS)} 个，配置在 scripts/trackers.yaml", f"{len(LAB_TRACKERS)}, configured in scripts/trackers.yaml"),
+                     desc=_pair("按别名匹配本站已存储新闻的标题；英文按单词边界，中文按子串", "Aliases are matched against stored headlines: English on word boundaries, Chinese as substrings")),
+            ]),
             group("获取原则", "Fetch principles", [
                 locked("仅存储链接和短摘要", "Store link + short summary only"),
                 locked("版面失败不阻塞其他版面，错误记录来源名称", "A failed section never blocks the others; errors are logged with the source name"),

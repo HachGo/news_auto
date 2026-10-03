@@ -2,7 +2,7 @@
 """每日资讯抓取主入口。
 
 编排四版面生成（ai/world/market/deep，中英文各一份）+ 创意抓取与评分 + 趋势快照 +
-今日简报数据（首页）+ 雷达页面数据 + 网站规则，更新 seen.json。任一版面异常被捕获，不阻塞其他版面。
+今日简报数据（首页）+ 雷达页面数据 + 实验室跟踪器 + 网站规则，更新 seen.json。任一版面异常被捕获，不阻塞其他版面。
 """
 
 import os
@@ -13,6 +13,7 @@ from pathlib import Path
 from common import load_config, load_seen, save_seen, build_llm_client, link_hash
 from generators import ai, world, market, deep
 import ideas
+import lab
 from brief import build_brief, load_brief, write_brief
 from method import write_rules
 from radar import write_radar
@@ -116,6 +117,13 @@ def main(force_refresh=None):
                     ideas_dir=CONTENT_DIR.parent / "data" / "ideas", client=client)
     except Exception as exc:
         print(f"[error] 雷达数据生成失败: {exc}", file=sys.stderr)
+
+    # 实验室跟踪器：在雷达数据之后（领域内上升话题读取 trends.json）。
+    try:
+        lab.write_lab(CONTENT_DIR.parent, date_str, Path(__file__).resolve().parent / "trackers.yaml",
+                      CONTENT_DIR.parent / "data" / "radar" / "lab.json")
+    except Exception as exc:
+        print(f"[error] 实验室数据生成失败: {exc}", file=sys.stderr)
 
     # 网站规则每次同步，内容未变时不写入。
     try:

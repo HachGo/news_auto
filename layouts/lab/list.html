@@ -1,0 +1,90 @@
+{{- define "main" -}}
+{{- /* 实验室（World Radar v2）：数据来自 data/radar/lab.json（scripts/lab.py），跟踪器配置在 scripts/trackers.yaml。
+     静态站点没有“新建跟踪器”表单，新增跟踪器请编辑配置文件。 */ -}}
+{{- $lang := cond (eq site.Language.Lang "en") "en" "zh" -}}
+{{- $data := site.Data.radar.lab | default dict -}}
+{{- $trackers := $data.trackers | default slice -}}
+<div class="radar-page lab-page" data-lab>
+  <header class="radar-header">
+    <div>
+      {{- with $data.as_of }}<p class="radar-updated mono"><span class="live-dot" aria-hidden="true"></span>{{ i18n "updated_at" (dict "Time" .) }}</p>{{ end }}
+      <h1>{{ .Title }}</h1>
+      <p class="radar-description">{{ i18n "lab_desc" }}</p>
+    </div>
+    {{- with site.Params.githubURL }}
+    <a class="lab-add" href="{{ . }}/blob/main/scripts/trackers.yaml" target="_blank" rel="noopener"><span aria-hidden="true">+</span>{{ i18n "lab_add" }}</a>
+    {{- end }}
+  </header>
+  {{- if not $trackers }}
+  <p class="panel radar-empty">{{ i18n "lab_empty_data" }}</p>
+  {{- else }}
+  <div class="lab-layout">
+    <nav class="lab-trackers" aria-label="{{ i18n "lab_trackers" }}">
+      {{- range $trackers }}
+      <a class="lab-tracker" href="#{{ .id }}" data-tracker="{{ .id }}">
+        <span class="lab-tracker-top mono"><span>{{ i18n (printf "lab_type_%s" .type) }}</span>{{ if gt .stats.m7 0 }}<span class="lab-new">{{ i18n "lab_week_count" (dict "Count" .stats.m7) }}</span>{{ end }}</span>
+        <strong>{{ index .name $lang }}</strong>
+        <span class="lab-kw">{{ delimit (first 4 .keywords) " · " }}</span>
+        <span class="mono lab-since">{{ i18n "lab_since" (dict "Date" .since) }}</span>
+      </a>
+      {{- end }}
+    </nav>
+    <div class="lab-details">
+      {{- range $i, $t := $trackers }}
+      <section id="{{ .id }}" class="lab-detail{{ if eq $i 0 }} is-default{{ end }}" aria-labelledby="lab-name-{{ .id }}" data-lab-detail>
+        <div class="panel lab-head">
+          <div class="lab-head-top">
+            <div><p class="mono lab-meta">{{ i18n (printf "lab_type_%s" .type) }} · {{ i18n "lab_since" (dict "Date" .since) }}</p><h2 id="lab-name-{{ .id }}">{{ index .name $lang }}</h2></div>
+          </div>
+          <div class="lab-keywords"><span>{{ i18n "lab_keywords" }}</span>{{ range .keywords }}<span class="mono">{{ . }}</span>{{ end }}</div>
+          <div class="lab-stats">
+            <div><strong class="mono">{{ .stats.m7 }}</strong><small>{{ i18n "lab_m7" }}</small></div>
+            <div><strong class="mono">{{ .stats.m30 }}</strong><small>{{ i18n "lab_m30" }}</small></div>
+            <div><strong class="mono">{{ .stats.sources }}</strong><small>{{ i18n "lab_sources" }}</small></div>
+            <div><strong class="mono">{{ .stats.en }} / {{ .stats.zh }}</strong><small>{{ i18n "lab_langs" }}</small></div>
+          </div>
+          {{- if .backfilled }}<p class="lab-note">{{ i18n "lab_backfilled" (dict "Date" .since) }}</p>{{ end }}
+        </div>
+        {{- if eq .stats.m30 0 }}
+        <div class="lab-collecting"><strong><span aria-hidden="true"></span>{{ i18n "lab_collecting" }}</strong><p>{{ i18n "lab_collecting_note" }}</p></div>
+        {{- else }}
+        {{- with .entities }}
+        <div class="lab-entities">
+          {{- range . }}
+          <button type="button" class="panel lab-entity" data-entity="{{ .id }}" aria-pressed="false">
+            <span class="lab-entity-name"><strong>{{ index .name $lang }}</strong><small>{{ index .name (cond (eq $lang "en") "zh" "en") }}</small></span>
+            <span class="lab-entity-num"><span class="mono">{{ .m7 }}</span><span class="mono lab-change{{ with .change }}{{ if ge . 0 }} is-up{{ else }} is-down{{ end }}{{ end }}">{{ with .change }}{{ printf "%+d%%" (int .) }}{{ else }}—{{ end }}</span></span>
+            <span class="spark lab-spark" aria-hidden="true">{{ range .spark }}<i style="--h: {{ . }}"></i>{{ end }}</span>
+            <span class="lab-latest">{{ with .latest }}{{ index .title $lang }}{{ else }}{{ i18n "lab_no_mentions" }}{{ end }}</span>
+          </button>
+          {{- end }}
+        </div>
+        {{- end }}
+        {{- with .rising }}
+        <div class="panel lab-rising"><h3>{{ i18n "lab_rising" }}</h3>{{ range . }}<a href="{{ "trends/" | relLangURL }}#{{ .id }}"><span><span class="dot dot-{{ .field }}" aria-hidden="true"></span>{{ index .name $lang }}</span><span class="mono z-{{ .field }}">{{ printf "%+.1f" .z }}</span></a>{{ end }}</div>
+        {{- end }}
+        <div class="lab-timeline-head">
+          <h3>{{ i18n "lab_timeline" }}</h3>
+          {{- if .entities }}<span class="lab-showing" data-lab-showing hidden>{{ i18n "lab_showing" }} <strong data-lab-filter-name></strong> <button type="button" data-lab-clear>{{ i18n "lab_clear" }} ×</button></span>{{ end }}
+        </div>
+        <ol class="lab-timeline">
+          {{- range .timeline }}
+          <li data-entities="{{ range .entities }}{{ .id }} {{ end }}">
+            <span class="mono lab-date">{{ .date }}</span>
+            <span class="lab-line" aria-hidden="true"><i class="dot dot-{{ .field }}"></i></span>
+            <span class="lab-item">
+              <span class="lab-item-top">{{ range .entities }}<strong>{{ index .name $lang }}</strong>{{ end }}<span class="tag tag-{{ .field }}">{{ i18n (printf "field_%s" .field) }}</span>{{ if .backfilled }}<span class="lab-badge">{{ i18n "lab_backfilled_badge" }}</span>{{ end }}</span>
+              <a href="{{ .link }}" target="_blank" rel="noopener">{{ index .title $lang }}</a>
+              <span class="mono lab-source">{{ .source }}{{ if gt .reports 1 }} · {{ i18n "report_count" (dict "Count" .reports) }}{{ end }}</span>
+            </span>
+          </li>
+          {{- end }}
+        </ol>
+        {{- end }}
+      </section>
+      {{- end }}
+    </div>
+  </div>
+  {{- end }}
+</div>
+{{- end -}}
