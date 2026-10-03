@@ -341,6 +341,22 @@
                 "en": "For duplicate reports of the same event, select only the most authoritative report."
               },
               "chips": []
+            },
+            {
+              "label": {
+                "zh": "合并报道",
+                "en": "Merged reports"
+              },
+              "desc": {
+                "zh": "同日候选中报道同一事件的其他来源并入该事件；英文与中文报道分别与事件的英文、中文标题比对，不调用模型",
+                "en": "Other same-day reports of the story join the event; English and Chinese reports are compared with the event's English and Chinese text. No model is used."
+              },
+              "kind": "value",
+              "value": {
+                "zh": "标题与摘要 TF-IDF 相似度 ≥ 0.25",
+                "en": "Title + summary TF-IDF similarity ≥ 0.25"
+              },
+              "chips": []
             }
           ]
         }
@@ -583,6 +599,119 @@
                   "en": "Policy, safety & regulation"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "创意评分",
+            "en": "Idea scoring"
+          },
+          "rows": [
+            {
+              "label": {
+                "zh": "信号权重",
+                "en": "Signal weights"
+              },
+              "desc": {
+                "zh": "各信号先换算为该来源近 30 天内的百分位，再加权平均；无信号的来源记 50",
+                "en": "Each signal becomes a percentile within its source over 30 days, then a weighted mean; sources without signals score 50"
+              },
+              "kind": "list",
+              "value": {
+                "zh": "",
+                "en": ""
+              },
+              "chips": [
+                {
+                  "label": {
+                    "zh": "×1.0",
+                    "en": "×1.0"
+                  },
+                  "desc": {
+                    "zh": "金额与支持者",
+                    "en": "Money & backers"
+                  }
+                },
+                {
+                  "label": {
+                    "zh": "×0.8",
+                    "en": "×0.8"
+                  },
+                  "desc": {
+                    "zh": "收藏与星标",
+                    "en": "Saves & stars"
+                  }
+                },
+                {
+                  "label": {
+                    "zh": "×0.6",
+                    "en": "×0.6"
+                  },
+                  "desc": {
+                    "zh": "点赞",
+                    "en": "Upvotes"
+                  }
+                },
+                {
+                  "label": {
+                    "zh": "×0.4",
+                    "en": "×0.4"
+                  },
+                  "desc": {
+                    "zh": "评论",
+                    "en": "Comments"
+                  }
+                }
+              ]
+            },
+            {
+              "label": {
+                "zh": "时间衰减",
+                "en": "Time decay"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "半衰期 7 天",
+                "en": "Half-life 7 days"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "跨站加分",
+                "en": "Cross-site boost"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "每多一个站点 +3",
+                "en": "+3 for each extra site"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "模型标注",
+                "en": "Model labels"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "类型、为何巧妙、适合谁、上手难度；剔除非创意内容",
+                "en": "Type, why it is clever, who it is for, effort; non-ideas are dropped"
+              },
+              "chips": []
             }
           ]
         },
@@ -1216,6 +1345,91 @@
       },
       "access": "API",
       "max_items": null,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "Show HN",
+        "en": "Show HN"
+      },
+      "section": "ideas",
+      "site": "hn.algolia.com",
+      "href": "https://hn.algolia.com/",
+      "rss": "",
+      "category": {
+        "zh": "作品展示",
+        "en": "Show HN posts"
+      },
+      "access": "API",
+      "max_items": 30,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "GitHub",
+        "en": "GitHub"
+      },
+      "section": "ideas",
+      "site": "api.github.com",
+      "href": "https://api.github.com/",
+      "rss": "",
+      "category": {
+        "zh": "新仓库",
+        "en": "New repositories"
+      },
+      "access": "API",
+      "max_items": 30,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "V2EX",
+        "en": "V2EX"
+      },
+      "section": "ideas",
+      "site": "v2ex.com",
+      "href": "https://www.v2ex.com/",
+      "rss": "",
+      "category": {
+        "zh": "分享创造",
+        "en": "Shared creations"
+      },
+      "access": "API",
+      "max_items": 30,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "Hackaday",
+        "en": "Hackaday"
+      },
+      "section": "ideas",
+      "site": "hackaday.com",
+      "href": "https://hackaday.com/",
+      "rss": "https://hackaday.com/blog/feed/",
+      "category": {
+        "zh": "硬件巧思",
+        "en": "Hardware hacks"
+      },
+      "access": "RSS",
+      "max_items": 30,
+      "ai_filter": false
+    },
+    {
+      "name": {
+        "zh": "少数派",
+        "en": "SSPAI"
+      },
+      "section": "ideas",
+      "site": "sspai.com",
+      "href": "https://sspai.com/",
+      "rss": "https://sspai.com/feed",
+      "category": {
+        "zh": "工具与方法",
+        "en": "Tools & methods"
+      },
+      "access": "RSS",
+      "max_items": 30,
       "ai_filter": false
     }
   ]

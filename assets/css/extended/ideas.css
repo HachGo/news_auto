@@ -1,0 +1,62 @@
+/* 创意页（World Radar v2）：筛选条、卡片网格、评分拆解与侧栏。 */
+body.section-ideas .main {
+  max-width: var(--wide-width);
+  padding: 44px 28px 72px;
+}
+.ideas-filters { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.ideas-filters .field-filter { display: flex; gap: 6px; flex-wrap: wrap; padding: 0; margin: 0; border: 0; }
+.ideas-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.ideas-layout { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+.ideas-main { flex: 2 1 600px; min-width: 0; }
+.ideas-aside { flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding-top: 24px; }
+.idea-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; align-items: start; margin: 0; padding: 24px 0 0; list-style: none; }
+.idea-card { display: flex; flex-direction: column; gap: 10px; padding: 18px; margin: 0; }
+.idea-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.idea-head > span:first-child { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.idea-rank { color: var(--muted); font-size: 11px; }
+.idea-type { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+.idea-score { padding: 3px 8px; border-radius: 6px; background: var(--soft); font-size: 13px; font-weight: 500; }
+.idea-card h3 { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.35; text-wrap: pretty; overflow-wrap: anywhere; }
+.idea-why { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; text-wrap: pretty; }
+.idea-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--muted); font-size: 12px; }
+.idea-sources { display: flex; flex-wrap: wrap; gap: 6px; }
+.idea-multi { padding: 3px 8px; border-radius: 4px; background: var(--field-ai_tech-bg); color: var(--field-ai_tech-fg); font-size: 11px; font-weight: 500; white-space: nowrap; }
+.idea-src { padding: 2px 8px; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); font-size: 11px; white-space: nowrap; }
+.idea-breakdown { margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12px; }
+.idea-breakdown summary { display: flex; justify-content: space-between; color: var(--muted); cursor: pointer; list-style: none; }
+.idea-breakdown summary::-webkit-details-marker { display: none; }
+.idea-breakdown summary::after { content: "+"; font-family: var(--font-mono); font-size: 14px; }
+.idea-breakdown[open] summary::after { content: "−"; }
+.idea-part, .idea-weight { display: grid; grid-template-columns: minmax(0, 1fr) 60px 34px; gap: 10px; align-items: center; margin-top: 8px; }
+.idea-weight { grid-template-columns: minmax(0, 1fr) 72px 34px; font-size: 13px; margin-top: 10px; }
+.idea-part > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.idea-part > span:last-child, .idea-weight > span:last-child { text-align: right; font-size: 11px; }
+.idea-bar { position: relative; height: 5px; border-radius: 3px; background: var(--soft); }
+.idea-bar i { position: absolute; inset: 0 auto 0 0; border-radius: 3px; background: var(--ink); }
+.idea-math { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 10px 0 0; padding: 10px; border-radius: 8px; background: var(--soft); }
+.idea-math dt { color: var(--muted); font-size: 11px; }
+.idea-math dd { margin: 2px 0 0; font-size: 14px; font-weight: 500; }
+.ideas-panel { padding: 18px; }
+.ideas-panel h2 { margin: 0 0 6px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.ideas-note { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.6; }
+.ideas-sources { padding: 16px 0 4px; }
+.ideas-sources h2 { padding: 0 18px 8px; }
+.idea-source-row { display: grid; grid-template-columns: minmax(0, 1fr) auto 28px; gap: 12px; align-items: center; padding: 9px 18px; border-top: 1px solid var(--line); font-size: 13px; }
+.idea-source-row strong { font-weight: 500; }
+.idea-source-row .mono { color: var(--muted); font-size: 11px; }
+.idea-source-row > span:last-child { text-align: right; font-size: 12px; color: var(--ink); }
+.idea-status { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; white-space: nowrap; }
+.idea-status i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+.idea-status.is-ok i { background: var(--field-finance); }
+.idea-status.is-failed i { background: var(--field-world); }
+/* 首页创意卡：沿用深度卡样式，补分数标记 */
+.deep-card .idea-score { margin-left: auto; font-size: 12px; padding: 2px 7px; }
+.deep-type-row { display: flex; align-items: center; gap: 8px; }
+.idea-tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+.idea-tabs a { padding: 4px 10px; border-radius: 6px; color: var(--muted); font-size: 12px; }
+.idea-tabs a:hover { background: var(--soft); color: var(--ink); }
+@media (max-width: 600px) {
+  body.section-ideas .main { padding: 28px 16px 56px; }
+  .ideas-layout { gap: 24px; }
+}
+.today-more { margin: 14px 0 0; font-size: 13px; }

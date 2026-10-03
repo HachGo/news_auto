@@ -9,6 +9,8 @@ from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 from cluster import SIMILARITY
+from ideas import FETCH_LIMIT as IDEA_FETCH_LIMIT, HALF_LIFE_DAYS as IDEA_HALF_LIFE, SITE_BOOST as IDEA_BOOST
+from ideas import SOURCE_MODULES as IDEA_SOURCES, WEIGHTS as IDEA_WEIGHTS
 from common import (
     atomic_write_text,
     category_en,
@@ -126,6 +128,13 @@ RANK_RULES_EN = {
 }
 
 
+IDEA_WEIGHT_NAMES = {"money": ("金额与支持者", "Money & backers"), "stars": ("收藏与星标", "Saves & stars"),
+                     "upvotes": ("点赞", "Upvotes"), "comments": ("评论", "Comments")}
+IDEA_SOURCE_CATEGORY = {"show_hn": ("作品展示", "Show HN posts"), "github": ("新仓库", "New repositories"),
+                        "v2ex": ("分享创造", "Shared creations"), "hackaday": ("硬件巧思", "Hardware hacks"),
+                        "sspai": ("工具与方法", "Tools & methods")}
+
+
 def _pair(zh, en):
     return {"zh": str(zh), "en": str(en)}
 
@@ -179,6 +188,15 @@ def build_rules(config):
                 _row("基线", "Baseline", _pair("30 天，至少 7 天", "30 days, minimum 7 days")),
                 _row("主题", "Topics", kind="chips", chips=[_pair(v["name"], v["name_en"]) for v in TOPICS.values()]),
             ]),
+            group("创意评分", "Idea scoring", [
+                _row("信号权重", "Signal weights", kind="list", chips=[
+                    {"label": _pair(f"×{w}", f"×{w}"), "desc": _pair(IDEA_WEIGHT_NAMES[k][0], IDEA_WEIGHT_NAMES[k][1])} for k, w in IDEA_WEIGHTS.items()],
+                    desc=_pair("各信号先换算为该来源近 30 天内的百分位，再加权平均；无信号的来源记 50",
+                               "Each signal becomes a percentile within its source over 30 days, then a weighted mean; sources without signals score 50")),
+                _row("时间衰减", "Time decay", _pair(f"半衰期 {IDEA_HALF_LIFE} 天", f"Half-life {IDEA_HALF_LIFE} days")),
+                _row("跨站加分", "Cross-site boost", _pair(f"每多一个站点 +{IDEA_BOOST}", f"+{IDEA_BOOST} for each extra site")),
+                _row("模型标注", "Model labels", _pair("类型、为何巧妙、适合谁、上手难度；剔除非创意内容", "Type, why it is clever, who it is for, effort; non-ideas are dropped")),
+            ]),
             group("预测", "Forecasts", [
                 _row("规则模型", "Rule model", _pair("rules-v1 · 4 个周期", "rules-v1 · 4 horizons")),
                 _row("验证方式", "Resolution", _pair("按目标日跨资产市场动量的正负方向验证", "Resolved by the sign of cross-asset market momentum on the target date")),
@@ -210,6 +228,12 @@ def build_rules(config):
         sources.append({"name": _pair(name, en), "section": "market", "site": site_label(url), "href": url,
                         "rss": "", "category": _pair(category, {"行情速览": "Market quotes", "宏观与政策": "Macro & policy", "公告与研报": "Filings & research"}[category]),
                         "access": "API", "max_items": None, "ai_filter": False})
+    for key, module in IDEA_SOURCES.items():
+        url = module.URL.split("?")[0] if module.ACCESS == "API" else module.URL
+        sources.append({"name": _pair(module.NAME, getattr(module, "NAME_EN", module.NAME)), "section": "ideas",
+                        "site": site_label(url), "href": site_home(url), "rss": module.URL if module.ACCESS == "RSS" else "",
+                        "category": _pair(*IDEA_SOURCE_CATEGORY[key]), "access": module.ACCESS,
+                        "max_items": IDEA_FETCH_LIMIT, "ai_filter": False})
     return {"sections": sections, "sources": sources}
 
 

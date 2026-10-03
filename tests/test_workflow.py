@@ -44,4 +44,10 @@ def test_commit_includes_radar_and_drops_method():
     steps = {step["name"]: step for step in _workflow()["jobs"]["build"]["steps"]}
     command = steps["Commit new content"]["run"]
     assert "data/radar" in command
+    assert "data/ideas" in command
     assert "content/method.md" not in command
+
+
+def test_fetch_step_passes_github_token_for_idea_search():
+    steps = {step["name"]: step for step in _workflow()["jobs"]["build"]["steps"]}
+    assert steps["Fetch and summarize news"]["env"]["GITHUB_TOKEN"] == "${{ secrets.GITHUB_TOKEN }}"

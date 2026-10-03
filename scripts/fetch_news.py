@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """每日资讯抓取主入口。
 
-编排四版面生成（ai/world/market/deep，中英文各一份）+ 趋势快照 + 今日简报数据
-（首页）+ 网站规则页，更新 seen.json。任一版面异常被捕获，不阻塞其他版面。
+编排四版面生成（ai/world/market/deep，中英文各一份）+ 创意抓取与评分 + 趋势快照 +
+今日简报数据（首页）+ 雷达页面数据 + 网站规则，更新 seen.json。任一版面异常被捕获，不阻塞其他版面。
 """
 
 import os
@@ -12,6 +12,7 @@ from pathlib import Path
 
 from common import load_config, load_seen, save_seen, build_llm_client, link_hash
 from generators import ai, world, market, deep
+import ideas
 from brief import build_brief, load_brief, write_brief
 from method import write_rules
 from radar import write_radar
@@ -94,6 +95,13 @@ def main(force_refresh=None):
             print("[info] 今日简报无变化，保留已有数据")
     except Exception as exc:
         print(f"[error] 今日简报数据生成失败: {exc}", file=sys.stderr)
+
+    # 创意板块：独立抓取与评分，失败只影响创意页。
+    try:
+        ideas.run(date_str, config, client, CONTENT_DIR.parent / "data" / "ideas",
+                  CONTENT_DIR.parent / "data" / "radar" / "ideas.json", force_refresh=force_refresh)
+    except Exception as exc:
+        print(f"[error] 创意数据生成失败: {exc}", file=sys.stderr)
 
     # 雷达页面数据，失败不影响日报和首页。
     try:

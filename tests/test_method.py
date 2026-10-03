@@ -34,7 +34,10 @@ def test_rules_include_every_feed_and_public_values():
     config["block_keywords"] = ["PRIVATE_BLOCK_SENTINEL", "隐藏过滤词"]
     result = build_rules(config)
     assert [s["key"] for s in result["sections"]] == ["fetch", "filter", "analyze", "publish"]
-    assert len(result["sources"]) == len(config["feeds"]) + 3
+    assert len(result["sources"]) == len(config["feeds"]) + 3 + 5
+    idea_sources = [source for source in result["sources"] if source["section"] == "ideas"]
+    assert [source["name"]["en"] for source in idea_sources] == ["Show HN", "GitHub", "V2EX", "Hackaday", "SSPAI"]
+    assert "Idea scoring" in json.dumps(result)
     for feed, source in zip(config["feeds"], result["sources"]):
         assert source["name"]["zh"] == feed["name"]
         assert source["name"]["en"]
