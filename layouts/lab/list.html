@@ -52,7 +52,7 @@
         <div class="lab-entities">
           {{- range . }}
           <button type="button" class="panel lab-entity" data-entity="{{ .id }}" aria-pressed="false">
-            <span class="lab-entity-name"><strong>{{ index .name $lang }}</strong><small>{{ index .name (cond (eq $lang "en") "zh" "en") }}</small></span>
+            <span class="lab-entity-name"><strong>{{ index .name $lang }}</strong>{{ $other := index .name (cond (eq $lang "en") "zh" "en") }}{{ if ne $other (index .name $lang) }}<small>{{ $other }}</small>{{ end }}</span>
             <span class="lab-entity-num"><span class="mono">{{ .m7 }}</span><span class="mono lab-change{{ with .change }}{{ if ge . 0 }} is-up{{ else }} is-down{{ end }}{{ end }}">{{ with .change }}{{ printf "%+d%%" (int .) }}{{ else }}—{{ end }}</span></span>
             <span class="spark lab-spark" aria-hidden="true">{{ range .spark }}<i style="--h: {{ . }}"></i>{{ end }}</span>
             <span class="lab-latest">{{ with .latest }}{{ index .title $lang }}{{ else }}{{ i18n "lab_no_mentions" }}{{ end }}</span>
