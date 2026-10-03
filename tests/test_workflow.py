@@ -38,3 +38,10 @@ def test_bot_generated_push_does_not_create_a_refresh_loop():
 def test_generated_commit_uses_beijing_calendar_date():
     steps = {step["name"]: step for step in _workflow()["jobs"]["build"]["steps"]}
     assert "TZ=Asia/Shanghai date +%Y-%m-%d" in steps["Commit new content"]["run"]
+
+
+def test_commit_includes_radar_and_drops_method():
+    steps = {step["name"]: step for step in _workflow()["jobs"]["build"]["steps"]}
+    command = steps["Commit new content"]["run"]
+    assert "data/radar" in command
+    assert "content/method.md" not in command

@@ -47,7 +47,8 @@ def repeated_run(tmp_path, monkeypatch):
     home_first = brief_path.read_bytes()
     seen_first = (tmp_path / "seen.json").read_bytes()
     trend_first = (tmp_path / "data" / "trends" / "daily" / f"{today}.json").read_bytes()
-    method_first = (tmp_path / "content" / "method.md").read_bytes()
+    radar_first = (tmp_path / "data" / "radar" / "trends.json").read_bytes()
+    rules_first = (tmp_path / "data" / "radar" / "rules.json").read_bytes()
     ai_entries.append({"title": "New AI item", "link": "https://fixture.invalid/b"})
     fetch_news.main()
     ai_second = ai_path.read_text()
@@ -56,9 +57,10 @@ def repeated_run(tmp_path, monkeypatch):
     home_third = brief_path.read_text(encoding="utf-8")
     seen_third = (tmp_path / "seen.json").read_bytes()
     trend_third = (tmp_path / "data" / "trends" / "daily" / f"{today}.json").read_bytes()
-    method_third = (tmp_path / "content" / "method.md").read_bytes()
+    radar_third = (tmp_path / "data" / "radar" / "trends.json").read_bytes()
+    rules_third = (tmp_path / "data" / "radar" / "rules.json").read_bytes()
     return (ai_second, market_second, home_third, home_first, seen_first, seen_third,
-            trend_first, trend_third, method_first, method_third)
+            trend_first, trend_third, rules_first, rules_third, radar_first, radar_third)
 
 
 def test_same_day_rerun_keeps_earlier_ai_articles(repeated_run):
@@ -80,6 +82,7 @@ def test_same_day_non_forced_rerun_is_byte_stable(repeated_run):
     assert repeated_run[4] == repeated_run[5]
     assert repeated_run[6] == repeated_run[7]
     assert repeated_run[8] == repeated_run[9]
+    assert repeated_run[10] == repeated_run[11]
 
 
 @pytest.mark.parametrize("gen", [ai, world, market, deep])
