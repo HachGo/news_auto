@@ -52,7 +52,7 @@
   if (requested && fields.includes(requested)) state.field = requested;
 
   function apply() {
-    const matching = items.filter((item) => state.field === "all" || item.dataset.field === state.field);
+    const matching = items.filter((item) => state.field === "all" || (item.dataset.fields || item.dataset.field || "").split(/\s+/).includes(state.field));
     items.forEach((item) => { item.hidden = true; });
     matching.forEach((item, index) => {
       item.hidden = !state.expanded && index >= limit;

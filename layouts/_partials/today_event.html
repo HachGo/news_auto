@@ -6,19 +6,25 @@
 {{- $title := or (index $e.title $lang) $e.title.zh -}}
 {{- $summary := index $e.summary $lang -}}
 {{- if and (not $summary) (eq $lang "zh") }}{{ $summary = $e.summary.en }}{{ end -}}
-<li class="event" data-field="{{ $e.field }}">
+{{- $fields := or $e.fields (slice $e.field) -}}
+<li class="event" data-field="{{ $e.field }}" data-fields="{{ delimit $fields " " }}">
   <details{{ if .open }} open{{ end }}>
     <summary class="event-row">
       <span class="event-rank">{{ printf "%02d" .rank }}</span>
       <span class="event-body">
-        <span class="event-chips"><span class="tag tag-{{ $e.field }}">{{ i18n (printf "field_%s" $e.field) }}</span></span>
+        <span class="event-chips">{{ range $fields }}<span class="tag tag-{{ . }}">{{ i18n (printf "field_%s" .) }}</span>{{ end }}</span>
         <span class="event-title">{{ $title }}</span>
         {{- with $summary }}
         <span class="event-summary">{{ . }}</span>
         {{- end }}
         <span class="event-meta">
+          {{- if gt (int (or $e.report_count 1)) 1 }}
+          <span>{{ i18n "report_count" (dict "Count" $e.report_count) }}</span>
+          <span>{{ i18n "report_languages" (dict "En" $e.langs.en "Zh" $e.langs.zh) }}</span>
+          {{- else }}
           <span>{{ $e.source }}</span>
           <span>{{ cond (eq $e.lang "zh") "中" "EN" }}</span>
+          {{- end }}
           {{- with $e.published_at }}
           {{- $t := time.AsTime . "Asia/Shanghai" }}
           <time datetime="{{ $t.Format "2006-01-02T15:04:05-07:00" }}" data-relative>{{ $t.Format "01-02 15:04" }}</time>
@@ -34,15 +40,30 @@
     </summary>
     <div class="event-panel">
       <div class="panel-head">
-        <span>{{ i18n "source" }}</span>
+        <span>{{ if gt (int (or $e.report_count 1)) 1 }}{{ i18n "merged_reports" }}{{ else }}{{ i18n "source" }}{{ end }}</span>
         <span class="mono">{{ index $e.category $lang }}</span>
       </div>
+      {{- if gt (int (or $e.report_count 1)) 1 }}
+      {{- range $e.reports }}
+      <a class="panel-row panel-report" href="{{ .link }}" target="_blank" rel="noopener">
+        <span class="panel-source">{{ .source }}</span>
+        <span class="mono">{{ cond (eq .lang "zh") "ZH" "EN" }}</span>
+        <span class="panel-title">{{ .title }}</span>
+        {{- with .published_at }}
+        {{- $t := time.AsTime . "Asia/Shanghai" }}
+        <time class="mono report-time" datetime="{{ $t.Format "2006-01-02T15:04:05-07:00" }}" data-relative>{{ $t.Format "01-02 15:04" }}</time>
+        {{- end }}
+        <span class="mono panel-arrow" aria-hidden="true">↗</span>
+      </a>
+      {{- end }}
+      {{- else }}
       <a class="panel-row" href="{{ $e.link }}" target="_blank" rel="noopener">
         <span class="panel-source">{{ $e.source }}</span>
         <span class="mono">{{ cond (eq $e.lang "zh") "ZH" "EN" }}</span>
         <span class="panel-title">{{ cond (eq $e.lang "zh") $e.title.zh $e.title.en }}</span>
         <span class="mono panel-arrow" aria-hidden="true">↗</span>
       </a>
+      {{- end }}
       {{- with $daily }}
       <a class="panel-row panel-brief" href="{{ .RelPermalink }}#{{ $e.id }}">
         {{ i18n "read_in_brief" (dict "Section" (index site.Params.sectionShort $e.section)) }} →

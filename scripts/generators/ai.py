@@ -66,7 +66,7 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
         ),
     )
     print(f"[info] AI 版面已生成 {path}")
-    return {"path": path, "items": selected, "all_rss_items": selected}
+    return {"path": path, "items": selected, "all_rss_items": selected, "candidates": candidates}
 
 
 def _filter_section(config, section):

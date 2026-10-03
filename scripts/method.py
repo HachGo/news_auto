@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 
+from cluster import SIMILARITY
 from common import (
     atomic_write_text,
     category_en,
@@ -161,6 +162,9 @@ def build_rules(config):
             group("去重", "Dedupe", [
                 _row("链接指纹", "Seen-link fingerprints", _pair("保留约 30 天", "Kept about 30 days")),
                 _row("同一事件", "Same story", _pair(RANK_RULES[1], RANK_RULES_EN[1])),
+                _row("合并报道", "Merged reports", _pair(f"标题与摘要 TF-IDF 相似度 ≥ {SIMILARITY}", f"Title + summary TF-IDF similarity ≥ {SIMILARITY}"),
+                     desc=_pair("同日候选中报道同一事件的其他来源并入该事件；英文与中文报道分别与事件的英文、中文标题比对，不调用模型",
+                                "Other same-day reports of the story join the event; English and Chinese reports are compared with the event's English and Chinese text. No model is used.")),
             ]),
         ]),
         section("analyze", [3, 5], "分析", "Analyze", "评分、趋势与预测", "Scoring, trends and forecasts", [

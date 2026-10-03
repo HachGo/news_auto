@@ -44,7 +44,8 @@ def test_main_writes_all_sections_and_home(tmp_path, monkeypatch):
     assert (content / "market" / "2026-08-01.md").exists()
     assert (content / "deep" / "2026-08-01.md").exists()
     brief = json.loads((tmp_path / "data" / "brief" / "2026-08-01.json").read_text(encoding="utf-8"))
-    assert [event["field"] for event in brief["events"]] == ["ai_tech", "world", "finance"]
+    assert len(brief["events"]) == 1
+    assert brief["events"][0]["fields"] == ["ai_tech", "world", "finance"]
     assert brief["events"][0]["title"]["zh"] == "焦点"
     assert brief["sections"] == {"ai": "ready", "world": "ready", "market": "ready", "deep": "ready"}
     assert force_refresh_values == [False, False, False, False]
@@ -98,4 +99,5 @@ def test_main_continues_on_section_failure(tmp_path, monkeypatch):
         fetch_news.main()
     brief = json.loads((tmp_path / "data" / "brief" / "2026-08-01.json").read_text(encoding="utf-8"))
     assert brief["sections"]["ai"] == "failed"
-    assert brief["stats"]["events"] == 2
+    assert brief["stats"]["events"] == 1
+    assert brief["events"][0]["fields"] == ["world", "finance"]

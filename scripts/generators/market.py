@@ -142,7 +142,7 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
     return {"path": path, "items": news_items, "quotes": quotes,
             "calendar": calendar, "news_items": news_items,
             "announces": announces,
-            "all_rss_items": news_items + research_items}  # 用于 seen 去重
+            "all_rss_items": news_items + research_items, "candidates": candidates}  # 用于 seen 去重
 
 
 def _safe(fn, label):

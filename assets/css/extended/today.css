@@ -744,3 +744,16 @@ details[open] > .event-row .caret::before {
     margin-top: 40px;
   }
 }
+
+/* 聚合来源：窄屏将时间换行，保留长标题的完整换行。 */
+.event-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.panel-report { display: grid; grid-template-columns: minmax(60px, 90px) 2em minmax(0, 1fr) auto 1em; }
+.panel-report .panel-title { overflow-wrap: anywhere; min-width: 0; white-space: normal; overflow: visible; }
+.report-time { font-size: 11px; white-space: nowrap; color: var(--secondary); }
+@media (max-width: 600px) {
+  .panel-report { grid-template-columns: minmax(44px, 64px) 2em minmax(0, 1fr) 1em; }
+  .panel-report .panel-title { grid-column: 3; grid-row: 1; }
+  .panel-row.panel-report > .mono { display: block; }
+  .panel-report .report-time { grid-column: 3; grid-row: 2; }
+  .panel-report .panel-arrow { grid-column: 4; grid-row: 1; }
+}

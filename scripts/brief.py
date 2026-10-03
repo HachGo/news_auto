@@ -3,7 +3,7 @@
 把各版面结果整理成一份结构化 JSON：data/brief/YYYY-MM-DD.json，由 Hugo 首页模板
 （site.Data.brief）渲染，中英文共用。
 
-- events：AI / 国际 / 市场三版面条目，按重要性排序。暂未做跨来源事件合并，每条一个来源。
+- events：AI / 国际 / 市场三版面条目，按重要性排序。同日双语聚类，附带多来源报道。
 - deep：深度阅读精选。
 - rising：话题热度、行情涨幅相对近 30 日基线的 z 值（纯统计，不经模型）。
 - forecasts / track_record：趋势模块的规则预测与历史命中情况。
@@ -19,12 +19,13 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+from cluster import cluster_events
 from common import atomic_write_text, category_en, has_cjk, item_id, strip_html, summary_en, title_en
 from generators.market import QUOTE_NAMES_EN
 from trends.config import TOPICS
 from radar import bars, forecast_entry, load_daily, quote_field, topic_activity, zscore
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 FIELD_BY_SECTION = {"ai": "ai_tech", "world": "world", "market": "finance"}
 BASELINE_DAYS = 30
 MIN_BASELINE_DAYS = 7
@@ -32,13 +33,18 @@ SPARK_DAYS = 14
 RISING_LIMIT = 5
 
 
-def build_brief(results, date_str, generated_at, trend_dir=None, previous=None, statuses=None):
+def build_brief(results, date_str, generated_at, trend_dir=None, previous=None, statuses=None, clusters=None):
     """results 为各版面生成器返回值（ai/world/market/deep）；previous 为同日旧简报。"""
     old = _previous_entries(previous)
     events = []
     for section in ("ai", "world", "market"):
         for item in (results.get(section) or {}).get("items") or []:
             events.append(_merge(_event(item, section), item, old))
+    events = clusters if clusters is not None else cluster_events(
+        {section: [event for event in events if event["section"] == section]
+         for section in FIELD_BY_SECTION},
+        {section: (results.get(section) or {}).get("candidates") or [] for section in FIELD_BY_SECTION},
+    )
     deep = [_merge(_deep(item), item, old) for item in (results.get("deep") or {}).get("items") or []]
     events.sort(key=lambda event: (-event["score"], -_timestamp(event["published_at"])))
 
@@ -136,6 +142,13 @@ def _event(item, section):
         "lang": "zh" if has_cjk(original) else "en",
         "link": item.get("link") or "",
         "published_at": _iso(item.get("time") or item.get("published_at")),
+        "reports": [{
+            "source": item.get("source") or "",
+            "lang": "zh" if has_cjk(original) else "en",
+            "title": original,
+            "link": item.get("link") or "",
+            "published_at": _iso(item.get("time") or item.get("published_at")),
+        }],
     }
 
 
@@ -156,7 +169,13 @@ def _deep(item):
 def _previous_entries(previous):
     if not previous:
         return {}
-    return {entry["id"]: entry for entry in (previous.get("events") or []) + (previous.get("deep") or [])}
+    entries = {}
+    for entry in (previous.get("events") or []) + (previous.get("deep") or []):
+        entries[entry["id"]] = entry
+        for report in entry.get("reports") or []:
+            if report.get("link"):
+                entries[item_id(report)] = entry
+    return entries
 
 
 def _merge(entry, item, old):
@@ -192,8 +211,10 @@ def _quote(quote):
 def _stats(events, deep):
     fields = {field: 0 for field in FIELD_BY_SECTION.values()}
     for event in events:
-        fields[event["field"]] += 1
+        for field in event.get("fields") or [event["field"]]:
+            fields[field] += 1
     sources = {entry["source"] for entry in events + deep if entry["source"]}
+    sources.update(report["source"] for event in events for report in event.get("reports", []) if report["source"])
     return {"events": len(events), "deep": len(deep), "sources": len(sources), "fields": fields}
 
 
