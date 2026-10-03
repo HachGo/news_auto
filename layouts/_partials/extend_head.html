@@ -1,3 +1,9 @@
+{{- /* 自托管 Geist 字体（Google Fonts 在中国大陆不可用）；中文走系统字体 */ -}}
+<link rel="preload" href="{{ "fonts/Geist-Variable.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{- if .IsHome -}}
+  {{- $today := resources.Get "js/today.js" | minify | fingerprint -}}
+  <script defer src="{{ $today.RelPermalink }}" integrity="{{ $today.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end -}}
 {{- if eq .Layout "trends" -}}
   {{- $trends := resources.Get "js/trends.js" | minify | fingerprint -}}
   <script defer src="{{ $trends.RelPermalink }}" integrity="{{ $trends.Data.Integrity }}" crossorigin="anonymous"></script>

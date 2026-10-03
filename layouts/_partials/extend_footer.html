@@ -1,0 +1,15 @@
+{{- /* 目录：桌面右侧栏常开（摘要不可折叠），小屏按 TocOpen 默认折叠 */ -}}
+<script>
+  (function () {
+    var toc = document.querySelector(".toc-sidebar details.toc");
+    if (!toc) return;
+    var wide = window.matchMedia("(min-width: 1100px)");
+    var initial = toc.open;
+    var sync = function () { toc.open = wide.matches || initial; };
+    sync();
+    wide.addEventListener("change", sync);
+    toc.querySelector("summary").addEventListener("click", function (event) {
+      if (wide.matches) event.preventDefault();
+    });
+  })();
+</script>

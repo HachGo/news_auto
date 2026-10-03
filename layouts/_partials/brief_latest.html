@@ -1,0 +1,10 @@
+{{- /* 最新一份今日简报数据（data/brief/<日期>.json，scripts/brief.py 生成）；没有时返回空 dict */ -}}
+{{- $latest := dict -}}
+{{- with site.Data.brief -}}
+  {{- $keys := slice -}}
+  {{- range $key, $_ := . -}}{{- $keys = $keys | append $key -}}{{- end -}}
+  {{- with $keys -}}
+    {{- $latest = index site.Data.brief (index (sort . "value" "desc") 0) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $latest -}}

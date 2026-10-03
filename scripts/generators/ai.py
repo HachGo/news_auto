@@ -58,6 +58,13 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
         path,
         render_sectioned(selected, f"AI与科技 {date_str}", f"今日 {len(selected)} 条 AI 动态与社区热点。"),
     )
+    atomic_write_text(
+        path.with_name(f"{date_str}.en.md"),
+        render_sectioned(
+            selected, f"AI & Tech {date_str}",
+            f"{len(selected)} AI stories and community picks.", lang="en",
+        ),
+    )
     print(f"[info] AI 版面已生成 {path}")
     return {"path": path, "items": selected, "all_rss_items": selected}
 

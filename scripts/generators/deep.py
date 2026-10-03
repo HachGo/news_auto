@@ -62,6 +62,12 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
             f"今日 {len(selected)} 条深度精选。",
         ),
     )
+    atomic_write_text(
+        path.with_name(f"{date_str}.en.md"),
+        render_deep(
+            selected, f"Deep reads {date_str}", f"{len(selected)} long reads.", lang="en",
+        ),
+    )
     print(f"[info] 深度版面已生成 {path}")
     return {"path": path, "items": selected, "all_rss_items": selected}
 

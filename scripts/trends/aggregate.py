@@ -70,6 +70,7 @@ def _aggregate_topics(rows):
         source_counts = [row.get("topic_metrics", {}).get(key, {}).get("source_count", 0) for row in rows]
         output[key] = {
             "name": spec["name"],
+            "name_en": spec.get("name_en", spec["name"]),
             "activity": round(sum(activities), 6),
             "average_daily_activity": round(mean(activities), 6) if activities else 0,
             "peak_daily_activity": round(max(activities), 6) if activities else 0,
@@ -106,5 +107,5 @@ def _evidence(rows):
     evidence = []
     for row in rows:
         for item in row.get("news_signals", [])[:10]:
-            evidence.append({"date": row.get("date"), "title": item.get("title"), "link": item.get("link"), "topics": item.get("topics", []), "importance": item.get("importance", 0)})
+            evidence.append({"date": row.get("date"), "title": item.get("title"), "title_en": item.get("title_en") or item.get("title"), "link": item.get("link"), "topics": item.get("topics", []), "importance": item.get("importance", 0)})
     return sorted(evidence, key=lambda item: (item.get("importance", 0), item.get("date", "")), reverse=True)[:20]

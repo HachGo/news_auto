@@ -10,6 +10,10 @@
   order: -1; /* 小屏：目录在正文前 */
 }
 
+.post-body-with-toc details.toc {
+  margin-bottom: 0;
+}
+
 @media (min-width: 1100px) {
   body:has(.has-toc) .main {
     max-width: calc(var(--main-width) + 240px + var(--gap) * 3);
@@ -47,6 +51,7 @@
   .toc-sidebar details.toc summary {
     list-style: none;
     cursor: default;
+    border-radius: 0;
     padding: 0 0 0.65rem;
     font-size: 0.92rem;
     font-weight: 680;

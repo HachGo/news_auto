@@ -1,8 +1,9 @@
 {{- with .TableOfContents -}}
 {{- if and . (ne . "<nav id=\"TableOfContents\"></nav>") -}}
-<details class="toc" open>
+{{- /* TocOpen 控制小屏默认展开；桌面侧栏由 extend_footer 脚本强制展开 */ -}}
+<details class="toc"{{ if $.Param "TocOpen" }} open{{ end }}>
     <summary accesskey="c" title="(Alt + C)">
-        <span class="title">目录</span>
+        <span class="title">{{ i18n "toc" | default "目录" }}</span>
     </summary>
     <div class="inner">
         {{ . }}

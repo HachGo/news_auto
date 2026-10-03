@@ -2,44 +2,45 @@
 <div class="trends-page" data-trends-url="{{ "data/trends/latest.json" | relURL }}" data-manifest-url="{{ "data/trends/manifest.json" | relURL }}">
   <header class="trends-header">
     <div>
-      <p class="trends-kicker">趋势研究</p>
-      <h1>趋势研判</h1>
-      <p class="trends-description">把新闻、行情和宏观事件整理成可追溯的科技与市场判断。</p>
+      {{- partial "breadcrumbs.html" . }}
+      <p class="trends-kicker">{{ i18n "trends_kicker" }}</p>
+      <h1>{{ .Title }}</h1>
+      <p class="trends-description">{{ i18n "trends_desc" }}</p>
     </div>
     <div class="trends-asof">
-      <span>数据状态</span>
-      <strong data-trends-asof>正在读取</strong>
-      <small data-trends-quality>等待数据</small>
+      <span>{{ i18n "data_status" }}</span>
+      <strong data-trends-asof>{{ i18n "loading" }}</strong>
+      <small data-trends-quality>{{ i18n "waiting_data" }}</small>
     </div>
   </header>
 
-  <nav class="trends-tabs" aria-label="趋势周期" role="tablist">
-    <button type="button" role="tab" aria-selected="true" data-period="week">周</button>
-    <button type="button" role="tab" aria-selected="false" data-period="month">月</button>
-    <button type="button" role="tab" aria-selected="false" data-period="quarter">季度</button>
-    <button type="button" role="tab" aria-selected="false" data-period="year">年</button>
+  <nav class="trends-tabs" aria-label="{{ i18n "period" }}" role="tablist">
+    <button type="button" role="tab" aria-selected="true" tabindex="0" data-period="week" id="week">{{ i18n "period_week" }}</button>
+    <button type="button" role="tab" aria-selected="false" tabindex="-1" data-period="month" id="month">{{ i18n "period_month" }}</button>
+    <button type="button" role="tab" aria-selected="false" tabindex="-1" data-period="quarter" id="quarter">{{ i18n "period_quarter" }}</button>
+    <button type="button" role="tab" aria-selected="false" tabindex="-1" data-period="year" id="year">{{ i18n "period_year" }}</button>
   </nav>
 
   <section class="trends-summary" aria-labelledby="trends-summary-title">
     <div class="section-heading">
-      <h2 id="trends-summary-title">本期判断</h2>
-      <span data-period-label>最近一周</span>
+      <h2 id="trends-summary-title">{{ i18n "this_period" }}</h2>
+      <span data-period-label></span>
     </div>
     <div class="summary-grid">
       <article class="summary-item summary-technology">
-        <span>科技动量</span>
-        <strong data-technology-direction>数据读取中</strong>
-        <p data-technology-summary>等待每日快照积累。</p>
+        <span>{{ i18n "tech_momentum" }}</span>
+        <strong data-technology-direction>{{ i18n "loading_data" }}</strong>
+        <p data-technology-summary>{{ i18n "waiting_snapshots" }}</p>
       </article>
       <article class="summary-item summary-market">
-        <span>市场信号</span>
-        <strong data-market-direction>数据读取中</strong>
-        <p data-market-summary>等待行情和宏观数据。</p>
+        <span>{{ i18n "market_signal" }}</span>
+        <strong data-market-direction>{{ i18n "loading_data" }}</strong>
+        <p data-market-summary>{{ i18n "waiting_market" }}</p>
       </article>
       <article class="summary-item summary-quality">
-        <span>数据覆盖</span>
+        <span>{{ i18n "coverage" }}</span>
         <strong data-coverage>0%</strong>
-        <p data-coverage-summary>数据覆盖越充分，判断可信度越高。</p>
+        <p data-coverage-summary>{{ i18n "coverage_hint" }}</p>
       </article>
     </div>
   </section>
@@ -47,44 +48,50 @@
   <section class="trend-chart-panel" aria-labelledby="trend-chart-title">
     <div class="section-heading">
       <div>
-        <h2 id="trend-chart-title">趋势变化</h2>
-        <p>科技线与市场线分别归一化到起点100，便于比较方向，不代表价格点位。</p>
-      </div>
-      <div class="chart-legend" aria-label="图例">
-        <span><i class="legend-swatch legend-tech"></i>科技动量</span>
-        <span><i class="legend-swatch legend-market"></i>市场信号</span>
+        <h2 id="trend-chart-title">{{ i18n "trend_change" }}</h2>
+        <p>{{ i18n "chart_desc" }}</p>
       </div>
     </div>
-    <div class="trend-chart-wrap">
-      <svg class="trend-chart" viewBox="0 0 900 300" role="img" aria-labelledby="trend-chart-title trend-chart-description" data-trend-chart>
-        <desc id="trend-chart-description">趋势数据加载后显示科技动量和市场信号变化。</desc>
+    <div class="trend-chart-wrap" data-trend-chart-wrap>
+      <svg class="trend-chart" role="img" tabindex="0" aria-labelledby="trend-chart-title trend-chart-description" data-trend-chart>
+        <desc id="trend-chart-description">{{ i18n "chart_loading" }}</desc>
       </svg>
-      <p class="chart-empty" data-chart-empty>当前周期数据不足，暂不绘制趋势线。</p>
+      <div class="trend-tooltip" data-trend-tooltip hidden></div>
+      <p class="chart-empty" data-chart-empty>{{ i18n "chart_empty" }}</p>
     </div>
+    <details class="trend-table" data-trend-table hidden>
+      <summary>{{ i18n "data_table" }}</summary>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>{{ i18n "date" }}</th><th>{{ i18n "tech_momentum" }}</th><th>{{ i18n "market_signal" }}</th><th>{{ i18n "coverage_rate" }}</th></tr></thead>
+          <tbody data-trend-table-body></tbody>
+        </table>
+      </div>
+    </details>
   </section>
 
   <div class="trends-columns">
     <section class="trend-panel" aria-labelledby="topic-title">
       <div class="section-heading">
         <div>
-          <h2 id="topic-title">科技主题动量</h2>
-          <p>按事件权重、来源质量和持续性计算，不把转载数量直接当成热度。</p>
+          <h2 id="topic-title">{{ i18n "topic_momentum" }}</h2>
+          <p>{{ i18n "topic_desc" }}</p>
         </div>
       </div>
       <div class="topic-list" data-topic-list>
-        <p class="muted">数据读取中。</p>
+        <p class="muted">{{ i18n "loading_data" }}…</p>
       </div>
     </section>
 
     <section class="trend-panel" aria-labelledby="forecast-title">
       <div class="section-heading">
         <div>
-          <h2 id="forecast-title">未来情景</h2>
-          <p>这是基于当前信号的情景推演，不是投资建议。</p>
+          <h2 id="forecast-title">{{ i18n "future_scenarios" }}</h2>
+          <p>{{ i18n "scenario_desc" }}</p>
         </div>
       </div>
       <div class="forecast-list" data-forecast-list>
-        <p class="muted">数据读取中。</p>
+        <p class="muted">{{ i18n "loading_data" }}…</p>
       </div>
     </section>
   </div>
@@ -92,20 +99,20 @@
   <section class="evidence-panel" aria-labelledby="evidence-title">
     <div class="section-heading">
       <div>
-        <h2 id="evidence-title">关键证据</h2>
-        <p>点击来源可以回到原始新闻。相关性不等同于因果关系。</p>
+        <h2 id="evidence-title">{{ i18n "key_evidence" }}</h2>
+        <p>{{ i18n "evidence_desc" }}</p>
       </div>
     </div>
     <ol class="evidence-list" data-evidence-list>
-      <li class="muted">数据读取中。</li>
+      <li class="muted">{{ i18n "loading_data" }}…</li>
     </ol>
   </section>
 
   <details class="method-panel">
-    <summary>查看方法与边界</summary>
+    <summary>{{ i18n "method_summary" }}</summary>
     <div>
-      <p>趋势模块每天保存不可变快照，再按周、月、季度和年聚合。数据不足时不会用0补齐，也不会生成高可信度预测。</p>
-      <p>行情数据带有交易日期和来源时间。科技主题来自新闻与公告的规则分类，模型只用于补充解释。内容仅供信息参考，不构成投资建议。</p>
+      <p>{{ i18n "method_p1" }}</p>
+      <p>{{ i18n "method_p2" }}</p>
     </div>
   </details>
 </div>

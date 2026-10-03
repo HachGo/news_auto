@@ -16,26 +16,32 @@ TAXONOMY_VERSION = "taxonomy-v1"
 TOPICS = {
     "foundation_models": {
         "name": "基础模型",
+        "name_en": "Foundation models",
         "keywords": ["大模型", "基础模型", "foundation model", "LLM", "GPT", "DeepSeek", "Claude", "Gemini", "Qwen", "Kimi"],
     },
     "chips_compute": {
         "name": "芯片与算力",
+        "name_en": "Chips & compute",
         "keywords": ["芯片", "GPU", "NPU", "算力", "数据中心", "存储", "HBM", "半导体", "Nvidia", "AMD", "TSMC"],
     },
     "applications": {
         "name": "AI 应用与商业化",
+        "name_en": "AI apps & business",
         "keywords": ["AI应用", "人工智能应用", "agent", "智能体", "copilot", "商业化", "企业采用", "推理成本"],
     },
     "open_source": {
         "name": "开源生态",
+        "name_en": "Open source",
         "keywords": ["开源", "open source", "open-weight", "开放权重", "Hugging Face", "llama.cpp", "模型权重"],
     },
     "funding_ma": {
         "name": "融资与并购",
+        "name_en": "Funding & M&A",
         "keywords": ["融资", "并购", "收购", "IPO", "估值", "venture capital", "funding", "acquisition"],
     },
     "policy_safety": {
         "name": "政策、安全与监管",
+        "name_en": "Policy, safety & regulation",
         "keywords": ["监管", "政策", "安全", "安全性", "风险", "合规", "法案", "regulation", "safety", "security"],
     },
 }

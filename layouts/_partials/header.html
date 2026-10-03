@@ -1,0 +1,56 @@
+{{- /* 顶栏：品牌 + 主导航 + 搜索 / 中英切换 / 明暗主题（World Radar 设计） */ -}}
+{{- $page := . }}
+{{- $current := "" }}
+{{- if .IsHome }}{{ $current = "today" }}
+{{- else if eq .Layout "archives" }}{{ $current = "news" }}
+{{- else if in (slice "ai" "world" "market") .Section }}{{ $current = "news" }}
+{{- else if eq .Section "deep" }}{{ $current = "deep" }}
+{{- else if eq .Section "trends" }}{{ $current = "trends" }}
+{{- end }}
+<header class="header site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a class="brand" href="{{ site.Home.RelPermalink }}" accesskey="h" title="{{ site.Title }} (Alt + H)">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">{{ site.Title }}</span>
+      </a>
+      <nav class="site-nav" aria-label="{{ i18n "nav_label" }}">
+        <ul id="menu" class="menu">
+          {{- range site.Menus.main }}
+          <li>
+            <a href="{{ .URL }}"{{ if eq .Identifier $current }} class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
+          </li>
+          {{- end }}
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      {{- with site.GetPage "/search" }}
+      <a class="icon-btn" href="{{ .RelPermalink }}" accesskey="/" title="{{ i18n "search" }} (Alt + /)" aria-label="{{ i18n "search" }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+        </svg>
+      </a>
+      {{- end }}
+      <div class="lang-switch" role="group" aria-label="{{ i18n "language" }}">
+        {{- range site.Home.AllTranslations }}
+        {{- $lang := .Lang }}
+        {{- $href := .RelPermalink }}
+        {{- range $page.AllTranslations }}{{ if eq .Lang $lang }}{{ $href = .RelPermalink }}{{ end }}{{ end }}
+        {{- if eq $lang site.Language.Lang }}
+        <span class="lang-opt is-active" aria-current="true">{{ .Site.Params.langLabel }}</span>
+        {{- else }}
+        <a class="lang-opt" href="{{ $href }}" hreflang="{{ .Site.Language.LanguageCode }}" lang="{{ .Site.Language.LanguageCode }}">{{ .Site.Params.langLabel }}</a>
+        {{- end }}
+        {{- end }}
+      </div>
+      {{- if not site.Params.disableThemeToggle }}
+      <button id="theme-toggle" class="icon-btn theme-toggle" type="button" accesskey="t" title="{{ i18n "theme_toggle" }} (Alt + T)" aria-label="{{ i18n "theme_toggle" }}">
+        <span class="theme-glyph" aria-hidden="true"></span>
+      </button>
+      {{- end }}
+    </div>
+  </div>
+</header>

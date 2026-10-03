@@ -3,8 +3,28 @@ import * as params from '@params';
 const resList = document.getElementById('searchResults');
 const sInput = document.getElementById('searchInput');
 const searchBox = document.getElementById('searchbox');
+const statusEl = document.getElementById('searchStatus');
 
 let fuse;
+let indexFailed = false;
+
+const STRINGS = (document.documentElement.lang || '').toLowerCase().startsWith('en')
+    ? {
+        hint: 'Type a keyword to search',
+        loading: 'Loading the search index…',
+        failed: 'The search index failed to load; please refresh.',
+        none: (q) => `Nothing matches “${q}”. Try another keyword.`,
+        top: (n) => `Showing the ${n} most relevant results`,
+        count: (n) => (n === 1 ? '1 result' : `${n} results`),
+    }
+    : {
+        hint: '输入关键词开始搜索',
+        loading: '正在加载索引…',
+        failed: '搜索索引加载失败，请刷新页面重试',
+        none: (q) => `没有找到与“${q}”相关的资讯，换个关键词试试`,
+        top: (n) => `显示最相关的 ${n} 条结果`,
+        count: (n) => `找到 ${n} 条结果`,
+    };
 let currentElement = null;
 let firstResult = null;
 let lastResult = null;
@@ -50,12 +70,31 @@ const debounce = (fn, delay) => {
     };
 };
 
+const setStatus = (text) => {
+    if (statusEl) {
+        statusEl.textContent = text;
+    }
+};
+
+// 查询词同步到地址栏（?q=），可分享链接；点开结果再返回时仍保留结果
+const syncQueryToURL = (query) => {
+    const url = new URL(window.location.href);
+    if (query) {
+        url.searchParams.set('q', query);
+    } else {
+        url.searchParams.delete('q');
+    }
+    window.history.replaceState(null, '', url);
+};
+
 const reset = () => {
     currentElement = null;
     firstResult = null;
     lastResult = null;
     resList.innerHTML = '';
     sInput.value = '';
+    syncQueryToURL('');
+    setStatus(fuse ? STRINGS.hint : '');
     sInput.focus();
 };
 
@@ -149,22 +188,36 @@ const renderResults = (results) => {
 };
 
 const performSearch = () => {
+    const query = sInput.value.trim();
+    syncQueryToURL(query);
+
     if (!fuse) {
+        setStatus(indexFailed ? STRINGS.failed : STRINGS.loading);
         return;
     }
 
-    const query = sInput.value.trim();
     if (!query) {
         renderResults([]);
+        setStatus(STRINGS.hint);
         return;
     }
 
     const limit = params.fuseOpts?.limit || 50;
     const results = fuse.search(query, { limit });
     renderResults(results);
+    if (results.length === 0) {
+        setStatus(STRINGS.none(query));
+    } else if (results.length >= limit) {
+        setStatus(STRINGS.top(limit));
+    } else {
+        setStatus(STRINGS.count(results.length));
+    }
 };
 
 const resolveIndexURL = () => {
+    if (searchBox?.dataset.indexUrl) {
+        return searchBox.dataset.indexUrl;
+    }
     if (typeof params.indexURL === 'string' && params.indexURL) {
         return params.indexURL;
     }
@@ -177,6 +230,11 @@ const initSearch = async () => {
     }
 
     sInput.disabled = false;
+    setStatus(STRINGS.loading);
+    const initialQuery = new URLSearchParams(window.location.search).get('q');
+    if (initialQuery && !sInput.value) {
+        sInput.value = initialQuery;
+    }
     sInput.focus();
 
     try {
@@ -190,8 +248,11 @@ const initSearch = async () => {
             fuse = new Fuse(data, buildFuseOptions());
         }
     } catch (error) {
+        indexFailed = true;
         console.error(error);
     }
+    // 索引加载期间已输入的关键词（或 ?q= 带入的）在加载完成后立即出结果
+    performSearch();
 };
 
 window.addEventListener('load', initSearch);

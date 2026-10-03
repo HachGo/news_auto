@@ -9,7 +9,7 @@
         </svg>
     </h1>
     <div class="post-description">
-        搜索 AI、国际与市场版面全部资讯标题与正文摘要。
+        {{ .Description | default (i18n "search_default_desc") }}
     </div>
     {{- if not (.Param "hideMeta") }}
     <div class="post-meta">
@@ -18,10 +18,12 @@
     {{- end }}
 </header>
 
-<div id="searchbox" class="searchbox">
-    <input id="searchInput" disabled placeholder="{{ .Params.placeholder | default "搜索资讯..." }}"
-        aria-label="search" type="search" autocomplete="off" maxlength="128">
-    <ul id="searchResults" class="searchResults" aria-label="search results"></ul>
+{{- /* 索引地址按语言给出；搜索脚本打包后中英文共用，不能把地址写死在包里 */}}
+<div id="searchbox" class="searchbox" data-index-url="{{ "index.json" | absLangURL }}">
+    <input id="searchInput" disabled placeholder="{{ .Params.placeholder | default (i18n "search_placeholder") }}"
+        aria-label="{{ i18n "search" }}" aria-describedby="searchStatus" type="search" autocomplete="off" maxlength="128">
+    <p id="searchStatus" class="search-status" role="status" aria-live="polite"></p>
+    <ul id="searchResults" class="searchResults" aria-label="{{ i18n "search_results" }}"></ul>
 </div>
 
 {{- end }}{{/* end main */}}

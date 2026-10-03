@@ -2,9 +2,12 @@
 
 {{- if (and site.Params.profileMode.enabled .IsHome) }}
 {{- partial "index_profile.html" . }}
-{{- else }} {{/* if not profileMode */}}
+{{- else if .IsHome }}
+{{- partial "today.html" . }}
 
-{{- if not .IsHome | and .Title }}
+{{- else }}
+
+{{- if .Title }}
 <header class="page-header">
   {{- partial "breadcrumbs.html" . }}
   <h1>
@@ -30,45 +33,44 @@
 </header>
 {{- end }}
 
-{{- $pages := union .RegularPages .Sections }}
-
-{{- if .IsHome }}
-{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
-{{- end }}
-
-{{- $paginator := .Paginate $pages }}
-
-{{- /* 首页：品牌区优先，再是今日总览内容 */ -}}
-{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
-{{- partial "home_info.html" . }}
-{{- end }}
-
 {{- if .Content }}
-<div class="post-content md-content{{ if .IsHome }} home-body{{ end }}">
-  {{- if not (.Param "disableAnchoredHeadings") }}
-  {{- partial "anchored_headings.html" .Content -}}
-  {{- else }}{{ .Content }}{{ end }}
+<div class="post-content md-content">
+  {{- partial "content.html" . -}}
 </div>
 {{- end }}
 
-{{- if and .IsHome (eq $paginator.PageNumber 1) (gt (len $paginator.Pages) 0) }}
-<p class="home-archive-label">近期简报</p>
-{{- end }}
+{{- $pages := union .RegularPages .Sections }}
+{{- $paginator := .Paginate $pages }}
+{{- /* 四版面列表：每天一张卡片，标题为日期，列出当日前三条并可直达条目 */ -}}
+{{- $dayList := and (eq .Kind "section") (in site.Params.mainSections .Section) }}
 
 {{- $term := .Data.Term }}
-{{- range $index, $page := $paginator.Pages }}
+{{- range $paginator.Pages }}
 
-{{- $class := "post-entry" }}
-
-{{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
-{{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
-{{- $class = "first-entry" }}
-{{- else if $term }}
-{{- $class = "post-entry tag-entry" }}
-{{- end }}
-
-<article class="{{ $class }}">
+{{- if $dayList }}
+{{- $page := . }}
+<article class="post-entry day-entry">
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+      <span class="entry-weekday">{{ partial "weekday.html" .Date }}</span>
+    </h2>
+  </header>
+  {{- with partial "headlines.html" (dict "page" . "limit" 3) }}
+  <ol class="entry-headlines">
+    {{- range . }}
+    <li><a href="{{ $page.RelPermalink }}#{{ .anchor }}">{{ .title }}</a></li>
+    {{- end }}
+  </ol>
+  {{- end }}
+  <footer class="entry-footer">
+    {{- with .Summary | plainify | htmlUnescape }}<span>{{ . }}</span>&nbsp;·&nbsp;{{ end -}}
+    <span>{{ i18n "read_time" .ReadingTime }}</span>
+  </footer>
+  <a class="entry-link" aria-label="{{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>
+{{- else }}
+<article class="post-entry{{ if $term }} tag-entry{{ end }}">
   {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
   {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
   <header class="entry-header">
@@ -97,6 +99,7 @@
   <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
 </article>
 {{- end }}
+{{- end }}
 
 {{- if gt $paginator.TotalPages 1 }}
 <footer class="page-footer">
@@ -121,6 +124,6 @@
 </footer>
 {{- end }}
 
-{{- end }}{{/* end profileMode */}}
+{{- end }}{{/* end profileMode / home / list */}}
 
 {{- end }}{{- /* end main */ -}}

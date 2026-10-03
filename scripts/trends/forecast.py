@@ -51,7 +51,35 @@ def _direction(value):
     return "neutral"
 
 
+SCENARIO_EN = {
+    "基准": "Base case",
+    "上行": "Upside",
+    "下行": "Downside",
+    "主题动量与市场信号维持当前方向。": "Topic momentum and market signals hold their current direction.",
+    "多源事件持续确认，风险偏好继续改善。": "More sources confirm the events and risk appetite keeps improving.",
+    "热点退潮或宏观风险重新抬升。": "Hot topics fade or macro risk rises again.",
+    "风险信号延续，市场偏向防御。": "Risk signals persist and markets stay defensive.",
+    "流动性改善并出现新的产业催化。": "Liquidity improves and a new industry catalyst appears.",
+    "波动率和负面事件同时上升。": "Volatility and negative events rise together.",
+    "多空信号接近，趋势暂未确认。": "Bullish and bearish signals are balanced; no trend is confirmed yet.",
+    "主题动量重新加速。": "Topic momentum accelerates again.",
+    "风险事件增加且市场广度收缩。": "Risk events increase while market breadth narrows.",
+}
+
+
+def _with_en(scenarios):
+    return [
+        {**item, "name_en": SCENARIO_EN.get(item["name"], item["name"]),
+         "description_en": SCENARIO_EN.get(item["description"], item["description"])}
+        for item in scenarios
+    ]
+
+
 def _scenarios(direction):
+    return _with_en(_scenario_templates(direction))
+
+
+def _scenario_templates(direction):
     if direction == "positive":
         return [{"name": "基准", "direction": "positive", "description": "主题动量与市场信号维持当前方向。"}, {"name": "上行", "direction": "positive", "description": "多源事件持续确认，风险偏好继续改善。"}, {"name": "下行", "direction": "negative", "description": "热点退潮或宏观风险重新抬升。"}]
     if direction == "negative":
@@ -61,7 +89,7 @@ def _scenarios(direction):
 
 def _drivers(period):
     topics = sorted(period.get("topics", {}).items(), key=lambda entry: abs(entry[1].get("momentum") or 0), reverse=True)
-    return [{"topic": key, "name": value.get("name"), "momentum": value.get("momentum")} for key, value in topics[:3]]
+    return [{"topic": key, "name": value.get("name"), "name_en": value.get("name_en") or value.get("name"), "momentum": value.get("momentum")} for key, value in topics[:3]]
 
 
 def evaluate_forecast(forecast: dict, period: dict | None) -> dict:

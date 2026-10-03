@@ -32,6 +32,59 @@ CATEGORY_ORDER = [
 ]
 
 
+# 英文版页面的分类 / 分区标题
+CATEGORY_EN = {
+    "今日焦点": "Top stories",
+    "AI 动态": "AI news",
+    "社区热点": "Community picks",
+    "国际新闻": "World news",
+    "经济学人": "The Economist",
+    "科学美国人": "Scientific American",
+    "长读": "Long reads",
+    "大西洋月刊": "The Atlantic",
+    DEEP_CATEGORY: "Featured",
+    "财经要闻": "Markets news",
+    "研报要点": "Research notes",
+    "资讯": "News",
+}
+
+_CJK_RE = re.compile(r"[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]")
+
+
+def has_cjk(text) -> bool:
+    return bool(_CJK_RE.search(text or ""))
+
+
+def category_en(category):
+    return CATEGORY_EN.get(category, category)
+
+
+def item_id(item) -> str:
+    """条目稳定锚点：中英文页面、首页与搜索共用，与标题文字无关。"""
+    key = item.get("link") or item.get("title_zh") or item.get("title") or ""
+    return "i-" + link_hash(key)[:10]
+
+
+def title_en(item) -> str:
+    """英文标题：模型译文 > 英文原标题 > 中文标题兜底。"""
+    if item.get("title_en"):
+        return item["title_en"]
+    original = item.get("title") or ""
+    if original and not has_cjk(original):
+        return original
+    return item.get("title_zh") or original
+
+
+def summary_en(item, limit=200) -> str:
+    """英文摘要：模型摘要 > 英文 RSS 摘要；都没有时留空（不用中文充数）。"""
+    if item.get("summary_en"):
+        return item["summary_en"]
+    summary = item.get("summary") or ""
+    if summary and not has_cjk(summary):
+        return summary[:limit]
+    return ""
+
+
 def category_rank(category):
     try:
         return CATEGORY_ORDER.index(category)
@@ -309,18 +362,29 @@ def rank_and_select(client, candidates, config):
     return select_items(candidates, config)
 
 
-PROMPT_TMPL = """你是新闻编辑。请将下面这条英文新闻翻译并总结，返回 JSON（不要包含其他文字）：
-{{"title_zh": "中文标题", "summary_zh": "中文摘要，2-3句话，120字以内，客观精炼"}}
+PROMPT_TMPL = """你是双语新闻编辑。请阅读下面这条新闻（原文可能是英文或中文），翻译并总结，返回 JSON（不要包含其他文字）：
+{{"title_zh": "中文标题", "summary_zh": "中文摘要，2-3句话，120字以内，客观精炼",
+"title_en": "English headline; keep the original wording if the source is already English",
+"summary_en": "English summary, 2-3 sentences, under 60 words, neutral and concise",
+"importance": 1-10 的整数（9-10 全球级重大事件，7-8 影响广泛，5-6 一般行业新闻，1-4 琐碎消息）}}
+
+原标题: {title}
+原文内容: {summary}
+"""
+
+DEEP_PROMPT_TMPL = """你是深度刊物编辑。请将下面这篇长读翻译并写导读，返回 JSON（不要包含其他文字）：
+{{"title_zh": "中文标题", "summary_zh": "中文导读，3-4句话，180字以内，客观精炼，并点明为何值得深入阅读",
+"title_en": "English headline; keep the original wording if the source is already English",
+"summary_en": "English blurb, 3-4 sentences, under 90 words, neutral, saying why it is worth reading"}}
 
 英文标题: {title}
 英文内容: {summary}
 """
 
-DEEP_PROMPT_TMPL = """你是深度刊物编辑。请将下面这篇长读翻译并写导读，返回 JSON（不要包含其他文字）：
-{{"title_zh": "中文标题", "summary_zh": "中文导读，3-4句话，180字以内，客观精炼，并点明为何值得深入阅读"}}
+TRANSLATE_LINES_TMPL = """Translate each line below into concise English. Keep numbers, units and proper nouns.
+Return JSON only: {{"lines": ["...", ...]}} with exactly {count} strings in the same order.
 
-英文标题: {title}
-英文内容: {summary}
+{lines}
 """
 
 
@@ -349,9 +413,41 @@ def _llm_summarize(client, item, prompt_tmpl, summary_chars, retries=2):
             title_zh = title_zh.strip()
             summary_zh = summary_zh.strip()
             if title_zh and summary_zh:
-                return {"title_zh": title_zh, "summary_zh": summary_zh}
+                result = {"title_zh": title_zh, "summary_zh": summary_zh}
+                # 英文字段与重要性可选：缺失时由 title_en() / summary_en() 兜底
+                for key in ("title_en", "summary_en"):
+                    value = data.get(key)
+                    if isinstance(value, str) and value.strip():
+                        result[key] = value.strip()
+                if "importance" in data:
+                    result["importance"] = _normalize_score(data.get("importance"))
+                return result
         except Exception as exc:
             print(f"[warn] LLM 调用失败 (attempt {attempt + 1}): {exc}", file=sys.stderr)
+            time.sleep(2 * (attempt + 1))
+    return None
+
+
+def translate_lines(client, lines, retries=1):
+    """批量把短行译成英文；失败或条数不符时返回 None（调用方保留原文）。"""
+    if client is None or not lines:
+        return None
+    prompt = TRANSLATE_LINES_TMPL.format(count=len(lines), lines="\n".join(lines))
+    for attempt in range(retries + 1):
+        try:
+            resp = client.chat.completions.create(
+                model=DEEPSEEK_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type": "json_object"},
+                max_tokens=2000,
+                timeout=120,
+            )
+            data = json.loads(resp.choices[0].message.content)
+            out = data.get("lines") if isinstance(data, dict) else None
+            if isinstance(out, list) and len(out) == len(lines) and all(isinstance(x, str) for x in out):
+                return [x.strip() or orig for x, orig in zip(out, lines)]
+        except Exception as exc:
+            print(f"[warn] 翻译失败 (attempt {attempt + 1}): {exc}", file=sys.stderr)
             time.sleep(2 * (attempt + 1))
     return None
 
@@ -366,13 +462,24 @@ def summarize_deep(client, item, retries=2):
     return _llm_summarize(client, item, DEEP_PROMPT_TMPL, 900, retries=retries)
 
 
-def render_item(item, num):
-    """渲染单条新闻为 markdown 行列表。"""
+def render_item(item, num, lang="zh"):
+    """渲染单条新闻为 markdown 行列表。标题带 {#id}，中英文页同一条目锚点一致。"""
     block = []
+    anchor = f" {{#{item_id(item)}}}"
+    if lang == "en":
+        block.append(f"### {num}. {title_en(item)}{anchor}")
+        block.append("")
+        summary = summary_en(item)
+        if summary:
+            block.append(summary)
+            block.append("")
+        block.append(f"Source: [{item['source']}]({item['link']})")
+        block.append("")
+        return block
     title_zh = item.get("title_zh") or item["title"]
     score = item.get("score")
     badge = "【重点】" if isinstance(score, (int, float)) and score >= HIGHLIGHT_SCORE else ""
-    block.append(f"### {num}. {badge}{title_zh}")
+    block.append(f"### {num}. {badge}{title_zh}{anchor}")
     block.append("")
     if item.get("title_zh"):
         block.append(f"> {item['title']}")
@@ -386,69 +493,79 @@ def render_item(item, num):
     return block
 
 
-def render_sectioned(items, title, summary, focus_count=3):
-    """渲染带焦点区 + 分类区的版面文章。ai/world 版面共用。"""
-    lines = [
+def front_matter(title, summary, tags):
+    return [
         "---",
         f"title: {json.dumps(title, ensure_ascii=False)}",
         f"date: {datetime.now(CST).strftime('%Y-%m-%dT%H:%M:%S%z')}",
-        'tags: ["每日简报"]',
+        f"tags: {json.dumps(tags, ensure_ascii=False)}",
         f"summary: {json.dumps(summary, ensure_ascii=False)}",
         "---",
         "",
     ]
 
+
+def render_sectioned(items, title, summary, focus_count=3, lang="zh"):
+    """渲染带焦点区 + 分类区的版面文章。ai/world 版面共用；lang="en" 输出英文版。"""
+    en = lang == "en"
+    heading = category_en if en else (lambda c: c)
+    lines = front_matter(title, summary, ["Daily brief"] if en else ["每日简报"])
+
     scored = [i for i in items if "score" in i]
     if scored:
         items = sorted(items, key=lambda x: x.get("score", 0), reverse=True)
         focus, rest = items[:focus_count], items[focus_count:]
-        lines.append("## 今日焦点")
+        lines.append(f"## {heading('今日焦点')}")
         lines.append("")
         for n, item in enumerate(focus, 1):
-            lines.extend(render_item(item, n))
+            lines.extend(render_item(item, n, lang))
         by_category = {}
         for item in rest:
             by_category.setdefault(item["category"], []).append(item)
         order = sorted(by_category.keys(), key=lambda c: (category_rank(c), c))
         for category in order:
-            lines.append(f"## {category}")
+            lines.append(f"## {heading(category)}")
             lines.append("")
             for n, item in enumerate(by_category[category], 1):
-                lines.extend(render_item(item, n))
+                lines.extend(render_item(item, n, lang))
     else:
         by_category = {}
         for item in items:
             by_category.setdefault(item["category"], []).append(item)
         order = sorted(by_category.keys(), key=lambda c: (category_rank(c), c))
         for category in order:
-            lines.append(f"## {category}")
+            lines.append(f"## {heading(category)}")
             lines.append("")
             for n, item in enumerate(by_category[category], 1):
-                lines.extend(render_item(item, n))
+                lines.extend(render_item(item, n, lang))
     return "\n".join(lines)
 
 
-def render_deep_item(item, num):
-    """深度阅读单条：刊物式标题 / 英文副题 / 加长导读 / 刊头来源。"""
-    title_zh = item.get("title_zh") or item["title"]
-    summary_zh = item.get("summary_zh") or item.get("summary", "")[:280]
+def render_deep_item(item, num, lang="zh"):
+    """深度阅读单条：刊物式标题 / 原文副题 / 加长导读 / 刊头来源。"""
     source = item["source"]
     link = item["link"]
+    anchor = f" {{#{item_id(item)}}}"
+    if lang == "en":
+        heading, summary = title_en(item), summary_en(item, 280)
+    else:
+        heading = item.get("title_zh") or item["title"]
+        summary = item.get("summary_zh") or item.get("summary", "")[:280]
     block = [
         f'<article class="deep-item">',
         "",
-        f"### {num}. {title_zh}",
+        f"### {num}. {heading}{anchor}",
         "",
     ]
-    if item.get("title_zh"):
+    if lang != "en" and item.get("title_zh"):
         block.append(f'<p class="deep-dek">{html.escape(item["title"])}</p>')
         block.append("")
-    if summary_zh:
-        block.append(summary_zh)
+    if summary:
+        block.append(summary)
         block.append("")
     block.append(
-        f'<p class="deep-source"><a href="{html.escape(link, quote=True)}">'
-        f"{html.escape(source)}</a></p>"
+        f'<p class="deep-source"><a href="{html.escape(link, quote=True)}" '
+        f'target="_blank" rel="noopener">{html.escape(source)}</a></p>'
     )
     block.append("")
     block.append("</article>")
@@ -456,38 +573,32 @@ def render_deep_item(item, num):
     return block
 
 
-def render_deep(items, title, summary):
-    """深度阅读版面：今日精选 + 按刊物分组。"""
-    lines = [
-        "---",
-        f'title: "{title}"',
-        f"date: {datetime.now(CST).strftime('%Y-%m-%dT%H:%M:%S%z')}",
-        'tags: ["每日简报", "深度阅读"]',
-        f'summary: "{summary}"',
-        "---",
-        "",
+def render_deep(items, title, summary, lang="zh"):
+    """深度阅读版面：今日精选 + 按刊物分组；lang="en" 输出英文版。"""
+    en = lang == "en"
+    lines = front_matter(title, summary, ["Daily brief", "Deep reads"] if en else ["每日简报", "深度阅读"])
+    lines.extend([
         '<div class="deep-digest">',
         "",
-        "## 今日精选",
+        "## Today's picks" if en else "## 今日精选",
         "",
-    ]
+    ])
     for n, item in enumerate(items, 1):
-        lines.extend(render_deep_item(item, n))
+        lines.extend(render_deep_item(item, n, lang))
 
     by_category = {}
     for item in items:
         by_category.setdefault(item.get("category") or "深度精选", []).append(item)
     order = sorted(by_category.keys(), key=lambda c: (category_rank(c), c))
     if len(order) > 1:
-        lines.append("## 按刊物")
+        lines.append("## By publication" if en else "## 按刊物")
         lines.append("")
         for category in order:
-            lines.append(f"### {category}")
+            lines.append(f"### {category_en(category) if en else category}")
             lines.append("")
             for item in by_category[category]:
-                title_zh = item.get("title_zh") or item["title"]
-                link = item["link"]
-                lines.append(f"- [{title_zh}]({link})")
+                label = title_en(item) if en else (item.get("title_zh") or item["title"])
+                lines.append(f"- [{label}]({item['link']})")
             lines.append("")
 
     lines.append("</div>")

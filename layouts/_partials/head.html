@@ -71,7 +71,8 @@
 
 {{- /* Search */}}
 {{- if (eq .Layout `search`) -}}
-{{- $indexURL := "index.json" | absURL -}}
+{{- /* 搜索索引按语言区分：英文页读 /en/index.json */ -}}
+{{- $indexURL := "index.json" | absLangURL -}}
 <link crossorigin="anonymous" rel="preload" as="fetch" href="{{ $indexURL }}">
 {{- $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "params" (dict "fuseOpts" site.Params.fuseOpts "indexURL" $indexURL)) | resources.Minify }}
 {{- $fusejs := resources.Get "js/fuse.basic.min.js" }}

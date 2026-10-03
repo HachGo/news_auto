@@ -1,0 +1,29 @@
+{{- /*
+  正文后处理（列表页与单篇共用）：
+  1. 标题锚点（沿用 PaperMod anchored_headings）
+  2. 站内根路径链接补齐站点子路径：生成器按站点根写 href="/ai/…/"，
+     部署在 /news_auto/ 下时 Hugo 不会改写正文里的原始 HTML，直接访问会 404
+  3. 行情涨跌着色：▲ 红 / ▼ 绿（A 股习惯）
+*/ -}}
+{{- $content := .Content -}}
+{{- if not (.Param "disableAnchoredHeadings") -}}
+  {{- $content = partial "anchored_headings.html" $content -}}
+{{- end -}}
+
+{{- $base := site.Home.RelPermalink -}}
+{{- if ne $base "/" -}}
+  {{- range findRE `(?:href|src)="/[^"]*"` $content | uniq -}}
+    {{- $url := replaceRE `^(?:href|src)="(/[^"]*)"$` "$1" . -}}
+    {{- if not (or (hasPrefix $url "//") (hasPrefix $url $base)) -}}
+      {{- $fixed := replace . (printf `"%s"` $url) (printf `"%s%s"` $base (strings.TrimPrefix "/" $url)) -}}
+      {{- $content = replace $content . $fixed -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if or .IsHome (eq .Section "market") -}}
+  {{- $content = replaceRE `▲(\d+(?:\.\d+)?%)` `<span class="quote-up">▲$1</span>` $content -}}
+  {{- $content = replaceRE `▼(\d+(?:\.\d+)?%)` `<span class="quote-down">▼$1</span>` $content -}}
+{{- end -}}
+
+{{- $content | safeHTML -}}
