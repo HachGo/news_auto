@@ -97,7 +97,7 @@
       "zh": "政策、安全与监管",
       "en": "Policy, safety & regulation"
      },
-     "momentum": 0.403066
+     "momentum": 0.316012
     },
     {
      "topic": "applications",
@@ -105,15 +105,15 @@
       "zh": "AI 应用与商业化",
       "en": "AI apps & business"
      },
-     "momentum": 0.259048
+     "momentum": 0.214851
     },
     {
-     "topic": "funding_ma",
+     "topic": "open_source",
      "name": {
-      "zh": "融资与并购",
-      "en": "Funding & M&A"
+      "zh": "开源生态",
+      "en": "Open source"
      },
-     "momentum": 0.154375
+     "momentum": 0.164851
     }
    ],
    "scenarios": [
@@ -180,7 +180,7 @@
       "zh": "政策、安全与监管",
       "en": "Policy, safety & regulation"
      },
-     "momentum": 0.403066
+     "momentum": 0.316012
     },
     {
      "topic": "applications",
@@ -188,15 +188,15 @@
       "zh": "AI 应用与商业化",
       "en": "AI apps & business"
      },
-     "momentum": 0.259048
+     "momentum": 0.214851
     },
     {
-     "topic": "funding_ma",
+     "topic": "open_source",
      "name": {
-      "zh": "融资与并购",
-      "en": "Funding & M&A"
+      "zh": "开源生态",
+      "en": "Open source"
      },
-     "momentum": 0.154375
+     "momentum": 0.164851
     }
    ],
    "scenarios": [
@@ -301,6 +301,26 @@
   }
  ],
  "resolved": [
+  {
+   "id": "trend-month-2026-09-03",
+   "horizon": "month",
+   "created": "2026-09-03",
+   "target_date": "2026-10-03",
+   "direction": "negative",
+   "confidence": "medium",
+   "observed": "negative",
+   "correct": true
+  },
+  {
+   "id": "trend-week-2026-09-26",
+   "horizon": "week",
+   "created": "2026-09-26",
+   "target_date": "2026-10-03",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "negative",
+   "correct": true
+  },
   {
    "id": "trend-month-2026-09-02",
    "horizon": "month",
@@ -780,45 +800,25 @@
    "confidence": "high",
    "observed": "negative",
    "correct": true
-  },
-  {
-   "id": "trend-week-2026-09-01",
-   "horizon": "week",
-   "created": "2026-09-01",
-   "target_date": "2026-09-08",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": false
-  },
-  {
-   "id": "trend-week-2026-08-31",
-   "horizon": "week",
-   "created": "2026-08-31",
-   "target_date": "2026-09-07",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": false
   }
  ],
  "record": {
-  "resolved": 71,
-  "correct": 14,
-  "rate": 20,
+  "resolved": 73,
+  "correct": 16,
+  "rate": 22,
   "open": 4,
   "by_horizon": [
    {
     "horizon": "week",
-    "resolved": 47,
-    "correct": 10,
-    "rate": 21
+    "resolved": 48,
+    "correct": 11,
+    "rate": 23
    },
    {
     "horizon": "month",
-    "resolved": 24,
-    "correct": 4,
-    "rate": 17
+    "resolved": 25,
+    "correct": 5,
+    "rate": 20
    }
   ]
  },
@@ -831,15 +831,15 @@
   },
   {
    "confidence": "medium",
-   "n": 9,
-   "correct": 5,
-   "rate": 56
+   "n": 10,
+   "correct": 6,
+   "rate": 60
   },
   {
    "confidence": "high",
-   "n": 41,
-   "correct": 9,
-   "rate": 22
+   "n": 42,
+   "correct": 10,
+   "rate": 24
   }
  ]
 }
