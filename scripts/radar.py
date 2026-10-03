@@ -137,7 +137,9 @@ def build_forecasts(trend_dir, date_str):
     for confidence in ("low", "medium", "high"):
         stats = _rate([item for item in resolved if item["confidence"] == confidence])
         calibration.append({"confidence": confidence, "n": stats.pop("resolved"), **stats})
-    return {"as_of": date_str, "open": opened, "resolved": resolved[:50], "record": record, "calibration": calibration}
+    from trends.market_forecast import summary as market_summary
+    return {"as_of": date_str, "open": opened, "resolved": resolved[:50], "record": record, "calibration": calibration,
+            "questions": market_summary(trend_dir, date_str)}
 
 
 def _chart(rows, series, history, floor, rising):

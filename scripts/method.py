@@ -202,7 +202,13 @@ def build_rules(config):
             group("预测", "Forecasts", [
                 _row("规则模型", "Rule model", _pair("rules-v1 · 4 个周期", "rules-v1 · 4 horizons")),
                 _row("验证方式", "Resolution", _pair("按目标日跨资产市场动量的正负方向验证", "Resolved by the sign of cross-asset market momentum on the target date")),
-                locked("校准前不提供概率", "No probabilities until calibrated"),
+                _row("行情概率问题", "Market questions", _pair("market-v1 · 每个资产每周、每月各一个", "market-v1 · one per asset per week and per month"),
+                     desc=_pair("概率来自近 20 个交易日的波动与平均涨跌（按一半计入），截断在 5%–95%；不用模型",
+                                "Probability from 20-day volatility and average move (half weight), capped to 5%–95%; no model")),
+                _row("问题结算", "Question resolution", _pair("提问次日起每日涨跌幅复利累计至截止日后首个交易日", "Daily % changes compounded to the first trading day on or after the deadline"),
+                     desc=_pair("不比较点位：不同行情来源的点位口径可能不同；休市重复的数据不计入", "Price levels are not compared because sources quote them differently; repeated holiday values are skipped")),
+                _row("对照基准", "Baseline", _pair("同期上涨天数占比（不是预测市场价格）", "Share of up days over the same period (not a prediction market)")),
+                locked("方向判断不给概率", "Direction calls carry no probabilities"),
             ]),
         ]),
         section("publish", [4, 6], "发布", "Publish", "静态站点与边界", "Static site and boundaries", [

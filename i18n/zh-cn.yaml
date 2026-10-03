@@ -281,7 +281,7 @@
 - id: trends_filter_empty
   translation: "没有符合筛选条件的条目。"
 - id: forecasts_desc
-  translation: "基于规则判断科技与市场综合趋势，每条预测在目标日期自动核验。目前仅展示方向和可信度，在形成校准记录前不提供概率。"
+  translation: "带概率的具体行情问题：根据已存储的行情自动结算，用 Brier 分数评估。原有的规则方向判断保留在单独标签页。"
 - id: forecast_record
   translation: "历史表现"
 - id: hit_rate
@@ -457,3 +457,49 @@
   translation: "模型解释"
 - id: related_ideas
   translation: "近期创意"
+
+# Market questions
+- id: brier_ours
+  translation: "我们的 Brier"
+- id: brier_baseline
+  translation: "基准 Brier"
+- id: brier_note
+  translation: "Brier 分数越低越好。始终给 50% 得 0.250；基准始终给出该资产的上涨天数占比。"
+- id: calibration_bins_note
+  translation: "柱：实际发生频率 · 线：平均预测概率"
+- id: calibration_collecting
+  translation: "数据积累中：已结算 {{ .Count }} 个，满 {{ .Min }} 个后校准图才有意义。"
+- id: direction_calls
+  translation: "方向判断"
+- id: direction_record
+  translation: "方向判断记录"
+- id: direction_calls_desc
+  translation: "对科技与市场综合趋势的规则判断，到目标日自动核对。只给方向与可信度。"
+- id: rationale
+  translation: "理由"
+- id: question_resolution
+  translation: "把行情来源（东方财富 / 新浪 / Yahoo）报告的每日涨跌幅，从提问次日复利累计到截止日当天或之后的首个交易日；累计为正即“是”。截止后 7 天内仍无行情则作废。"
+- id: baseline
+  translation: "基准"
+- id: baseline_text
+  translation: "不是预测市场价格：同一 20 个交易日内上涨天数的占比，用来对照我们的 Brier 分数。"
+- id: baseline_value
+  translation: "基准 {{ .P }}%"
+- id: questions_empty
+  translation: "暂无进行中的问题：资产需先积累 20 个交易日的行情。"
+- id: question
+  translation: "问题"
+- id: outcome
+  translation: "结果"
+- id: ours
+  translation: "我们"
+- id: answer_yes
+  translation: "是"
+- id: answer_no
+  translation: "否"
+- id: questions_resolved_empty
+  translation: "还没有问题到期。"
+- id: outlook_brier
+  translation: "Brier {{ .Brier }} · 已结算 {{ .Count }}"
+- id: outlook_open
+  translation: "{{ .Count }} 个进行中的问题"

@@ -16,7 +16,7 @@ import ideas
 from brief import build_brief, load_brief, write_brief
 from method import write_rules
 from radar import write_radar
-from trends import pipeline as trend_pipeline
+from trends import market_forecast, pipeline as trend_pipeline
 
 ROOT = Path(__file__).resolve().parent.parent
 FEEDS_FILE = Path(__file__).resolve().parent / "feeds.yaml"
@@ -80,6 +80,13 @@ def main(force_refresh=None):
             print("[info] 趋势数据已生成")
     except Exception as exc:
         print(f"[warn] 趋势数据生成失败，不影响日报发布: {exc}", file=sys.stderr)
+
+    # 行情概率问题：生成与到期结算只追加记录，失败不影响其他内容。
+    try:
+        outcome = market_forecast.run(trend_data_dir, date_str)
+        print(f"[info] 行情问题新增 {len(outcome['created'])} 个，结算 {len(outcome['resolved'])} 个")
+    except Exception as exc:
+        print(f"[error] 行情概率问题生成失败: {exc}", file=sys.stderr)
 
     # 今日简报数据（首页）：在趋势之后，上升信号与预测依赖当日快照
     try:

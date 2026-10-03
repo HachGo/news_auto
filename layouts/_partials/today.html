@@ -6,6 +6,8 @@
 {{- /* 创意板块（data/radar/ideas.json）有 7 天内条目时，首页 02 区块显示创意，否则沿用深度阅读 */ -}}
 {{- $ideaData := site.Data.radar.ideas | default dict -}}
 {{- $ideas := first 6 (where ($ideaData.ideas | default slice) "age_h" "le" 168) -}}
+{{- $questions := site.Data.radar.forecasts.questions | default dict -}}
+{{- $openQuestions := first 3 ($questions.open | default slice) -}}
 <div class="today">
   {{- if not $brief }}
   <section class="today-hero">
@@ -110,12 +112,31 @@
           <h2 id="outlook-title">{{ i18n "outlook" }}</h2>
           {{- $record := $brief.track_record }}
           {{- with site.GetPage "/forecasts" }}
-          <a class="mono" href="{{ .RelPermalink }}">{{ if gt $record.resolved 0 }}{{ i18n "track_record" (dict "Resolved" $record.resolved "Correct" $record.correct) }}{{ else }}{{ i18n "track_record_none" }}{{ end }}</a>
+          {{- $qrec := $questions.record | default dict }}
+          <a class="mono" href="{{ .RelPermalink }}">{{ if $qrec.brier }}{{ i18n "outlook_brier" (dict "Brier" (printf "%.3f" $qrec.brier) "Count" $qrec.resolved) }}{{ else if $openQuestions }}{{ i18n "outlook_open" (dict "Count" (len $questions.open)) }}{{ else if gt $record.resolved 0 }}{{ i18n "track_record" (dict "Resolved" $record.resolved "Correct" $record.correct) }}{{ else }}{{ i18n "track_record_none" }}{{ end }}</a>
           {{- end }}
         </div>
         <div class="forecast-stack">
-          {{- range . }}
-          {{- if eq .horizon "year" }}{{ $year = . }}{{ continue }}{{ end }}
+          {{- range . }}{{ if eq .horizon "year" }}{{ $year = . }}{{ end }}{{ end }}
+          {{- /* 有行情概率问题时首页显示前 3 个（设计稿 v2 样式），否则沿用方向判断卡片 */ -}}
+          {{- range $openQuestions }}
+          <div class="panel fc-card fc-market">
+            <div class="fc-top">
+              <div>
+                <div class="fc-horizon">{{ i18n (printf "horizon_%s" .horizon) }}</div>
+                <div class="fc-q">{{ index .question $lang }}</div>
+              </div>
+              <div class="fc-val mono">{{ .p }}%</div>
+            </div>
+            <div class="fc-prob" role="img" aria-label="{{ .p }}% · {{ i18n "baseline_value" (dict "P" .baseline) }}"><i style="width: {{ .p }}%"></i><b style="left: {{ .baseline }}%"></b></div>
+            <div class="fc-foot">
+              <span>{{ i18n "due" (dict "Date" .deadline) }}</span>
+              <span>{{ i18n "baseline_value" (dict "P" .baseline) }}</span>
+            </div>
+          </div>
+          {{- end }}
+          {{- range (cond (gt (len $openQuestions) 0) slice .) }}
+          {{- if eq .horizon "year" }}{{ continue }}{{ end }}
           {{- $level := index (dict "high" 3 "medium" 2 "low" 1) .confidence | default 1 }}
           <div class="panel fc-card" data-direction="{{ .direction }}">
             <div class="fc-top">

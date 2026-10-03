@@ -787,8 +787,56 @@
             },
             {
               "label": {
-                "zh": "校准前不提供概率",
-                "en": "No probabilities until calibrated"
+                "zh": "行情概率问题",
+                "en": "Market questions"
+              },
+              "desc": {
+                "zh": "概率来自近 20 个交易日的波动与平均涨跌（按一半计入），截断在 5%–95%；不用模型",
+                "en": "Probability from 20-day volatility and average move (half weight), capped to 5%–95%; no model"
+              },
+              "kind": "value",
+              "value": {
+                "zh": "market-v1 · 每个资产每周、每月各一个",
+                "en": "market-v1 · one per asset per week and per month"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "问题结算",
+                "en": "Question resolution"
+              },
+              "desc": {
+                "zh": "不比较点位：不同行情来源的点位口径可能不同；休市重复的数据不计入",
+                "en": "Price levels are not compared because sources quote them differently; repeated holiday values are skipped"
+              },
+              "kind": "value",
+              "value": {
+                "zh": "提问次日起每日涨跌幅复利累计至截止日后首个交易日",
+                "en": "Daily % changes compounded to the first trading day on or after the deadline"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "对照基准",
+                "en": "Baseline"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "同期上涨天数占比（不是预测市场价格）",
+                "en": "Share of up days over the same period (not a prediction market)"
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "方向判断不给概率",
+                "en": "Direction calls carry no probabilities"
               },
               "desc": {
                 "zh": "",
