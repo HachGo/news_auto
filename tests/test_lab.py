@@ -90,5 +90,5 @@ def test_empty_tracker_has_zero_counts_for_collecting_state():
 
 def test_shipped_tracker_config_loads():
     trackers = lab.load_trackers(lab.Path(lab.__file__).with_name("trackers.yaml"))
-    assert [t["id"] for t in trackers] == ["musk", "space"]
+    assert [t["id"] for t in trackers] == ["musk", "space", "spacex"]
     assert all(entity["aliases"] for entity in trackers[0]["entities"])
