@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-31",
+  "evaluations": [
+    {
+      "confidence": "high",
+      "created_at": "2026-10-01T01:01:55.068519+00:00",
+      "data_snapshot": "2026-10-01",
+      "direction": "positive",
+      "drivers": [
+        {
+          "momentum": 0.404405,
+          "name": "AI 应用与商业化",
+          "topic": "applications"
+        },
+        {
+          "momentum": 0.246816,
+          "name": "政策、安全与监管",
+          "topic": "policy_safety"
+        },
+        {
+          "momentum": 0.169524,
+          "name": "基础模型",
+          "topic": "foundation_models"
+        }
+      ],
+      "forecast_id": "trend-month-2026-10-01",
+      "horizon": "month",
+      "invalidation_conditions": [
+        "数据覆盖率低于最低阈值",
+        "主要驱动主题在下一周期明显降温"
+      ],
+      "model_version": "rules-v1",
+      "realized_result": {
+        "direction": "negative",
+        "evaluated_at": "2026-10-31",
+        "value": -0.301772
+      },
+      "reason": "规则模型",
+      "scenarios": [
+        {
+          "description": "主题动量与市场信号维持当前方向。",
+          "direction": "positive",
+          "name": "基准"
+        },
+        {
+          "description": "多源事件持续确认，风险偏好继续改善。",
+          "direction": "positive",
+          "name": "上行"
+        },
+        {
+          "description": "热点退潮或宏观风险重新抬升。",
+          "direction": "negative",
+          "name": "下行"
+        }
+      ],
+      "status": "incorrect",
+      "target": "combined_trend",
+      "target_date": "2026-10-31"
+    },
+    {
+      "confidence": "high",
+      "created_at": "2026-10-24T00:15:04.338909+00:00",
+      "data_snapshot": "2026-10-24",
+      "direction": "positive",
+      "drivers": [
+        {
+          "momentum": 0.0,
+          "name": "基础模型",
+          "name_en": "Foundation models",
+          "topic": "foundation_models"
+        },
+        {
+          "momentum": 0.0,
+          "name": "芯片与算力",
+          "name_en": "Chips & compute",
+          "topic": "chips_compute"
+        },
+        {
+          "momentum": 0.0,
+          "name": "AI 应用与商业化",
+          "name_en": "AI apps & business",
+          "topic": "applications"
+        }
+      ],
+      "forecast_id": "trend-week-2026-10-24",
+      "horizon": "week",
+      "invalidation_conditions": [
+        "数据覆盖率低于最低阈值",
+        "主要驱动主题在下一周期明显降温"
+      ],
+      "model_version": "rules-v1",
+      "realized_result": {
+        "direction": "negative",
+        "evaluated_at": "2026-10-31",
+        "value": -0.301772
+      },
+      "reason": "规则模型",
+      "scenarios": [
+        {
+          "description": "主题动量与市场信号维持当前方向。",
+          "description_en": "Topic momentum and market signals hold their current direction.",
+          "direction": "positive",
+          "name": "基准",
+          "name_en": "Base case"
+        },
+        {
+          "description": "多源事件持续确认，风险偏好继续改善。",
+          "description_en": "More sources confirm the events and risk appetite keeps improving.",
+          "direction": "positive",
+          "name": "上行",
+          "name_en": "Upside"
+        },
+        {
+          "description": "热点退潮或宏观风险重新抬升。",
+          "description_en": "Hot topics fade or macro risk rises again.",
+          "direction": "negative",
+          "name": "下行",
+          "name_en": "Downside"
+        }
+      ],
+      "status": "incorrect",
+      "target": "combined_trend",
+      "target_date": "2026-10-31"
+    }
+  ]
+}
