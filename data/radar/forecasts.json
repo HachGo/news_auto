@@ -1,12 +1,12 @@
 {
- "as_of": "2026-11-04",
+ "as_of": "2026-11-05",
  "open": [
   {
    "horizon": "week",
-   "direction": "neutral",
+   "direction": "positive",
    "confidence": "high",
-   "created": "2026-11-04",
-   "target_date": "2026-11-11",
+   "created": "2026-11-05",
+   "target_date": "2026-11-12",
    "drivers": [
     {
      "topic": "foundation_models",
@@ -39,10 +39,10 @@
       "zh": "基准",
       "en": "Base case"
      },
-     "direction": "neutral",
+     "direction": "positive",
      "description": {
-      "zh": "多空信号接近，趋势暂未确认。",
-      "en": "Bullish and bearish signals are balanced; no trend is confirmed yet."
+      "zh": "主题动量与市场信号维持当前方向。",
+      "en": "Topic momentum and market signals hold their current direction."
      }
     },
     {
@@ -52,8 +52,8 @@
      },
      "direction": "positive",
      "description": {
-      "zh": "主题动量重新加速。",
-      "en": "Topic momentum accelerates again."
+      "zh": "多源事件持续确认，风险偏好继续改善。",
+      "en": "More sources confirm the events and risk appetite keeps improving."
      }
     },
     {
@@ -63,8 +63,8 @@
      },
      "direction": "negative",
      "description": {
-      "zh": "风险事件增加且市场广度收缩。",
-      "en": "Risk events increase while market breadth narrows."
+      "zh": "热点退潮或宏观风险重新抬升。",
+      "en": "Hot topics fade or macro risk rises again."
      }
     }
    ],
@@ -88,8 +88,8 @@
    "horizon": "month",
    "direction": "positive",
    "confidence": "high",
-   "created": "2026-11-04",
-   "target_date": "2026-12-04",
+   "created": "2026-11-05",
+   "target_date": "2026-12-05",
    "drivers": [
     {
      "topic": "funding_ma",
@@ -97,7 +97,7 @@
       "zh": "融资与并购",
       "en": "Funding & M&A"
      },
-     "momentum": 0.390179
+     "momentum": 0.371964
     },
     {
      "topic": "foundation_models",
@@ -105,7 +105,7 @@
       "zh": "基础模型",
       "en": "Foundation models"
      },
-     "momentum": 0.359554
+     "momentum": 0.301518
     },
     {
      "topic": "chips_compute",
@@ -113,7 +113,7 @@
       "zh": "芯片与算力",
       "en": "Chips & compute"
      },
-     "momentum": 0.150714
+     "momentum": 0.243482
     }
    ],
    "scenarios": [
@@ -171,8 +171,8 @@
    "horizon": "quarter",
    "direction": "positive",
    "confidence": "high",
-   "created": "2026-11-04",
-   "target_date": "2027-02-03",
+   "created": "2026-11-05",
+   "target_date": "2027-02-04",
    "drivers": [
     {
      "topic": "funding_ma",
@@ -180,7 +180,7 @@
       "zh": "融资与并购",
       "en": "Funding & M&A"
      },
-     "momentum": 0.390179
+     "momentum": 0.371964
     },
     {
      "topic": "foundation_models",
@@ -188,7 +188,7 @@
       "zh": "基础模型",
       "en": "Foundation models"
      },
-     "momentum": 0.359554
+     "momentum": 0.301518
     },
     {
      "topic": "chips_compute",
@@ -196,7 +196,7 @@
       "zh": "芯片与算力",
       "en": "Chips & compute"
      },
-     "momentum": 0.150714
+     "momentum": 0.243482
     }
    ],
    "scenarios": [
@@ -254,8 +254,8 @@
    "horizon": "year",
    "direction": "insufficient_data",
    "confidence": "low",
-   "created": "2026-11-04",
-   "target_date": "2027-11-04",
+   "created": "2026-11-05",
+   "target_date": "2027-11-05",
    "drivers": [],
    "scenarios": [
     {
@@ -301,6 +301,26 @@
   }
  ],
  "resolved": [
+  {
+   "id": "trend-month-2026-10-06",
+   "horizon": "month",
+   "created": "2026-10-06",
+   "target_date": "2026-11-05",
+   "direction": "positive",
+   "confidence": "high",
+   "observed": "positive",
+   "correct": true
+  },
+  {
+   "id": "trend-week-2026-10-29",
+   "horizon": "week",
+   "created": "2026-10-29",
+   "target_date": "2026-11-05",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "positive",
+   "correct": false
+  },
   {
    "id": "trend-month-2026-10-05",
    "horizon": "month",
@@ -780,45 +800,25 @@
    "confidence": "high",
    "observed": "negative",
    "correct": true
-  },
-  {
-   "id": "trend-month-2026-09-11",
-   "horizon": "month",
-   "created": "2026-09-11",
-   "target_date": "2026-10-11",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": false
-  },
-  {
-   "id": "trend-week-2026-10-04",
-   "horizon": "week",
-   "created": "2026-10-04",
-   "target_date": "2026-10-11",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": false
   }
  ],
  "record": {
-  "resolved": 137,
-  "correct": 46,
+  "resolved": 139,
+  "correct": 47,
   "rate": 34,
   "open": 4,
   "by_horizon": [
    {
     "horizon": "week",
-    "resolved": 80,
+    "resolved": 81,
     "correct": 29,
     "rate": 36
    },
    {
     "horizon": "month",
-    "resolved": 57,
-    "correct": 17,
-    "rate": 30
+    "resolved": 58,
+    "correct": 18,
+    "rate": 31
    }
   ]
  },
@@ -837,70 +837,13 @@
   },
   {
    "confidence": "high",
-   "n": 105,
-   "correct": 39,
+   "n": 107,
+   "correct": 40,
    "rate": 37
   }
  ],
  "questions": {
   "open": [
-   {
-    "id": "mq-week-2026-10-29-创业板指",
-    "quote": "创业板指",
-    "horizon": "week",
-    "created": "2026-10-29",
-    "deadline": "2026-11-05",
-    "p": 29,
-    "baseline": 18,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "创业板指在 2026-11-05 或之后首个交易日收盘，会高于 2026-10-29 吗？",
-     "en": "Will ChiNext close higher on the first trading day on or after 2026-11-05 than on 2026-10-29?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.75%/日，平均涨跌 -0.88%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.75%/day; average move -0.88%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
-   {
-    "id": "mq-week-2026-10-29-深证成指",
-    "quote": "深证成指",
-    "horizon": "week",
-    "created": "2026-10-29",
-    "deadline": "2026-11-05",
-    "p": 29,
-    "baseline": 18,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "深证成指在 2026-11-05 或之后首个交易日收盘，会高于 2026-10-29 吗？",
-     "en": "Will SZSE Component close higher on the first trading day on or after 2026-11-05 than on 2026-10-29?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.26%/日，平均涨跌 -0.62%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.26%/day; average move -0.62%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
-   {
-    "id": "mq-week-2026-10-29-上证指数",
-    "quote": "上证指数",
-    "horizon": "week",
-    "created": "2026-10-29",
-    "deadline": "2026-11-05",
-    "p": 38,
-    "baseline": 41,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "上证指数在 2026-11-05 或之后首个交易日收盘，会高于 2026-10-29 吗？",
-     "en": "Will SSE Composite close higher on the first trading day on or after 2026-11-05 than on 2026-10-29?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 0.65%/日，平均涨跌 -0.18%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 0.65%/day; average move -0.18%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
    {
     "id": "mq-month-2026-10-08-上证指数",
     "quote": "上证指数",
@@ -918,7 +861,7 @@
      "zh": "近 20 个交易日波动 0.70%/日，平均涨跌 -0.22%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.70%/day; average move -0.22%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-week-2026-10-31-纳斯达克",
@@ -937,7 +880,7 @@
      "zh": "近 20 个交易日波动 1.22%/日，平均涨跌 -0.36%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.22%/day; average move -0.36%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-month-2026-10-08-深证成指",
@@ -956,7 +899,7 @@
      "zh": "近 20 个交易日波动 0.95%/日，平均涨跌 -0.12%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.95%/day; average move -0.12%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-week-2026-10-31-VIX",
@@ -975,7 +918,7 @@
      "zh": "近 20 个交易日波动 7.54%/日，平均涨跌 +2.10%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 7.54%/day; average move +2.10%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-week-2026-10-31-恒生科技",
@@ -994,7 +937,7 @@
      "zh": "近 20 个交易日波动 1.80%/日，平均涨跌 -0.48%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.80%/day; average move -0.48%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-week-2026-10-31-原油",
@@ -1013,7 +956,7 @@
      "zh": "近 20 个交易日波动 1.53%/日，平均涨跌 +0.40%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.53%/day; average move +0.40%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-week-2026-10-31-黄金",
@@ -1032,7 +975,7 @@
      "zh": "近 20 个交易日波动 0.95%/日，平均涨跌 -0.24%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 0.95%/day; average move -0.24%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-week-2026-10-31-恒生指数",
@@ -1051,7 +994,7 @@
      "zh": "近 20 个交易日波动 1.17%/日，平均涨跌 -0.22%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.17%/day; average move -0.22%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-week-2026-10-31-道琼斯",
@@ -1070,7 +1013,7 @@
      "zh": "近 20 个交易日波动 0.62%/日，平均涨跌 +0.10%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 0.62%/day; average move +0.10%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-month-2026-10-08-创业板指",
@@ -1089,7 +1032,7 @@
      "zh": "近 20 个交易日波动 1.31%/日，平均涨跌 -0.08%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.31%/day; average move -0.08%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 3
+    "days_left": 2
    },
    {
     "id": "mq-week-2026-10-31-标普500",
@@ -1108,7 +1051,64 @@
      "zh": "近 20 个交易日波动 0.72%/日，平均涨跌 -0.10%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 0.72%/day; average move -0.10%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 3
+    "days_left": 2
+   },
+   {
+    "id": "mq-week-2026-11-05-创业板指",
+    "quote": "创业板指",
+    "horizon": "week",
+    "created": "2026-11-05",
+    "deadline": "2026-11-12",
+    "p": 28,
+    "baseline": 23,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "创业板指在 2026-11-12 或之后首个交易日收盘，会高于 2026-11-05 吗？",
+     "en": "Will ChiNext close higher on the first trading day on or after 2026-11-12 than on 2026-11-05?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.95%/日，平均涨跌 -1.00%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.95%/day; average move -1.00%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
+   },
+   {
+    "id": "mq-week-2026-11-05-上证指数",
+    "quote": "上证指数",
+    "horizon": "week",
+    "created": "2026-11-05",
+    "deadline": "2026-11-12",
+    "p": 29,
+    "baseline": 27,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "上证指数在 2026-11-12 或之后首个交易日收盘，会高于 2026-11-05 吗？",
+     "en": "Will SSE Composite close higher on the first trading day on or after 2026-11-12 than on 2026-11-05?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 0.73%/日，平均涨跌 -0.36%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 0.73%/day; average move -0.36%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
+   },
+   {
+    "id": "mq-week-2026-11-05-深证成指",
+    "quote": "深证成指",
+    "horizon": "week",
+    "created": "2026-11-05",
+    "deadline": "2026-11-12",
+    "p": 30,
+    "baseline": 27,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "深证成指在 2026-11-12 或之后首个交易日收盘，会高于 2026-11-05 吗？",
+     "en": "Will SZSE Component close higher on the first trading day on or after 2026-11-12 than on 2026-11-05?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.41%/日，平均涨跌 -0.64%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.41%/day; average move -0.64%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
    },
    {
     "id": "mq-month-2026-11-02-黄金",
@@ -1127,7 +1127,7 @@
      "zh": "近 20 个交易日波动 0.89%/日，平均涨跌 -0.28%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.89%/day; average move -0.28%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 28
+    "days_left": 27
    },
    {
     "id": "mq-month-2026-11-02-纳斯达克",
@@ -1146,7 +1146,7 @@
      "zh": "近 20 个交易日波动 1.23%/日，平均涨跌 -0.32%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.23%/day; average move -0.32%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 28
+    "days_left": 27
    },
    {
     "id": "mq-month-2026-11-02-道琼斯",
@@ -1165,7 +1165,7 @@
      "zh": "近 20 个交易日波动 0.61%/日，平均涨跌 +0.16%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.61%/day; average move +0.16%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 28
+    "days_left": 27
    },
    {
     "id": "mq-month-2026-11-02-原油",
@@ -1184,7 +1184,7 @@
      "zh": "近 20 个交易日波动 1.64%/日，平均涨跌 +0.28%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.64%/day; average move +0.28%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 28
+    "days_left": 27
    },
    {
     "id": "mq-month-2026-11-02-恒生指数",
@@ -1203,7 +1203,7 @@
      "zh": "近 20 个交易日波动 1.03%/日，平均涨跌 -0.08%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.03%/day; average move -0.08%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 28
+    "days_left": 27
    },
    {
     "id": "mq-month-2026-11-02-标普500",
@@ -1222,7 +1222,7 @@
      "zh": "近 20 个交易日波动 0.73%/日，平均涨跌 -0.06%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.73%/day; average move -0.06%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 28
+    "days_left": 27
    },
    {
     "id": "mq-month-2026-11-03-VIX",
@@ -1241,7 +1241,7 @@
      "zh": "近 20 个交易日波动 7.68%/日，平均涨跌 +2.48%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 7.68%/day; average move +2.48%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 29
+    "days_left": 28
    },
    {
     "id": "mq-month-2026-11-03-恒生科技",
@@ -1260,10 +1260,82 @@
      "zh": "近 20 个交易日波动 1.83%/日，平均涨跌 -0.40%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.83%/day; average move -0.40%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 29
+    "days_left": 28
    }
   ],
   "resolved": [
+   {
+    "id": "mq-week-2026-10-29-深证成指",
+    "quote": "深证成指",
+    "horizon": "week",
+    "created": "2026-10-29",
+    "deadline": "2026-11-05",
+    "p": 29,
+    "baseline": 18,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "深证成指在 2026-11-05 或之后首个交易日收盘，会高于 2026-10-29 吗？",
+     "en": "Will SZSE Component close higher on the first trading day on or after 2026-11-05 than on 2026-10-29?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.26%/日，平均涨跌 -0.62%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.26%/day; average move -0.62%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-05",
+    "change_pct": -3.39,
+    "outcome": 0,
+    "brier": 0.0841,
+    "baseline_brier": 0.0324
+   },
+   {
+    "id": "mq-week-2026-10-29-创业板指",
+    "quote": "创业板指",
+    "horizon": "week",
+    "created": "2026-10-29",
+    "deadline": "2026-11-05",
+    "p": 29,
+    "baseline": 18,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "创业板指在 2026-11-05 或之后首个交易日收盘，会高于 2026-10-29 吗？",
+     "en": "Will ChiNext close higher on the first trading day on or after 2026-11-05 than on 2026-10-29?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.75%/日，平均涨跌 -0.88%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.75%/day; average move -0.88%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-05",
+    "change_pct": -6.32,
+    "outcome": 0,
+    "brier": 0.0841,
+    "baseline_brier": 0.0324
+   },
+   {
+    "id": "mq-week-2026-10-29-上证指数",
+    "quote": "上证指数",
+    "horizon": "week",
+    "created": "2026-10-29",
+    "deadline": "2026-11-05",
+    "p": 38,
+    "baseline": 41,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "上证指数在 2026-11-05 或之后首个交易日收盘，会高于 2026-10-29 吗？",
+     "en": "Will SSE Composite close higher on the first trading day on or after 2026-11-05 than on 2026-10-29?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 0.65%/日，平均涨跌 -0.18%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 0.65%/day; average move -0.18%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-05",
+    "change_pct": -3.57,
+    "outcome": 0,
+    "brier": 0.1444,
+    "baseline_brier": 0.1681
+   },
    {
     "id": "mq-month-2026-10-03-恒生科技",
     "quote": "恒生科技",
@@ -2391,62 +2463,14 @@
     "outcome": 1,
     "brier": 0.4624,
     "baseline_brier": 0.4096
-   },
-   {
-    "id": "mq-week-2026-10-03-原油",
-    "quote": "原油",
-    "horizon": "week",
-    "created": "2026-10-03",
-    "deadline": "2026-10-10",
-    "p": 33,
-    "baseline": 27,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "原油在 2026-10-10 或之后首个交易日收盘，会高于 2026-10-03 吗？",
-     "en": "Will Crude oil close higher on the first trading day on or after 2026-10-10 than on 2026-10-03?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.21%/日，平均涨跌 -0.48%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.21%/day; average move -0.48%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-10",
-    "change_pct": 1.68,
-    "outcome": 1,
-    "brier": 0.4489,
-    "baseline_brier": 0.5329
-   },
-   {
-    "id": "mq-week-2026-10-03-VIX",
-    "quote": "VIX",
-    "horizon": "week",
-    "created": "2026-10-03",
-    "deadline": "2026-10-10",
-    "p": 50,
-    "baseline": 59,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "VIX在 2026-10-10 或之后首个交易日收盘，会高于 2026-10-03 吗？",
-     "en": "Will VIX close higher on the first trading day on or after 2026-10-10 than on 2026-10-03?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 7.33%/日，平均涨跌 +0.02%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 7.33%/day; average move +0.02%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-10",
-    "change_pct": -3.07,
-    "outcome": 0,
-    "brier": 0.25,
-    "baseline_brier": 0.3481
    }
   ],
   "record": {
-   "resolved": 49,
+   "resolved": 52,
    "open": 22,
    "void": 0,
-   "brier": 0.273,
-   "baseline_brier": 0.262
+   "brier": 0.263,
+   "baseline_brier": 0.251
   },
   "calibration": [
    {
@@ -2457,9 +2481,9 @@
    },
    {
     "label": "20–40",
-    "n": 13,
+    "n": 16,
     "predicted": 32,
-    "observed": 46
+    "observed": 38
    },
    {
     "label": "40–60",
