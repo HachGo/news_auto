@@ -1,31 +1,68 @@
 {
   "evaluations": [
     {
-      "confidence": "high",
-      "created_at": "2026-10-09T01:40:31.110341+00:00",
-      "data_snapshot": "2026-10-09",
-      "direction": "negative",
-      "drivers": [
+      "confidence": "low",
+      "created_at": "2026-08-09T23:35:36.500212+00:00",
+      "data_snapshot": "2026-08-10",
+      "direction": "insufficient_data",
+      "drivers": [],
+      "forecast_id": "trend-quarter-2026-08-10",
+      "horizon": "quarter",
+      "invalidation_conditions": [],
+      "model_version": "rules-v1",
+      "realized_result": {
+        "direction": "positive",
+        "evaluated_at": "2026-11-09",
+        "value": 0.019383
+      },
+      "reason": "数据不足",
+      "scenarios": [
         {
-          "momentum": -0.145863,
-          "name": "融资与并购",
-          "name_en": "Funding & M&A",
-          "topic": "funding_ma"
+          "description": "多空信号接近，趋势暂未确认。",
+          "direction": "neutral",
+          "name": "基准"
         },
         {
-          "momentum": -0.138125,
+          "description": "主题动量重新加速。",
+          "direction": "positive",
+          "name": "上行"
+        },
+        {
+          "description": "风险事件增加且市场广度收缩。",
+          "direction": "negative",
+          "name": "下行"
+        }
+      ],
+      "status": "incorrect",
+      "target": "combined_trend",
+      "target_date": "2026-11-09"
+    },
+    {
+      "confidence": "high",
+      "created_at": "2026-10-10T01:31:25.537111+00:00",
+      "data_snapshot": "2026-10-10",
+      "direction": "positive",
+      "drivers": [
+        {
+          "momentum": -0.247024,
+          "name": "基础模型",
+          "name_en": "Foundation models",
+          "topic": "foundation_models"
+        },
+        {
+          "momentum": -0.192411,
           "name": "AI 应用与商业化",
           "name_en": "AI apps & business",
           "topic": "applications"
         },
         {
-          "momentum": 0.119762,
-          "name": "开源生态",
-          "name_en": "Open source",
-          "topic": "open_source"
+          "momentum": 0.17119,
+          "name": "政策、安全与监管",
+          "name_en": "Policy, safety & regulation",
+          "topic": "policy_safety"
         }
       ],
-      "forecast_id": "trend-month-2026-10-09",
+      "forecast_id": "trend-month-2026-10-10",
       "horizon": "month",
       "invalidation_conditions": [
         "数据覆盖率低于最低阈值",
@@ -33,29 +70,29 @@
       ],
       "model_version": "rules-v1",
       "realized_result": {
-        "direction": "negative",
-        "evaluated_at": "2026-11-08",
-        "value": -0.398678
+        "direction": "positive",
+        "evaluated_at": "2026-11-09",
+        "value": 0.019383
       },
       "reason": "规则模型",
       "scenarios": [
         {
-          "description": "风险信号延续，市场偏向防御。",
-          "description_en": "Risk signals persist and markets stay defensive.",
-          "direction": "negative",
+          "description": "主题动量与市场信号维持当前方向。",
+          "description_en": "Topic momentum and market signals hold their current direction.",
+          "direction": "positive",
           "name": "基准",
           "name_en": "Base case"
         },
         {
-          "description": "流动性改善并出现新的产业催化。",
-          "description_en": "Liquidity improves and a new industry catalyst appears.",
+          "description": "多源事件持续确认，风险偏好继续改善。",
+          "description_en": "More sources confirm the events and risk appetite keeps improving.",
           "direction": "positive",
           "name": "上行",
           "name_en": "Upside"
         },
         {
-          "description": "波动率和负面事件同时上升。",
-          "description_en": "Volatility and negative events rise together.",
+          "description": "热点退潮或宏观风险重新抬升。",
+          "description_en": "Hot topics fade or macro risk rises again.",
           "direction": "negative",
           "name": "下行",
           "name_en": "Downside"
@@ -63,13 +100,13 @@
       ],
       "status": "correct",
       "target": "combined_trend",
-      "target_date": "2026-11-08"
+      "target_date": "2026-11-09"
     },
     {
       "confidence": "high",
-      "created_at": "2026-11-01T00:39:19.900976+00:00",
-      "data_snapshot": "2026-11-01",
-      "direction": "negative",
+      "created_at": "2026-11-02T01:15:11.202737+00:00",
+      "data_snapshot": "2026-11-02",
+      "direction": "positive",
       "drivers": [
         {
           "momentum": 0.0,
@@ -90,7 +127,7 @@
           "topic": "applications"
         }
       ],
-      "forecast_id": "trend-week-2026-11-01",
+      "forecast_id": "trend-week-2026-11-02",
       "horizon": "week",
       "invalidation_conditions": [
         "数据覆盖率低于最低阈值",
@@ -98,29 +135,29 @@
       ],
       "model_version": "rules-v1",
       "realized_result": {
-        "direction": "negative",
-        "evaluated_at": "2026-11-08",
-        "value": -0.398678
+        "direction": "positive",
+        "evaluated_at": "2026-11-09",
+        "value": 0.019383
       },
       "reason": "规则模型",
       "scenarios": [
         {
-          "description": "风险信号延续，市场偏向防御。",
-          "description_en": "Risk signals persist and markets stay defensive.",
-          "direction": "negative",
+          "description": "主题动量与市场信号维持当前方向。",
+          "description_en": "Topic momentum and market signals hold their current direction.",
+          "direction": "positive",
           "name": "基准",
           "name_en": "Base case"
         },
         {
-          "description": "流动性改善并出现新的产业催化。",
-          "description_en": "Liquidity improves and a new industry catalyst appears.",
+          "description": "多源事件持续确认，风险偏好继续改善。",
+          "description_en": "More sources confirm the events and risk appetite keeps improving.",
           "direction": "positive",
           "name": "上行",
           "name_en": "Upside"
         },
         {
-          "description": "波动率和负面事件同时上升。",
-          "description_en": "Volatility and negative events rise together.",
+          "description": "热点退潮或宏观风险重新抬升。",
+          "description_en": "Hot topics fade or macro risk rises again.",
           "direction": "negative",
           "name": "下行",
           "name_en": "Downside"
@@ -128,15 +165,15 @@
       ],
       "status": "correct",
       "target": "combined_trend",
-      "target_date": "2026-11-08"
+      "target_date": "2026-11-09"
     }
   ],
   "forecasts": [
     {
       "confidence": "high",
-      "created_at": "2026-11-08T01:04:55.403969+00:00",
-      "data_snapshot": "2026-11-08",
-      "direction": "negative",
+      "created_at": "2026-11-09T01:25:30.421296+00:00",
+      "data_snapshot": "2026-11-09",
+      "direction": "positive",
       "drivers": [
         {
           "momentum": 0.0,
@@ -157,7 +194,7 @@
           "topic": "applications"
         }
       ],
-      "forecast_id": "trend-week-2026-11-08",
+      "forecast_id": "trend-week-2026-11-09",
       "horizon": "week",
       "invalidation_conditions": [
         "数据覆盖率低于最低阈值",
@@ -168,22 +205,22 @@
       "reason": "规则模型",
       "scenarios": [
         {
-          "description": "风险信号延续，市场偏向防御。",
-          "description_en": "Risk signals persist and markets stay defensive.",
-          "direction": "negative",
+          "description": "主题动量与市场信号维持当前方向。",
+          "description_en": "Topic momentum and market signals hold their current direction.",
+          "direction": "positive",
           "name": "基准",
           "name_en": "Base case"
         },
         {
-          "description": "流动性改善并出现新的产业催化。",
-          "description_en": "Liquidity improves and a new industry catalyst appears.",
+          "description": "多源事件持续确认，风险偏好继续改善。",
+          "description_en": "More sources confirm the events and risk appetite keeps improving.",
           "direction": "positive",
           "name": "上行",
           "name_en": "Upside"
         },
         {
-          "description": "波动率和负面事件同时上升。",
-          "description_en": "Volatility and negative events rise together.",
+          "description": "热点退潮或宏观风险重新抬升。",
+          "description_en": "Hot topics fade or macro risk rises again.",
           "direction": "negative",
           "name": "下行",
           "name_en": "Downside"
@@ -191,34 +228,34 @@
       ],
       "status": "open",
       "target": "combined_trend",
-      "target_date": "2026-11-15"
+      "target_date": "2026-11-16"
     },
     {
       "confidence": "high",
-      "created_at": "2026-11-08T01:04:55.404011+00:00",
-      "data_snapshot": "2026-11-08",
-      "direction": "negative",
+      "created_at": "2026-11-09T01:25:30.421327+00:00",
+      "data_snapshot": "2026-11-09",
+      "direction": "positive",
       "drivers": [
         {
-          "momentum": 0.420625,
+          "momentum": 0.327768,
           "name": "融资与并购",
           "name_en": "Funding & M&A",
           "topic": "funding_ma"
         },
         {
-          "momentum": 0.162232,
+          "momentum": 0.145803,
           "name": "芯片与算力",
           "name_en": "Chips & compute",
           "topic": "chips_compute"
         },
         {
-          "momentum": 0.120863,
-          "name": "基础模型",
-          "name_en": "Foundation models",
-          "topic": "foundation_models"
+          "momentum": 0.06872,
+          "name": "AI 应用与商业化",
+          "name_en": "AI apps & business",
+          "topic": "applications"
         }
       ],
-      "forecast_id": "trend-month-2026-11-08",
+      "forecast_id": "trend-month-2026-11-09",
       "horizon": "month",
       "invalidation_conditions": [
         "数据覆盖率低于最低阈值",
@@ -229,22 +266,22 @@
       "reason": "规则模型",
       "scenarios": [
         {
-          "description": "风险信号延续，市场偏向防御。",
-          "description_en": "Risk signals persist and markets stay defensive.",
-          "direction": "negative",
+          "description": "主题动量与市场信号维持当前方向。",
+          "description_en": "Topic momentum and market signals hold their current direction.",
+          "direction": "positive",
           "name": "基准",
           "name_en": "Base case"
         },
         {
-          "description": "流动性改善并出现新的产业催化。",
-          "description_en": "Liquidity improves and a new industry catalyst appears.",
+          "description": "多源事件持续确认，风险偏好继续改善。",
+          "description_en": "More sources confirm the events and risk appetite keeps improving.",
           "direction": "positive",
           "name": "上行",
           "name_en": "Upside"
         },
         {
-          "description": "波动率和负面事件同时上升。",
-          "description_en": "Volatility and negative events rise together.",
+          "description": "热点退潮或宏观风险重新抬升。",
+          "description_en": "Hot topics fade or macro risk rises again.",
           "direction": "negative",
           "name": "下行",
           "name_en": "Downside"
@@ -252,34 +289,34 @@
       ],
       "status": "open",
       "target": "combined_trend",
-      "target_date": "2026-12-08"
+      "target_date": "2026-12-09"
     },
     {
       "confidence": "high",
-      "created_at": "2026-11-08T01:04:55.404032+00:00",
-      "data_snapshot": "2026-11-08",
-      "direction": "negative",
+      "created_at": "2026-11-09T01:25:30.421339+00:00",
+      "data_snapshot": "2026-11-09",
+      "direction": "positive",
       "drivers": [
         {
-          "momentum": 0.420625,
+          "momentum": 0.327768,
           "name": "融资与并购",
           "name_en": "Funding & M&A",
           "topic": "funding_ma"
         },
         {
-          "momentum": 0.162232,
+          "momentum": 0.145803,
           "name": "芯片与算力",
           "name_en": "Chips & compute",
           "topic": "chips_compute"
         },
         {
-          "momentum": 0.120863,
-          "name": "基础模型",
-          "name_en": "Foundation models",
-          "topic": "foundation_models"
+          "momentum": 0.06872,
+          "name": "AI 应用与商业化",
+          "name_en": "AI apps & business",
+          "topic": "applications"
         }
       ],
-      "forecast_id": "trend-quarter-2026-11-08",
+      "forecast_id": "trend-quarter-2026-11-09",
       "horizon": "quarter",
       "invalidation_conditions": [
         "数据覆盖率低于最低阈值",
@@ -290,22 +327,22 @@
       "reason": "规则模型",
       "scenarios": [
         {
-          "description": "风险信号延续，市场偏向防御。",
-          "description_en": "Risk signals persist and markets stay defensive.",
-          "direction": "negative",
+          "description": "主题动量与市场信号维持当前方向。",
+          "description_en": "Topic momentum and market signals hold their current direction.",
+          "direction": "positive",
           "name": "基准",
           "name_en": "Base case"
         },
         {
-          "description": "流动性改善并出现新的产业催化。",
-          "description_en": "Liquidity improves and a new industry catalyst appears.",
+          "description": "多源事件持续确认，风险偏好继续改善。",
+          "description_en": "More sources confirm the events and risk appetite keeps improving.",
           "direction": "positive",
           "name": "上行",
           "name_en": "Upside"
         },
         {
-          "description": "波动率和负面事件同时上升。",
-          "description_en": "Volatility and negative events rise together.",
+          "description": "热点退潮或宏观风险重新抬升。",
+          "description_en": "Hot topics fade or macro risk rises again.",
           "direction": "negative",
           "name": "下行",
           "name_en": "Downside"
@@ -313,15 +350,15 @@
       ],
       "status": "open",
       "target": "combined_trend",
-      "target_date": "2027-02-07"
+      "target_date": "2027-02-08"
     },
     {
       "confidence": "low",
-      "created_at": "2026-11-08T01:04:55.404048+00:00",
-      "data_snapshot": "2026-11-08",
+      "created_at": "2026-11-09T01:25:30.421347+00:00",
+      "data_snapshot": "2026-11-09",
       "direction": "insufficient_data",
       "drivers": [],
-      "forecast_id": "trend-year-2026-11-08",
+      "forecast_id": "trend-year-2026-11-09",
       "horizon": "year",
       "invalidation_conditions": [],
       "model_version": "rules-v1",
@@ -352,7 +389,7 @@
       ],
       "status": "open",
       "target": "combined_trend",
-      "target_date": "2027-11-08"
+      "target_date": "2027-11-09"
     }
   ],
   "periods": {
@@ -362,7 +399,7 @@
         "status": "ok",
         "warnings": []
       },
-      "end_date": "2026-11-08",
+      "end_date": "2026-11-09",
       "evidence": [
         {
           "date": "2026-11-03",
@@ -382,6 +419,16 @@
           "title_en": "GPT-6.1 Terra",
           "topics": [
             "foundation_models"
+          ]
+        },
+        {
+          "date": "2026-11-09",
+          "importance": 9.0,
+          "link": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy",
+          "title": "英伟达就黄仁勋与涉华间谍高管关系展开调查",
+          "title_en": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
+          "topics": [
+            "policy_safety"
           ]
         },
         {
@@ -476,16 +523,6 @@
           ]
         },
         {
-          "date": "2026-10-10",
-          "importance": 9.0,
-          "link": "https://www.theverge.com/ai-artificial-intelligence/1008726/openai-mathematics-solutions-chaos",
-          "title": "“纯粹疯狂”：数学家称需数年才能消化 OpenAI 最新发布",
-          "title_en": "'Pure insanity': Mathematicians will need years to make sense of OpenAI's latest drop",
-          "topics": [
-            "unclassified"
-          ]
-        },
-        {
           "date": "2026-10-19",
           "importance": 8.2,
           "link": "https://techcrunch.com/2026/10/18/disney-agrees-to-hire-the-majority-of-character-ais-workforce",
@@ -493,6 +530,16 @@
           "title_en": "Disney agrees to hire the majority of Character.AI’s workforce",
           "topics": [
             "unclassified"
+          ]
+        },
+        {
+          "date": "2026-11-09",
+          "importance": 8.0,
+          "link": "https://www.reddit.com/r/singularity/comments/1xr6w6w/apple_researchers_use_a_mac_mini_running_qwen",
+          "title": "苹果研究团队用Mac mini本地运行Qwen控制宇树G1人形机器人",
+          "title_en": "Apple researchers use a Mac mini running Qwen locally to control a Unitree G1 humanoid robot. Trained on 1,000 simulated homes, it autonomously sits, crawls under tables and navigates unfamiliar rooms, achieving 91% success across 360 real-world trials.",
+          "topics": [
+            "foundation_models"
           ]
         },
         {
@@ -556,22 +603,12 @@
           "topics": [
             "unclassified"
           ]
-        },
-        {
-          "date": "2026-10-31",
-          "importance": 8.0,
-          "link": "https://techcrunch.com/2026/10/30/anthropic-expected-to-receive-high-junk-rating-from-credit-agencies-following-ipo-report-says",
-          "title": "FT报道：Anthropic预计将在IPO后获评级机构高“垃圾”级评级",
-          "title_en": "Anthropic expected to receive high ‘junk’ rating from credit agencies following IPO, FT report says",
-          "topics": [
-            "funding_ma"
-          ]
         }
       ],
       "market": {
-        "average_breadth": 0.448485,
-        "latest_momentum": -0.398678,
-        "momentum": -0.050745,
+        "average_breadth": 0.433333,
+        "latest_momentum": 0.019383,
+        "momentum": -0.057982,
         "news_risk": 0
       },
       "market_sessions": 30,
@@ -580,12 +617,6 @@
       "sample_days": 30,
       "schema_version": 1,
       "series": [
-        {
-          "coverage": 1.0,
-          "date": "2026-10-10",
-          "market": 0.236519,
-          "technology": 5.774999
-        },
         {
           "coverage": 1.0,
           "date": "2026-10-11",
@@ -759,68 +790,74 @@
           "date": "2026-11-08",
           "market": -0.398678,
           "technology": 5.36
+        },
+        {
+          "coverage": 1.0,
+          "date": "2026-11-09",
+          "market": 0.019383,
+          "technology": 5.415
         }
       ],
-      "start_date": "2026-10-10",
+      "start_date": "2026-10-11",
       "topics": {
         "applications": {
-          "activity": 10.714166,
-          "average_daily_activity": 0.357139,
-          "event_count": 36,
-          "momentum": 0.036399,
+          "activity": 11.309166,
+          "average_daily_activity": 0.376972,
+          "event_count": 37,
+          "momentum": 0.06872,
           "name": "AI 应用与商业化",
           "name_en": "AI apps & business",
           "peak_daily_activity": 1.43,
           "source_count_peak": 4
         },
         "chips_compute": {
-          "activity": 23.186666,
-          "average_daily_activity": 0.772889,
-          "event_count": 63,
-          "momentum": 0.162232,
+          "activity": 23.294166,
+          "average_daily_activity": 0.776472,
+          "event_count": 64,
+          "momentum": 0.145803,
           "name": "芯片与算力",
           "name_en": "Chips & compute",
           "peak_daily_activity": 1.785,
           "source_count_peak": 4
         },
         "foundation_models": {
-          "activity": 37.839166,
-          "average_daily_activity": 1.261306,
-          "event_count": 108,
-          "momentum": 0.120863,
+          "activity": 39.498333,
+          "average_daily_activity": 1.316611,
+          "event_count": 112,
+          "momentum": 0.009881,
           "name": "基础模型",
           "name_en": "Foundation models",
           "peak_daily_activity": 2.485,
           "source_count_peak": 5
         },
         "funding_ma": {
-          "activity": 21.051666,
-          "average_daily_activity": 0.701722,
-          "event_count": 53,
-          "momentum": 0.420625,
+          "activity": 20.269166,
+          "average_daily_activity": 0.675639,
+          "event_count": 50,
+          "momentum": 0.327768,
           "name": "融资与并购",
           "name_en": "Funding & M&A",
           "peak_daily_activity": 1.9275,
           "source_count_peak": 5
         },
         "open_source": {
-          "activity": 9.782333,
-          "average_daily_activity": 0.326078,
-          "event_count": 34,
-          "momentum": -0.012821,
+          "activity": 9.4065,
+          "average_daily_activity": 0.31355,
+          "event_count": 32,
+          "momentum": -0.033446,
           "name": "开源生态",
           "name_en": "Open source",
           "peak_daily_activity": 1.045,
           "source_count_peak": 2
         },
         "policy_safety": {
-          "activity": 45.548499,
-          "average_daily_activity": 1.518283,
-          "event_count": 124,
-          "momentum": 0.058506,
+          "activity": 43.985166,
+          "average_daily_activity": 1.466172,
+          "event_count": 119,
+          "momentum": 0.056363,
           "name": "政策、安全与监管",
           "name_en": "Policy, safety & regulation",
-          "peak_daily_activity": 2.658333,
+          "peak_daily_activity": 2.5325,
           "source_count_peak": 6
         }
       }
@@ -831,7 +868,7 @@
         "status": "ok",
         "warnings": []
       },
-      "end_date": "2026-11-08",
+      "end_date": "2026-11-09",
       "evidence": [
         {
           "date": "2026-11-03",
@@ -920,6 +957,16 @@
           "link": "https://techcrunch.com/2026/09/03/openai-launches-astra-its-powerful-and-controversial-new-model",
           "title": "OpenAI发布Astra：强大且备受争议的新模型",
           "title_en": "OpenAI发布Astra：强大且备受争议的新模型",
+          "topics": [
+            "policy_safety"
+          ]
+        },
+        {
+          "date": "2026-11-09",
+          "importance": 9.0,
+          "link": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy",
+          "title": "英伟达就黄仁勋与涉华间谍高管关系展开调查",
+          "title_en": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
           "topics": [
             "policy_safety"
           ]
@@ -1024,22 +1071,12 @@
           "topics": [
             "unclassified"
           ]
-        },
-        {
-          "date": "2026-10-08",
-          "importance": 9.0,
-          "link": "https://www.anthropic.com/claude-haiku-5-5",
-          "title": "Claude Haiku 5.5",
-          "title_en": "Claude Haiku 5.5",
-          "topics": [
-            "foundation_models"
-          ]
         }
       ],
       "market": {
-        "average_breadth": 0.445554,
-        "latest_momentum": -0.398678,
-        "momentum": -0.03926,
+        "average_breadth": 0.441558,
+        "latest_momentum": 0.019383,
+        "momentum": -0.042008,
         "news_risk": 0
       },
       "market_sessions": 91,
@@ -1048,12 +1085,6 @@
       "sample_days": 91,
       "schema_version": 1,
       "series": [
-        {
-          "coverage": 1.0,
-          "date": "2026-08-10",
-          "market": 0.26947,
-          "technology": 4.625
-        },
         {
           "coverage": 1.0,
           "date": "2026-08-11",
@@ -1593,65 +1624,71 @@
           "date": "2026-11-08",
           "market": -0.398678,
           "technology": 5.36
+        },
+        {
+          "coverage": 1.0,
+          "date": "2026-11-09",
+          "market": 0.019383,
+          "technology": 5.415
         }
       ],
-      "start_date": "2026-08-10",
+      "start_date": "2026-08-11",
       "topics": {
         "applications": {
-          "activity": 34.714999,
-          "average_daily_activity": 0.381484,
-          "event_count": 105,
-          "momentum": 0.036399,
+          "activity": 35.309999,
+          "average_daily_activity": 0.388022,
+          "event_count": 106,
+          "momentum": 0.06872,
           "name": "AI 应用与商业化",
           "name_en": "AI apps & business",
           "peak_daily_activity": 1.6225,
           "source_count_peak": 4
         },
         "chips_compute": {
-          "activity": 62.76,
-          "average_daily_activity": 0.68967,
+          "activity": 62.3575,
+          "average_daily_activity": 0.685247,
           "event_count": 167,
-          "momentum": 0.162232,
+          "momentum": 0.145803,
           "name": "芯片与算力",
           "name_en": "Chips & compute",
           "peak_daily_activity": 2.2525,
           "source_count_peak": 5
         },
         "foundation_models": {
-          "activity": 127.025,
-          "average_daily_activity": 1.395879,
-          "event_count": 329,
-          "momentum": 0.120863,
+          "activity": 127.38,
+          "average_daily_activity": 1.39978,
+          "event_count": 331,
+          "momentum": 0.009881,
           "name": "基础模型",
           "name_en": "Foundation models",
           "peak_daily_activity": 4.295,
           "source_count_peak": 6
         },
         "funding_ma": {
-          "activity": 54.021666,
-          "average_daily_activity": 0.593645,
+          "activity": 54.316666,
+          "average_daily_activity": 0.596886,
           "event_count": 134,
-          "momentum": 0.420625,
+          "momentum": 0.327768,
           "name": "融资与并购",
           "name_en": "Funding & M&A",
           "peak_daily_activity": 1.955,
           "source_count_peak": 5
         },
         "open_source": {
-          "activity": 32.513167,
-          "average_daily_activity": 0.357288,
-          "event_count": 102,
-          "momentum": -0.012821,
+          "activity": 32.705667,
+          "average_daily_activity": 0.359403,
+          "event_count": 103,
+          "momentum": -0.033446,
           "name": "开源生态",
           "name_en": "Open source",
           "peak_daily_activity": 1.725,
           "source_count_peak": 4
         },
         "policy_safety": {
-          "activity": 113.952666,
-          "average_daily_activity": 1.252227,
-          "event_count": 305,
-          "momentum": 0.058506,
+          "activity": 113.707666,
+          "average_daily_activity": 1.249535,
+          "event_count": 303,
+          "momentum": 0.056363,
           "name": "政策、安全与监管",
           "name_en": "Policy, safety & regulation",
           "peak_daily_activity": 2.8525,
@@ -1665,7 +1702,7 @@
         "status": "ok",
         "warnings": []
       },
-      "end_date": "2026-11-08",
+      "end_date": "2026-11-09",
       "evidence": [
         {
           "date": "2026-11-03",
@@ -1675,6 +1712,16 @@
           "title_en": "MIT researchers say GPT-6 Astra improved a small Qwen model’s math score from 7.9% to 48.1% by directly editing just 0.016% of its weights, without gradient-based training.",
           "topics": [
             "foundation_models"
+          ]
+        },
+        {
+          "date": "2026-11-09",
+          "importance": 9.0,
+          "link": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy",
+          "title": "英伟达就黄仁勋与涉华间谍高管关系展开调查",
+          "title_en": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
+          "topics": [
+            "policy_safety"
           ]
         },
         {
@@ -1695,6 +1742,16 @@
           "title_en": "Anthropic warns that it’s very close to RSI capability, aka self-building AI",
           "topics": [
             "unclassified"
+          ]
+        },
+        {
+          "date": "2026-11-09",
+          "importance": 8.0,
+          "link": "https://www.reddit.com/r/singularity/comments/1xr6w6w/apple_researchers_use_a_mac_mini_running_qwen",
+          "title": "苹果研究团队用Mac mini本地运行Qwen控制宇树G1人形机器人",
+          "title_en": "Apple researchers use a Mac mini running Qwen locally to control a Unitree G1 humanoid robot. Trained on 1,000 simulated homes, it autonomously sits, crawls under tables and navigates unfamiliar rooms, achieving 91% success across 360 real-world trials.",
+          "topics": [
+            "foundation_models"
           ]
         },
         {
@@ -1728,13 +1785,14 @@
           ]
         },
         {
-          "date": "2026-11-02",
-          "importance": 8.0,
-          "link": "https://www.reddit.com/r/singularity/comments/1xl6vk8/anthropics_growing_restrictions_are_creating_a",
-          "title": "Anthropic 限制增多，AI 能力竞赛出现新分化",
-          "title_en": "Anthropic's growing restrictions are creating a new divide in the AI capabilities race: Gemini 4 Argon recreates Pixar's iconic intro, while Claude Opus 5.5 refuses over copyright and builds a toaster instead—highlighting the gap between what frontier AI can do and what companies allow it to do.",
+          "date": "2026-11-09",
+          "importance": 7.0,
+          "link": "https://www.reddit.com/r/singularity/comments/1xrbn3n/startup_mirendil_trains_a_kimi_k3_level_model",
+          "title": "初创公司Mirendil仅靠一名开发者和1000万美元算力训练出Kimi K3级模型",
+          "title_en": "Startup Mirendil trains a Kimi K3 level model with only one developer and only $10 million in compute.",
           "topics": [
-            "foundation_models"
+            "foundation_models",
+            "chips_compute"
           ]
         },
         {
@@ -1848,32 +1906,12 @@
           "topics": [
             "unclassified"
           ]
-        },
-        {
-          "date": "2026-11-04",
-          "importance": 7.0,
-          "link": "https://www.theverge.com/tech/1025694/apple-siri-ai-third-party-apps",
-          "title": "苹果开始让 Siri AI 接入第三方应用",
-          "title_en": "Apple starts giving Siri AI access to third-party apps",
-          "topics": [
-            "unclassified"
-          ]
-        },
-        {
-          "date": "2026-11-03",
-          "importance": 7.0,
-          "link": "https://electrek.co/2026/11/02/byd-sold-more-evs-last-month-than-the-us-did-all-quarter",
-          "title": "比亚迪上月电动汽车销量超过美国全季度总量",
-          "title_en": "BYD sold more EVs last month than the US did all quarter",
-          "topics": [
-            "unclassified"
-          ]
         }
       ],
       "market": {
         "average_breadth": 0.428571,
-        "latest_momentum": -0.398678,
-        "momentum": -0.077244,
+        "latest_momentum": 0.019383,
+        "momentum": -0.077948,
         "news_risk": 0
       },
       "market_sessions": 7,
@@ -1882,12 +1920,6 @@
       "sample_days": 7,
       "schema_version": 1,
       "series": [
-        {
-          "coverage": 1.0,
-          "date": "2026-11-02",
-          "market": 0.024308,
-          "technology": 6.225
-        },
         {
           "coverage": 1.0,
           "date": "2026-11-03",
@@ -1923,13 +1955,19 @@
           "date": "2026-11-08",
           "market": -0.398678,
           "technology": 5.36
+        },
+        {
+          "coverage": 1.0,
+          "date": "2026-11-09",
+          "market": 0.019383,
+          "technology": 5.415
         }
       ],
-      "start_date": "2026-11-02",
+      "start_date": "2026-11-03",
       "topics": {
         "applications": {
-          "activity": 2.805833,
-          "average_daily_activity": 0.400833,
+          "activity": 3.180833,
+          "average_daily_activity": 0.454405,
           "event_count": 9,
           "momentum": 0.0,
           "name": "AI 应用与商业化",
@@ -1938,9 +1976,9 @@
           "source_count_peak": 4
         },
         "chips_compute": {
-          "activity": 6.426666,
-          "average_daily_activity": 0.918095,
-          "event_count": 17,
+          "activity": 6.514166,
+          "average_daily_activity": 0.930595,
+          "event_count": 18,
           "momentum": 0.0,
           "name": "芯片与算力",
           "name_en": "Chips & compute",
@@ -1948,19 +1986,19 @@
           "source_count_peak": 3
         },
         "foundation_models": {
-          "activity": 10.1775,
-          "average_daily_activity": 1.453929,
+          "activity": 9.875,
+          "average_daily_activity": 1.410714,
           "event_count": 28,
           "momentum": 0.0,
           "name": "基础模型",
           "name_en": "Foundation models",
-          "peak_daily_activity": 2.475,
+          "peak_daily_activity": 2.4025,
           "source_count_peak": 4
         },
         "funding_ma": {
-          "activity": 7.654166,
-          "average_daily_activity": 1.093452,
-          "event_count": 19,
+          "activity": 7.141666,
+          "average_daily_activity": 1.020238,
+          "event_count": 17,
           "momentum": 0.0,
           "name": "融资与并购",
           "name_en": "Funding & M&A",
@@ -1968,9 +2006,9 @@
           "source_count_peak": 3
         },
         "open_source": {
-          "activity": 2.1175,
-          "average_daily_activity": 0.3025,
-          "event_count": 9,
+          "activity": 1.76,
+          "average_daily_activity": 0.251429,
+          "event_count": 8,
           "momentum": 0.0,
           "name": "开源生态",
           "name_en": "Open source",
@@ -1978,9 +2016,9 @@
           "source_count_peak": 2
         },
         "policy_safety": {
-          "activity": 10.698333,
-          "average_daily_activity": 1.528333,
-          "event_count": 28,
+          "activity": 10.598333,
+          "average_daily_activity": 1.514048,
+          "event_count": 27,
           "momentum": 0.0,
           "name": "政策、安全与监管",
           "name_en": "Policy, safety & regulation",
@@ -1991,14 +2029,14 @@
     },
     "year": {
       "data_quality": {
-        "ratio": 0.2493,
+        "ratio": 0.2521,
         "status": "partial",
         "warnings": [
-          "news coverage 91/274",
-          "market sessions 91/180"
+          "news coverage 92/274",
+          "market sessions 92/180"
         ]
       },
-      "end_date": "2026-11-08",
+      "end_date": "2026-11-09",
       "evidence": [
         {
           "date": "2026-11-03",
@@ -2087,6 +2125,16 @@
           "link": "https://techcrunch.com/2026/09/03/openai-launches-astra-its-powerful-and-controversial-new-model",
           "title": "OpenAI发布Astra：强大且备受争议的新模型",
           "title_en": "OpenAI发布Astra：强大且备受争议的新模型",
+          "topics": [
+            "policy_safety"
+          ]
+        },
+        {
+          "date": "2026-11-09",
+          "importance": 9.0,
+          "link": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy",
+          "title": "英伟达就黄仁勋与涉华间谍高管关系展开调查",
+          "title_en": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
           "topics": [
             "policy_safety"
           ]
@@ -2191,28 +2239,18 @@
           "topics": [
             "unclassified"
           ]
-        },
-        {
-          "date": "2026-10-08",
-          "importance": 9.0,
-          "link": "https://www.anthropic.com/claude-haiku-5-5",
-          "title": "Claude Haiku 5.5",
-          "title_en": "Claude Haiku 5.5",
-          "topics": [
-            "foundation_models"
-          ]
         }
       ],
       "market": {
-        "average_breadth": 0.445554,
-        "latest_momentum": -0.398678,
-        "momentum": -0.03926,
+        "average_breadth": 0.445652,
+        "latest_momentum": 0.019383,
+        "momentum": -0.038623,
         "news_risk": 0
       },
-      "market_sessions": 91,
-      "news_days": 91,
+      "market_sessions": 92,
+      "news_days": 92,
       "period": "year",
-      "sample_days": 91,
+      "sample_days": 92,
       "schema_version": 1,
       "series": [
         {
@@ -2760,65 +2798,71 @@
           "date": "2026-11-08",
           "market": -0.398678,
           "technology": 5.36
+        },
+        {
+          "coverage": 1.0,
+          "date": "2026-11-09",
+          "market": 0.019383,
+          "technology": 5.415
         }
       ],
-      "start_date": "2025-11-09",
+      "start_date": "2025-11-10",
       "topics": {
         "applications": {
-          "activity": 34.714999,
-          "average_daily_activity": 0.381484,
-          "event_count": 105,
-          "momentum": 0.036399,
+          "activity": 35.309999,
+          "average_daily_activity": 0.383804,
+          "event_count": 106,
+          "momentum": 0.06872,
           "name": "AI 应用与商业化",
           "name_en": "AI apps & business",
           "peak_daily_activity": 1.6225,
           "source_count_peak": 4
         },
         "chips_compute": {
-          "activity": 62.76,
-          "average_daily_activity": 0.68967,
-          "event_count": 167,
-          "momentum": 0.162232,
+          "activity": 63.57,
+          "average_daily_activity": 0.690978,
+          "event_count": 170,
+          "momentum": 0.145803,
           "name": "芯片与算力",
           "name_en": "Chips & compute",
           "peak_daily_activity": 2.2525,
           "source_count_peak": 5
         },
         "foundation_models": {
-          "activity": 127.025,
-          "average_daily_activity": 1.395879,
-          "event_count": 329,
-          "momentum": 0.120863,
+          "activity": 129.1975,
+          "average_daily_activity": 1.404321,
+          "event_count": 336,
+          "momentum": 0.009881,
           "name": "基础模型",
           "name_en": "Foundation models",
           "peak_daily_activity": 4.295,
           "source_count_peak": 6
         },
         "funding_ma": {
-          "activity": 54.021666,
-          "average_daily_activity": 0.593645,
-          "event_count": 134,
-          "momentum": 0.420625,
+          "activity": 54.571666,
+          "average_daily_activity": 0.59317,
+          "event_count": 135,
+          "momentum": 0.327768,
           "name": "融资与并购",
           "name_en": "Funding & M&A",
           "peak_daily_activity": 1.955,
           "source_count_peak": 5
         },
         "open_source": {
-          "activity": 32.513167,
-          "average_daily_activity": 0.357288,
-          "event_count": 102,
-          "momentum": -0.012821,
+          "activity": 32.705667,
+          "average_daily_activity": 0.355496,
+          "event_count": 103,
+          "momentum": -0.033446,
           "name": "开源生态",
           "name_en": "Open source",
           "peak_daily_activity": 1.725,
           "source_count_peak": 4
         },
         "policy_safety": {
-          "activity": 113.952666,
-          "average_daily_activity": 1.252227,
-          "event_count": 305,
-          "momentum": 0.058506,
+          "activity": 115.047666,
+          "average_daily_activity": 1.250518,
+          "event_count": 307,
+          "momentum": 0.056363,
           "name": "政策、安全与监管",
           "name_en": "Policy, safety & regulation",
           "peak_daily_activity": 2.8525,
@@ -2835,13 +2879,13 @@
       "overall_ratio": 1.0
     },
     "data_warnings": [],
-    "date": "2026-11-08",
-    "generated_at": "2026-11-08T01:04:55.278449+00:00",
+    "date": "2026-11-09",
+    "generated_at": "2026-11-09T01:25:30.357671+00:00",
     "macro_events": [],
     "market_metrics": {
-      "breadth": 0.181818,
-      "cross_asset_momentum": -0.398678,
-      "liquidity": 772634566231.1,
+      "breadth": 0.454545,
+      "cross_asset_momentum": 0.019383,
+      "liquidity": null,
       "macro_event_count": 0,
       "metric_version": "metric-v1",
       "news_risk": 0,
@@ -2850,22 +2894,22 @@
     },
     "market_quotes": [
       {
-        "amount": 772634566231.1,
-        "change_pct": -1.1,
+        "amount": null,
+        "change_pct": 0.0,
         "currency": "CNY",
         "is_stale": false,
         "market": "CN",
         "name": "上证指数",
         "observed_at": null,
-        "price": 3649.18,
+        "price": 3649.16,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "上证指数",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
-        "amount": 885159900792.1285,
-        "change_pct": -2.57,
+        "amount": null,
+        "change_pct": 0.0,
         "currency": "CNY",
         "is_stale": false,
         "market": "CN",
@@ -2875,11 +2919,11 @@
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "深证成指",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
-        "amount": 444017074033.47,
-        "change_pct": -3.96,
+        "amount": null,
+        "change_pct": 0.0,
         "currency": "CNY",
         "is_stale": false,
         "market": "CN",
@@ -2889,35 +2933,35 @@
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "创业板指",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
-        "amount": 247427710976.0,
-        "change_pct": -1.27,
+        "amount": 3507849984.0,
+        "change_pct": 0.59,
         "currency": "USD",
         "is_stale": false,
         "market": "HK",
         "name": "恒生指数",
         "observed_at": null,
-        "price": 24481.86,
+        "price": 24625.71,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "恒生指数",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
-        "amount": 70309224448.0,
-        "change_pct": -1.83,
+        "amount": 1473335616.0,
+        "change_pct": 1.02,
         "currency": "USD",
         "is_stale": false,
         "market": "HK",
         "name": "恒生科技",
         "observed_at": null,
-        "price": 4078.23,
+        "price": 4119.98,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "恒生科技",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
         "amount": null,
@@ -2931,7 +2975,7 @@
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "标普500",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
         "amount": null,
@@ -2945,7 +2989,7 @@
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "纳斯达克",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
         "amount": null,
@@ -2959,35 +3003,35 @@
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "道琼斯",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
         "amount": null,
-        "change_pct": -0.21,
+        "change_pct": 0.66,
         "currency": "USD",
         "is_stale": false,
         "market": "GLOBAL",
         "name": "黄金",
         "observed_at": null,
-        "price": 4080.48,
+        "price": 4107.56,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "黄金",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
         "amount": null,
-        "change_pct": -0.2,
+        "change_pct": -0.59,
         "currency": "USD",
         "is_stale": false,
         "market": "GLOBAL",
         "name": "原油",
         "observed_at": null,
-        "price": 90.34,
+        "price": 90.29,
         "session_status": "unknown",
         "source": "eastmoney",
         "symbol": "原油",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       },
       {
         "amount": null,
@@ -3001,638 +3045,640 @@
         "session_status": "unknown",
         "source": "yahoo",
         "symbol": "VIX",
-        "trading_date": "2026-11-08"
+        "trading_date": "2026-11-09"
       }
     ],
     "news_signals": [
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "20b7565c775ac0aa87bdfb746820066b7a69c218",
-        "id": "5320e2595c0baff3bf17c07ff80646fb0b1cac86",
+        "event_id": "be3c0e40116504c05bf43fdf92c55359dce82a5f",
+        "id": "83129b647afee3213dabe93f31f7199eac6d1e73",
         "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFB5UmZOTzU4ckdieVZLWlpiODNDdHJHTmZxQTdPa0Z0UmFiMFlmaUtmLWZNMDZGaF9WaGNtTk5uZ2Yzc1lhMjREakdtYjJJNENwTU1r?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9YamllY2RfMUxFNFBpUDAwSEpMaFBmdElhYV9aVUtvc0F6bTlYRWFLdmpGYWtvSTBJV29hMldMNVJMcnJ1UVJ2aG1OVzdseE1ocTBzNnh3?oc=5",
         "novelty": 1.0,
-        "published_at": "2026-11-07T22:50:38+00:00",
+        "published_at": "2026-11-09T00:34:03+00:00",
         "section": "market",
         "sentiment": 0.0,
-        "source": "第一财经",
+        "source": "界面新闻",
         "source_ids": [
-          "5320e2595c0baff3bf17c07ff80646fb0b1cac86",
-          "5320e2595c0baff3bf17c07ff80646fb0b1cac86"
+          "83129b647afee3213dabe93f31f7199eac6d1e73",
+          "83129b647afee3213dabe93f31f7199eac6d1e73"
         ],
         "source_quality": 0.85,
         "source_type": "media",
-        "summary": "交通银行在第九届虹桥国际经济论坛期间举办分论坛，主题为“跨境金融服务助力企业全球化发展”。论坛聚焦跨境金融如何支持企业海外布局与全球化经营，是进博会配套活动之一。",
-        "title": "交通银行举办第九届虹桥国际经济论坛“跨境金融服务助力企业全球化发展”分论坛",
-        "title_en": "Bank of Communications Holds Sub-forum on Cross-border Financial Services Empowering Corporate Globalization at 9th Hongqiao International Economic Forum",
+        "summary": "界面新闻AI早报汇总两条消息：英伟达一批价值逾7600万元的货物离奇失窃，被形容为“大劫案”；苹果研究团队则公开其在机器人“大脑”方面的研究进展。",
+        "title": "AI早报 | 英伟达遭遇大劫案，超7600万元货物离奇失踪；苹果研究团队披露机器人“大脑”进展",
+        "title_en": "AI Morning Brief | Nvidia hit by major heist as over RMB 76 million in cargo vanishes; Apple research team discloses progress on robot \"brain\"",
         "topics": [
           "unclassified"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "af7bce3927312dd0c5e9f16585bb432203eea9b0",
-        "id": "2c93e9013ac15b4c158d5aa95ac7df4346244366",
-        "importance": 7.0,
-        "link": "https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo",
+        "event_id": "fed37d6ce4d2b9edede9100a3de1f0471d546a28",
+        "id": "33a0d54f86cd797151852d4193b0aa91d50f0524",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE94T0dDbnZWTEotQ3Y0ZHlJSEtXMDB2em5uN3RodjFjd2dsM1NLNGlqR19BbklCanNsOHNiRnJTaExJV3JtYmJ4RmxxNGFwUk5JSWYyWmx3?oc=5",
         "novelty": 1.0,
-        "published_at": "2026-11-07T21:17:08+00:00",
-        "section": "ai",
+        "published_at": "2026-11-09T00:08:43+00:00",
+        "section": "market",
         "sentiment": 0.0,
-        "source": "TechCrunch AI",
+        "source": "界面新闻",
         "source_ids": [
-          "2c93e9013ac15b4c158d5aa95ac7df4346244366"
+          "33a0d54f86cd797151852d4193b0aa91d50f0524",
+          "33a0d54f86cd797151852d4193b0aa91d50f0524"
         ],
         "source_quality": 0.85,
         "source_type": "media",
-        "summary": "有报道援引今年流传的一份美国情报备忘录称，中国国家安全部招募了一名女性科技高管，目的是监视英伟达首席执行官。该消息尚未获独立证实，相关方也未回应。",
-        "title": "美情报备忘录称Megaspeed高管被招募监视英伟达CEO",
-        "title_en": "Megaspeed exec was recruited to spy on Nvidia CEO, according to US intelligence memo",
+        "summary": "科技早报关注两则消息：英伟达逾7600万元货物离奇失踪；苹果研究团队披露机器人“大脑”研发进展。两则均涉及科技行业动态，具体细节尚待进一步披露。",
+        "title": "科技早报 | 英伟达超7600万元货物离奇失踪；苹果研究团队披露机器人“大脑”进展",
+        "title_en": "Tech Morning Brief: Nvidia Cargo Worth Over RMB 76 Million Mysteriously Missing; Apple Research Team Discloses Robot 'Brain' Progress",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "92489ae0ac9a6fb0554f7def1f28b805589acda7",
+        "id": "62bbccf08398b94fc8c01294ef4d4e2b08112666",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9kNlJCMmE1UXRJSWkzX09LT3A4SFBqNU9fMjB5UFdwRzM0MEd0LUlCM1U3OFk1OXk0cFVVZ0g4TndmbDNnQjQ4dnBqcjNJLVlXNmlJTEtleWQ0dWsxYU1n?oc=5",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T23:11:00+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "财新",
+        "source_ids": [
+          "62bbccf08398b94fc8c01294ef4d4e2b08112666",
+          "62bbccf08398b94fc8c01294ef4d4e2b08112666"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "财新《反腐记》报道，余艳红已主动投案，马兴瑞被提起公诉。案件目前分别进入纪检监察和司法程序，具体涉案细节尚未在报道中披露。",
+        "title": "反腐记｜余艳红投案 马兴瑞被诉",
+        "title_en": "Anti-Corruption Watch: Yu Yanhong Turns Herself In, Ma Xingrui Indicted",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "1926022e089d7515512263ea8593a917095d2e63",
+        "id": "12dfbc1c3bb1d8b11a658cd6a85a55a871300a93",
+        "importance": 7.0,
+        "link": "https://www.reddit.com/r/singularity/comments/1xrbn3n/startup_mirendil_trains_a_kimi_k3_level_model",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T22:56:40+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "Reddit r/singularity Top",
+        "source_ids": [
+          "12dfbc1c3bb1d8b11a658cd6a85a55a871300a93"
+        ],
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "初创公司Mirendil声称仅用一名开发者和约1000万美元算力，训练出性能达到Kimi K3级别的模型。该消息来自社区帖子，具体技术细节和评测结果尚未披露。",
+        "title": "初创公司Mirendil仅靠一名开发者和1000万美元算力训练出Kimi K3级模型",
+        "title_en": "Startup Mirendil trains a Kimi K3 level model with only one developer and only $10 million in compute.",
+        "topics": [
+          "foundation_models",
+          "chips_compute"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "ae6c7925d211617dac8a771de124b69c9d4e3568",
+        "id": "26a78b8c98a3d9d9343b81415ae16eaec92eff5c",
+        "importance": 5.0,
+        "link": "https://www.cnbc.com/2026/11/08/nvidia-jensen-huang-investigation-china-spy.html",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T22:53:57+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "CNBC Markets",
+        "source_ids": [
+          "26a78b8c98a3d9d9343b81415ae16eaec92eff5c",
+          "26a78b8c98a3d9d9343b81415ae16eaec92eff5c"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "黄仁勋向员工承认有婚外情。英伟达董事会已就涉事女子被指为中国间谍的指控展开调查。",
+        "title": "英伟达调查CEO黄仁勋与疑似中国间谍的关系",
+        "title_en": "Nvidia investigates CEO Jensen Huang's relationship with alleged Chinese spy",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "facef99ff47752b9b6ebb6ed13e01c390ffc8c46",
+        "id": "e07a0b891a8adeb667df5433ecfd45777647894c",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBkSVR6dGpUckVXYmZKTzI2eVdDR0lNLTI1Umo4Uks1QU5pSTNlQWFhOWpvX0oyLVEyeE9VbmdMLVV3RkQtTUtOYTk1NkpEdC1GTUk4?oc=5",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T21:36:58+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "第一财经",
+        "source_ids": [
+          "e07a0b891a8adeb667df5433ecfd45777647894c",
+          "e07a0b891a8adeb667df5433ecfd45777647894c"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "跨国药械企业正扩大在华合作伙伴网络，通过与本土企业合作、拓宽渠道等方式，把业务布局延伸至基层和下沉市场，以寻找新的增长空间。",
+        "title": "跨国药械企业朋友圈扩容，在华布局加速下沉",
+        "title_en": "Multinational Pharma and Device Firms Expand Partner Networks, Pushing Deeper Into China's Lower-Tier Markets",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "749851d87f05e1f8ca4dc06e05ed22c3c2befe1a",
+        "id": "ecd65815b585666dd249bc96bc93a86cc94a6e4d",
+        "importance": 9.0,
+        "link": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T20:22:39+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "The Verge AI",
+        "source_ids": [
+          "ecd65815b585666dd249bc96bc93a86cc94a6e4d"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "英伟达董事会宣布启动独立调查，审查CEO黄仁勋与Megaspeed高管Alice Huang之间的关系。据报道，后者被中国国家安全部招募，用于刺探该公司情报。",
+        "title": "英伟达就黄仁勋与涉华间谍高管关系展开调查",
+        "title_en": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
         "topics": [
           "policy_safety"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "5d1b68aad1dc4ee1008ee7980f3eba2d3360cf64",
-        "id": "5186d80b7eef562645f5a129edb9b36422b5932f",
+        "event_id": "e3ba1effb530c942ecf2a0b6f6d08b1be6899945",
+        "id": "5e812af5185684832d5b5119a46aa8ef6aa537bc",
         "importance": 6.0,
-        "link": "https://apiiro.com/blog/coding-agents-leaking-secrets-github-dont-ask-again",
+        "link": "https://www.reddit.com/r/singularity/comments/1xr83tc/the_fridgehacking_spree_is_an_internetofthings",
         "novelty": 1.0,
-        "published_at": "2026-11-07T20:45:32+00:00",
+        "published_at": "2026-11-08T20:21:51+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "Hacker News Frontpage",
+        "source": "Reddit r/singularity Top",
         "source_ids": [
-          "5186d80b7eef562645f5a129edb9b36422b5932f"
+          "5e812af5185684832d5b5119a46aa8ef6aa537bc"
         ],
         "source_quality": 0.55,
         "source_type": "community",
-        "summary": "据Apiiro博客，Claude Code的“不再询问”权限设置可能导致敏感信息被提交至公开仓库，已发现1,122个GitHub文件暴露密码等凭据。该问题引发开发者关注。",
-        "title": "Claude Code“不再询问”功能导致1,122个GitHub公开文件泄露密码",
-        "title_en": "Claude Code's \"Don't Ask Again\" exposes passwords in 1,122 public GitHub files",
+        "summary": "一则报道以“冰箱被黑”事件为切入点，提示联网家电存在安全风险，物联网设备安全需引起重视。原文未提供更多细节。",
+        "title": "冰箱遭黑客攻击事件为物联网敲响警钟",
+        "title_en": "The Fridge-Hacking Spree Is an Internet-of-Things Wake-Up Call",
+        "topics": [
+          "policy_safety"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "872a58f23ba6ac9ab7fbf4042f79ccbae3d90393",
+        "id": "302900397f3017422ecf825c49b92ca3c13e36c6",
+        "importance": 6.0,
+        "link": "https://www.reddit.com/r/LocalLLaMA/comments/1xr78s5/intel_arc_pro_b70_32gb_1299_vs_nvidia_rtx_5090",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T19:46:49+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "Reddit r/LocalLLaMA Top",
+        "source_ids": [
+          "302900397f3017422ecf825c49b92ca3c13e36c6"
+        ],
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "用户实测售价1299美元的Intel Arc Pro B70 32GB运行Qwen3.8-27B，经调优后生成速度约为RTX 5090的一半，预填充速度约为三分之一，而5090当前售价6500美元以上。该结果来自个人测试，并非全面评测。",
+        "title": "Intel Arc Pro B70 32GB 对比 RTX 5090：约五分之一价格，生成速度约一半",
+        "title_en": "Intel Arc Pro B70 32GB ($1,299) vs NVIDIA RTX 5090 ($6,500+) on Qwen3.8-27B: about 1/2 speed gen (1/3 speed prefill) for 1/5 price, after best setup",
         "topics": [
           "foundation_models"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "3edc059d19794003acdc5e8ab744a58fb6eecc2d",
-        "id": "9f1ff32d0cab0ed125719a86b5873325afcb05be",
-        "importance": 7.0,
-        "link": "https://hunch.net?p=13764006",
+        "event_id": "9137eb2183fb3cda11ecd04856732e57a2087949",
+        "id": "4a8b41babd150dbb2ccfbddc37fd78def8ee294e",
+        "importance": 8.0,
+        "link": "https://www.reddit.com/r/singularity/comments/1xr6w6w/apple_researchers_use_a_mac_mini_running_qwen",
         "novelty": 1.0,
-        "published_at": "2026-11-07T18:02:17+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "Hacker News Frontpage",
-        "source_ids": [
-          "9f1ff32d0cab0ed125719a86b5873325afcb05be"
-        ],
-        "source_quality": 0.55,
-        "source_type": "community",
-        "summary": "有消息称，微软研究院的AI Frontiers团队已结束运作。该团队此前从事前沿AI研究，相关消息在技术社区引发关注和讨论。",
-        "title": "微软研究院AI Frontiers团队落幕",
-        "title_en": "The end of Microsoft Research's AI Frontiers group",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "965ffed9d76abdb21123399d69208477624cd5c3",
-        "id": "0cd5dc65a670fc8b168691e10f7bdf22f876253c",
-        "importance": 5.0,
-        "link": "https://www.cnbc.com/2026/11/07/berkshire-hathaway-q3-2026-earnings-buybacks.html",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T15:23:46+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "CNBC Markets",
-        "source_ids": [
-          "0cd5dc65a670fc8b168691e10f7bdf22f876253c",
-          "0cd5dc65a670fc8b168691e10f7bdf22f876253c"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "伯克希尔哈撒韦周六表示，第三季度加快股票回购，回购规模较此前翻倍有余；同期经营利润和整体利润均出现下降。",
-        "title": "伯克希尔哈撒韦第三季度回购翻倍有余，利润下滑",
-        "title_en": "Berkshire Hathaway more than doubles buybacks in third quarter as earnings decline",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "75597c902be4db83a729fe422fdef853d1cd7c55",
-        "id": "553660f235f2552f6cb00d1076214fc087e205a7",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE53YjNvYU11WTFlLWstT2ZEa3UxUkt0TWV3TG9OUk1scGg4c0IyYjdYS2NVS0JFQmNHRWxtSUF0NjJJRHAyN1M4MlIyTWlETnJSSTBtaGJCVkM?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T14:28:42+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "界面新闻",
-        "source_ids": [
-          "553660f235f2552f6cb00d1076214fc087e205a7",
-          "553660f235f2552f6cb00d1076214fc087e205a7"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "显卡价格在连续11个交易日上涨后出现急速回落。此前持续上涨已引发市场关注，此次回调幅度较大。目前尚不清楚急跌的具体原因及后续走势。",
-        "title": "显卡价格连涨11个交易日后急跌",
-        "title_en": "Graphics card prices plunge after 11 straight trading days of gains",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "c74b5eb45f9d0e49de8636971a84bbdfef03cf7d",
-        "id": "7648480c1b6d171845780c65b3d3c03220d993c3",
-        "importance": 5.0,
-        "link": "https://www.cnbc.com/make-it/2026/11/07/dumpster-diver-resale-business.html",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T14:15:01+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "CNBC Markets",
-        "source_ids": [
-          "7648480c1b6d171845780c65b3d3c03220d993c3",
-          "7648480c1b6d171845780c65b3d3c03220d993c3"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "卡特·史蒂文斯自2024年3月起在田纳西州纳什维尔附近翻捡垃圾箱中的废弃物品并转售，12个月收入14万美元。几个月前他还住在车里。",
-        "title": "31岁“垃圾箱寻宝者”12个月入账14万美元：“我做到的远超想象”",
-        "title_en": "31-year-old dumpster diver brought in $140,000 in 12 months: I 'did much more than I thought was possible'",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "f8eb416fcb00dba9878dde4406fe8fd15a3b1d01",
-        "id": "e33a4dc70d7a29f16ac3e2e080836b2d7082f21c",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1zNUFqcGJSUjdjd2VLVzJEcXNqVlMwMXNhQ1FlVUtaWm5TMFFINk9tT1FtYmJtMm5iMTVIdWE3RjZDS3ZHenBPaGxOb0Y5ZFlyd3Zn?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T13:02:31+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "华尔街见闻",
-        "source_ids": [
-          "e33a4dc70d7a29f16ac3e2e080836b2d7082f21c",
-          "e33a4dc70d7a29f16ac3e2e080836b2d7082f21c"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "伯克希尔哈撒韦第三季度净利润同比下降28%，投资收益接近腰斩，回购规模创年内单季新高，现金储备增至3774亿美元。财报显示其投资端承压，但回购与现金水平仍受市场关注。",
-        "title": "伯克希尔Q3净利润大降28%，投资收益缩水近半，回购创年内单季新高，现金升至3774亿美元",
-        "title_en": "Berkshire Q3 Net Profit Falls 28%, Investment Gains Nearly Halve, Buybacks Hit Year-High Quarter, Cash Rises to $377.4 Billion",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "94fbc3ce426e2a63d5ca49e12f36d91ac86c675d",
-        "id": "8879475e62b3793afc205ae395197806709bb883",
-        "importance": 7.0,
-        "link": "https://www.theverge.com/ai-artificial-intelligence/1029126/anthropic-metr-report-accelerating-ai-development",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T12:30:00+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "The Verge AI",
-        "source_ids": [
-          "8879475e62b3793afc205ae395197806709bb883"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "METR发布新报告称，Anthropic利用AI构建更强AI，模型改进速度约为一年前的两倍，且未见放缓迹象。该发现引发研究人员对AI自我加速发展的担忧。",
-        "title": "新报告称Anthropic用AI加速AI研发，引发研究者担忧",
-        "title_en": "Why a new report on Anthropic automating AI development is alarming researchers",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "2b21b3fd87a3fa0f424c37f101149f3b38d5daa6",
-        "id": "c44ac0b94a908d0984e09370e21a20179a25fad8",
-        "importance": 6.0,
-        "link": "https://www.reddit.com/r/singularity/comments/1xq4hp4/virginias_data_center_alley_generates_12_billion",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T11:46:20+00:00",
+        "published_at": "2026-11-08T19:32:25+00:00",
         "section": "ai",
         "sentiment": 0.0,
         "source": "Reddit r/singularity Top",
         "source_ids": [
-          "c44ac0b94a908d0984e09370e21a20179a25fad8"
+          "4a8b41babd150dbb2ccfbddc37fd78def8ee294e"
         ],
         "source_quality": 0.55,
         "source_type": "community",
-        "summary": "弗吉尼亚州“数据中心巷”每年产生12亿美元税收，占劳登县总税收的40%，而用地仅占全县3%。该数据由县经济发展负责人提供，凸显数据中心对地方财政的集中贡献。",
-        "title": "弗吉尼亚州“数据中心巷”年税收达12亿美元，占劳登县总税收40%",
-        "title_en": "Virginia's \"Data Center Alley\" generates $1.2 billion in annual tax revenue—40% of Loudoun County's entire tax revenue from just 3% of its land, according to the county's economic development chief.",
+        "summary": "苹果研究人员让Mac mini本地运行Qwen模型，控制宇树G1人形机器人。该系统在1000个模拟家庭中训练，能在陌生房间自主坐下、爬过桌底并导航，360次真实测试成功率达91%。",
+        "title": "苹果研究团队用Mac mini本地运行Qwen控制宇树G1人形机器人",
+        "title_en": "Apple researchers use a Mac mini running Qwen locally to control a Unitree G1 humanoid robot. Trained on 1,000 simulated homes, it autonomously sits, crawls under tables and navigates unfamiliar rooms, achieving 91% success across 360 real-world trials.",
         "topics": [
-          "chips_compute"
+          "foundation_models"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "4f1537077dd5246f29f9fa347b41d0cf7f7c7882",
-        "id": "e590893e074f64bd05326d0591f456072dc1775d",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1vMTR2bmRrcEZETnA3MHJkb1B2YlZKaW03V21qS2JUMW9aczlzaVRWb09vd0JkOXBkdnZSVmFVbHc0enVWTjNBQXU0RGt1T0NwTi0xa2pWNGk?oc=5",
+        "event_id": "ee3422d95f7a14cc87f956240a087e1716f75531",
+        "id": "ec6779b05ebb24a90fced8bee83eb63c45b6ac78",
+        "importance": 6.0,
+        "link": "https://mailroute.net/blog/outlook-rejecting-email-without-dmarc",
         "novelty": 1.0,
-        "published_at": "2026-11-07T11:28:25+00:00",
-        "section": "market",
+        "published_at": "2026-11-08T19:20:32+00:00",
+        "section": "ai",
         "sentiment": 0.0,
-        "source": "界面新闻",
+        "source": "Hacker News Best",
         "source_ids": [
-          "e590893e074f64bd05326d0591f456072dc1775d",
-          "e590893e074f64bd05326d0591f456072dc1775d"
+          "ec6779b05ebb24a90fced8bee83eb63c45b6ac78"
         ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "多家银行公告赎回优先股，合计规模已超过2025年全年水平。相关动作反映银行在资本管理与融资结构上的调整。",
-        "title": "多家银行公告赎回优先股，合计规模超2025年全年",
-        "title_en": "Multiple Banks Announce Preferred Share Redemptions, Combined Scale Exceeds Full-Year 2025",
-        "topics": [
-          "funding_ma"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "bf124d12986ee44b771ef560abf8a75b6f638613",
-        "id": "b9eaa591e72f16762aa1ab7561ed11d1e799e7fa",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1DT2FRemFiaV9yNjNzSEdwcWJpNDJtem1jN2xrVUhzcm9FUzR1enhmZ01tbHprS3h1cmlDX0tnbHRjWmhlaExJUGNpZmtjcGJXR09V?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T10:56:18+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "第一财经",
-        "source_ids": [
-          "b9eaa591e72f16762aa1ab7561ed11d1e799e7fa",
-          "b9eaa591e72f16762aa1ab7561ed11d1e799e7fa"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "西门子正加大对中国工厂AI应用市场的布局，应用场景覆盖奶粉生产、机器人上下料等制造环节。此举显示其看好中国制造业智能化升级带来的需求。",
-        "title": "从奶粉生产到机器人上下料，西门子押注中国工厂AI应用市场",
-        "title_en": "From milk powder production to robot loading and unloading, Siemens bets on China's factory AI application market",
-        "topics": [
-          "applications"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "d0b7fc061a392c99c6dde43a570083b69d1ce7ec",
-        "id": "da1c9fa0dd25101525766c70386c2ea589fc94b1",
-        "importance": 5.0,
-        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9uUlUyZkVJMWdNanpDZ3diaDdrODJNZVZyVDJ5eUQybHgzV3JRZDVaejdGN3FId29ia0xsOFpzUVRlMmJZOVlrQzFzel84cUpOVTNCZmFCVk1oY1lEVXhMNA?oc=5",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T10:12:22+00:00",
-        "section": "market",
-        "sentiment": 0.0,
-        "source": "财新",
-        "source_ids": [
-          "da1c9fa0dd25101525766c70386c2ea589fc94b1",
-          "da1c9fa0dd25101525766c70386c2ea589fc94b1"
-        ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "财新周刊“天眼”栏目刊登图片报道，聚焦一起商务机坠毁事件。报道以现场影像呈现事故情况，原文未披露更多细节。",
-        "title": "天眼｜商务机坠毁",
-        "title_en": "Business Jet Crashes",
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "有报告称，Outlook.com 正未作公开说明地拒收来自未配置 DMARC 记录域名的邮件，引发邮件送达性讨论。该话题在技术社区广泛传播，被视为邮件认证要求持续收紧的信号。",
+        "title": "Outlook.com 被指悄然拒收未配置 DMARC 域名的邮件",
+        "title_en": "Outlook.com Is Quietly Rejecting Email from Domains Without DMARC",
         "topics": [
           "unclassified"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "5e7c3b9a34a9b5c3d96ec3f4d6602c09bf2dcb41",
-        "id": "5ec03af4da1d836d9dad8f0be411db409e6bd298",
+        "event_id": "7f58fa20a1e5f5dfa9dae025c2105b729035b909",
+        "id": "53044e44b3aab431cb3ba72c77d98518b2063dd5",
         "importance": 7.0,
-        "link": "https://8rank.ai/game/apple-intelligence-personal-knowledge-graph",
+        "link": "https://www.theverge.com/ai-artificial-intelligence/1029552/apple-siri-ai-agentic",
         "novelty": 1.0,
-        "published_at": "2026-11-07T09:46:03+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "Hacker News Best",
-        "source_ids": [
-          "5ec03af4da1d836d9dad8f0be411db409e6bd298"
-        ],
-        "source_quality": 0.55,
-        "source_type": "community",
-        "summary": "一篇技术分析文章指出，Apple Intelligence 的个人知识图谱中内置了未在文档中说明的家庭成员关系分类器，可推断用户与联系人的亲属关系。该话题在 Hacker News 上引发关于隐私与数据处理的广泛讨论。",
-        "title": "每台 Mac 都内置一个未公开的\"家庭成员分类器\"",
-        "title_en": "Every Mac comes with an (undocumented) family member classifier",
-        "topics": [
-          "unclassified"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "ef84143a0ae9e025f9b07c0eadc042a067e410fb",
-        "id": "fe4697100c8e8c62b9b9ba2a8d5a4ba18b2a7d75",
-        "importance": 6.0,
-        "link": "https://asahilinux.org/2026/11/progress-report-7-3",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T05:20:18+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "Hacker News Best",
-        "source_ids": [
-          "fe4697100c8e8c62b9b9ba2a8d5a4ba18b2a7d75"
-        ],
-        "source_quality": 0.55,
-        "source_type": "community",
-        "summary": "Asahi Linux 项目发布第 7.3 期进展报告，介绍在 Apple Silicon 设备上原生运行 Linux 的最新开发情况。该帖在 Hacker News 上获得 300 余点与 250 多条评论，显示社区对苹果芯片 Linux 支持的关注度较高。",
-        "title": "Asahi Linux 发布 7.3 进展报告",
-        "title_en": "Asahi Linux Progress Linux 7.3",
-        "topics": [
-          "chips_compute"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "392ca1a08fc472784d82b36539663bd2f0ccac4e",
-        "id": "7fe9597cf48245af4778a4e097243b679be9b457",
-        "importance": 6.0,
-        "link": "https://www.reddit.com/r/LocalLLaMA/comments/1xpx0on/good_luck_getting_a_cheap_gpu_amd_is_a_data",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T04:05:32+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "Reddit r/LocalLLaMA Top",
-        "source_ids": [
-          "7fe9597cf48245af4778a4e097243b679be9b457"
-        ],
-        "source_quality": 0.55,
-        "source_type": "community",
-        "summary": "AMD CEO表示，AMD是一家“数据中心优先”的公司，意味着资源将优先投向数据中心产品。这可能使面向消费者的廉价GPU供应更紧张、价格更难下降。",
-        "title": "想买便宜GPU？AMD CEO称公司“数据中心优先”",
-        "title_en": "Good Luck Getting a Cheap GPU. AMD Is a 'Data Center First Company,' CEO Says",
-        "topics": [
-          "chips_compute"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "07cdec204ee41110899ceba45d95bfaeb691a6bd",
-        "id": "e8c0296c75656e01f6925d74856cfe227e5c6604",
-        "importance": 6.0,
-        "link": "https://www.reddit.com/r/LocalLLaMA/comments/1xpvfx8/harness_leaderboard_kimi_code_hermes_pi_claude",
-        "novelty": 1.0,
-        "published_at": "2026-11-07T02:41:59+00:00",
-        "section": "ai",
-        "sentiment": 0.0,
-        "source": "Reddit r/LocalLLaMA Top",
-        "source_ids": [
-          "e8c0296c75656e01f6925d74856cfe227e5c6604"
-        ],
-        "source_quality": 0.55,
-        "source_type": "community",
-        "summary": "一份社区发布的 Harness 排行榜，把 Kimi Code、Hermes、Pi、Claude Code、Codex 等多款 AI 编码智能体在 Terminal Bench 2.1 与 Deep SWE 1.1 上进行横向评测。原帖仅给出标题和链接，未在正文中列出具体成绩与排名。",
-        "title": "Harness 排行榜：Kimi Code、Hermes、Pi、Claude Code、Codex 等接受 Terminal Bench 2.1 与 Deep SWE 1.1 基准测试",
-        "title_en": "Harness Leaderboard - Kimi Code, Hermes, Pi, Claude Code, Codex, and Others Were Benchmarked Against Terminal Bench 2.1 & Deep SWE 1.1",
-        "topics": [
-          "foundation_models",
-          "applications"
-        ]
-      },
-      {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
-        "classification_method": "rules",
-        "classification_version": "taxonomy-v1",
-        "corroborating_sources": 1,
-        "entities": [],
-        "event_id": "83d6d9e61258af91d9ef69078100c21494bec67e",
-        "id": "6813d62fd92533cd21a6bc28e128cc14b5b306a0",
-        "importance": 9.0,
-        "link": "https://www.theverge.com/ai-artificial-intelligence/1029380/openai-1-25-trillion-investment-valuation",
-        "novelty": 1.0,
-        "published_at": "2026-11-06T23:46:18+00:00",
+        "published_at": "2026-11-08T19:18:19+00:00",
         "section": "ai",
         "sentiment": 0.0,
         "source": "The Verge AI",
         "source_ids": [
-          "6813d62fd92533cd21a6bc28e128cc14b5b306a0"
+          "53044e44b3aab431cb3ba72c77d98518b2063dd5"
         ],
         "source_quality": 0.85,
         "source_type": "media",
-        "summary": "据彭博社报道，OpenAI在新一轮融资中再筹110亿美元，估值达1.25万亿美元，成为全球最具价值公司之一。此前3月其以8520亿美元估值融资1220亿美元。竞争对手Anthropic正接近IPO。",
-        "title": "OpenAI估值达1.25万亿美元，竞争对手Anthropic临近IPO",
-        "title_en": "OpenAI valued at $1.25 trillion, as rival Anthropic nears its IPO",
+        "summary": "彭博社Mark Gurman称，苹果CEO约翰·特努斯正向AI负责人克雷格·费德里吉施压，要求加快Siri路线图，打造可与OpenAI的Dots、Meta的Muse抗衡的AI智能体。费德里吉已在极短时间内交付了可用的Siri AI版本，但公司对差距并无幻想。",
+        "title": "苹果加速推进Siri智能体化，力图追赶OpenAI与Meta",
+        "title_en": "Apple is racing to make Siri more agentic",
         "topics": [
-          "funding_ma"
+          "applications"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "01c5bb2a42e5e888da246fdb9e72a734691f5add",
-        "id": "68be897c8b54bcd75a9c92a21f06821a33e74f45",
-        "importance": 7.0,
-        "link": "https://mitchellh.com/writing/libghostty-1-0",
+        "event_id": "57d6515a27177d6ef6658bbbde5af702eb956962",
+        "id": "a78801b83036129313094bc773949a575c7cf443",
+        "importance": 8.0,
+        "link": "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers",
         "novelty": 1.0,
-        "published_at": "2026-11-06T23:30:52+00:00",
+        "published_at": "2026-11-08T18:16:07+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "Hacker News Best",
+        "source": "Hacker News Frontpage",
         "source_ids": [
-          "68be897c8b54bcd75a9c92a21f06821a33e74f45"
+          "a78801b83036129313094bc773949a575c7cf443"
         ],
         "source_quality": 0.55,
         "source_type": "community",
-        "summary": "从 Ghostty 终端模拟器拆分出的核心库 Libghostty 发布 1.0 版本，作者 Mitchell Hashimoto 撰文介绍这一里程碑。该项目旨在让其他应用复用 Ghostty 的终端解析与渲染能力。消息在 Hacker News 上获得逾千点关注。",
-        "title": "Libghostty 1.0 正式发布",
-        "title_en": "Libghostty 1.0",
+        "summary": "据报道，高盛正在停止让其投资银行家和交易员使用 Anthropic 的 Claude Code 编程工具。此举在技术社区引发广泛讨论，具体原因与适用范围尚未披露。",
+        "title": "高盛正收回银行家和交易员使用的 Claude Code",
+        "title_en": "Goldman Sachs is pulling Claude Code from its bankers and traders",
+        "topics": [
+          "foundation_models"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "c482142d09d1f06e8509a6b54b4e24ad463d658b",
+        "id": "ae06ecf7187204d49f98e86440a318c0517e05ea",
+        "importance": 7.0,
+        "link": "https://www.theverge.com/ai-artificial-intelligence/1029533/elvis-eminem-suno-ai-music-clone-lawsuit",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T17:23:19+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "The Verge AI",
+        "source_ids": [
+          "ae06ecf7187204d49f98e86440a318c0517e05ea"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "猫王埃尔维斯·普雷斯利音乐版权方及埃米纳姆部分热门唱片出版方起诉AI音乐公司Suno，指其非法生成模仿这两位艺术家的音乐和歌词。猫王案律师还称Suno违反田纳西州相关法律。",
+        "title": "猫王与埃米纳姆版权方起诉Suno",
+        "title_en": "Elvis and Eminem rights holders are suing Suno",
         "topics": [
           "unclassified"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "a9068672776478825422ab3d0866648be5776aed",
-        "id": "f296669c2a895af9e09b06362199be59eeb41af5",
-        "importance": 6.0,
-        "link": "https://www.pv-magazine.com/2026/11/06/sodium-ion-batteries-approach-cost-parity-with-lfp-with-70-gwh-covered-by-supply-agreements",
+        "event_id": "a262eba7030e86eb501230c7c2ab37254135b2c3",
+        "id": "8330c956749a4540e270fc29ed758623e091c7d0",
+        "importance": 7.0,
+        "link": "https://www.reddit.com/r/LocalLLaMA/comments/1xr2aaa/tencentqwen3827bdspineb16_hugging_face",
         "novelty": 1.0,
-        "published_at": "2026-11-06T23:00:46+00:00",
+        "published_at": "2026-11-08T16:23:48+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "Hacker News Best",
+        "source": "Reddit r/LocalLLaMA Top",
         "source_ids": [
-          "f296669c2a895af9e09b06362199be59eeb41af5"
+          "8330c956749a4540e270fc29ed758623e091c7d0"
         ],
         "source_quality": 0.55,
         "source_type": "community",
-        "summary": "据pv-magazine报道，钠离子电池正接近与磷酸铁锂（LFP）的成本持平，已有供应协议覆盖70GWh。这显示钠离子电池商业化推进，但大规模成本竞争力仍待观察。",
-        "title": "钠离子电池成本逼近磷酸铁锂，供应协议覆盖70GWh",
-        "title_en": "Sodium-ion batteries approach cost parity with LFP",
+        "summary": "有消息称腾讯开发了一种新的投机解码方法，可使27B模型解码速度提升约3倍。相关信息来自Hugging Face条目及Reddit讨论，尚待官方确认。",
+        "title": "腾讯 Qwen3.8-27B-DSpine-b16（Hugging Face）",
+        "title_en": "tencent/Qwen3.8-27B-DSpine-b16 · Hugging Face",
         "topics": [
-          "applications"
+          "foundation_models",
+          "open_source"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "6a707e5eb0b6610a7da76c98b60fef63712f6cca",
-        "id": "f441801c064cce85972f578b6c32c3afb1af080c",
-        "importance": 6.0,
-        "link": "https://pwn.ai/blog/firecracker-escape",
+        "event_id": "5aad6b661b3b717c524a62ccd323893d83331879",
+        "id": "1d660dc4ea7a4018845fdd04a93901e4979f21ef",
+        "importance": 10.0,
+        "link": "https://247wallst.com/investing/2026/11/07/openai-just-raised-11-billion-at-a-1-25-trillion-valuation-below-the-1-4-trillion-it-first-sought",
         "novelty": 1.0,
-        "published_at": "2026-11-06T19:33:38+00:00",
+        "published_at": "2026-11-08T14:49:23+00:00",
         "section": "ai",
         "sentiment": 0.0,
         "source": "Hacker News Best",
         "source_ids": [
-          "f441801c064cce85972f578b6c32c3afb1af080c"
+          "1d660dc4ea7a4018845fdd04a93901e4979f21ef"
         ],
         "source_quality": 0.55,
         "source_type": "community",
-        "summary": "安全研究团队发布 PwnEscape 系列第二部分，披露 Firecracker 微虚拟机逃逸漏洞的利用细节。Firecracker 是 AWS Lambda 等多租户云服务的关键隔离底座，此次逃逸演示引发对微虚拟机安全边界的关注。",
-        "title": "Firecracker 虚拟机逃逸：PwnEscape 系列第二部分",
-        "title_en": "Firecracker VM Escape: PwnEscape Part 2",
+        "summary": "OpenAI完成110亿美元融资，估值达1.25万亿美元，低于其最初寻求的1.4万亿美元。此轮融资反映AI领域资本热度，也显示投资者对超高估值的谨慎。",
+        "title": "OpenAI以1.25万亿美元估值融资110亿美元",
+        "title_en": "OpenAI raises $11B at a $1.25T valuation",
         "topics": [
-          "policy_safety"
+          "funding_ma"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "12f0f0dcd882f3819430b0f374290a8dec272fe5",
-        "id": "69af5f8a122011ad538ccd4f462b04fe25ea9963",
+        "event_id": "05a8617ac178cebca5f79e5f7991bbccd6c3eebb",
+        "id": "7051637201ebe41c7471ee7d9861ee579a8852bd",
         "importance": 6.0,
-        "link": "https://github.blog/engineering/architecture-optimization/inside-githubs-new-git-storage-architecture",
+        "link": "https://www.reddit.com/r/LocalLLaMA/comments/1xr01bj/users_have_started_buying_rtx_5060_ti_16gb",
         "novelty": 1.0,
-        "published_at": "2026-11-06T19:24:21+00:00",
+        "published_at": "2026-11-08T14:45:22+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "Hacker News Best",
+        "source": "Reddit r/LocalLLaMA Top",
         "source_ids": [
-          "69af5f8a122011ad538ccd4f462b04fe25ea9963"
+          "7051637201ebe41c7471ee7d9861ee579a8852bd"
         ],
         "source_quality": 0.55,
         "source_type": "community",
-        "summary": "GitHub 工程博客发文，详解其全新的 Git 存储架构，重点在于提升性能与可扩展性。该文在 Hacker News 获得 220 分、62 条评论，引发开发者关注。",
-        "title": "GitHub 推出全新 Git 存储架构",
-        "title_en": "GitHub's new Git storage architecture",
+        "summary": "有用户称，RTX 5060 Ti 16GB 显卡正因 AI 需求而被人群抢购。该说法来自社区讨论，尚缺更广泛数据佐证。",
+        "title": "用户因 AI 需求开始大量购买 RTX 5060 Ti 16GB 显卡",
+        "title_en": "Users have started buying RTX 5060 Ti 16GB graphics cards en masse for the sake of AI.",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "da52ab5ed669ca7bd964fb74517fda86a34c6d5c",
+        "id": "620caa0db02bc9fd1894b53711ce62fe2f470889",
+        "importance": 7.0,
+        "link": "https://www.reddit.com/r/singularity/comments/1xqzpba/deepminds_vp_of_science_teases_a_phase_transition",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T14:29:57+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "Reddit r/singularity Top",
+        "source_ids": [
+          "620caa0db02bc9fd1894b53711ce62fe2f470889"
+        ],
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "DeepMind科学副总裁暗示科学发现可能出现“相变”，外界猜测或与Co-Scientist、药物发现、材料科学或AlphaMatter商标有关。报道同时提醒，目前尚无具体发布或突破细节。",
+        "title": "DeepMind科学副总裁预告科学发现将迎“相变”，所指为何？",
+        "title_en": "DeepMind’s VP of Science teases a “phase transition” in scientific discovery. What could it be?",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "077e15082e72af653ce570264971978270b43f01",
+        "id": "95a16ad37e2925ed3212d004f69e3b0d8b96822a",
+        "importance": 5.0,
+        "link": "https://www.cnbc.com/2026/11/08/frequent-flyer-miles-points-thanksgiving.html",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T13:00:01+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "CNBC Markets",
+        "source_ids": [
+          "95a16ad37e2925ed3212d004f69e3b0d8b96822a",
+          "95a16ad37e2925ed3212d004f69e3b0d8b96822a"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "感恩节机票价格同比上涨，需求强劲。用里程兑换机票时，部分航线最贵，部分航线最便宜。",
+        "title": "感恩节用里程兑换机票？这些航线最贵也最便宜",
+        "title_en": "Using miles to fly for Thanksgiving? These are the most expensive and cheapest routes",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "f1cbcbc42d616a96f2d4d55331165f5d7cc3f92a",
+        "id": "5e9d3fd0e59ccb776c0fc24529575136232b3097",
+        "importance": 7.0,
+        "link": "https://github.com/synchopate/llama-modchip",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T10:22:04+00:00",
+        "section": "ai",
+        "sentiment": 0.0,
+        "source": "Hacker News Frontpage",
+        "source_ids": [
+          "5e9d3fd0e59ccb776c0fc24529575136232b3097"
+        ],
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "GitHub 项目 llama-modchip 展示了一种方法，可在只有 64GB 内存、不使用 GPU 的机器上运行 2840 亿参数的 DeepSeek 模型。该帖在 Hacker News 上获得 359 点投票和 152 条评论，引发本地大模型部署社区关注。",
+        "title": "Llama-modchip：无需 GPU，64GB 内存运行 284B DeepSeek 模型",
+        "title_en": "Llama-modchip: 284B DeepSeek on 64GB RAM, no GPU",
+        "topics": [
+          "foundation_models",
+          "chips_compute"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "eeb5a4dc424d73faaae86240a56ccab6381cee59",
+        "id": "c73a9f3f09c5f4baa6717cf4d00719c59548945d",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9EVFBTY2dBR1VpcllyRDZWX1d1ZHRpbkRub21nUWpndXBEbVlubUdqY3NPbnAyWkI1NEhqMXZFNEgtRjBaOUVQYWkwcU95R3JNaVQwOFMzUlN2WU5zMnc?oc=5",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T09:34:00+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "财新",
+        "source_ids": [
+          "c73a9f3f09c5f4baa6717cf4d00719c59548945d",
+          "c73a9f3f09c5f4baa6717cf4d00719c59548945d"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "财新“城市”栏目刊发一篇随笔，以季候风为引，讲述作者与香港重逢的见闻与感受。文章偏向城市观察与旅行叙事，不涉及重大新闻事件。",
+        "title": "借一场季候风，与香港重逢｜城市",
+        "title_en": "Reuniting with Hong Kong Through a Monsoon | City",
+        "topics": [
+          "unclassified"
+        ]
+      },
+      {
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
+        "classification_method": "rules",
+        "classification_version": "taxonomy-v1",
+        "corroborating_sources": 1,
+        "entities": [],
+        "event_id": "bd758284bfb696295a5a71ecd1f423ced7a80718",
+        "id": "0d0cc82bb5828a1a89c6b43b2895701406175125",
+        "importance": 5.0,
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1iNnFXRnJMYnZtbGFmbXlfaE5GWFFXOGNkanhFTHZ1REVLRVp6cXdoeEFrTEtEM2JfcVZrMGpHTnJfZFpac3R0M2IxTkFlVGo3VVpv?oc=5",
+        "novelty": 1.0,
+        "published_at": "2026-11-08T07:40:45+00:00",
+        "section": "market",
+        "sentiment": 0.0,
+        "source": "华尔街见闻",
+        "source_ids": [
+          "0d0cc82bb5828a1a89c6b43b2895701406175125",
+          "0d0cc82bb5828a1a89c6b43b2895701406175125"
+        ],
+        "source_quality": 0.85,
+        "source_type": "media",
+        "summary": "英伟达一批价值超7600万元的AI芯片和硬件离奇失踪，疑似遭窃。目前嫌疑人尚未抓获，案件详情仍在调查中。",
+        "title": "英伟达大劫案！超7600万元AI芯片和硬件离奇失踪，嫌疑人尚未抓获",
+        "title_en": "Nvidia Heist: Over 76 Million Yuan in AI Chips and Hardware Missing, Suspects Not Yet Caught",
         "topics": [
           "chips_compute"
         ]
       },
       {
-        "as_of": "2026-11-08T01:04:55.278449+00:00",
+        "as_of": "2026-11-09T01:25:30.357671+00:00",
         "classification_method": "rules",
         "classification_version": "taxonomy-v1",
         "corroborating_sources": 1,
         "entities": [],
-        "event_id": "017d7465391084492d8ff4d1d07865e3527b4989",
-        "id": "016e849ea3abf5a8afcf2007dd4ab37bfebf8b7e",
-        "importance": 6.0,
-        "link": "https://techcrunch.com/2026/11/06/meta-introduces-spaces-a-new-way-to-collaborate-with-your-muse-agent",
+        "event_id": "891813bcc9c4eb99a5814022877fafed64c05d05",
+        "id": "e66f4eeac8f3ba07dca3bf37622af135d8cf21c7",
+        "importance": 7.0,
+        "link": "https://caleb.software/posts/claude-to-pi.html",
         "novelty": 1.0,
-        "published_at": "2026-11-06T18:44:20+00:00",
+        "published_at": "2026-11-08T03:11:48+00:00",
         "section": "ai",
         "sentiment": 0.0,
-        "source": "TechCrunch AI",
+        "source": "Hacker News Best",
         "source_ids": [
-          "016e849ea3abf5a8afcf2007dd4ab37bfebf8b7e"
+          "e66f4eeac8f3ba07dca3bf37622af135d8cf21c7"
         ],
-        "source_quality": 0.85,
-        "source_type": "media",
-        "summary": "Meta 宣布为 Muse 智能体新增 Spaces 功能，用户可通过这一新方式与该 AI 助手互动协作。此前 Meta 已持续为 Muse 智能体增加多项功能与集成。",
-        "title": "Meta 推出 Spaces，为 Muse 智能体带来全新协作方式",
-        "title_en": "Meta introduces Spaces, a new way to collaborate with your Muse agent",
+        "source_quality": 0.55,
+        "source_type": "community",
+        "summary": "一篇个人博客文章记录了作者从 Claude 转向 Pi 的使用体验，并在 Hacker News 上引发热议，获得约 693 分和 429 条评论。文章属于开发者个人技术选型分享，讨论集中于不同 AI 工具的实用差异。",
+        "title": "告别 Claude，转投 Pi",
+        "title_en": "Goodbye Claude, hello Pi",
         "topics": [
-          "applications"
+          "foundation_models"
         ]
       }
     ],
@@ -3640,47 +3686,47 @@
     "schema_version": 1,
     "topic_metrics": {
       "applications": {
-        "activity": 1.43,
-        "event_count": 4,
+        "activity": 0.595,
+        "event_count": 1,
         "metric_version": "metric-v1",
         "name": "AI 应用与商业化",
         "sentiment": 0.0,
-        "source_count": 4
+        "source_count": 1
       },
       "chips_compute": {
-        "activity": 1.32,
-        "event_count": 4,
+        "activity": 0.81,
+        "event_count": 3,
         "metric_version": "metric-v1",
         "name": "芯片与算力",
         "sentiment": 0.0,
         "source_count": 3
       },
       "foundation_models": {
-        "activity": 0.495,
-        "event_count": 2,
+        "activity": 2.1725,
+        "event_count": 7,
         "metric_version": "metric-v1",
         "name": "基础模型",
         "sentiment": 0.0,
-        "source_count": 2
+        "source_count": 4
       },
       "funding_ma": {
-        "activity": 1.19,
-        "event_count": 2,
+        "activity": 0.55,
+        "event_count": 1,
         "metric_version": "metric-v1",
         "name": "融资与并购",
         "sentiment": 0.0,
-        "source_count": 2
+        "source_count": 1
       },
       "open_source": {
-        "activity": 0.0,
-        "event_count": 0,
+        "activity": 0.1925,
+        "event_count": 1,
         "metric_version": "metric-v1",
         "name": "开源生态",
         "sentiment": 0.0,
-        "source_count": 0
+        "source_count": 1
       },
       "policy_safety": {
-        "activity": 0.925,
+        "activity": 1.095,
         "event_count": 2,
         "metric_version": "metric-v1",
         "name": "政策、安全与监管",
