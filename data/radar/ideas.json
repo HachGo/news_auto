@@ -1,6 +1,80 @@
 {
- "as_of": "2026-11-11",
+ "as_of": "2026-11-12",
  "ideas": [
+  {
+   "id": "show_hn:50457230",
+   "type": "design",
+   "title": {
+    "zh": "《请出示文件》改成 YC 投资评审游戏",
+    "en": "Papers Please, but you pick which YC startups to fund"
+   },
+   "why": {
+    "zh": "把边检审证玩法换成挑选初创公司的抉择",
+    "en": "Swaps border-checking gameplay for judging which startups to fund"
+   },
+   "who": {
+    "zh": "创业圈与游戏玩家",
+    "en": "startup folks and gamers"
+   },
+   "effort": 1,
+   "url": "https://termsheetplease.com/",
+   "published_at": "2026-11-11T19:12:16+00:00",
+   "age_h": 7,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://termsheetplease.com/",
+     "signal": {
+      "kind": "upvotes",
+      "value": 187
+     },
+     "p": 94
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 94,
+   "decay": 0.972,
+   "boost": 0,
+   "final": 91
+  },
+  {
+   "id": "show_hn:50454625",
+   "type": "product",
+   "title": {
+    "zh": "本地 AI 转录与摘要的开源桌面应用",
+    "en": "On-device AI transcription and summary desktop app"
+   },
+   "why": {
+    "zh": "模型全在本地跑，免费 MIT 替代商业订阅",
+    "en": "Runs models on-device as a free MIT alternative to subscriptions"
+   },
+   "who": {
+    "zh": "在意隐私的会议用户",
+    "en": "privacy-minded meeting users"
+   },
+   "effort": 2,
+   "url": "https://github.com/FrigadeHQ/yogurt",
+   "published_at": "2026-11-11T15:33:06+00:00",
+   "age_h": 11,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/FrigadeHQ/yogurt",
+     "signal": {
+      "kind": "upvotes",
+      "value": 178
+     },
+     "p": 94
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 94,
+   "decay": 0.956,
+   "boost": 0,
+   "final": 90
+  },
   {
    "id": "v2ex:1256021",
    "type": "product",
@@ -19,7 +93,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1256021",
    "published_at": "2026-11-11T00:16:38+00:00",
-   "age_h": 1,
+   "age_h": 26,
    "srcs": [
     {
      "source": "v2ex",
@@ -34,29 +108,66 @@
    ],
    "n_sites": 1,
    "weighted": 99,
+   "decay": 0.898,
+   "boost": 0,
+   "final": 89
+  },
+  {
+   "id": "v2ex:1256338",
+   "type": "product",
+   "title": {
+    "zh": "一句话生成歌曲 Tunora",
+    "en": "Tunora: one sentence to a song"
+   },
+   "why": {
+    "zh": "输入一句话即可生成歌曲，不懂乐理也能写歌",
+    "en": "Type one sentence and get a song without any music theory"
+   },
+   "who": {
+    "zh": "零基础创作者",
+    "en": "non-musicians"
+   },
+   "effort": 1,
+   "url": "https://www.v2ex.com/t/1256338",
+   "published_at": "2026-11-12T01:41:19+00:00",
+   "age_h": 1,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1256338",
+     "signal": {
+      "kind": "comments",
+      "value": 3
+     },
+     "p": 86
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 86,
    "decay": 0.996,
    "boost": 0,
-   "final": 99
+   "final": 86
   },
   {
    "id": "show_hn:50443812",
    "type": "method",
    "title": {
-    "zh": "用现代浏览器原生能力替换旧JS",
-    "en": "Swap old JS for modern web primitives"
+    "zh": "用浏览器原生能力替掉旧 JavaScript",
+    "en": "Modern browser primitives over 2019 JavaScript"
    },
    "why": {
-    "zh": "CSS.highlights、dialog 等原生能力省掉大段 JS 与依赖",
-    "en": "Native primitives like CSS.highlights and dialog replace whole JS snippets and dependencies"
+    "zh": "CSS.highlights、dialog 等原生 API 顶替数十行 JS 与依赖",
+    "en": "Native APIs like CSS.highlights and dialog replace dozens of lines of JS and dependencies"
    },
    "who": {
-    "zh": "前端开发者",
-    "en": "Front-end developers"
+    "zh": "前端与 AI 编码用户",
+    "en": "front-end devs using coding agents"
    },
    "effort": 1,
    "url": "https://github.com/GoogleChrome/modern-web-guidance",
    "published_at": "2026-11-10T18:01:15+00:00",
-   "age_h": 8,
+   "age_h": 33,
    "srcs": [
     {
      "source": "show_hn",
@@ -64,36 +175,73 @@
      "url": "https://github.com/GoogleChrome/modern-web-guidance",
      "signal": {
       "kind": "upvotes",
-      "value": 259
+      "value": 425
      },
-     "p": 95
+     "p": 98
     }
    ],
    "n_sites": 1,
-   "weighted": 95,
-   "decay": 0.968,
+   "weighted": 98,
+   "decay": 0.873,
    "boost": 0,
-   "final": 92
+   "final": 86
+  },
+  {
+   "id": "show_hn:50449891",
+   "type": "hack",
+   "title": {
+    "zh": "把《黑色行动2》静态重编译到 ARM64 macOS",
+    "en": "Black Ops II statically recompiled to native ARM64 macOS"
+   },
+   "why": {
+    "zh": "用自写工具把 Steam 游戏转成 Apple 芯片原生版",
+    "en": "A custom tool converts your Steam copy into a native Apple-silicon build"
+   },
+   "who": {
+    "zh": "老游戏与 Mac 玩家",
+    "en": "retro game and Mac players"
+   },
+   "effort": 3,
+   "url": "https://github.com/adrbn/bo2-mac",
+   "published_at": "2026-11-11T04:56:47+00:00",
+   "age_h": 22,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/adrbn/bo2-mac",
+     "signal": {
+      "kind": "upvotes",
+      "value": 141
+     },
+     "p": 91
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 91,
+   "decay": 0.913,
+   "boost": 0,
+   "final": 83
   },
   {
    "id": "show_hn:50441518",
    "type": "design",
    "title": {
-    "zh": "等距视角的瓦伦西亚城",
-    "en": "Valencia in isometric Sim City view"
+    "zh": "等距视角重建西班牙瓦伦西亚",
+    "en": "Valencia rebuilt in isometric SimCity view"
    },
    "why": {
-    "zh": "把真实城市画成模拟城市式等距视图，视角新鲜",
-    "en": "A real city redrawn as a Sim City style isometric scene"
+    "zh": "把真实城市搬进模拟城市式的等距画面",
+    "en": "Turns a real city into a SimCity-style isometric scene"
    },
    "who": {
-    "zh": "地图与城市爱好者",
-    "en": "Map and city lovers"
+    "zh": "地图与游戏美术爱好者",
+    "en": "map and game-art fans"
    },
    "effort": 2,
    "url": "https://tinyvalencia.com/",
    "published_at": "2026-11-10T15:12:16+00:00",
-   "age_h": 10,
+   "age_h": 35,
    "srcs": [
     {
      "source": "show_hn",
@@ -101,36 +249,73 @@
      "url": "https://tinyvalencia.com/",
      "signal": {
       "kind": "upvotes",
-      "value": 191
+      "value": 245
      },
-     "p": 93
+     "p": 94
     }
    ],
    "n_sites": 1,
-   "weighted": 93,
-   "decay": 0.96,
+   "weighted": 94,
+   "decay": 0.866,
    "boost": 0,
-   "final": 89
+   "final": 81
+  },
+  {
+   "id": "v2ex:1256355",
+   "type": "product",
+   "title": {
+    "zh": "轻量笔记软件「浮笺」",
+    "en": "Floatleaf, a lightweight notes app"
+   },
+   "why": {
+    "zh": "专攻命令、灵感、密码这类高频小记录的顺手场景",
+    "en": "Built for quick captures like commands, ideas and passwords"
+   },
+   "who": {
+    "zh": "办公人群",
+    "en": "office workers"
+   },
+   "effort": 1,
+   "url": "https://www.v2ex.com/t/1256355",
+   "published_at": "2026-11-12T01:59:33+00:00",
+   "age_h": 1,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1256355",
+     "signal": {
+      "kind": "comments",
+      "value": 2
+     },
+     "p": 80
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 80,
+   "decay": 0.996,
+   "boost": 0,
+   "final": 80
   },
   {
    "id": "show_hn:50439000",
    "type": "product",
    "title": {
-    "zh": "15MB 自托管影音库",
-    "en": "15MB self-hosted media hub"
+    "zh": "15MB 自托管影音流媒体服务",
+    "en": "15MB self-hosted Netflix and Spotify for your media"
    },
    "why": {
-    "zh": "仅15MB就为自建媒体服务器提供类 Netflix/Spotify 界面",
-    "en": "A 15MB Netflix/Spotify-style front end for your own media server"
+    "zh": "体积极小的自托管方案，一份媒体两种体验",
+    "en": "Tiny self-hosted server giving Netflix- and Spotify-like access to your files"
    },
    "who": {
-    "zh": "自建媒体库用户",
-    "en": "Self-hosting media users"
+    "zh": "自建媒体库的人",
+    "en": "self-hosters with media libraries"
    },
    "effort": 2,
    "url": "https://github.com/HolyArrs/HolyArrs",
    "published_at": "2026-11-10T11:51:19+00:00",
-   "age_h": 14,
+   "age_h": 39,
    "srcs": [
     {
      "source": "show_hn",
@@ -138,16 +323,16 @@
      "url": "https://github.com/HolyArrs/HolyArrs",
      "signal": {
       "kind": "upvotes",
-      "value": 163
+      "value": 167
      },
      "p": 94
     }
    ],
    "n_sites": 1,
    "weighted": 94,
-   "decay": 0.944,
+   "decay": 0.851,
    "boost": 0,
-   "final": 89
+   "final": 80
   },
   {
    "id": "v2ex:1255767",
@@ -167,7 +352,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1255767",
    "published_at": "2026-11-10T02:13:35+00:00",
-   "age_h": 23,
+   "age_h": 48,
    "srcs": [
     {
      "source": "v2ex",
@@ -182,9 +367,83 @@
    ],
    "n_sites": 1,
    "weighted": 98,
-   "decay": 0.909,
+   "decay": 0.82,
    "boost": 0,
-   "final": 89
+   "final": 80
+  },
+  {
+   "id": "show_hn:50454951",
+   "type": "product",
+   "title": {
+    "zh": "可由编码代理驱动的画图应用",
+    "en": "Paint app your coding agent can drive"
+   },
+   "why": {
+    "zh": "让 AI 代理直接操作画布，弥补游戏开发中的可视反馈",
+    "en": "Lets an AI agent drive the canvas, fixing weak visual feedback in game dev"
+   },
+   "who": {
+    "zh": "用 AI 做游戏的人",
+    "en": "AI-assisted game developers"
+   },
+   "effort": 2,
+   "url": "https://github.com/klad-app/klad",
+   "published_at": "2026-11-11T16:00:50+00:00",
+   "age_h": 11,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/klad-app/klad",
+     "signal": {
+      "kind": "upvotes",
+      "value": 71
+     },
+     "p": 83
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 83,
+   "decay": 0.956,
+   "boost": 0,
+   "final": 79
+  },
+  {
+   "id": "show_hn:50453229",
+   "type": "product",
+   "title": {
+    "zh": "Neovim 浮窗里的离线 Godbolt",
+    "en": "Godbolt in a floating window for Neovim"
+   },
+   "why": {
+    "zh": "调用本地编译器生成汇编，无需联网",
+    "en": "Uses a locally installed compiler for assembly, no internet needed"
+   },
+   "who": {
+    "zh": "C/C++/Rust 开发者",
+    "en": "C, C++ and Rust developers"
+   },
+   "effort": 1,
+   "url": "https://github.com/0xdeadf1sh/AssemblyForNeovim",
+   "published_at": "2026-11-11T13:34:24+00:00",
+   "age_h": 13,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/0xdeadf1sh/AssemblyForNeovim",
+     "signal": {
+      "kind": "upvotes",
+      "value": 97
+     },
+     "p": 83
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 83,
+   "decay": 0.948,
+   "boost": 0,
+   "final": 79
   },
   {
    "id": "v2ex:1255770",
@@ -204,7 +463,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1255770",
    "published_at": "2026-11-10T02:16:27+00:00",
-   "age_h": 23,
+   "age_h": 48,
    "srcs": [
     {
      "source": "v2ex",
@@ -219,9 +478,9 @@
    ],
    "n_sites": 1,
    "weighted": 94,
-   "decay": 0.909,
+   "decay": 0.82,
    "boost": 0,
-   "final": 85
+   "final": 77
   },
   {
    "id": "show_hn:50428907",
@@ -241,7 +500,7 @@
    "effort": 2,
    "url": "https://www.watched.earth",
    "published_at": "2026-11-09T17:51:31+00:00",
-   "age_h": 32,
+   "age_h": 57,
    "srcs": [
     {
      "source": "show_hn",
@@ -256,9 +515,46 @@
    ],
    "n_sites": 1,
    "weighted": 97,
-   "decay": 0.876,
+   "decay": 0.79,
    "boost": 0,
-   "final": 85
+   "final": 77
+  },
+  {
+   "id": "hackaday:1424452",
+   "type": "hack",
+   "title": {
+    "zh": "能跑 DOOM 的咖啡机",
+    "en": "A coffee machine that runs DOOM"
+   },
+   "why": {
+    "zh": "把 DOOM 移植到本不该跑游戏的咖啡机上",
+    "en": "Ports DOOM onto a coffee machine that was never meant to run games"
+   },
+   "who": {
+    "zh": "硬件折腾者",
+    "en": "hardware tinkerers"
+   },
+   "effort": 3,
+   "url": "https://hackaday.com/2026/11/10/this-coffee-machine-is-doomed/",
+   "published_at": "2026-11-11T06:00:18+00:00",
+   "age_h": 21,
+   "srcs": [
+    {
+     "source": "hackaday",
+     "name": "Hackaday",
+     "url": "https://hackaday.com/2026/11/10/this-coffee-machine-is-doomed/",
+     "signal": {
+      "kind": "comments",
+      "value": 12
+     },
+     "p": 81
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 81,
+   "decay": 0.917,
+   "boost": 0,
+   "final": 74
   },
   {
    "id": "v2ex:1255990",
@@ -278,7 +574,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1255990",
    "published_at": "2026-11-10T15:14:49+00:00",
-   "age_h": 10,
+   "age_h": 35,
    "srcs": [
     {
      "source": "v2ex",
@@ -288,51 +584,51 @@
       "kind": "comments",
       "value": 3
      },
-     "p": 85
+     "p": 86
     }
    ],
    "n_sites": 1,
-   "weighted": 85,
-   "decay": 0.96,
+   "weighted": 86,
+   "decay": 0.866,
    "boost": 0,
-   "final": 82
+   "final": 74
   },
   {
-   "id": "hackaday:1397210",
-   "type": "method",
+   "id": "github:1450963843",
+   "type": "hack",
    "title": {
-    "zh": "给黑客的 DeviceTree 入门",
-    "en": "DeviceTree for hackers: an intro"
+    "zh": "iOS 配置编辑器 GestaltX",
+    "en": "GestaltX iOS config editor"
    },
    "why": {
-    "zh": "从设备树文件反推硬件配置，读懂硬件描述",
-    "en": "Read hardware config out of DeviceTree files to understand a board."
+    "zh": "可改区域码、套用设备预设，还带备份与七种语言支持",
+    "en": "Region-code tweaks and device presets, plus backups and 7 languages"
    },
    "who": {
-    "zh": "嵌入式爱好者",
-    "en": "Embedded hobbyists"
+    "zh": "iOS 折腾玩家",
+    "en": "iOS tinkerers"
    },
    "effort": 2,
-   "url": "https://hackaday.com/2026/11/10/devicetree-for-hackers-intro/",
-   "published_at": "2026-11-10T15:00:00+00:00",
-   "age_h": 11,
+   "url": "https://github.com/huamidev/GestaltX",
+   "published_at": "2026-11-09T05:15:48+00:00",
+   "age_h": 69,
    "srcs": [
     {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/10/devicetree-for-hackers-intro/",
+     "source": "github",
+     "name": "GitHub",
+     "url": "https://github.com/huamidev/GestaltX",
      "signal": {
-      "kind": "comments",
-      "value": 14
+      "kind": "stars",
+      "value": 6342
      },
-     "p": 85
+     "p": 97
     }
    ],
    "n_sites": 1,
-   "weighted": 85,
-   "decay": 0.956,
+   "weighted": 97,
+   "decay": 0.752,
    "boost": 0,
-   "final": 81
+   "final": 73
   },
   {
    "id": "v2ex:1256018",
@@ -352,7 +648,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1256018",
    "published_at": "2026-11-10T23:51:10+00:00",
-   "age_h": 2,
+   "age_h": 27,
    "srcs": [
     {
      "source": "v2ex",
@@ -367,120 +663,46 @@
    ],
    "n_sites": 1,
    "weighted": 80,
-   "decay": 0.992,
+   "decay": 0.895,
    "boost": 0,
-   "final": 79
+   "final": 72
   },
   {
-   "id": "show_hn:50427934",
-   "type": "product",
+   "id": "hackaday:1397210",
+   "type": "method",
    "title": {
-    "zh": "Rust 开源数据库客户端",
-    "en": "Rust open-source DB client"
+    "zh": "给黑客的 DeviceTree 入门",
+    "en": "DeviceTree for hackers: an intro"
    },
    "why": {
-    "zh": "以 Zed、Ghostty 的手感为目标，主打性能与顺手",
-    "en": "A DB client built for speed and the feel of Zed and Ghostty"
+    "zh": "从设备树文件反推硬件配置，读懂硬件描述",
+    "en": "Read hardware config out of DeviceTree files to understand a board."
    },
    "who": {
-    "zh": "数据库开发者",
-    "en": "Database developers"
-   },
-   "effort": 1,
-   "url": "https://news.ycombinator.com/item?id=50427934",
-   "published_at": "2026-11-09T16:36:38+00:00",
-   "age_h": 33,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://news.ycombinator.com/item?id=50427934",
-     "signal": {
-      "kind": "upvotes",
-      "value": 120
-     },
-     "p": 90
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 90,
-   "decay": 0.873,
-   "boost": 0,
-   "final": 79
-  },
-  {
-   "id": "github:1450963843",
-   "type": "hack",
-   "title": {
-    "zh": "iOS 系统配置编辑器 GestaltX",
-    "en": "GestaltX iOS MobileGestalt editor"
-   },
-   "why": {
-    "zh": "可视化改地区码与设备预设，还带备份和多语言",
-    "en": "Visual region-code tweaks with presets, backups and 7 languages"
-   },
-   "who": {
-    "zh": "iOS 折腾玩家",
-    "en": "iOS tinkerers"
+    "zh": "嵌入式爱好者",
+    "en": "Embedded hobbyists"
    },
    "effort": 2,
-   "url": "https://github.com/huamidev/GestaltX",
-   "published_at": "2026-11-09T05:15:48+00:00",
-   "age_h": 44,
+   "url": "https://hackaday.com/2026/11/10/devicetree-for-hackers-intro/",
+   "published_at": "2026-11-10T15:00:00+00:00",
+   "age_h": 36,
    "srcs": [
     {
-     "source": "github",
-     "name": "GitHub",
-     "url": "https://github.com/huamidev/GestaltX",
-     "signal": {
-      "kind": "stars",
-      "value": 4854
-     },
-     "p": 95
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 95,
-   "decay": 0.834,
-   "boost": 0,
-   "final": 79
-  },
-  {
-   "id": "v2ex:1256010",
-   "type": "product",
-   "title": {
-    "zh": "清理会话存储的 cc-clean",
-    "en": "cc-clean: prune AI coding session storage"
-   },
-   "why": {
-    "zh": "只删会话里的冗余字段，不破坏 resume 还省空间",
-    "en": "Strips redundant session fields while keeping resume working and saving disk."
-   },
-   "who": {
-    "zh": "AI 编程用户",
-    "en": "AI coding users"
-   },
-   "effort": 1,
-   "url": "https://www.v2ex.com/t/1256010",
-   "published_at": "2026-11-10T18:28:01+00:00",
-   "age_h": 7,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1256010",
+     "source": "hackaday",
+     "name": "Hackaday",
+     "url": "https://hackaday.com/2026/11/10/devicetree-for-hackers-intro/",
      "signal": {
       "kind": "comments",
-      "value": 2
+      "value": 14
      },
-     "p": 80
+     "p": 84
     }
    ],
    "n_sites": 1,
-   "weighted": 80,
-   "decay": 0.972,
+   "weighted": 84,
+   "decay": 0.862,
    "boost": 0,
-   "final": 78
+   "final": 72
   },
   {
    "id": "show_hn:50429636",
@@ -500,7 +722,7 @@
    "effort": 2,
    "url": "https://meowdisplay.app/",
    "published_at": "2026-11-09T18:39:22+00:00",
-   "age_h": 31,
+   "age_h": 56,
    "srcs": [
     {
      "source": "show_hn",
@@ -515,9 +737,9 @@
    ],
    "n_sites": 1,
    "weighted": 89,
-   "decay": 0.88,
+   "decay": 0.794,
    "boost": 0,
-   "final": 78
+   "final": 71
   },
   {
    "id": "show_hn:50429812",
@@ -537,7 +759,7 @@
    "effort": 1,
    "url": "https://someonewashere.app/",
    "published_at": "2026-11-09T18:50:56+00:00",
-   "age_h": 31,
+   "age_h": 56,
    "srcs": [
     {
      "source": "show_hn",
@@ -552,9 +774,83 @@
    ],
    "n_sites": 1,
    "weighted": 89,
-   "decay": 0.88,
+   "decay": 0.794,
    "boost": 0,
-   "final": 78
+   "final": 71
+  },
+  {
+   "id": "v2ex:1256010",
+   "type": "product",
+   "title": {
+    "zh": "清理会话存储的 cc-clean",
+    "en": "cc-clean: prune AI coding session storage"
+   },
+   "why": {
+    "zh": "只删会话里的冗余字段，不破坏 resume 还省空间",
+    "en": "Strips redundant session fields while keeping resume working and saving disk."
+   },
+   "who": {
+    "zh": "AI 编程用户",
+    "en": "AI coding users"
+   },
+   "effort": 1,
+   "url": "https://www.v2ex.com/t/1256010",
+   "published_at": "2026-11-10T18:28:01+00:00",
+   "age_h": 32,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1256010",
+     "signal": {
+      "kind": "comments",
+      "value": 2
+     },
+     "p": 80
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 80,
+   "decay": 0.876,
+   "boost": 0,
+   "final": 70
+  },
+  {
+   "id": "show_hn:50427934",
+   "type": "product",
+   "title": {
+    "zh": "Rust 开源数据库客户端",
+    "en": "Rust open-source DB client"
+   },
+   "why": {
+    "zh": "以 Zed、Ghostty 的手感为目标，主打性能与顺手",
+    "en": "A DB client built for speed and the feel of Zed and Ghostty"
+   },
+   "who": {
+    "zh": "数据库开发者",
+    "en": "Database developers"
+   },
+   "effort": 1,
+   "url": "https://news.ycombinator.com/item?id=50427934",
+   "published_at": "2026-11-09T16:36:38+00:00",
+   "age_h": 58,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://news.ycombinator.com/item?id=50427934",
+     "signal": {
+      "kind": "upvotes",
+      "value": 120
+     },
+     "p": 89
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 89,
+   "decay": 0.787,
+   "boost": 0,
+   "final": 70
   },
   {
    "id": "show_hn:50429144",
@@ -574,7 +870,7 @@
    "effort": 1,
    "url": "https://github.com/Dodaios/ste80-humanizer",
    "published_at": "2026-11-09T18:05:44+00:00",
-   "age_h": 32,
+   "age_h": 57,
    "srcs": [
     {
      "source": "show_hn",
@@ -589,9 +885,9 @@
    ],
    "n_sites": 1,
    "weighted": 87,
-   "decay": 0.876,
+   "decay": 0.79,
    "boost": 0,
-   "final": 76
+   "final": 69
   },
   {
    "id": "hackaday:1396766",
@@ -611,7 +907,7 @@
    "effort": 2,
    "url": "https://hackaday.com/2026/11/09/radon-active/",
    "published_at": "2026-11-09T15:00:15+00:00",
-   "age_h": 35,
+   "age_h": 60,
    "srcs": [
     {
      "source": "hackaday",
@@ -626,9 +922,46 @@
    ],
    "n_sites": 1,
    "weighted": 88,
-   "decay": 0.866,
+   "decay": 0.781,
    "boost": 0,
-   "final": 76
+   "final": 69
+  },
+  {
+   "id": "show_hn:50441350",
+   "type": "product",
+   "title": {
+    "zh": "浏览器里的专业 CAD 与 3D 建模",
+    "en": "Professional CAD and 3D modeling in the browser"
+   },
+   "why": {
+    "zh": "把 NURBS 实体建模与文档工具搬进浏览器并接入 AI",
+    "en": "Brings NURBS solid modeling and drafting tools to the browser with deep AI integration"
+   },
+   "who": {
+    "zh": "工程师与设计师",
+    "en": "engineers and designers"
+   },
+   "effort": 1,
+   "url": "https://aircad.com",
+   "published_at": "2026-11-10T15:01:19+00:00",
+   "age_h": 36,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://aircad.com",
+     "signal": {
+      "kind": "upvotes",
+      "value": 46
+     },
+     "p": 79
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 79,
+   "decay": 0.862,
+   "boost": 0,
+   "final": 68
   },
   {
    "id": "v2ex:1255421",
@@ -648,7 +981,7 @@
    "effort": 3,
    "url": "https://www.v2ex.com/t/1255421",
    "published_at": "2026-11-09T00:23:23+00:00",
-   "age_h": 49,
+   "age_h": 74,
    "srcs": [
     {
      "source": "v2ex",
@@ -658,14 +991,88 @@
       "kind": "comments",
       "value": 5
      },
-     "p": 91
+     "p": 92
     }
    ],
    "n_sites": 1,
-   "weighted": 91,
-   "decay": 0.817,
+   "weighted": 92,
+   "decay": 0.737,
    "boost": 0,
-   "final": 74
+   "final": 68
+  },
+  {
+   "id": "v2ex:1256342",
+   "type": "design",
+   "title": {
+    "zh": "藏在物品里的小眼睛 Peepables",
+    "en": "Peepables: eyes hidden in everyday objects"
+   },
+   "why": {
+    "zh": "纯 SVG 小眼睛藏在杯子里跟着鼠标转，还能眨眼",
+    "en": "Pure-SVG eyes hidden in objects follow your cursor and blink"
+   },
+   "who": {
+    "zh": "网页开发者",
+    "en": "web developers"
+   },
+   "effort": 1,
+   "url": "https://www.v2ex.com/t/1256342",
+   "published_at": "2026-11-12T01:45:51+00:00",
+   "age_h": 1,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1256342",
+     "signal": {
+      "kind": "comments",
+      "value": 1
+     },
+     "p": 67
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 67,
+   "decay": 0.996,
+   "boost": 0,
+   "final": 67
+  },
+  {
+   "id": "v2ex:1256312",
+   "type": "product",
+   "title": {
+    "zh": "用 Flutter 做的起卦应用",
+    "en": "Flutter hexagram-casting app"
+   },
+   "why": {
+    "zh": "借起卦点子练手 Flutter，做成跨平台小应用",
+    "en": "Uses an I Ching idea as a small cross-platform Flutter practice project"
+   },
+   "who": {
+    "zh": "Flutter 新手",
+    "en": "Flutter beginners"
+   },
+   "effort": 2,
+   "url": "https://www.v2ex.com/t/1256312",
+   "published_at": "2026-11-11T19:35:02+00:00",
+   "age_h": 7,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1256312",
+     "signal": {
+      "kind": "comments",
+      "value": 1
+     },
+     "p": 67
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 67,
+   "decay": 0.972,
+   "boost": 0,
+   "final": 65
   },
   {
    "id": "show_hn:50421155",
@@ -685,7 +1092,7 @@
    "effort": 2,
    "url": "https://github.com/OmniJev/Flide",
    "published_at": "2026-11-09T04:43:12+00:00",
-   "age_h": 45,
+   "age_h": 70,
    "srcs": [
     {
      "source": "show_hn",
@@ -700,120 +1107,9 @@
    ],
    "n_sites": 1,
    "weighted": 87,
-   "decay": 0.831,
+   "decay": 0.749,
    "boost": 0,
-   "final": 72
-  },
-  {
-   "id": "hackaday:1398102",
-   "type": "hack",
-   "title": {
-    "zh": "不用高级工具造一台洗狗机",
-    "en": "A Dog Car Wash Without Fancy Tools"
-   },
-   "why": {
-    "zh": "用普通工具把给狗洗澡这件麻烦事自动化",
-    "en": "Automates the hassle of washing a dog using ordinary tools."
-   },
-   "who": {
-    "zh": "养狗的人",
-    "en": "dog owners"
-   },
-   "effort": 3,
-   "url": "https://hackaday.com/2026/11/07/making-a-dog-car-wash-without-very-fancy-tools/",
-   "published_at": "2026-11-08T06:00:42+00:00",
-   "age_h": 68,
-   "srcs": [
-    {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/07/making-a-dog-car-wash-without-very-fancy-tools/",
-     "signal": {
-      "kind": "comments",
-      "value": 17
-     },
-     "p": 90
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 90,
-   "decay": 0.755,
-   "boost": 0,
-   "final": 68
-  },
-  {
-   "id": "show_hn:50406292",
-   "type": "hack",
-   "title": {
-    "zh": "伪装成超市冷柜的蜜罐",
-    "en": "Honeypot posing as a supermarket fridge controller"
-   },
-   "why": {
-    "zh": "把工业冷柜控制器做成诱饵，看看攻击者会怎么下手",
-    "en": "Turns a supermarket refrigeration controller into bait to watch attackers work."
-   },
-   "who": {
-    "zh": "安全研究者",
-    "en": "security researchers"
-   },
-   "effort": 2,
-   "url": "https://github.com/hedgerow-dev/coldframe",
-   "published_at": "2026-11-07T17:27:30+00:00",
-   "age_h": 80,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://github.com/hedgerow-dev/coldframe",
-     "signal": {
-      "kind": "upvotes",
-      "value": 278
-     },
-     "p": 95
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 95,
-   "decay": 0.719,
-   "boost": 0,
-   "final": 68
-  },
-  {
-   "id": "v2ex:1256040",
-   "type": "product",
-   "title": {
-    "zh": "浏览器内拼长图的 QuoteStitch",
-    "en": "QuoteStitch: stitch screenshots in the browser"
-   },
-   "why": {
-    "zh": "本地拼接，无水印、不上传，截图不离开电脑",
-    "en": "Stitches locally: no watermark, no upload, files stay on your machine."
-   },
-   "who": {
-    "zh": "常拼截图的人",
-    "en": "Anyone stitching screenshots"
-   },
-   "effort": 1,
-   "url": "https://www.v2ex.com/t/1256040",
-   "published_at": "2026-11-11T01:26:39+00:00",
-   "age_h": 0,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1256040",
-     "signal": {
-      "kind": "comments",
-      "value": 1
-     },
-     "p": 67
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 67,
-   "decay": 1.0,
-   "boost": 0,
-   "final": 67
+   "final": 65
   },
   {
    "id": "v2ex:1255398",
@@ -833,7 +1129,7 @@
    "effort": 3,
    "url": "https://www.v2ex.com/t/1255398",
    "published_at": "2026-11-08T15:20:51+00:00",
-   "age_h": 58,
+   "age_h": 83,
    "srcs": [
     {
      "source": "v2ex",
@@ -843,14 +1139,14 @@
       "kind": "comments",
       "value": 3
      },
-     "p": 85
+     "p": 86
     }
    ],
    "n_sites": 1,
-   "weighted": 85,
-   "decay": 0.787,
+   "weighted": 86,
+   "decay": 0.71,
    "boost": 0,
-   "final": 67
+   "final": 61
   },
   {
    "id": "v2ex:1255401",
@@ -870,7 +1166,7 @@
    "effort": 3,
    "url": "https://www.v2ex.com/t/1255401",
    "published_at": "2026-11-08T15:37:51+00:00",
-   "age_h": 58,
+   "age_h": 83,
    "srcs": [
     {
      "source": "v2ex",
@@ -880,14 +1176,162 @@
       "kind": "comments",
       "value": 3
      },
-     "p": 85
+     "p": 86
     }
    ],
    "n_sites": 1,
-   "weighted": 85,
-   "decay": 0.787,
+   "weighted": 86,
+   "decay": 0.71,
    "boost": 0,
-   "final": 67
+   "final": 61
+  },
+  {
+   "id": "hackaday:1398102",
+   "type": "hack",
+   "title": {
+    "zh": "不用高级工具造一台洗狗机",
+    "en": "A Dog Car Wash Without Fancy Tools"
+   },
+   "why": {
+    "zh": "用普通工具把给狗洗澡这件麻烦事自动化",
+    "en": "Automates the hassle of washing a dog using ordinary tools."
+   },
+   "who": {
+    "zh": "养狗的人",
+    "en": "dog owners"
+   },
+   "effort": 3,
+   "url": "https://hackaday.com/2026/11/07/making-a-dog-car-wash-without-very-fancy-tools/",
+   "published_at": "2026-11-08T06:00:42+00:00",
+   "age_h": 93,
+   "srcs": [
+    {
+     "source": "hackaday",
+     "name": "Hackaday",
+     "url": "https://hackaday.com/2026/11/07/making-a-dog-car-wash-without-very-fancy-tools/",
+     "signal": {
+      "kind": "comments",
+      "value": 17
+     },
+     "p": 90
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 90,
+   "decay": 0.681,
+   "boost": 0,
+   "final": 61
+  },
+  {
+   "id": "show_hn:50406292",
+   "type": "hack",
+   "title": {
+    "zh": "伪装成超市冷柜的蜜罐",
+    "en": "Honeypot posing as a supermarket fridge controller"
+   },
+   "why": {
+    "zh": "把工业冷柜控制器做成诱饵，看看攻击者会怎么下手",
+    "en": "Turns a supermarket refrigeration controller into bait to watch attackers work."
+   },
+   "who": {
+    "zh": "安全研究者",
+    "en": "security researchers"
+   },
+   "effort": 2,
+   "url": "https://github.com/hedgerow-dev/coldframe",
+   "published_at": "2026-11-07T17:27:30+00:00",
+   "age_h": 105,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/hedgerow-dev/coldframe",
+     "signal": {
+      "kind": "upvotes",
+      "value": 278
+     },
+     "p": 94
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 94,
+   "decay": 0.648,
+   "boost": 0,
+   "final": 61
+  },
+  {
+   "id": "v2ex:1256040",
+   "type": "product",
+   "title": {
+    "zh": "浏览器内拼长图的 QuoteStitch",
+    "en": "QuoteStitch: stitch screenshots in the browser"
+   },
+   "why": {
+    "zh": "本地拼接，无水印、不上传，截图不离开电脑",
+    "en": "Stitches locally: no watermark, no upload, files stay on your machine."
+   },
+   "who": {
+    "zh": "常拼截图的人",
+    "en": "Anyone stitching screenshots"
+   },
+   "effort": 1,
+   "url": "https://www.v2ex.com/t/1256040",
+   "published_at": "2026-11-11T01:26:39+00:00",
+   "age_h": 25,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1256040",
+     "signal": {
+      "kind": "comments",
+      "value": 1
+     },
+     "p": 67
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 67,
+   "decay": 0.902,
+   "boost": 0,
+   "final": 60
+  },
+  {
+   "id": "github:1450012790",
+   "type": "hack",
+   "title": {
+    "zh": "把 Switch 游戏原生搬上苹果设备",
+    "en": "Switch games running natively on Apple devices"
+   },
+   "why": {
+    "zh": "游戏代码重写为 ARM64，图形直通 Metal，一个应用装下整库",
+    "en": "Game code rewritten to ARM64, graphics straight to Metal, one app for the library"
+   },
+   "who": {
+    "zh": "自备游戏的老玩家",
+    "en": "players with their own games"
+   },
+   "effort": 3,
+   "url": "https://github.com/jhaizhou-ops/S2Arm",
+   "published_at": "2026-11-08T05:49:46+00:00",
+   "age_h": 93,
+   "srcs": [
+    {
+     "source": "github",
+     "name": "GitHub",
+     "url": "https://github.com/jhaizhou-ops/S2Arm",
+     "signal": {
+      "kind": "stars",
+      "value": 2612
+     },
+     "p": 88
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 88,
+   "decay": 0.681,
+   "boost": 0,
+   "final": 60
   },
   {
    "id": "v2ex:1255246",
@@ -907,7 +1351,7 @@
    "effort": 3,
    "url": "https://www.v2ex.com/t/1255246",
    "published_at": "2026-11-07T12:11:33+00:00",
-   "age_h": 85,
+   "age_h": 110,
    "srcs": [
     {
      "source": "v2ex",
@@ -922,9 +1366,120 @@
    ],
    "n_sites": 1,
    "weighted": 94,
-   "decay": 0.704,
+   "decay": 0.635,
    "boost": 0,
-   "final": 66
+   "final": 60
+  },
+  {
+   "id": "hackaday:1398204",
+   "type": "hack",
+   "title": {
+    "zh": "升降桌专属抽屉",
+    "en": "A drawer made for standing desks"
+   },
+   "why": {
+    "zh": "给升降桌补上收纳短板，随手取用不碍事",
+    "en": "Adds the missing storage a standing desk needs"
+   },
+   "who": {
+    "zh": "升降桌用户",
+    "en": "standing desk users"
+   },
+   "effort": 2,
+   "url": "https://hackaday.com/2026/11/11/the-drawer-every-standing-desk-needs/",
+   "published_at": "2026-11-11T16:30:11+00:00",
+   "age_h": 10,
+   "srcs": [
+    {
+     "source": "hackaday",
+     "name": "Hackaday",
+     "url": "https://hackaday.com/2026/11/11/the-drawer-every-standing-desk-needs/",
+     "signal": {
+      "kind": "comments",
+      "value": 7
+     },
+     "p": 61
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 61,
+   "decay": 0.96,
+   "boost": 0,
+   "final": 59
+  },
+  {
+   "id": "github:1452123445",
+   "type": "hack",
+   "title": {
+    "zh": "iOS 系统配置研究工具箱",
+    "en": "iOS system config research toolbox"
+   },
+   "why": {
+    "zh": "中文整理 Gestalt 研究工具，并加了防白苹果安全加固",
+    "en": "Chinese-language Gestalt toolbox with anti-brick safeguards"
+   },
+   "who": {
+    "zh": "iOS 系统研究者",
+    "en": "iOS system researchers"
+   },
+   "effort": 2,
+   "url": "https://github.com/Kianuni/Erosion-CN",
+   "published_at": "2026-11-10T02:37:31+00:00",
+   "age_h": 48,
+   "srcs": [
+    {
+     "source": "github",
+     "name": "GitHub",
+     "url": "https://github.com/Kianuni/Erosion-CN",
+     "signal": {
+      "kind": "stars",
+      "value": 1576
+     },
+     "p": 72
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 72,
+   "decay": 0.82,
+   "boost": 0,
+   "final": 59
+  },
+  {
+   "id": "show_hn:50444761",
+   "type": "method",
+   "title": {
+    "zh": "用自己数据训练 15 个血糖预测模型",
+    "en": "15 blood glucose forecasting models trained on my own data"
+   },
+   "why": {
+    "zh": "拿个人连续血糖数据做多模型对比实验",
+    "en": "Compares many forecasting models on one person's own glucose data"
+   },
+   "who": {
+    "zh": "糖尿病数据爱好者",
+    "en": "DIY health-data hobbyists"
+   },
+   "effort": 3,
+   "url": "https://github.com/0xdeadf1sh/T1DMAI",
+   "published_at": "2026-11-10T19:07:53+00:00",
+   "age_h": 31,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/0xdeadf1sh/T1DMAI",
+     "signal": {
+      "kind": "upvotes",
+      "value": 20
+     },
+     "p": 66
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 66,
+   "decay": 0.88,
+   "boost": 0,
+   "final": 58
   },
   {
    "id": "v2ex:1256006",
@@ -944,7 +1499,7 @@
    "effort": 2,
    "url": "https://www.v2ex.com/t/1256006",
    "published_at": "2026-11-10T17:24:12+00:00",
-   "age_h": 8,
+   "age_h": 33,
    "srcs": [
     {
      "source": "v2ex",
@@ -959,46 +1514,9 @@
    ],
    "n_sites": 1,
    "weighted": 67,
-   "decay": 0.968,
+   "decay": 0.873,
    "boost": 0,
-   "final": 65
-  },
-  {
-   "id": "github:1450012790",
-   "type": "hack",
-   "title": {
-    "zh": "iPhone 上原生跑 Switch 游戏",
-    "en": "Run Switch games natively on iPhone"
-   },
-   "why": {
-    "zh": "游戏代码重写为 ARM64，图形直连 Metal，一个 App 统管",
-    "en": "Game code rewritten to ARM64 with direct Metal graphics in one app"
-   },
-   "who": {
-    "zh": "自备游戏的自制玩家",
-    "en": "DIY Switch owners"
-   },
-   "effort": 3,
-   "url": "https://github.com/jhaizhou-ops/S2Arm",
-   "published_at": "2026-11-08T05:49:46+00:00",
-   "age_h": 68,
-   "srcs": [
-    {
-     "source": "github",
-     "name": "GitHub",
-     "url": "https://github.com/jhaizhou-ops/S2Arm",
-     "signal": {
-      "kind": "stars",
-      "value": 2396
-     },
-     "p": 83
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 83,
-   "decay": 0.755,
-   "boost": 0,
-   "final": 63
+   "final": 58
   },
   {
    "id": "hackaday:1398262",
@@ -1018,7 +1536,7 @@
    "effort": 2,
    "url": "https://hackaday.com/2026/11/07/the-hidden-microcontroller-inside-a-lora-chip/",
    "published_at": "2026-11-07T12:00:34+00:00",
-   "age_h": 86,
+   "age_h": 111,
    "srcs": [
     {
      "source": "hackaday",
@@ -1033,9 +1551,9 @@
    ],
    "n_sites": 1,
    "weighted": 88,
-   "decay": 0.701,
+   "decay": 0.633,
    "boost": 0,
-   "final": 62
+   "final": 56
   },
   {
    "id": "v2ex:1255794",
@@ -1055,7 +1573,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1255794",
    "published_at": "2026-11-10T02:47:18+00:00",
-   "age_h": 23,
+   "age_h": 48,
    "srcs": [
     {
      "source": "v2ex",
@@ -1070,83 +1588,9 @@
    ],
    "n_sites": 1,
    "weighted": 67,
-   "decay": 0.909,
+   "decay": 0.82,
    "boost": 0,
-   "final": 61
-  },
-  {
-   "id": "hackaday:1398098",
-   "type": "hack",
-   "title": {
-    "zh": "把 emoji 当 8086 机器码执行",
-    "en": "Emoji that run as 8086 machine code"
-   },
-   "why": {
-    "zh": "把 emoji 视作处理器指令，竟真能执行。",
-    "en": "Treat emoji as CPU instructions and they actually execute."
-   },
-   "who": {
-    "zh": "玩底层的程序员",
-    "en": "low-level tinkerers"
-   },
-   "effort": 2,
-   "url": "https://hackaday.com/2026/11/06/the-goat-emoji-is-100-valid-machine-code-and-it-doesnt-stop-there/",
-   "published_at": "2026-11-06T12:00:33+00:00",
-   "age_h": 110,
-   "srcs": [
-    {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/06/the-goat-emoji-is-100-valid-machine-code-and-it-doesnt-stop-there/",
-     "signal": {
-      "kind": "comments",
-      "value": 21
-     },
-     "p": 94
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 94,
-   "decay": 0.635,
-   "boost": 0,
-   "final": 60
-  },
-  {
-   "id": "v2ex:1255292",
-   "type": "product",
-   "title": {
-    "zh": "五子棋小模型",
-    "en": "Gomoku small model"
-   },
-   "why": {
-    "zh": "用标准 transformer 训练五子棋模型，ollama 一行可跑",
-    "en": "A standard transformer trained to play gomoku, runnable with Ollama."
-   },
-   "who": {
-    "zh": "五子棋爱好者",
-    "en": "gomoku fans"
-   },
-   "effort": 1,
-   "url": "https://www.v2ex.com/t/1255292",
-   "published_at": "2026-11-08T00:12:30+00:00",
-   "age_h": 73,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1255292",
-     "signal": {
-      "kind": "comments",
-      "value": 2
-     },
-     "p": 80
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 80,
-   "decay": 0.74,
-   "boost": 0,
-   "final": 59
+   "final": 55
   },
   {
    "id": "v2ex:1255111",
@@ -1166,7 +1610,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1255111",
    "published_at": "2026-11-06T15:40:11+00:00",
-   "age_h": 106,
+   "age_h": 131,
    "srcs": [
     {
      "source": "v2ex",
@@ -1176,39 +1620,76 @@
       "kind": "comments",
       "value": 5
      },
-     "p": 91
+     "p": 92
     }
    ],
    "n_sites": 1,
-   "weighted": 91,
-   "decay": 0.646,
+   "weighted": 92,
+   "decay": 0.582,
    "boost": 0,
-   "final": 59
+   "final": 54
   },
   {
-   "id": "show_hn:50441350",
-   "type": "product",
+   "id": "hackaday:1398098",
+   "type": "hack",
    "title": {
-    "zh": "浏览器里的专业 CAD",
-    "en": "Professional CAD in the browser"
+    "zh": "把 emoji 当 8086 机器码执行",
+    "en": "Emoji that run as 8086 machine code"
    },
    "why": {
-    "zh": "在浏览器中提供 NURBS 实体建模与制图，并深度接入 AI",
-    "en": "NURBS solid modeling and drafting in the browser, with deep AI integration"
+    "zh": "把 emoji 视作处理器指令，竟真能执行。",
+    "en": "Treat emoji as CPU instructions and they actually execute."
    },
    "who": {
-    "zh": "工程师与设计师",
-    "en": "Engineers and designers"
+    "zh": "玩底层的程序员",
+    "en": "low-level tinkerers"
    },
    "effort": 2,
-   "url": "https://aircad.com",
-   "published_at": "2026-11-10T15:01:19+00:00",
-   "age_h": 11,
+   "url": "https://hackaday.com/2026/11/06/the-goat-emoji-is-100-valid-machine-code-and-it-doesnt-stop-there/",
+   "published_at": "2026-11-06T12:00:33+00:00",
+   "age_h": 135,
+   "srcs": [
+    {
+     "source": "hackaday",
+     "name": "Hackaday",
+     "url": "https://hackaday.com/2026/11/06/the-goat-emoji-is-100-valid-machine-code-and-it-doesnt-stop-there/",
+     "signal": {
+      "kind": "comments",
+      "value": 21
+     },
+     "p": 94
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 94,
+   "decay": 0.573,
+   "boost": 0,
+   "final": 54
+  },
+  {
+   "id": "show_hn:50442257",
+   "type": "product",
+   "title": {
+    "zh": "HN 老帖精选聚合器",
+    "en": "The HN threads HN keeps recommending"
+   },
+   "why": {
+    "zh": "自动收集评论里推荐的旧帖，做成可浏览列表",
+    "en": "Collects HN comments that link to other great old threads into one list"
+   },
+   "who": {
+    "zh": "Hacker News 读者",
+    "en": "Hacker News readers"
+   },
+   "effort": 1,
+   "url": "https://yrecombinator.org/",
+   "published_at": "2026-11-10T16:04:02+00:00",
+   "age_h": 35,
    "srcs": [
     {
      "source": "show_hn",
      "name": "Show HN",
-     "url": "https://aircad.com",
+     "url": "https://yrecombinator.org/",
      "signal": {
       "kind": "upvotes",
       "value": 13
@@ -1218,9 +1699,83 @@
    ],
    "n_sites": 1,
    "weighted": 61,
-   "decay": 0.956,
+   "decay": 0.866,
    "boost": 0,
-   "final": 58
+   "final": 53
+  },
+  {
+   "id": "v2ex:1255292",
+   "type": "product",
+   "title": {
+    "zh": "五子棋小模型",
+    "en": "Gomoku small model"
+   },
+   "why": {
+    "zh": "用标准 transformer 训练五子棋模型，ollama 一行可跑",
+    "en": "A standard transformer trained to play gomoku, runnable with Ollama."
+   },
+   "who": {
+    "zh": "五子棋爱好者",
+    "en": "gomoku fans"
+   },
+   "effort": 1,
+   "url": "https://www.v2ex.com/t/1255292",
+   "published_at": "2026-11-08T00:12:30+00:00",
+   "age_h": 98,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1255292",
+     "signal": {
+      "kind": "comments",
+      "value": 2
+     },
+     "p": 80
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 80,
+   "decay": 0.667,
+   "boost": 0,
+   "final": 53
+  },
+  {
+   "id": "show_hn:50449232",
+   "type": "product",
+   "title": {
+    "zh": "各家云 GPU 每日租价对比",
+    "en": "Daily GPU rental prices across clouds"
+   },
+   "why": {
+    "zh": "把 AWS、RunPod 等租价集中比价省去挑选时间",
+    "en": "Puts AWS, Azure, RunPod and Vast.ai prices side by side for quick comparison"
+   },
+   "who": {
+    "zh": "租 GPU 跑模型的人",
+    "en": "people renting GPUs for models"
+   },
+   "effort": 1,
+   "url": "https://taipeiledger.com/gpu/",
+   "published_at": "2026-11-11T02:50:01+00:00",
+   "age_h": 24,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://taipeiledger.com/gpu/",
+     "signal": {
+      "kind": "upvotes",
+      "value": 15
+     },
+     "p": 57
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 57,
+   "decay": 0.906,
+   "boost": 0,
+   "final": 52
   },
   {
    "id": "show_hn:50408082",
@@ -1240,7 +1795,7 @@
    "effort": 1,
    "url": "https://wherewerewe.app/",
    "published_at": "2026-11-07T21:08:35+00:00",
-   "age_h": 77,
+   "age_h": 101,
    "srcs": [
     {
      "source": "show_hn",
@@ -1255,120 +1810,9 @@
    ],
    "n_sites": 1,
    "weighted": 79,
-   "decay": 0.728,
+   "decay": 0.659,
    "boost": 0,
-   "final": 58
-  },
-  {
-   "id": "show_hn:50405263",
-   "type": "hack",
-   "title": {
-    "zh": "把 31B 视频音频扩散模型压到 14B",
-    "en": "Compressing a 31B video+audio diffusion model to 14B"
-   },
-   "why": {
-    "zh": "把大模型压掉一半多，还能 6 步、INT8 出片",
-    "en": "Shrinks a huge model past half while needing only six steps at INT8."
-   },
-   "who": {
-    "zh": "模型部署者",
-    "en": "ML deployment folks"
-   },
-   "effort": 3,
-   "url": "https://github.com/Video-Rebirth/hyperflow-h3-flash",
-   "published_at": "2026-11-07T15:16:01+00:00",
-   "age_h": 82,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://github.com/Video-Rebirth/hyperflow-h3-flash",
-     "signal": {
-      "kind": "upvotes",
-      "value": 75
-     },
-     "p": 81
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 81,
-   "decay": 0.713,
-   "boost": 0,
-   "final": 58
-  },
-  {
-   "id": "show_hn:50408350",
-   "type": "product",
-   "title": {
-    "zh": "提醒你眨眼的离线桌面小工具",
-    "en": "Offline desktop buddy for a healthy blink rhythm"
-   },
-   "why": {
-    "zh": "久盯屏幕会少眨眼，用桌面伴侣提醒你补上",
-    "en": "Screen work cuts blink rate; a local companion nudges you to blink."
-   },
-   "who": {
-    "zh": "久坐屏幕族",
-    "en": "heavy screen users"
-   },
-   "effort": 1,
-   "url": "https://eyesrhythm.com/",
-   "published_at": "2026-11-07T21:47:47+00:00",
-   "age_h": 76,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://eyesrhythm.com/",
-     "signal": {
-      "kind": "upvotes",
-      "value": 38
-     },
-     "p": 78
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 78,
-   "decay": 0.731,
-   "boost": 0,
-   "final": 57
-  },
-  {
-   "id": "v2ex:1255263",
-   "type": "product",
-   "title": {
-    "zh": "七十个免安装在线小工具",
-    "en": "70 browser tools, no install"
-   },
-   "why": {
-    "zh": "把工具箱插件搬到网页，点开即用不用下载",
-    "en": "Moves toolbox plugins to the web so they open instantly"
-   },
-   "who": {
-    "zh": "需要轻量工具的人",
-    "en": "casual tool users"
-   },
-   "effort": 1,
-   "url": "https://www.v2ex.com/t/1255263",
-   "published_at": "2026-11-07T13:45:44+00:00",
-   "age_h": 84,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1255263",
-     "signal": {
-      "kind": "comments",
-      "value": 2
-     },
-     "p": 80
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 80,
-   "decay": 0.707,
-   "boost": 0,
-   "final": 57
+   "final": 52
   },
   {
    "id": "v2ex:1254860",
@@ -1388,7 +1832,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1254860",
    "published_at": "2026-11-05T22:51:05+00:00",
-   "age_h": 123,
+   "age_h": 148,
    "srcs": [
     {
      "source": "v2ex",
@@ -1398,14 +1842,14 @@
       "kind": "comments",
       "value": 7
      },
-     "p": 95
+     "p": 96
     }
    ],
    "n_sites": 1,
-   "weighted": 95,
-   "decay": 0.602,
+   "weighted": 96,
+   "decay": 0.543,
    "boost": 0,
-   "final": 57
+   "final": 52
   },
   {
    "id": "v2ex:1254858",
@@ -1425,7 +1869,7 @@
    "effort": 3,
    "url": "https://www.v2ex.com/t/1254858",
    "published_at": "2026-11-05T17:29:51+00:00",
-   "age_h": 128,
+   "age_h": 153,
    "srcs": [
     {
      "source": "v2ex",
@@ -1435,14 +1879,125 @@
       "kind": "comments",
       "value": 9
      },
-     "p": 97
+     "p": 98
     }
    ],
    "n_sites": 1,
-   "weighted": 97,
-   "decay": 0.59,
+   "weighted": 98,
+   "decay": 0.532,
    "boost": 0,
-   "final": 57
+   "final": 52
+  },
+  {
+   "id": "show_hn:50408350",
+   "type": "product",
+   "title": {
+    "zh": "提醒你眨眼的离线桌面小工具",
+    "en": "Offline desktop buddy for a healthy blink rhythm"
+   },
+   "why": {
+    "zh": "久盯屏幕会少眨眼，用桌面伴侣提醒你补上",
+    "en": "Screen work cuts blink rate; a local companion nudges you to blink."
+   },
+   "who": {
+    "zh": "久坐屏幕族",
+    "en": "heavy screen users"
+   },
+   "effort": 1,
+   "url": "https://eyesrhythm.com/",
+   "published_at": "2026-11-07T21:47:47+00:00",
+   "age_h": 101,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://eyesrhythm.com/",
+     "signal": {
+      "kind": "upvotes",
+      "value": 38
+     },
+     "p": 77
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 77,
+   "decay": 0.659,
+   "boost": 0,
+   "final": 51
+  },
+  {
+   "id": "show_hn:50405263",
+   "type": "hack",
+   "title": {
+    "zh": "把 31B 视频音频扩散模型压到 14B",
+    "en": "Compressing a 31B video+audio diffusion model to 14B"
+   },
+   "why": {
+    "zh": "把大模型压掉一半多，还能 6 步、INT8 出片",
+    "en": "Shrinks a huge model past half while needing only six steps at INT8."
+   },
+   "who": {
+    "zh": "模型部署者",
+    "en": "ML deployment folks"
+   },
+   "effort": 3,
+   "url": "https://github.com/Video-Rebirth/hyperflow-h3-flash",
+   "published_at": "2026-11-07T15:16:01+00:00",
+   "age_h": 107,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/Video-Rebirth/hyperflow-h3-flash",
+     "signal": {
+      "kind": "upvotes",
+      "value": 75
+     },
+     "p": 80
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 80,
+   "decay": 0.643,
+   "boost": 0,
+   "final": 51
+  },
+  {
+   "id": "v2ex:1255263",
+   "type": "product",
+   "title": {
+    "zh": "七十个免安装在线小工具",
+    "en": "70 browser tools, no install"
+   },
+   "why": {
+    "zh": "把工具箱插件搬到网页，点开即用不用下载",
+    "en": "Moves toolbox plugins to the web so they open instantly"
+   },
+   "who": {
+    "zh": "需要轻量工具的人",
+    "en": "casual tool users"
+   },
+   "effort": 1,
+   "url": "https://www.v2ex.com/t/1255263",
+   "published_at": "2026-11-07T13:45:44+00:00",
+   "age_h": 109,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1255263",
+     "signal": {
+      "kind": "comments",
+      "value": 2
+     },
+     "p": 80
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 80,
+   "decay": 0.638,
+   "boost": 0,
+   "final": 51
   },
   {
    "id": "github:1446962520",
@@ -1462,7 +2017,7 @@
    "effort": 3,
    "url": "https://github.com/NotRexed/Hookshot",
    "published_at": "2026-11-05T12:18:58+00:00",
-   "age_h": 133,
+   "age_h": 158,
    "srcs": [
     {
      "source": "github",
@@ -1477,83 +2032,9 @@
    ],
    "n_sites": 1,
    "weighted": 97,
-   "decay": 0.578,
+   "decay": 0.521,
    "boost": 0,
-   "final": 56
-  },
-  {
-   "id": "show_hn:50444761",
-   "type": "method",
-   "title": {
-    "zh": "用自身数据训练血糖模型",
-    "en": "Blood-glucose models on own data"
-   },
-   "why": {
-    "zh": "用个人连续血糖数据训练并对比15个预测模型",
-    "en": "Fifteen forecasting models trained and compared on one person's own glucose data"
-   },
-   "who": {
-    "zh": "血糖管理人群",
-    "en": "People tracking glucose"
-   },
-   "effort": 3,
-   "url": "https://github.com/0xdeadf1sh/T1DMAI",
-   "published_at": "2026-11-10T19:07:53+00:00",
-   "age_h": 7,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://github.com/0xdeadf1sh/T1DMAI",
-     "signal": {
-      "kind": "upvotes",
-      "value": 15
-     },
-     "p": 57
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 57,
-   "decay": 0.972,
-   "boost": 0,
-   "final": 55
-  },
-  {
-   "id": "v2ex:1255422",
-   "type": "product",
-   "title": {
-    "zh": "安卓终端 Terminal Spike",
-    "en": "Android terminal Terminal Spike"
-   },
-   "why": {
-    "zh": "围绕已有 tmux 工作流设计，兼顾折叠屏与快捷键",
-    "en": "Built around existing tmux workflows, with foldable-screen and key shortcuts."
-   },
-   "who": {
-    "zh": "安卓终端用户",
-    "en": "Android terminal users"
-   },
-   "effort": 3,
-   "url": "https://www.v2ex.com/t/1255422",
-   "published_at": "2026-11-09T00:39:56+00:00",
-   "age_h": 49,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1255422",
-     "signal": {
-      "kind": "comments",
-      "value": 1
-     },
-     "p": 67
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 67,
-   "decay": 0.817,
-   "boost": 0,
-   "final": 55
+   "final": 51
   },
   {
    "id": "show_hn:50413970",
@@ -1573,7 +2054,7 @@
    "effort": 2,
    "url": "https://github.com/sshah03/recalc",
    "published_at": "2026-11-08T15:12:07+00:00",
-   "age_h": 58,
+   "age_h": 83,
    "srcs": [
     {
      "source": "show_hn",
@@ -1588,9 +2069,9 @@
    ],
    "n_sites": 1,
    "weighted": 70,
-   "decay": 0.787,
+   "decay": 0.71,
    "boost": 0,
-   "final": 55
+   "final": 50
   },
   {
    "id": "v2ex:1255117",
@@ -1610,7 +2091,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1255117",
    "published_at": "2026-11-06T17:27:34+00:00",
-   "age_h": 104,
+   "age_h": 129,
    "srcs": [
     {
      "source": "v2ex",
@@ -1620,14 +2101,14 @@
       "kind": "comments",
       "value": 3
      },
-     "p": 85
+     "p": 86
     }
    ],
    "n_sites": 1,
-   "weighted": 85,
-   "decay": 0.651,
+   "weighted": 86,
+   "decay": 0.587,
    "boost": 0,
-   "final": 55
+   "final": 50
   },
   {
    "id": "hackaday:1397930",
@@ -1647,7 +2128,7 @@
    "effort": 2,
    "url": "https://hackaday.com/2026/11/05/finger-joint-cutter-uses-a-jigsaw-blade-but-not-as-we-know-it/",
    "published_at": "2026-11-05T12:00:32+00:00",
-   "age_h": 134,
+   "age_h": 159,
    "srcs": [
     {
      "source": "hackaday",
@@ -1662,9 +2143,9 @@
    ],
    "n_sites": 1,
    "weighted": 96,
-   "decay": 0.575,
+   "decay": 0.519,
    "boost": 0,
-   "final": 55
+   "final": 50
   },
   {
    "id": "v2ex:1254583",
@@ -1684,7 +2165,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1254583",
    "published_at": "2026-11-05T00:15:51+00:00",
-   "age_h": 145,
+   "age_h": 170,
    "srcs": [
     {
      "source": "v2ex",
@@ -1699,9 +2180,46 @@
    ],
    "n_sites": 1,
    "weighted": 100,
-   "decay": 0.55,
+   "decay": 0.496,
    "boost": 0,
-   "final": 55
+   "final": 50
+  },
+  {
+   "id": "v2ex:1255422",
+   "type": "product",
+   "title": {
+    "zh": "安卓终端 Terminal Spike",
+    "en": "Android terminal Terminal Spike"
+   },
+   "why": {
+    "zh": "围绕已有 tmux 工作流设计，兼顾折叠屏与快捷键",
+    "en": "Built around existing tmux workflows, with foldable-screen and key shortcuts."
+   },
+   "who": {
+    "zh": "安卓终端用户",
+    "en": "Android terminal users"
+   },
+   "effort": 3,
+   "url": "https://www.v2ex.com/t/1255422",
+   "published_at": "2026-11-09T00:39:56+00:00",
+   "age_h": 74,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1255422",
+     "signal": {
+      "kind": "comments",
+      "value": 1
+     },
+     "p": 67
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 67,
+   "decay": 0.737,
+   "boost": 0,
+   "final": 49
   },
   {
    "id": "show_hn:50429031",
@@ -1721,7 +2239,7 @@
    "effort": 2,
    "url": "https://github.com/preloopdev/loopt",
    "published_at": "2026-11-09T17:59:05+00:00",
-   "age_h": 32,
+   "age_h": 57,
    "srcs": [
     {
      "source": "show_hn",
@@ -1731,14 +2249,14 @@
       "kind": "upvotes",
       "value": 15
      },
-     "p": 62
+     "p": 61
     }
    ],
    "n_sites": 1,
-   "weighted": 62,
-   "decay": 0.876,
+   "weighted": 61,
+   "decay": 0.79,
    "boost": 0,
-   "final": 54
+   "final": 48
   },
   {
    "id": "v2ex:1255408",
@@ -1758,7 +2276,7 @@
    "effort": 2,
    "url": "https://www.v2ex.com/t/1255408",
    "published_at": "2026-11-08T16:43:05+00:00",
-   "age_h": 57,
+   "age_h": 82,
    "srcs": [
     {
      "source": "v2ex",
@@ -1773,46 +2291,120 @@
    ],
    "n_sites": 1,
    "weighted": 67,
-   "decay": 0.79,
+   "decay": 0.713,
    "boost": 0,
-   "final": 53
+   "final": 48
   },
   {
-   "id": "hackaday:1398297",
-   "type": "hack",
+   "id": "show_hn:50453176",
+   "type": "product",
    "title": {
-    "zh": "单节锂电池供电的有源天线",
-    "en": "Active antenna on a single Li-ion cell"
+    "zh": "Go 里正确使用 SQLite 的库",
+    "en": "Library for correctly using SQLite in Go"
    },
    "why": {
-    "zh": "一节电池或 USB 就能供电，便携接收更简单",
-    "en": "Runs from one cell or USB, making portable reception easy"
+    "zh": "把看似简单却易踩坑的 SQLite 用法封装好",
+    "en": "Encapsulates the deceptively easy pitfalls of SQLite in Go"
    },
    "who": {
-    "zh": "无线电爱好者",
-    "en": "radio hobbyists"
+    "zh": "Go 后端开发者",
+    "en": "Go backend developers"
    },
-   "effort": 3,
-   "url": "https://hackaday.com/2026/11/07/active-antenna-runs-on-a-single-lithium-ion-cell/",
-   "published_at": "2026-11-07T15:00:06+00:00",
-   "age_h": 83,
+   "effort": 1,
+   "url": "https://github.com/cattlecloud/litesql",
+   "published_at": "2026-11-11T13:30:26+00:00",
+   "age_h": 13,
    "srcs": [
     {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/07/active-antenna-runs-on-a-single-lithium-ion-cell/",
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/cattlecloud/litesql",
      "signal": {
-      "kind": "comments",
-      "value": 9
+      "kind": "upvotes",
+      "value": 19
      },
-     "p": 75
+     "p": 50
     }
    ],
    "n_sites": 1,
-   "weighted": 75,
-   "decay": 0.71,
+   "weighted": 50,
+   "decay": 0.948,
    "boost": 0,
-   "final": 53
+   "final": 47
+  },
+  {
+   "id": "show_hn:50452230",
+   "type": "product",
+   "title": {
+    "zh": "单片机的 Node-RED 式流程图编程",
+    "en": "Node-RED style flow programming for microcontrollers"
+   },
+   "why": {
+    "zh": "拖拽连流程图，直接生成并上传 MicroPython",
+    "en": "Drag-and-drop flows that emit MicroPython and upload it to the board"
+   },
+   "who": {
+    "zh": "硬件与创客爱好者",
+    "en": "hardware makers"
+   },
+   "effort": 2,
+   "url": "https://thingstudio.net/",
+   "published_at": "2026-11-11T11:39:15+00:00",
+   "age_h": 15,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://thingstudio.net/",
+     "signal": {
+      "kind": "upvotes",
+      "value": 13
+     },
+     "p": 50
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 50,
+   "decay": 0.94,
+   "boost": 0,
+   "final": 47
+  },
+  {
+   "id": "show_hn:50443596",
+   "type": "product",
+   "title": {
+    "zh": "用普通 HTTP 接口消费 Kafka",
+    "en": "Consume Kafka with a plain HTTP endpoint"
+   },
+   "why": {
+    "zh": "把 Kafka 消费包装成最普通的 HTTP 请求",
+    "en": "Wraps Kafka consumption behind a plain HTTP endpoint"
+   },
+   "who": {
+    "zh": "后端与数据工程师",
+    "en": "backend and data engineers"
+   },
+   "effort": 2,
+   "url": "https://github.com/wolveflake/wolvekafka",
+   "published_at": "2026-11-10T17:45:20+00:00",
+   "age_h": 33,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/wolveflake/wolvekafka",
+     "signal": {
+      "kind": "upvotes",
+      "value": 11
+     },
+     "p": 54
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 54,
+   "decay": 0.873,
+   "boost": 0,
+   "final": 47
   },
   {
    "id": "show_hn:50417478",
@@ -1832,7 +2424,7 @@
    "effort": 2,
    "url": "https://github.com/SafeScript/safescript",
    "published_at": "2026-11-08T21:26:33+00:00",
-   "age_h": 52,
+   "age_h": 77,
    "srcs": [
     {
      "source": "show_hn",
@@ -1847,83 +2439,46 @@
    ],
    "n_sites": 1,
    "weighted": 65,
-   "decay": 0.807,
+   "decay": 0.728,
    "boost": 0,
-   "final": 52
+   "final": 47
   },
   {
-   "id": "hackaday:1398673",
+   "id": "hackaday:1398297",
    "type": "hack",
    "title": {
-    "zh": "不加硬件，把手机当软件无线电",
-    "en": "Phone as an SDR with no extra hardware"
+    "zh": "单节锂电池供电的有源天线",
+    "en": "Active antenna on a single Li-ion cell"
    },
    "why": {
-    "zh": "发现常见无线芯片可当 SDR，省掉专用接收硬件",
-    "en": "Common radio chips double as SDRs, skipping dedicated hardware"
+    "zh": "一节电池或 USB 就能供电，便携接收更简单",
+    "en": "Runs from one cell or USB, making portable reception easy"
    },
    "who": {
     "zh": "无线电爱好者",
     "en": "radio hobbyists"
    },
-   "effort": 2,
-   "url": "https://hackaday.com/2026/11/09/from-phone-to-sdr-no-extra-hardware/",
-   "published_at": "2026-11-09T21:00:31+00:00",
-   "age_h": 29,
+   "effort": 3,
+   "url": "https://hackaday.com/2026/11/07/active-antenna-runs-on-a-single-lithium-ion-cell/",
+   "published_at": "2026-11-07T15:00:06+00:00",
+   "age_h": 108,
    "srcs": [
     {
      "source": "hackaday",
      "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/09/from-phone-to-sdr-no-extra-hardware/",
+     "url": "https://hackaday.com/2026/11/07/active-antenna-runs-on-a-single-lithium-ion-cell/",
      "signal": {
       "kind": "comments",
-      "value": 6
+      "value": 9
      },
-     "p": 57
+     "p": 74
     }
    ],
    "n_sites": 1,
-   "weighted": 57,
-   "decay": 0.887,
+   "weighted": 74,
+   "decay": 0.64,
    "boost": 0,
-   "final": 51
-  },
-  {
-   "id": "v2ex:1255100",
-   "type": "product",
-   "title": {
-    "zh": "把图片压到指定大小的工具",
-    "en": "Compress an image to an exact target size"
-   },
-   "why": {
-    "zh": "直接指定目标体积，还能作为 npm 包嵌进上传组件。",
-    "en": "Set the target size directly; also an npm package for upload forms."
-   },
-   "who": {
-    "zh": "做上传功能的开发者",
-    "en": "developers building uploads"
-   },
-   "effort": 1,
-   "url": "https://www.v2ex.com/t/1255100",
-   "published_at": "2026-11-06T14:52:06+00:00",
-   "age_h": 107,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1255100",
-     "signal": {
-      "kind": "comments",
-      "value": 2
-     },
-     "p": 80
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 80,
-   "decay": 0.643,
-   "boost": 0,
-   "final": 51
+   "final": 47
   },
   {
    "id": "show_hn:50378643",
@@ -1943,7 +2498,7 @@
    "effort": 2,
    "url": "https://firenook.dev/",
    "published_at": "2026-11-05T13:07:29+00:00",
-   "age_h": 133,
+   "age_h": 157,
    "srcs": [
     {
      "source": "show_hn",
@@ -1958,9 +2513,191 @@
    ],
    "n_sites": 1,
    "weighted": 89,
-   "decay": 0.578,
+   "decay": 0.523,
    "boost": 0,
-   "final": 51
+   "final": 47
+  },
+  {
+   "id": "github:1448515937",
+   "type": "product",
+   "title": {
+    "zh": "让 AI 代你操作手机，你在旁把关",
+    "en": "AI agents drive your phone, you stay in the loop"
+   },
+   "why": {
+    "zh": "自动执行手机操作，同时保留人工确认环节",
+    "en": "Agent operates the phone while keeping a human in the loop"
+   },
+   "who": {
+    "zh": "手机自动化玩家",
+    "en": "phone automation fans"
+   },
+   "effort": 3,
+   "url": "https://github.com/DIYgod/pinky",
+   "published_at": "2026-11-06T16:53:14+00:00",
+   "age_h": 130,
+   "srcs": [
+    {
+     "source": "github",
+     "name": "GitHub",
+     "url": "https://github.com/DIYgod/pinky",
+     "signal": {
+      "kind": "stars",
+      "value": 1885
+     },
+     "p": 78
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 78,
+   "decay": 0.585,
+   "boost": 0,
+   "final": 46
+  },
+  {
+   "id": "v2ex:1255100",
+   "type": "product",
+   "title": {
+    "zh": "把图片压到指定大小的工具",
+    "en": "Compress an image to an exact target size"
+   },
+   "why": {
+    "zh": "直接指定目标体积，还能作为 npm 包嵌进上传组件。",
+    "en": "Set the target size directly; also an npm package for upload forms."
+   },
+   "who": {
+    "zh": "做上传功能的开发者",
+    "en": "developers building uploads"
+   },
+   "effort": 1,
+   "url": "https://www.v2ex.com/t/1255100",
+   "published_at": "2026-11-06T14:52:06+00:00",
+   "age_h": 132,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1255100",
+     "signal": {
+      "kind": "comments",
+      "value": 2
+     },
+     "p": 80
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 80,
+   "decay": 0.58,
+   "boost": 0,
+   "final": 46
+  },
+  {
+   "id": "show_hn:50452257",
+   "type": "product",
+   "title": {
+    "zh": "并行 Claude Code 会话的注意力队列 TUI",
+    "en": "Attention queue TUI for parallel Claude Code sessions"
+   },
+   "why": {
+    "zh": "一个终端界面统一管理并审查多个并行会话的改动",
+    "en": "One terminal UI to manage and review changes across parallel sessions"
+   },
+   "who": {
+    "zh": "重度 AI 编码用户",
+    "en": "heavy AI coding users"
+   },
+   "effort": 1,
+   "url": "https://github.com/nodo-labs-uk/attention-queue",
+   "published_at": "2026-11-11T11:43:35+00:00",
+   "age_h": 15,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/nodo-labs-uk/attention-queue",
+     "signal": {
+      "kind": "upvotes",
+      "value": 15
+     },
+     "p": 48
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 48,
+   "decay": 0.94,
+   "boost": 0,
+   "final": 45
+  },
+  {
+   "id": "sspai:https://sspai.com/post/118458",
+   "type": "product",
+   "title": {
+    "zh": "复古扫雷 RetroSweeper Go",
+    "en": "RetroSweeper Go, a retro minesweeper"
+   },
+   "why": {
+    "zh": "复古掌机外观配「手柄」操作，重温扫雷手感",
+    "en": "Retro handheld look with a physical-style pad for minesweeper"
+   },
+   "who": {
+    "zh": "怀旧玩家",
+    "en": "nostalgic players"
+   },
+   "effort": 1,
+   "url": "https://sspai.com/post/118458",
+   "published_at": "2026-11-11T11:13:04+08:00",
+   "age_h": 23,
+   "srcs": [
+    {
+     "source": "sspai",
+     "name": "少数派",
+     "url": "https://sspai.com/post/118458",
+     "signal": null,
+     "p": 50
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 50,
+   "decay": 0.909,
+   "boost": 0,
+   "final": 45
+  },
+  {
+   "id": "hackaday:1398673",
+   "type": "hack",
+   "title": {
+    "zh": "不加硬件，把手机当软件无线电",
+    "en": "Phone as an SDR with no extra hardware"
+   },
+   "why": {
+    "zh": "发现常见无线芯片可当 SDR，省掉专用接收硬件",
+    "en": "Common radio chips double as SDRs, skipping dedicated hardware"
+   },
+   "who": {
+    "zh": "无线电爱好者",
+    "en": "radio hobbyists"
+   },
+   "effort": 2,
+   "url": "https://hackaday.com/2026/11/09/from-phone-to-sdr-no-extra-hardware/",
+   "published_at": "2026-11-09T21:00:31+00:00",
+   "age_h": 54,
+   "srcs": [
+    {
+     "source": "hackaday",
+     "name": "Hackaday",
+     "url": "https://hackaday.com/2026/11/09/from-phone-to-sdr-no-extra-hardware/",
+     "signal": {
+      "kind": "comments",
+      "value": 6
+     },
+     "p": 56
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 56,
+   "decay": 0.8,
+   "boost": 0,
+   "final": 45
   },
   {
    "id": "show_hn:50380704",
@@ -1980,7 +2717,7 @@
    "effort": 1,
    "url": "https://github.com/AGGIB/Stroq",
    "published_at": "2026-11-05T15:54:41+00:00",
-   "age_h": 130,
+   "age_h": 155,
    "srcs": [
     {
      "source": "show_hn",
@@ -1995,9 +2732,9 @@
    ],
    "n_sites": 1,
    "weighted": 86,
-   "decay": 0.585,
+   "decay": 0.528,
    "boost": 0,
-   "final": 50
+   "final": 45
   },
   {
    "id": "v2ex:1254843",
@@ -2017,7 +2754,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1254843",
    "published_at": "2026-11-05T15:25:03+00:00",
-   "age_h": 130,
+   "age_h": 155,
    "srcs": [
     {
      "source": "v2ex",
@@ -2027,51 +2764,14 @@
       "kind": "comments",
       "value": 3
      },
-     "p": 85
+     "p": 86
     }
    ],
    "n_sites": 1,
-   "weighted": 85,
-   "decay": 0.585,
+   "weighted": 86,
+   "decay": 0.528,
    "boost": 0,
-   "final": 50
-  },
-  {
-   "id": "hackaday:1397981",
-   "type": "hack",
-   "title": {
-    "zh": "小板子上的小操作系统",
-    "en": "Tiny OS for tiny boards"
-   },
-   "why": {
-    "zh": "为性能提升后的单片机编写专用小型系统",
-    "en": "Hand-written small OS to use the extra power of modern MCUs"
-   },
-   "who": {
-    "zh": "嵌入式开发者",
-    "en": "Embedded developers"
-   },
-   "effort": 3,
-   "url": "https://hackaday.com/2026/11/05/a-tiny-os-for-a-tiny-board/",
-   "published_at": "2026-11-05T19:30:34+00:00",
-   "age_h": 126,
-   "srcs": [
-    {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/05/a-tiny-os-for-a-tiny-board/",
-     "signal": {
-      "kind": "comments",
-      "value": 13
-     },
-     "p": 83
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 83,
-   "decay": 0.595,
-   "boost": 0,
-   "final": 49
+   "final": 45
   },
   {
    "id": "show_hn:50369895",
@@ -2091,7 +2791,7 @@
    "effort": 3,
    "url": "https://fireflyk64.github.io/wcmulti/",
    "published_at": "2026-11-04T18:51:27+00:00",
-   "age_h": 151,
+   "age_h": 176,
    "srcs": [
     {
      "source": "show_hn",
@@ -2106,83 +2806,83 @@
    ],
    "n_sites": 1,
    "weighted": 92,
-   "decay": 0.536,
+   "decay": 0.484,
    "boost": 0,
-   "final": 49
+   "final": 45
   },
   {
-   "id": "hackaday:1414792",
+   "id": "hackaday:1397981",
    "type": "hack",
    "title": {
-    "zh": "复活 Sidekick 手机",
-    "en": "Hacking the Sidekick"
+    "zh": "小板子上的小操作系统",
+    "en": "Tiny OS for tiny boards"
    },
    "why": {
-    "zh": "深挖功能丰富的早期手机形态并加以改造",
-    "en": "Digs into one of the most feature-rich early phones and hacks it."
+    "zh": "为性能提升后的单片机编写专用小型系统",
+    "en": "Hand-written small OS to use the extra power of modern MCUs"
    },
    "who": {
-    "zh": "复古硬件玩家",
-    "en": "Retro hardware hackers"
+    "zh": "嵌入式开发者",
+    "en": "Embedded developers"
    },
    "effort": 3,
-   "url": "https://hackaday.com/2026/11/10/hacking-the-sidekick-in-2026/",
-   "published_at": "2026-11-10T09:00:48+00:00",
-   "age_h": 17,
+   "url": "https://hackaday.com/2026/11/05/a-tiny-os-for-a-tiny-board/",
+   "published_at": "2026-11-05T19:30:34+00:00",
+   "age_h": 151,
    "srcs": [
     {
      "source": "hackaday",
      "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/10/hacking-the-sidekick-in-2026/",
+     "url": "https://hackaday.com/2026/11/05/a-tiny-os-for-a-tiny-board/",
      "signal": {
       "kind": "comments",
-      "value": 5
+      "value": 13
+     },
+     "p": 83
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 83,
+   "decay": 0.536,
+   "boost": 0,
+   "final": 44
+  },
+  {
+   "id": "show_hn:50439141",
+   "type": "product",
+   "title": {
+    "zh": "Rust 写的开源 AI 代理编排器",
+    "en": "Open-source AI agent orchestrator in Rust"
+   },
+   "why": {
+    "zh": "把 Codex、Goose 等多个代理放进统一环境协作",
+    "en": "Unifies agents like Codex and Goose in one environment for orchestration"
+   },
+   "who": {
+    "zh": "AI 代理开发者",
+    "en": "AI agent builders"
+   },
+   "effort": 2,
+   "url": "https://github.com/DiegoZaluski/co-sh",
+   "published_at": "2026-11-10T12:05:13+00:00",
+   "age_h": 39,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/DiegoZaluski/co-sh",
+     "signal": {
+      "kind": "upvotes",
+      "value": 10
      },
      "p": 51
     }
    ],
    "n_sites": 1,
    "weighted": 51,
-   "decay": 0.932,
+   "decay": 0.851,
    "boost": 0,
-   "final": 48
-  },
-  {
-   "id": "github:1452123445",
-   "type": "hack",
-   "title": {
-    "zh": "iOS 配置研究工具箱",
-    "en": "iOS config research toolbox"
-   },
-   "why": {
-    "zh": "中文界面并加防白苹果安全加固",
-    "en": "Chinese-first toolbox with bootloop safety hardening"
-   },
-   "who": {
-    "zh": "中文 iOS 玩家",
-    "en": "Chinese iOS tinkerers"
-   },
-   "effort": 2,
-   "url": "https://github.com/Kianuni/Erosion-CN",
-   "published_at": "2026-11-10T02:37:31+00:00",
-   "age_h": 23,
-   "srcs": [
-    {
-     "source": "github",
-     "name": "GitHub",
-     "url": "https://github.com/Kianuni/Erosion-CN",
-     "signal": {
-      "kind": "stars",
-      "value": 1071
-     },
-     "p": 53
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 53,
-   "decay": 0.909,
-   "boost": 0,
-   "final": 48
+   "final": 43
   },
   {
    "id": "show_hn:50410253",
@@ -2202,7 +2902,7 @@
    "effort": 3,
    "url": "https://github.com/AmSach/maple",
    "published_at": "2026-11-08T03:48:04+00:00",
-   "age_h": 70,
+   "age_h": 95,
    "srcs": [
     {
      "source": "show_hn",
@@ -2212,14 +2912,14 @@
       "kind": "upvotes",
       "value": 20
      },
-     "p": 64
+     "p": 63
     }
    ],
    "n_sites": 1,
-   "weighted": 64,
-   "decay": 0.749,
+   "weighted": 63,
+   "decay": 0.676,
    "boost": 0,
-   "final": 48
+   "final": 43
   },
   {
    "id": "v2ex:1255283",
@@ -2239,7 +2939,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1255283",
    "published_at": "2026-11-07T17:05:24+00:00",
-   "age_h": 81,
+   "age_h": 106,
    "srcs": [
     {
      "source": "v2ex",
@@ -2254,83 +2954,9 @@
    ],
    "n_sites": 1,
    "weighted": 67,
-   "decay": 0.716,
+   "decay": 0.646,
    "boost": 0,
-   "final": 48
-  },
-  {
-   "id": "show_hn:50366929",
-   "type": "product",
-   "title": {
-    "zh": "按零件估价的整机比价工具",
-    "en": "Tool that prices a pre-built PC part by part"
-   },
-   "why": {
-    "zh": "粘贴挂牌即得估值等级与分件报价，省去比价时间",
-    "en": "Paste a listing to get a value grade and component estimates"
-   },
-   "who": {
-    "zh": "二手电脑买家",
-    "en": "used PC buyers"
-   },
-   "effort": 1,
-   "url": "https://pcdealcheck.com/",
-   "published_at": "2026-11-04T15:25:33+00:00",
-   "age_h": 154,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://pcdealcheck.com/",
-     "signal": {
-      "kind": "upvotes",
-      "value": 115
-     },
-     "p": 91
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 91,
-   "decay": 0.53,
-   "boost": 0,
-   "final": 48
-  },
-  {
-   "id": "github:1448515937",
-   "type": "product",
-   "title": {
-    "zh": "让 AI 代理用你的手机",
-    "en": "Pinky: agents use your phone"
-   },
-   "why": {
-    "zh": "人留在回路中，AI 操作手机但你可随时介入",
-    "en": "AI operates the phone with a human kept in the loop"
-   },
-   "who": {
-    "zh": "自动化爱好者",
-    "en": "automation fans"
-   },
-   "effort": 2,
-   "url": "https://github.com/DIYgod/pinky",
-   "published_at": "2026-11-06T16:53:14+00:00",
-   "age_h": 105,
-   "srcs": [
-    {
-     "source": "github",
-     "name": "GitHub",
-     "url": "https://github.com/DIYgod/pinky",
-     "signal": {
-      "kind": "stars",
-      "value": 1695
-     },
-     "p": 73
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 73,
-   "decay": 0.648,
-   "boost": 0,
-   "final": 47
+   "final": 43
   },
   {
    "id": "v2ex:1254573",
@@ -2350,7 +2976,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1254573",
    "published_at": "2026-11-04T16:30:50+00:00",
-   "age_h": 153,
+   "age_h": 178,
    "srcs": [
     {
      "source": "v2ex",
@@ -2360,14 +2986,88 @@
       "kind": "comments",
       "value": 4
      },
-     "p": 89
+     "p": 90
     }
    ],
    "n_sites": 1,
-   "weighted": 89,
-   "decay": 0.532,
+   "weighted": 90,
+   "decay": 0.48,
    "boost": 0,
-   "final": 47
+   "final": 43
+  },
+  {
+   "id": "show_hn:50366929",
+   "type": "product",
+   "title": {
+    "zh": "按零件估价的整机比价工具",
+    "en": "Tool that prices a pre-built PC part by part"
+   },
+   "why": {
+    "zh": "粘贴挂牌即得估值等级与分件报价，省去比价时间",
+    "en": "Paste a listing to get a value grade and component estimates"
+   },
+   "who": {
+    "zh": "二手电脑买家",
+    "en": "used PC buyers"
+   },
+   "effort": 1,
+   "url": "https://pcdealcheck.com/",
+   "published_at": "2026-11-04T15:25:33+00:00",
+   "age_h": 179,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://pcdealcheck.com/",
+     "signal": {
+      "kind": "upvotes",
+      "value": 115
+     },
+     "p": 91
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 91,
+   "decay": 0.478,
+   "boost": 0,
+   "final": 43
+  },
+  {
+   "id": "hackaday:1414792",
+   "type": "hack",
+   "title": {
+    "zh": "复活 Sidekick 手机",
+    "en": "Hacking the Sidekick"
+   },
+   "why": {
+    "zh": "深挖功能丰富的早期手机形态并加以改造",
+    "en": "Digs into one of the most feature-rich early phones and hacks it."
+   },
+   "who": {
+    "zh": "复古硬件玩家",
+    "en": "Retro hardware hackers"
+   },
+   "effort": 3,
+   "url": "https://hackaday.com/2026/11/10/hacking-the-sidekick-in-2026/",
+   "published_at": "2026-11-10T09:00:48+00:00",
+   "age_h": 42,
+   "srcs": [
+    {
+     "source": "hackaday",
+     "name": "Hackaday",
+     "url": "https://hackaday.com/2026/11/10/hacking-the-sidekick-in-2026/",
+     "signal": {
+      "kind": "comments",
+      "value": 5
+     },
+     "p": 50
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 50,
+   "decay": 0.841,
+   "boost": 0,
+   "final": 42
   },
   {
    "id": "show_hn:50426593",
@@ -2387,7 +3087,7 @@
    "effort": 2,
    "url": "https://news.ycombinator.com/item?id=50426593",
    "published_at": "2026-11-09T15:01:48+00:00",
-   "age_h": 35,
+   "age_h": 60,
    "srcs": [
     {
      "source": "show_hn",
@@ -2402,9 +3102,9 @@
    ],
    "n_sites": 1,
    "weighted": 53,
-   "decay": 0.866,
+   "decay": 0.781,
    "boost": 0,
-   "final": 46
+   "final": 41
   },
   {
    "id": "show_hn:50397435",
@@ -2424,7 +3124,7 @@
    "effort": 1,
    "url": "https://github.com/tharun208/cloneguard",
    "published_at": "2026-11-06T19:49:27+00:00",
-   "age_h": 102,
+   "age_h": 127,
    "srcs": [
     {
      "source": "show_hn",
@@ -2434,14 +3134,14 @@
       "kind": "upvotes",
       "value": 31
      },
-     "p": 70
+     "p": 69
     }
    ],
    "n_sites": 1,
-   "weighted": 70,
-   "decay": 0.656,
+   "weighted": 69,
+   "decay": 0.592,
    "boost": 0,
-   "final": 46
+   "final": 41
   },
   {
    "id": "show_hn:50368208",
@@ -2461,7 +3161,7 @@
    "effort": 3,
    "url": "https://www.linum.ai/field-notes/pjit-21k",
    "published_at": "2026-11-04T16:45:11+00:00",
-   "age_h": 153,
+   "age_h": 178,
    "srcs": [
     {
      "source": "show_hn",
@@ -2471,88 +3171,14 @@
       "kind": "upvotes",
       "value": 156
      },
-     "p": 86
+     "p": 85
     }
    ],
    "n_sites": 1,
-   "weighted": 86,
-   "decay": 0.532,
+   "weighted": 85,
+   "decay": 0.48,
    "boost": 0,
-   "final": 46
-  },
-  {
-   "id": "show_hn:50358352",
-   "type": "product",
-   "title": {
-    "zh": "审讯会说谎的 LLM 侦探游戏",
-    "en": "Detective game with lying LLM suspects"
-   },
-   "why": {
-    "zh": "让 LLM 嫌疑人说谎，把城市历史写进每个案件",
-    "en": "LLM suspects that lie, each case built around a city's history"
-   },
-   "who": {
-    "zh": "推理游戏玩家",
-    "en": "detective game fans"
-   },
-   "effort": 1,
-   "url": "https://uncracked.city",
-   "published_at": "2026-11-03T21:20:03+00:00",
-   "age_h": 172,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://uncracked.city",
-     "signal": {
-      "kind": "upvotes",
-      "value": 122
-     },
-     "p": 91
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 91,
-   "decay": 0.492,
-   "boost": 0,
-   "final": 45
-  },
-  {
-   "id": "show_hn:50346981",
-   "type": "design",
-   "title": {
-    "zh": "报纸版 Hacker News",
-    "en": "Hacker Times: HN as a newspaper"
-   },
-   "why": {
-    "zh": "把技术资讯站做成《纽约时报》版式，每小时更新。",
-    "en": "Reframes a tech feed as a newspaper front page, refreshed hourly."
-   },
-   "who": {
-    "zh": "HN 读者",
-    "en": "HN readers"
-   },
-   "effort": 1,
-   "url": "https://hackertimes.ca/",
-   "published_at": "2026-11-03T01:53:34+00:00",
-   "age_h": 192,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://hackertimes.ca/",
-     "signal": {
-      "kind": "upvotes",
-      "value": 451
-     },
-     "p": 99
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 99,
-   "decay": 0.453,
-   "boost": 0,
-   "final": 45
+   "final": 41
   },
   {
    "id": "github:1447408881",
@@ -2572,7 +3198,7 @@
    "effort": 3,
    "url": "https://github.com/jamesondh/chimera-vocal-synth",
    "published_at": "2026-11-05T19:10:42+00:00",
-   "age_h": 126,
+   "age_h": 151,
    "srcs": [
     {
      "source": "github",
@@ -2582,14 +3208,14 @@
       "kind": "stars",
       "value": 1706
      },
-     "p": 74
+     "p": 75
     }
    ],
    "n_sites": 1,
-   "weighted": 74,
-   "decay": 0.595,
+   "weighted": 75,
+   "decay": 0.536,
    "boost": 0,
-   "final": 44
+   "final": 40
   },
   {
    "id": "github:1447227957",
@@ -2609,7 +3235,7 @@
    "effort": 1,
    "url": "https://github.com/IainKay/ram-altman",
    "published_at": "2026-11-05T16:16:41+00:00",
-   "age_h": 129,
+   "age_h": 154,
    "srcs": [
     {
      "source": "github",
@@ -2619,14 +3245,14 @@
       "kind": "stars",
       "value": 1827
      },
-     "p": 75
+     "p": 76
     }
    ],
    "n_sites": 1,
-   "weighted": 75,
-   "decay": 0.587,
+   "weighted": 76,
+   "decay": 0.53,
    "boost": 0,
-   "final": 44
+   "final": 40
   },
   {
    "id": "show_hn:50379221",
@@ -2646,7 +3272,7 @@
    "effort": 3,
    "url": "https://github.com/piercefreeman/waymark",
    "published_at": "2026-11-05T14:06:31+00:00",
-   "age_h": 132,
+   "age_h": 157,
    "srcs": [
     {
      "source": "show_hn",
@@ -2661,9 +3287,83 @@
    ],
    "n_sites": 1,
    "weighted": 76,
-   "decay": 0.58,
+   "decay": 0.523,
    "boost": 0,
-   "final": 44
+   "final": 40
+  },
+  {
+   "id": "show_hn:50358352",
+   "type": "product",
+   "title": {
+    "zh": "审讯会说谎的 LLM 侦探游戏",
+    "en": "Detective game with lying LLM suspects"
+   },
+   "why": {
+    "zh": "让 LLM 嫌疑人说谎，把城市历史写进每个案件",
+    "en": "LLM suspects that lie, each case built around a city's history"
+   },
+   "who": {
+    "zh": "推理游戏玩家",
+    "en": "detective game fans"
+   },
+   "effort": 1,
+   "url": "https://uncracked.city",
+   "published_at": "2026-11-03T21:20:03+00:00",
+   "age_h": 197,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://uncracked.city",
+     "signal": {
+      "kind": "upvotes",
+      "value": 122
+     },
+     "p": 91
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 91,
+   "decay": 0.444,
+   "boost": 0,
+   "final": 40
+  },
+  {
+   "id": "show_hn:50346981",
+   "type": "design",
+   "title": {
+    "zh": "报纸版 Hacker News",
+    "en": "Hacker Times: HN as a newspaper"
+   },
+   "why": {
+    "zh": "把技术资讯站做成《纽约时报》版式，每小时更新。",
+    "en": "Reframes a tech feed as a newspaper front page, refreshed hourly."
+   },
+   "who": {
+    "zh": "HN 读者",
+    "en": "HN readers"
+   },
+   "effort": 1,
+   "url": "https://hackertimes.ca/",
+   "published_at": "2026-11-03T01:53:34+00:00",
+   "age_h": 217,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://hackertimes.ca/",
+     "signal": {
+      "kind": "upvotes",
+      "value": 451
+     },
+     "p": 99
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 99,
+   "decay": 0.408,
+   "boost": 0,
+   "final": 40
   },
   {
    "id": "v2ex:1255096",
@@ -2683,7 +3383,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1255096",
    "published_at": "2026-11-06T14:33:36+00:00",
-   "age_h": 107,
+   "age_h": 132,
    "srcs": [
     {
      "source": "v2ex",
@@ -2698,9 +3398,9 @@
    ],
    "n_sites": 1,
    "weighted": 67,
-   "decay": 0.643,
+   "decay": 0.58,
    "boost": 0,
-   "final": 43
+   "final": 39
   },
   {
    "id": "v2ex:1255104",
@@ -2720,7 +3420,7 @@
    "effort": 2,
    "url": "https://www.v2ex.com/t/1255104",
    "published_at": "2026-11-06T15:06:24+00:00",
-   "age_h": 107,
+   "age_h": 132,
    "srcs": [
     {
      "source": "v2ex",
@@ -2735,46 +3435,9 @@
    ],
    "n_sites": 1,
    "weighted": 67,
-   "decay": 0.643,
+   "decay": 0.58,
    "boost": 0,
-   "final": 43
-  },
-  {
-   "id": "v2ex:1254571",
-   "type": "product",
-   "title": {
-    "zh": "面向无人值守的逆向 Agent",
-    "en": "Reverse-engineering agent for unattended analysis"
-   },
-   "why": {
-    "zh": "强化学习牵引，边分析边沉淀方法，减少跑偏与谎报完成",
-    "en": "RL-guided analysis that records methods and keeps pushing on hard samples"
-   },
-   "who": {
-    "zh": "安全研究者",
-    "en": "security researchers"
-   },
-   "effort": 2,
-   "url": "https://www.v2ex.com/t/1254571",
-   "published_at": "2026-11-04T16:19:12+00:00",
-   "age_h": 153,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1254571",
-     "signal": {
-      "kind": "comments",
-      "value": 2
-     },
-     "p": 80
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 80,
-   "decay": 0.532,
-   "boost": 0,
-   "final": 43
+   "final": 39
   },
   {
    "id": "v2ex:1254282",
@@ -2794,7 +3457,7 @@
    "effort": 2,
    "url": "https://www.v2ex.com/t/1254282",
    "published_at": "2026-11-03T16:26:47+00:00",
-   "age_h": 177,
+   "age_h": 202,
    "srcs": [
     {
      "source": "v2ex",
@@ -2804,14 +3467,14 @@
       "kind": "comments",
       "value": 4
      },
-     "p": 89
+     "p": 90
     }
    ],
    "n_sites": 1,
-   "weighted": 89,
-   "decay": 0.482,
+   "weighted": 90,
+   "decay": 0.435,
    "boost": 0,
-   "final": 43
+   "final": 39
   },
   {
    "id": "github:1444372497",
@@ -2831,7 +3494,7 @@
    "effort": 2,
    "url": "https://github.com/Minireel/HGhub",
    "published_at": "2026-11-03T14:04:27+00:00",
-   "age_h": 180,
+   "age_h": 205,
    "srcs": [
     {
      "source": "github",
@@ -2841,14 +3504,14 @@
       "kind": "stars",
       "value": 3345
      },
-     "p": 90
+     "p": 91
     }
    ],
    "n_sites": 1,
-   "weighted": 90,
-   "decay": 0.476,
+   "weighted": 91,
+   "decay": 0.429,
    "boost": 0,
-   "final": 43
+   "final": 39
   },
   {
    "id": "github:1443985070",
@@ -2868,7 +3531,7 @@
    "effort": 2,
    "url": "https://github.com/KKKKhazix/agent-autoloop",
    "published_at": "2026-11-03T08:02:11+00:00",
-   "age_h": 186,
+   "age_h": 211,
    "srcs": [
     {
      "source": "github",
@@ -2883,9 +3546,9 @@
    ],
    "n_sites": 1,
    "weighted": 93,
-   "decay": 0.464,
+   "decay": 0.419,
    "boost": 0,
-   "final": 43
+   "final": 39
   },
   {
    "id": "show_hn:50340088",
@@ -2905,7 +3568,7 @@
    "effort": 3,
    "url": "https://news.ycombinator.com/item?id=50340088",
    "published_at": "2026-11-02T17:16:17+00:00",
-   "age_h": 200,
+   "age_h": 225,
    "srcs": [
     {
      "source": "show_hn",
@@ -2920,9 +3583,46 @@
    ],
    "n_sites": 1,
    "weighted": 99,
-   "decay": 0.438,
+   "decay": 0.395,
    "boost": 0,
-   "final": 43
+   "final": 39
+  },
+  {
+   "id": "v2ex:1254571",
+   "type": "product",
+   "title": {
+    "zh": "面向无人值守的逆向 Agent",
+    "en": "Reverse-engineering agent for unattended analysis"
+   },
+   "why": {
+    "zh": "强化学习牵引，边分析边沉淀方法，减少跑偏与谎报完成",
+    "en": "RL-guided analysis that records methods and keeps pushing on hard samples"
+   },
+   "who": {
+    "zh": "安全研究者",
+    "en": "security researchers"
+   },
+   "effort": 2,
+   "url": "https://www.v2ex.com/t/1254571",
+   "published_at": "2026-11-04T16:19:12+00:00",
+   "age_h": 178,
+   "srcs": [
+    {
+     "source": "v2ex",
+     "name": "V2EX",
+     "url": "https://www.v2ex.com/t/1254571",
+     "signal": {
+      "kind": "comments",
+      "value": 2
+     },
+     "p": 80
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 80,
+   "decay": 0.48,
+   "boost": 0,
+   "final": 38
   },
   {
    "id": "show_hn:50366811",
@@ -2942,7 +3642,7 @@
    "effort": 1,
    "url": "https://github.com/peterretief/codemap",
    "published_at": "2026-11-04T15:18:24+00:00",
-   "age_h": 154,
+   "age_h": 179,
    "srcs": [
     {
      "source": "show_hn",
@@ -2952,14 +3652,14 @@
       "kind": "upvotes",
       "value": 44
      },
-     "p": 80
+     "p": 79
     }
    ],
    "n_sites": 1,
-   "weighted": 80,
-   "decay": 0.53,
+   "weighted": 79,
+   "decay": 0.478,
    "boost": 0,
-   "final": 42
+   "final": 38
   },
   {
    "id": "show_hn:50358314",
@@ -2979,7 +3679,7 @@
    "effort": 3,
    "url": "https://github.com/finic-ai/kairos",
    "published_at": "2026-11-03T21:16:48+00:00",
-   "age_h": 172,
+   "age_h": 197,
    "srcs": [
     {
      "source": "show_hn",
@@ -2994,9 +3694,9 @@
    ],
    "n_sites": 1,
    "weighted": 86,
-   "decay": 0.492,
+   "decay": 0.444,
    "boost": 0,
-   "final": 42
+   "final": 38
   },
   {
    "id": "v2ex:1254876",
@@ -3016,7 +3716,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1254876",
    "published_at": "2026-11-06T01:17:31+00:00",
-   "age_h": 120,
+   "age_h": 145,
    "srcs": [
     {
      "source": "v2ex",
@@ -3031,9 +3731,9 @@
    ],
    "n_sites": 1,
    "weighted": 67,
-   "decay": 0.61,
+   "decay": 0.55,
    "boost": 0,
-   "final": 41
+   "final": 37
   },
   {
    "id": "v2ex:1254884",
@@ -3053,7 +3753,7 @@
    "effort": 1,
    "url": "https://www.v2ex.com/t/1254884",
    "published_at": "2026-11-06T01:42:36+00:00",
-   "age_h": 120,
+   "age_h": 145,
    "srcs": [
     {
      "source": "v2ex",
@@ -3068,9 +3768,9 @@
    ],
    "n_sites": 1,
    "weighted": 67,
-   "decay": 0.61,
+   "decay": 0.55,
    "boost": 0,
-   "final": 41
+   "final": 37
   },
   {
    "id": "hackaday:1397832",
@@ -3090,7 +3790,7 @@
    "effort": 3,
    "url": "https://hackaday.com/2026/11/05/pitting-a-modern-chess-engine-on-a-pentium-pc-against-1996s-deep-blue/",
    "published_at": "2026-11-05T16:30:51+00:00",
-   "age_h": 129,
+   "age_h": 154,
    "srcs": [
     {
      "source": "hackaday",
@@ -3100,14 +3800,14 @@
       "kind": "comments",
       "value": 8
      },
-     "p": 70
+     "p": 69
     }
    ],
    "n_sites": 1,
-   "weighted": 70,
-   "decay": 0.587,
+   "weighted": 69,
+   "decay": 0.53,
    "boost": 0,
-   "final": 41
+   "final": 37
   },
   {
    "id": "hackaday:1397785",
@@ -3127,7 +3827,7 @@
    "effort": 2,
    "url": "https://hackaday.com/2026/11/04/using-a-cheap-dc-motor-to-make-a-go-kart-go/",
    "published_at": "2026-11-04T16:30:32+00:00",
-   "age_h": 153,
+   "age_h": 178,
    "srcs": [
     {
      "source": "hackaday",
@@ -3137,14 +3837,14 @@
       "kind": "comments",
       "value": 10
      },
-     "p": 78
+     "p": 77
     }
    ],
    "n_sites": 1,
-   "weighted": 78,
-   "decay": 0.532,
+   "weighted": 77,
+   "decay": 0.48,
    "boost": 0,
-   "final": 41
+   "final": 37
   },
   {
    "id": "v2ex:1254270",
@@ -3164,7 +3864,7 @@
    "effort": 2,
    "url": "https://www.v2ex.com/t/1254270",
    "published_at": "2026-11-03T15:03:46+00:00",
-   "age_h": 179,
+   "age_h": 204,
    "srcs": [
     {
      "source": "v2ex",
@@ -3174,14 +3874,14 @@
       "kind": "comments",
       "value": 3
      },
-     "p": 85
+     "p": 86
     }
    ],
    "n_sites": 1,
-   "weighted": 85,
-   "decay": 0.478,
+   "weighted": 86,
+   "decay": 0.431,
    "boost": 0,
-   "final": 41
+   "final": 37
   },
   {
    "id": "show_hn:50346755",
@@ -3201,7 +3901,7 @@
    "effort": 1,
    "url": "https://hackertv.org",
    "published_at": "2026-11-03T01:18:09+00:00",
-   "age_h": 192,
+   "age_h": 217,
    "srcs": [
     {
      "source": "show_hn",
@@ -3216,9 +3916,9 @@
    ],
    "n_sites": 1,
    "weighted": 90,
-   "decay": 0.453,
+   "decay": 0.408,
    "boost": 0,
-   "final": 41
+   "final": 37
   },
   {
    "id": "show_hn:50339221",
@@ -3238,7 +3938,7 @@
    "effort": 1,
    "url": "https://p.migdal.pl/warsaw-vibe-voxel/",
    "published_at": "2026-11-02T16:25:26+00:00",
-   "age_h": 201,
+   "age_h": 226,
    "srcs": [
     {
      "source": "show_hn",
@@ -3253,9 +3953,9 @@
    ],
    "n_sites": 1,
    "weighted": 95,
-   "decay": 0.436,
+   "decay": 0.394,
    "boost": 0,
-   "final": 41
+   "final": 37
   },
   {
    "id": "show_hn:50333339",
@@ -3275,7 +3975,7 @@
    "effort": 1,
    "url": "https://wikihack.netlify.app",
    "published_at": "2026-11-02T05:06:30+00:00",
-   "age_h": 213,
+   "age_h": 238,
    "srcs": [
     {
      "source": "show_hn",
@@ -3290,83 +3990,9 @@
    ],
    "n_sites": 1,
    "weighted": 98,
-   "decay": 0.415,
+   "decay": 0.375,
    "boost": 0,
-   "final": 41
-  },
-  {
-   "id": "show_hn:50443596",
-   "type": "product",
-   "title": {
-    "zh": "用 HTTP 端点消费 Kafka",
-    "en": "Consume Kafka over plain HTTP"
-   },
-   "why": {
-    "zh": "不必搭建 Kafka 客户端，用普通 HTTP 端点就能消费消息",
-    "en": "Consume Kafka messages through a plain HTTP endpoint instead of a client"
-   },
-   "who": {
-    "zh": "后端开发者",
-    "en": "Backend developers"
-   },
-   "effort": 1,
-   "url": "https://github.com/wolveflake/wolvekafka",
-   "published_at": "2026-11-10T17:45:20+00:00",
-   "age_h": 8,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://github.com/wolveflake/wolvekafka",
-     "signal": {
-      "kind": "upvotes",
-      "value": 9
-     },
-     "p": 41
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 41,
-   "decay": 0.968,
-   "boost": 0,
-   "final": 40
-  },
-  {
-   "id": "hackaday:1398151",
-   "type": "design",
-   "title": {
-    "zh": "2026 年新出的 N64 实体卡带游戏",
-    "en": "A brand-new physical N64 game in 2026"
-   },
-   "why": {
-    "zh": "卡带、说明书、盒封一手做齐的完整实体新作。",
-    "en": "A complete new cartridge release with manual and box art."
-   },
-   "who": {
-    "zh": "复古游戏爱好者",
-    "en": "retro game fans"
-   },
-   "effort": 3,
-   "url": "https://hackaday.com/2026/11/06/making-xibalba-64-a-new-n64-release-in-2026/",
-   "published_at": "2026-11-06T09:00:03+00:00",
-   "age_h": 113,
-   "srcs": [
-    {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/06/making-xibalba-64-a-new-n64-release-in-2026/",
-     "signal": {
-      "kind": "comments",
-      "value": 7
-     },
-     "p": 63
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 63,
-   "decay": 0.627,
-   "boost": 0,
-   "final": 40
+   "final": 37
   },
   {
    "id": "show_hn:50371090",
@@ -3386,7 +4012,7 @@
    "effort": 1,
    "url": "https://github.com/gauge-sh/gauge-cli",
    "published_at": "2026-11-04T20:31:30+00:00",
-   "age_h": 149,
+   "age_h": 174,
    "srcs": [
     {
      "source": "show_hn",
@@ -3396,14 +4022,14 @@
       "kind": "upvotes",
       "value": 40
      },
-     "p": 74
+     "p": 73
     }
    ],
    "n_sites": 1,
-   "weighted": 74,
-   "decay": 0.541,
+   "weighted": 73,
+   "decay": 0.488,
    "boost": 0,
-   "final": 40
+   "final": 36
   },
   {
    "id": "show_hn:50353386",
@@ -3423,7 +4049,7 @@
    "effort": 1,
    "url": "https://hissingkitty.com/hacker-churn",
    "published_at": "2026-11-03T15:41:52+00:00",
-   "age_h": 178,
+   "age_h": 203,
    "srcs": [
     {
      "source": "show_hn",
@@ -3438,9 +4064,9 @@
    ],
    "n_sites": 1,
    "weighted": 83,
-   "decay": 0.48,
+   "decay": 0.433,
    "boost": 0,
-   "final": 40
+   "final": 36
   },
   {
    "id": "show_hn:50334704",
@@ -3460,7 +4086,7 @@
    "effort": 1,
    "url": "https://syscall.sh/",
    "published_at": "2026-11-02T09:29:16+00:00",
-   "age_h": 208,
+   "age_h": 233,
    "srcs": [
     {
      "source": "show_hn",
@@ -3470,14 +4096,14 @@
       "kind": "upvotes",
       "value": 231
      },
-     "p": 94
+     "p": 93
     }
    ],
    "n_sites": 1,
-   "weighted": 94,
-   "decay": 0.424,
+   "weighted": 93,
+   "decay": 0.382,
    "boost": 0,
-   "final": 40
+   "final": 36
   },
   {
    "id": "hackaday:1397254",
@@ -3497,7 +4123,7 @@
    "effort": 3,
    "url": "https://hackaday.com/2026/11/02/a-hackable-analog-phone-system/",
    "published_at": "2026-11-02T09:00:29+00:00",
-   "age_h": 209,
+   "age_h": 234,
    "srcs": [
     {
      "source": "hackaday",
@@ -3512,194 +4138,9 @@
    ],
    "n_sites": 1,
    "weighted": 94,
-   "decay": 0.422,
+   "decay": 0.381,
    "boost": 0,
-   "final": 40
-  },
-  {
-   "id": "hackaday:1398554",
-   "type": "hack",
-   "title": {
-    "zh": "逆向 1960 年代的二极管-晶体管逻辑芯片",
-    "en": "Reverse engineering a 1960s DTL chip"
-   },
-   "why": {
-    "zh": "把 TTL 普及前那颗 DTL 芯片的内部逻辑还原出来",
-    "en": "Recovers the inner logic of a pre-TTL diode-transistor chip"
-   },
-   "who": {
-    "zh": "复古硬件玩家",
-    "en": "retro hardware fans"
-   },
-   "effort": 3,
-   "url": "https://hackaday.com/2026/11/09/reverse-engineering-a-1960s-diode-transistor-logic-ic/",
-   "published_at": "2026-11-09T16:30:02+00:00",
-   "age_h": 33,
-   "srcs": [
-    {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/09/reverse-engineering-a-1960s-diode-transistor-logic-ic/",
-     "signal": {
-      "kind": "comments",
-      "value": 4
-     },
-     "p": 45
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 45,
-   "decay": 0.873,
-   "boost": 0,
-   "final": 39
-  },
-  {
-   "id": "show_hn:50397325",
-   "type": "product",
-   "title": {
-    "zh": "Agent 读懂乐高机构并生成动画",
-    "en": "Agents infer LEGO mechanisms and animate them"
-   },
-   "why": {
-    "zh": "Agent 从资料推断机构，再生成 LDraw 代码动起来",
-    "en": "Agents derive mechanisms from sources, then generate LDraw animation."
-   },
-   "who": {
-    "zh": "乐高玩家",
-    "en": "LEGO builders"
-   },
-   "effort": 2,
-   "url": "https://github.com/anteloc/ldraw-mecha/tree/v0.5.0",
-   "published_at": "2026-11-06T19:41:20+00:00",
-   "age_h": 102,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://github.com/anteloc/ldraw-mecha/tree/v0.5.0",
-     "signal": {
-      "kind": "upvotes",
-      "value": 30
-     },
-     "p": 59
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 59,
-   "decay": 0.656,
-   "boost": 0,
-   "final": 39
-  },
-  {
-   "id": "show_hn:50393235",
-   "type": "product",
-   "title": {
-    "zh": "给 AI Agent 的 OAuth 授权中介",
-    "en": "OAuth delegation broker for AI agents"
-   },
-   "why": {
-    "zh": "让用户给 Agent 限定范围、可随时撤销的访问权",
-    "en": "Gives agents scoped, revocable access on the user's behalf."
-   },
-   "who": {
-    "zh": "Agent 开发者",
-    "en": "agent developers"
-   },
-   "effort": 2,
-   "url": "https://github.com/zalando-incubator/agentic-identity-broker",
-   "published_at": "2026-11-06T15:07:47+00:00",
-   "age_h": 107,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://github.com/zalando-incubator/agentic-identity-broker",
-     "signal": {
-      "kind": "upvotes",
-      "value": 23
-     },
-     "p": 61
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 61,
-   "decay": 0.643,
-   "boost": 0,
-   "final": 39
-  },
-  {
-   "id": "show_hn:50347552",
-   "type": "product",
-   "title": {
-    "zh": "练 Vim 命令的浏览器小游戏",
-    "en": "Browser game to practice Vim"
-   },
-   "why": {
-    "zh": "用 hjkl 小游戏把枯燥的命令记忆变成消遣",
-    "en": "Turns memorizing Vim commands into a small unwinding game"
-   },
-   "who": {
-    "zh": "Vim 新手",
-    "en": "Vim beginners"
-   },
-   "effort": 1,
-   "url": "https://hjkl.duy.run",
-   "published_at": "2026-11-03T03:10:04+00:00",
-   "age_h": 190,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://hjkl.duy.run",
-     "signal": {
-      "kind": "upvotes",
-      "value": 70
-     },
-     "p": 86
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 86,
-   "decay": 0.457,
-   "boost": 0,
-   "final": 39
-  },
-  {
-   "id": "v2ex:1254018",
-   "type": "product",
-   "title": {
-    "zh": "旧 Android 手机变家用摄像头",
-    "en": "Turn an old Android phone into a camera"
-   },
-   "why": {
-    "zh": "一台旧手机当摄像头、一台当监视端，能直播、提醒并回放",
-    "en": "One spare phone films, another watches live, with motion alerts and replay"
-   },
-   "who": {
-    "zh": "有闲置手机的人",
-    "en": "people with spare phones"
-   },
-   "effort": 1,
-   "url": "https://www.v2ex.com/t/1254018",
-   "published_at": "2026-11-03T01:40:54+00:00",
-   "age_h": 192,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1254018",
-     "signal": {
-      "kind": "comments",
-      "value": 3
-     },
-     "p": 85
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 85,
-   "decay": 0.453,
-   "boost": 0,
-   "final": 39
+   "final": 36
   },
   {
    "id": "show_hn:50326821",
@@ -3719,7 +4160,7 @@
    "effort": 1,
    "url": "https://hackerbooks.org",
    "published_at": "2026-11-01T15:58:28+00:00",
-   "age_h": 226,
+   "age_h": 251,
    "srcs": [
     {
      "source": "show_hn",
@@ -3734,34 +4175,34 @@
    ],
    "n_sites": 1,
    "weighted": 100,
-   "decay": 0.394,
+   "decay": 0.355,
    "boost": 0,
-   "final": 39
+   "final": 36
   },
   {
-   "id": "show_hn:50442257",
+   "id": "show_hn:50446649",
    "type": "product",
    "title": {
-    "zh": "HN 老帖精选聚合",
-    "en": "Aggregator of HN-recommended threads"
+    "zh": "让 AI 代理替你以物易物",
+    "en": "AI agents that barter your stuff for things you want"
    },
    "why": {
-    "zh": "自动收集评论里被反复推荐的旧帖，省去翻找",
-    "en": "Collects old threads that HN comments keep recommending so you can skip the hunt"
+    "zh": "把闲置物品交给代理自动换回想要的东西",
+    "en": "Agents barter your unused stuff for the things you want"
    },
    "who": {
-    "zh": "HN 读者",
-    "en": "HN readers"
+    "zh": "想换闲置的人",
+    "en": "people trading unused items"
    },
-   "effort": 1,
-   "url": "https://yrecombinator.org/",
-   "published_at": "2026-11-10T16:04:02+00:00",
-   "age_h": 10,
+   "effort": 3,
+   "url": "https://barterpilot.com/",
+   "published_at": "2026-11-10T21:36:17+00:00",
+   "age_h": 29,
    "srcs": [
     {
      "source": "show_hn",
      "name": "Show HN",
-     "url": "https://yrecombinator.org/",
+     "url": "https://barterpilot.com/",
      "signal": {
       "kind": "upvotes",
       "value": 7
@@ -3771,342 +4212,83 @@
    ],
    "n_sites": 1,
    "weighted": 40,
-   "decay": 0.96,
+   "decay": 0.887,
    "boost": 0,
-   "final": 38
+   "final": 35
   },
   {
-   "id": "show_hn:50439141",
+   "id": "show_hn:50435672",
    "type": "product",
    "title": {
-    "zh": "开源 AI 智能体编排器",
-    "en": "Open-source AI agent orchestrator"
+    "zh": "AI 全权写码后替代代码评审的方案",
+    "en": "What replaces code review when AI writes all the code"
    },
    "why": {
-    "zh": "用 Rust 把 Codex、Goose 等智能体放进同一环境协作",
-    "en": "Rust tool that puts agents like Codex and Goose in one place to collaborate"
+    "zh": "针对 AI 承包写码后评审空缺提出的新做法",
+    "en": "Proposes a replacement for code review when agents write all the code"
    },
    "who": {
-    "zh": "AI 开发者",
-    "en": "AI developers"
+    "zh": "AI 优先的工程团队",
+    "en": "AI-first engineering teams"
    },
-   "effort": 2,
-   "url": "https://github.com/DiegoZaluski/co-sh",
-   "published_at": "2026-11-10T12:05:13+00:00",
-   "age_h": 14,
+   "effort": 1,
+   "url": "https://zthr.ai/",
+   "published_at": "2026-11-10T03:21:56+00:00",
+   "age_h": 47,
    "srcs": [
     {
      "source": "show_hn",
      "name": "Show HN",
-     "url": "https://github.com/DiegoZaluski/co-sh",
+     "url": "https://zthr.ai/",
      "signal": {
       "kind": "upvotes",
       "value": 7
      },
-     "p": 40
+     "p": 42
     }
    ],
    "n_sites": 1,
-   "weighted": 40,
-   "decay": 0.944,
+   "weighted": 42,
+   "decay": 0.824,
    "boost": 0,
-   "final": 38
+   "final": 35
   },
   {
-   "id": "show_hn:50409986",
-   "type": "product",
-   "title": {
-    "zh": "15 岁少年做的 LLM 权重编辑工具",
-    "en": "An LLM weight-editing tool by a 15-year-old"
-   },
-   "why": {
-    "zh": "直接改大模型权重，作者还只是个少年",
-    "en": "Lets you edit LLM weights directly, built by a teenager."
-   },
-   "who": {
-    "zh": "模型实验者",
-    "en": "model experimenters"
-   },
-   "effort": 2,
-   "url": "https://github.com/Miyamoto-Renya/LaplacesScissors",
-   "published_at": "2026-11-08T02:37:10+00:00",
-   "age_h": 71,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://github.com/Miyamoto-Renya/LaplacesScissors",
-     "signal": {
-      "kind": "upvotes",
-      "value": 13
-     },
-     "p": 51
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 51,
-   "decay": 0.746,
-   "boost": 0,
-   "final": 38
-  },
-  {
-   "id": "hackaday:1398429",
+   "id": "hackaday:1398554",
    "type": "hack",
    "title": {
-    "zh": "电子墨水掌机玩文字冒险",
-    "en": "Text Adventures on an E-Paper Handheld"
+    "zh": "逆向 1960 年代的二极管-晶体管逻辑芯片",
+    "en": "Reverse engineering a 1960s DTL chip"
    },
    "why": {
-    "zh": "用电子墨水屏承载「自己选冒险」式的阅读游戏体验",
-    "en": "Bridges choose-your-own-adventure reading with an e-paper handheld."
+    "zh": "把 TTL 普及前那颗 DTL 芯片的内部逻辑还原出来",
+    "en": "Recovers the inner logic of a pre-TTL diode-transistor chip"
    },
    "who": {
-    "zh": "文字游戏玩家",
-    "en": "text adventure players"
-   },
-   "effort": 2,
-   "url": "https://hackaday.com/2026/11/07/play-text-adventures-on-an-e-paper-handheld/",
-   "published_at": "2026-11-08T00:00:30+00:00",
-   "age_h": 74,
-   "srcs": [
-    {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/07/play-text-adventures-on-an-e-paper-handheld/",
-     "signal": {
-      "kind": "comments",
-      "value": 5
-     },
-     "p": 51
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 51,
-   "decay": 0.737,
-   "boost": 0,
-   "final": 38
-  },
-  {
-   "id": "hackaday:1397631",
-   "type": "hack",
-   "title": {
-    "zh": "微米级控制的蜡马达",
-    "en": "Wax motor for micrometer-level control"
-   },
-   "why": {
-    "zh": "借蜡的热胀冷缩做线性执行器，实现微米级精度",
-    "en": "Turns wax's thermal expansion into a precise linear actuator"
-   },
-   "who": {
-    "zh": "机械 DIY 者",
-    "en": "mechanical DIYers"
-   },
-   "effort": 2,
-   "url": "https://hackaday.com/2026/11/04/making-a-wax-motor-for-micrometer-level-control/",
-   "published_at": "2026-11-04T19:30:11+00:00",
-   "age_h": 150,
-   "srcs": [
-    {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/04/making-a-wax-motor-for-micrometer-level-control/",
-     "signal": {
-      "kind": "comments",
-      "value": 8
-     },
-     "p": 70
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 70,
-   "decay": 0.539,
-   "boost": 0,
-   "final": 38
-  },
-  {
-   "id": "hackaday:1396736",
-   "type": "product",
-   "title": {
-    "zh": "补上密码管理器管不到的地方",
-    "en": "ToothPaste: covering what password managers miss"
-   },
-   "why": {
-    "zh": "在密码管理器覆盖不到的环节补上强密码与隐私保护",
-    "en": "Fills the gaps password managers leave in strong passwords and privacy"
-   },
-   "who": {
-    "zh": "重视隐私的用户",
-    "en": "privacy-minded users"
-   },
-   "effort": 1,
-   "url": "https://hackaday.com/2026/11/03/toothpaste-goes-where-your-password-manager-doesnt/",
-   "published_at": "2026-11-03T16:30:51+00:00",
-   "age_h": 177,
-   "srcs": [
-    {
-     "source": "hackaday",
-     "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/03/toothpaste-goes-where-your-password-manager-doesnt/",
-     "signal": {
-      "kind": "comments",
-      "value": 10
-     },
-     "p": 78
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 78,
-   "decay": 0.482,
-   "boost": 0,
-   "final": 38
-  },
-  {
-   "id": "github:1443759946",
-   "type": "hack",
-   "title": {
-    "zh": "在终端里跑整个 macOS",
-    "en": "Running all of macOS inside a terminal"
-   },
-   "why": {
-    "zh": "把整套桌面系统塞进命令行里跑",
-    "en": "Puts a whole desktop OS inside a terminal window."
-   },
-   "who": {
-    "zh": "终端爱好者",
-    "en": "terminal enthusiasts"
+    "zh": "复古硬件玩家",
+    "en": "retro hardware fans"
    },
    "effort": 3,
-   "url": "https://github.com/govijr/terminal-mac",
-   "published_at": "2026-11-03T03:22:56+00:00",
-   "age_h": 190,
-   "srcs": [
-    {
-     "source": "github",
-     "name": "GitHub",
-     "url": "https://github.com/govijr/terminal-mac",
-     "signal": {
-      "kind": "stars",
-      "value": 2391
-     },
-     "p": 83
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 83,
-   "decay": 0.457,
-   "boost": 0,
-   "final": 38
-  },
-  {
-   "id": "show_hn:50325253",
-   "type": "product",
-   "title": {
-    "zh": "OmniDiff：内容感知的 Git 差异工具",
-    "en": "OmniDiff: content-aware Git difftool in Rust"
-   },
-   "why": {
-    "zh": "基于真实仓库差异研究设计，支持代码、图片、PDF 等多类型对比",
-    "en": "Designed from real repo diffs; diffs code, images, PDFs and archives"
-   },
-   "who": {
-    "zh": "开发者",
-    "en": "Developers"
-   },
-   "effort": 1,
-   "url": "https://github.com/ivankovic/omnidiff",
-   "published_at": "2026-11-01T13:02:30+00:00",
-   "age_h": 229,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://github.com/ivankovic/omnidiff",
-     "signal": {
-      "kind": "upvotes",
-      "value": 311
-     },
-     "p": 97
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 97,
-   "decay": 0.389,
-   "boost": 0,
-   "final": 38
-  },
-  {
-   "id": "show_hn:50432589",
-   "type": "product",
-   "title": {
-    "zh": "实时 AI 视频人格 Emma",
-    "en": "Real-time AI video persona"
-   },
-   "why": {
-    "zh": "以实时视频形式呈现的 AI 虚拟人格",
-    "en": "An AI persona delivered as real-time video"
-   },
-   "who": {
-    "zh": "AI 产品探索者",
-    "en": "AI product explorers"
-   },
-   "effort": 2,
-   "url": "https://app.nuancelabs.ai/try",
-   "published_at": "2026-11-09T21:38:00+00:00",
-   "age_h": 28,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://app.nuancelabs.ai/try",
-     "signal": {
-      "kind": "upvotes",
-      "value": 9
-     },
-     "p": 41
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 41,
-   "decay": 0.891,
-   "boost": 0,
-   "final": 37
-  },
-  {
-   "id": "hackaday:1398417",
-   "type": "hack",
-   "title": {
-    "zh": "在 ESP32 上跑完整 Linux",
-    "en": "Full Linux on an ESP32"
-   },
-   "why": {
-    "zh": "把完整 Linux 塞进微控制器，突破对性能的预期",
-    "en": "Squeezes a proper Linux into a microcontroller"
-   },
-   "who": {
-    "zh": "嵌入式玩家",
-    "en": "embedded hobbyists"
-   },
-   "effort": 3,
-   "url": "https://hackaday.com/2026/11/07/proper-linux-on-an-esp32/",
-   "published_at": "2026-11-07T21:00:19+00:00",
-   "age_h": 77,
+   "url": "https://hackaday.com/2026/11/09/reverse-engineering-a-1960s-diode-transistor-logic-ic/",
+   "published_at": "2026-11-09T16:30:02+00:00",
+   "age_h": 58,
    "srcs": [
     {
      "source": "hackaday",
      "name": "Hackaday",
-     "url": "https://hackaday.com/2026/11/07/proper-linux-on-an-esp32/",
+     "url": "https://hackaday.com/2026/11/09/reverse-engineering-a-1960s-diode-transistor-logic-ic/",
      "signal": {
       "kind": "comments",
-      "value": 5
+      "value": 4
      },
-     "p": 51
+     "p": 44
     }
    ],
    "n_sites": 1,
-   "weighted": 51,
-   "decay": 0.728,
+   "weighted": 44,
+   "decay": 0.787,
    "boost": 0,
-   "final": 37
+   "final": 35
   },
   {
    "id": "github:1449518822",
@@ -4126,7 +4308,7 @@
    "effort": 3,
    "url": "https://github.com/Th0rgal/satmux",
    "published_at": "2026-11-07T16:09:41+00:00",
-   "age_h": 81,
+   "age_h": 106,
    "srcs": [
     {
      "source": "github",
@@ -4136,344 +4318,159 @@
       "kind": "stars",
       "value": 1034
      },
-     "p": 52
+     "p": 54
     }
    ],
    "n_sites": 1,
-   "weighted": 52,
-   "decay": 0.716,
+   "weighted": 54,
+   "decay": 0.646,
    "boost": 0,
-   "final": 37
+   "final": 35
   },
   {
-   "id": "show_hn:50401409",
+   "id": "show_hn:50397325",
    "type": "product",
    "title": {
-    "zh": "Backwords：让 AI 教你倒着说话",
-    "en": "Backwords: AI teaches you to speak in reverse"
+    "zh": "Agent 读懂乐高机构并生成动画",
+    "en": "Agents infer LEGO mechanisms and animate them"
    },
    "why": {
-    "zh": "把倒着说话这种冷门玩法做成 AI 教学工具",
-    "en": "Turns the niche skill of speaking backwards into an AI tutor."
+    "zh": "Agent 从资料推断机构，再生成 LDraw 代码动起来",
+    "en": "Agents derive mechanisms from sources, then generate LDraw animation."
    },
    "who": {
-    "zh": "爱玩声音的人",
-    "en": "curious voice tinkerers"
+    "zh": "乐高玩家",
+    "en": "LEGO builders"
    },
-   "effort": 1,
-   "url": "https://backwords.greg.technology/",
-   "published_at": "2026-11-07T03:39:46+00:00",
-   "age_h": 94,
+   "effort": 2,
+   "url": "https://github.com/anteloc/ldraw-mecha/tree/v0.5.0",
+   "published_at": "2026-11-06T19:41:20+00:00",
+   "age_h": 127,
    "srcs": [
     {
      "source": "show_hn",
      "name": "Show HN",
-     "url": "https://backwords.greg.technology/",
+     "url": "https://github.com/anteloc/ldraw-mecha/tree/v0.5.0",
      "signal": {
       "kind": "upvotes",
-      "value": 13
+      "value": 30
      },
-     "p": 55
+     "p": 59
     }
    ],
    "n_sites": 1,
-   "weighted": 55,
-   "decay": 0.679,
+   "weighted": 59,
+   "decay": 0.592,
    "boost": 0,
-   "final": 37
+   "final": 35
   },
   {
-   "id": "github:1448807268",
-   "type": "hack",
+   "id": "show_hn:50393235",
+   "type": "product",
    "title": {
-    "zh": "时之笛 Windows 原生重编译",
-    "en": "Ocarina of Time native on Windows"
+    "zh": "给 AI Agent 的 OAuth 授权中介",
+    "en": "OAuth delegation broker for AI agents"
    },
    "why": {
-    "zh": "用自己的一份拷贝本地构建，完全不用模拟器",
-    "en": "Built locally from your own copy, no emulator involved"
+    "zh": "让用户给 Agent 限定范围、可随时撤销的访问权",
+    "en": "Gives agents scoped, revocable access on the user's behalf."
    },
    "who": {
-    "zh": "复古游戏玩家",
-    "en": "retro gamers"
+    "zh": "Agent 开发者",
+    "en": "agent developers"
+   },
+   "effort": 2,
+   "url": "https://github.com/zalando-incubator/agentic-identity-broker",
+   "published_at": "2026-11-06T15:07:47+00:00",
+   "age_h": 131,
+   "srcs": [
+    {
+     "source": "show_hn",
+     "name": "Show HN",
+     "url": "https://github.com/zalando-incubator/agentic-identity-broker",
+     "signal": {
+      "kind": "upvotes",
+      "value": 23
+     },
+     "p": 60
+    }
+   ],
+   "n_sites": 1,
+   "weighted": 60,
+   "decay": 0.582,
+   "boost": 0,
+   "final": 35
+  },
+  {
+   "id": "hackaday:1398151",
+   "type": "design",
+   "title": {
+    "zh": "2026 年新出的 N64 实体卡带游戏",
+    "en": "A brand-new physical N64 game in 2026"
+   },
+   "why": {
+    "zh": "卡带、说明书、盒封一手做齐的完整实体新作。",
+    "en": "A complete new cartridge release with manual and box art."
+   },
+   "who": {
+    "zh": "复古游戏爱好者",
+    "en": "retro game fans"
    },
    "effort": 3,
-   "url": "https://github.com/sostenesfreitas/ocarina-recomp",
-   "published_at": "2026-11-06T22:24:03+00:00",
-   "age_h": 99,
+   "url": "https://hackaday.com/2026/11/06/making-xibalba-64-a-new-n64-release-in-2026/",
+   "published_at": "2026-11-06T09:00:03+00:00",
+   "age_h": 138,
    "srcs": [
     {
-     "source": "github",
-     "name": "GitHub",
-     "url": "https://github.com/sostenesfreitas/ocarina-recomp",
-     "signal": {
-      "kind": "stars",
-      "value": 1089
-     },
-     "p": 55
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 55,
-   "decay": 0.665,
-   "boost": 0,
-   "final": 37
-  },
-  {
-   "id": "show_hn:50379073",
-   "type": "product",
-   "title": {
-    "zh": "不用谷歌账号的开源 YouTube 客户端",
-    "en": "TubeHaus: open-source YouTube client"
-   },
-   "why": {
-    "zh": "不登 Google 账号也能刷 YouTube，且开源",
-    "en": "Watch YouTube with no Google account, fully open source"
-   },
-   "who": {
-    "zh": "注重隐私的用户",
-    "en": "privacy-minded viewers"
-   },
-   "effort": 1,
-   "url": "https://github.com/biolend83/tubehaus",
-   "published_at": "2026-11-05T13:53:17+00:00",
-   "age_h": 132,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://github.com/biolend83/tubehaus",
-     "signal": {
-      "kind": "upvotes",
-      "value": 21
-     },
-     "p": 64
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 64,
-   "decay": 0.58,
-   "boost": 0,
-   "final": 37
-  },
-  {
-   "id": "v2ex:1254602",
-   "type": "product",
-   "title": {
-    "zh": "用英文歌学英语的开源应用",
-    "en": "Open-source app for learning English with songs"
-   },
-   "why": {
-    "zh": "听一句歌再拼一句歌词，听力与拼写一起练",
-    "en": "Listen to a lyric then spell it out, training listening and spelling together"
-   },
-   "who": {
-    "zh": "英语学习者",
-    "en": "English learners"
-   },
-   "effort": 1,
-   "url": "https://www.v2ex.com/t/1254602",
-   "published_at": "2026-11-05T01:26:09+00:00",
-   "age_h": 144,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1254602",
+     "source": "hackaday",
+     "name": "Hackaday",
+     "url": "https://hackaday.com/2026/11/06/making-xibalba-64-a-new-n64-release-in-2026/",
      "signal": {
       "kind": "comments",
-      "value": 1
+      "value": 7
      },
-     "p": 67
+     "p": 61
     }
    ],
    "n_sites": 1,
-   "weighted": 67,
-   "decay": 0.552,
+   "weighted": 61,
+   "decay": 0.566,
    "boost": 0,
-   "final": 37
-  },
-  {
-   "id": "show_hn:50333877",
-   "type": "product",
-   "title": {
-    "zh": "HN 帖子回顾站",
-    "en": "HackerHack: HN posts as a book"
-   },
-   "why": {
-    "zh": "把 HN 历史帖子整理成可翻阅的形式，且不用 AI。",
-    "en": "Turns old HN posts into a browsable collection, without AI."
-   },
-   "who": {
-    "zh": "HN 老读者",
-    "en": "long-time HN readers"
-   },
-   "effort": 1,
-   "url": "https://news.ycombinator.com/",
-   "published_at": "2026-11-02T06:59:40+00:00",
-   "age_h": 211,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://news.ycombinator.com/",
-     "signal": {
-      "kind": "upvotes",
-      "value": 182
-     },
-     "p": 89
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 89,
-   "decay": 0.419,
-   "boost": 0,
-   "final": 37
-  },
-  {
-   "id": "v2ex:1253588",
-   "type": "hack",
-   "title": {
-    "zh": "借云隧道搭免费代理",
-    "en": "Free tunnel proxy via a bot prompt"
-   },
-   "why": {
-    "zh": "让bot照仓库指令自动搭好隧道",
-    "en": "A bot installs a cloud tunnel from a repo prompt"
-   },
-   "who": {
-    "zh": "流量紧张的折腾党",
-    "en": "Tinkerers short on data"
-   },
-   "effort": 2,
-   "url": "https://www.v2ex.com/t/1253588",
-   "published_at": "2026-11-01T13:34:02+00:00",
-   "age_h": 228,
-   "srcs": [
-    {
-     "source": "v2ex",
-     "name": "V2EX",
-     "url": "https://www.v2ex.com/t/1253588",
-     "signal": {
-      "kind": "comments",
-      "value": 8
-     },
-     "p": 96
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 96,
-   "decay": 0.39,
-   "boost": 0,
-   "final": 37
-  },
-  {
-   "id": "show_hn:50415581",
-   "type": "product",
-   "title": {
-    "zh": "端到端加密的笔记工具 Notekpr",
-    "en": "Notekpr: E2EE notes"
-   },
-   "why": {
-    "zh": "开源加端到端加密，做 Notion 与 Obsidian 的替代",
-    "en": "An open-source, end-to-end-encrypted alternative to Notion and Obsidian."
-   },
-   "who": {
-    "zh": "注重隐私的笔记用户",
-    "en": "Privacy-minded note takers"
-   },
-   "effort": 2,
-   "url": "https://notekpr.md",
-   "published_at": "2026-11-08T18:10:29+00:00",
-   "age_h": 55,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://notekpr.md",
-     "signal": {
-      "kind": "upvotes",
-      "value": 9
-     },
-     "p": 45
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 45,
-   "decay": 0.797,
-   "boost": 0,
-   "final": 36
-  },
-  {
-   "id": "show_hn:50351404",
-   "type": "product",
-   "title": {
-    "zh": "Bema：为人类设计的工作消息工具",
-    "en": "Work messaging built for humans"
-   },
-   "why": {
-    "zh": "针对频道过多、消息过载重做工作聊天",
-    "en": "Rethinks work chat around too many channels and overload"
-   },
-   "who": {
-    "zh": "远程团队",
-    "en": "remote teams"
-   },
-   "effort": 1,
-   "url": "https://getbema.app/",
-   "published_at": "2026-11-03T12:51:11+00:00",
-   "age_h": 181,
-   "srcs": [
-    {
-     "source": "show_hn",
-     "name": "Show HN",
-     "url": "https://getbema.app/",
-     "signal": {
-      "kind": "upvotes",
-      "value": 27
-     },
-     "p": 75
-    }
-   ],
-   "n_sites": 1,
-   "weighted": 75,
-   "decay": 0.474,
-   "boost": 0,
-   "final": 36
+   "final": 35
   }
  ],
  "stats": {
-  "today": 57,
-  "sources": 4,
+  "today": 48,
+  "sources": 5,
   "multi": 1
  },
  "types": {
   "24h": {
    "hack": 4,
-   "product": 23,
-   "method": 5,
+   "product": 20,
+   "method": 0,
    "wish": 0,
    "design": 3
   },
   "7d": {
-   "hack": 53,
-   "product": 152,
+   "hack": 48,
+   "product": 150,
    "method": 13,
    "wish": 0,
-   "design": 25
+   "design": 27
   },
   "30d": {
-   "hack": 228,
-   "product": 701,
-   "method": 75,
+   "hack": 226,
+   "product": 698,
+   "method": 74,
    "wish": 0,
-   "design": 117
+   "design": 120
   }
  },
  "counts": {
-  "24h": 35,
-  "7d": 243,
-  "30d": 1121
+  "24h": 27,
+  "7d": 238,
+  "30d": 1118
  },
  "sources": [
   {
@@ -4494,7 +4491,7 @@
    },
    "access": "API",
    "status": "ok",
-   "count": 13
+   "count": 4
   },
   {
    "id": "v2ex",
@@ -4514,7 +4511,7 @@
    },
    "access": "RSS",
    "status": "ok",
-   "count": 4
+   "count": 3
   },
   {
    "id": "sspai",
@@ -4523,8 +4520,8 @@
     "en": "SSPAI"
    },
    "access": "RSS",
-   "status": "empty",
-   "count": 0
+   "status": "ok",
+   "count": 1
   }
  ],
  "scoring": {
