@@ -1,12 +1,12 @@
 {
- "as_of": "2026-11-14",
+ "as_of": "2026-11-15",
  "open": [
   {
    "horizon": "week",
    "direction": "negative",
    "confidence": "high",
-   "created": "2026-11-14",
-   "target_date": "2026-11-21",
+   "created": "2026-11-15",
+   "target_date": "2026-11-22",
    "drivers": [
     {
      "topic": "foundation_models",
@@ -88,32 +88,32 @@
    "horizon": "month",
    "direction": "negative",
    "confidence": "high",
-   "created": "2026-11-14",
-   "target_date": "2026-12-14",
+   "created": "2026-11-15",
+   "target_date": "2026-12-15",
    "drivers": [
-    {
-     "topic": "policy_safety",
-     "name": {
-      "zh": "政策、安全与监管",
-      "en": "Policy, safety & regulation"
-     },
-     "momentum": -0.429083
-    },
     {
      "topic": "chips_compute",
      "name": {
       "zh": "芯片与算力",
       "en": "Chips & compute"
      },
-     "momentum": 0.375149
+     "momentum": 0.269524
     },
     {
-     "topic": "applications",
+     "topic": "policy_safety",
      "name": {
-      "zh": "AI 应用与商业化",
-      "en": "AI apps & business"
+      "zh": "政策、安全与监管",
+      "en": "Policy, safety & regulation"
      },
-     "momentum": 0.167173
+     "momentum": -0.244976
+    },
+    {
+     "topic": "foundation_models",
+     "name": {
+      "zh": "基础模型",
+      "en": "Foundation models"
+     },
+     "momentum": 0.214435
     }
    ],
    "scenarios": [
@@ -171,32 +171,32 @@
    "horizon": "quarter",
    "direction": "negative",
    "confidence": "high",
-   "created": "2026-11-14",
-   "target_date": "2027-02-13",
+   "created": "2026-11-15",
+   "target_date": "2027-02-14",
    "drivers": [
-    {
-     "topic": "policy_safety",
-     "name": {
-      "zh": "政策、安全与监管",
-      "en": "Policy, safety & regulation"
-     },
-     "momentum": -0.429083
-    },
     {
      "topic": "chips_compute",
      "name": {
       "zh": "芯片与算力",
       "en": "Chips & compute"
      },
-     "momentum": 0.375149
+     "momentum": 0.269524
     },
     {
-     "topic": "applications",
+     "topic": "policy_safety",
      "name": {
-      "zh": "AI 应用与商业化",
-      "en": "AI apps & business"
+      "zh": "政策、安全与监管",
+      "en": "Policy, safety & regulation"
      },
-     "momentum": 0.167173
+     "momentum": -0.244976
+    },
+    {
+     "topic": "foundation_models",
+     "name": {
+      "zh": "基础模型",
+      "en": "Foundation models"
+     },
+     "momentum": 0.214435
     }
    ],
    "scenarios": [
@@ -254,8 +254,8 @@
    "horizon": "year",
    "direction": "insufficient_data",
    "confidence": "low",
-   "created": "2026-11-14",
-   "target_date": "2027-11-14",
+   "created": "2026-11-15",
+   "target_date": "2027-11-15",
    "drivers": [],
    "scenarios": [
     {
@@ -301,6 +301,36 @@
   }
  ],
  "resolved": [
+  {
+   "id": "trend-quarter-2026-08-16",
+   "horizon": "quarter",
+   "created": "2026-08-16",
+   "target_date": "2026-11-15",
+   "direction": "insufficient_data",
+   "confidence": "low",
+   "observed": "negative",
+   "correct": false
+  },
+  {
+   "id": "trend-month-2026-10-16",
+   "horizon": "month",
+   "created": "2026-10-16",
+   "target_date": "2026-11-15",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "negative",
+   "correct": true
+  },
+  {
+   "id": "trend-week-2026-11-08",
+   "horizon": "week",
+   "created": "2026-11-08",
+   "target_date": "2026-11-15",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "negative",
+   "correct": true
+  },
   {
    "id": "trend-quarter-2026-08-15",
    "horizon": "quarter",
@@ -770,59 +800,29 @@
    "confidence": "high",
    "observed": "positive",
    "correct": false
-  },
-  {
-   "id": "trend-week-2026-10-18",
-   "horizon": "week",
-   "created": "2026-10-18",
-   "target_date": "2026-10-25",
-   "direction": "positive",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": true
-  },
-  {
-   "id": "trend-month-2026-09-24",
-   "horizon": "month",
-   "created": "2026-09-24",
-   "target_date": "2026-10-24",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": false
-  },
-  {
-   "id": "trend-week-2026-10-17",
-   "horizon": "week",
-   "created": "2026-10-17",
-   "target_date": "2026-10-24",
-   "direction": "positive",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": true
   }
  ],
  "record": {
-  "resolved": 163,
-  "correct": 62,
-  "rate": 38,
+  "resolved": 166,
+  "correct": 64,
+  "rate": 39,
   "open": 4,
   "by_horizon": [
    {
     "horizon": "week",
-    "resolved": 90,
-    "correct": 36,
-    "rate": 40
+    "resolved": 91,
+    "correct": 37,
+    "rate": 41
    },
    {
     "horizon": "month",
-    "resolved": 67,
-    "correct": 26,
-    "rate": 39
+    "resolved": 68,
+    "correct": 27,
+    "rate": 40
    },
    {
     "horizon": "quarter",
-    "resolved": 6,
+    "resolved": 7,
     "correct": 0,
     "rate": 0
    }
@@ -831,7 +831,7 @@
  "calibration": [
   {
    "confidence": "low",
-   "n": 27,
+   "n": 28,
    "correct": 0,
    "rate": 0
   },
@@ -843,9 +843,9 @@
   },
   {
    "confidence": "high",
-   "n": 125,
-   "correct": 55,
-   "rate": 44
+   "n": 127,
+   "correct": 57,
+   "rate": 45
   }
  ],
  "questions": {
@@ -867,7 +867,7 @@
      "zh": "近 20 个交易日波动 0.72%/日，平均涨跌 -0.30%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 0.72%/day; average move -0.30%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 5
+    "days_left": 4
    },
    {
     "id": "mq-week-2026-11-12-创业板指",
@@ -886,7 +886,7 @@
      "zh": "近 20 个交易日波动 2.10%/日，平均涨跌 -0.72%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 2.10%/day; average move -0.72%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 5
+    "days_left": 4
    },
    {
     "id": "mq-week-2026-11-12-深证成指",
@@ -905,7 +905,7 @@
      "zh": "近 20 个交易日波动 1.41%/日，平均涨跌 -0.44%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.41%/day; average move -0.44%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 5
+    "days_left": 4
    },
    {
     "id": "mq-week-2026-11-14-恒生科技",
@@ -924,7 +924,7 @@
      "zh": "近 20 个交易日波动 1.92%/日，平均涨跌 -0.64%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.92%/day; average move -0.64%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-14-道琼斯",
@@ -943,7 +943,7 @@
      "zh": "近 20 个交易日波动 0.85%/日，平均涨跌 +0.18%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 0.85%/day; average move +0.18%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-14-恒生指数",
@@ -962,7 +962,7 @@
      "zh": "近 20 个交易日波动 1.16%/日，平均涨跌 -0.22%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.16%/day; average move -0.22%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-14-标普500",
@@ -981,7 +981,7 @@
      "zh": "近 20 个交易日波动 0.79%/日，平均涨跌 +0.12%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 0.79%/day; average move +0.12%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-14-黄金",
@@ -1000,7 +1000,7 @@
      "zh": "近 20 个交易日波动 1.03%/日，平均涨跌 -0.14%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.03%/day; average move -0.14%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-14-VIX",
@@ -1019,7 +1019,7 @@
      "zh": "近 20 个交易日波动 18.18%/日，平均涨跌 +1.14%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 18.18%/day; average move +1.14%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-14-原油",
@@ -1038,7 +1038,7 @@
      "zh": "近 20 个交易日波动 1.53%/日，平均涨跌 +0.08%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.53%/day; average move +0.08%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-14-纳斯达克",
@@ -1057,7 +1057,7 @@
      "zh": "近 20 个交易日波动 1.23%/日，平均涨跌 -0.00%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.23%/day; average move -0.00%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-month-2026-11-02-黄金",
@@ -1076,7 +1076,7 @@
      "zh": "近 20 个交易日波动 0.89%/日，平均涨跌 -0.28%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.89%/day; average move -0.28%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 18
+    "days_left": 17
    },
    {
     "id": "mq-month-2026-11-02-纳斯达克",
@@ -1095,7 +1095,7 @@
      "zh": "近 20 个交易日波动 1.23%/日，平均涨跌 -0.32%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.23%/day; average move -0.32%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 18
+    "days_left": 17
    },
    {
     "id": "mq-month-2026-11-02-道琼斯",
@@ -1114,7 +1114,7 @@
      "zh": "近 20 个交易日波动 0.61%/日，平均涨跌 +0.16%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.61%/day; average move +0.16%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 18
+    "days_left": 17
    },
    {
     "id": "mq-month-2026-11-02-原油",
@@ -1133,7 +1133,7 @@
      "zh": "近 20 个交易日波动 1.64%/日，平均涨跌 +0.28%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.64%/day; average move +0.28%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 18
+    "days_left": 17
    },
    {
     "id": "mq-month-2026-11-02-恒生指数",
@@ -1152,7 +1152,7 @@
      "zh": "近 20 个交易日波动 1.03%/日，平均涨跌 -0.08%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.03%/day; average move -0.08%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 18
+    "days_left": 17
    },
    {
     "id": "mq-month-2026-11-02-标普500",
@@ -1171,7 +1171,7 @@
      "zh": "近 20 个交易日波动 0.73%/日，平均涨跌 -0.06%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.73%/day; average move -0.06%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 18
+    "days_left": 17
    },
    {
     "id": "mq-month-2026-11-03-VIX",
@@ -1190,7 +1190,7 @@
      "zh": "近 20 个交易日波动 7.68%/日，平均涨跌 +2.48%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 7.68%/day; average move +2.48%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 19
+    "days_left": 18
    },
    {
     "id": "mq-month-2026-11-03-恒生科技",
@@ -1209,7 +1209,7 @@
      "zh": "近 20 个交易日波动 1.83%/日，平均涨跌 -0.40%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.83%/day; average move -0.40%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 19
+    "days_left": 18
    },
    {
     "id": "mq-month-2026-11-07-创业板指",
@@ -1228,7 +1228,7 @@
      "zh": "近 20 个交易日波动 2.08%/日，平均涨跌 -1.32%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 2.08%/day; average move -1.32%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 23
+    "days_left": 22
    },
    {
     "id": "mq-month-2026-11-07-上证指数",
@@ -1247,7 +1247,7 @@
      "zh": "近 20 个交易日波动 0.76%/日，平均涨跌 -0.44%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.76%/day; average move -0.44%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 23
+    "days_left": 22
    },
    {
     "id": "mq-month-2026-11-07-深证成指",
@@ -1266,7 +1266,7 @@
      "zh": "近 20 个交易日波动 1.48%/日，平均涨跌 -0.84%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.48%/day; average move -0.84%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 23
+    "days_left": 22
    }
   ],
   "resolved": [
