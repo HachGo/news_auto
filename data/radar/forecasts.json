@@ -1,12 +1,12 @@
 {
- "as_of": "2026-11-20",
+ "as_of": "2026-11-21",
  "open": [
   {
    "horizon": "week",
    "direction": "negative",
    "confidence": "high",
-   "created": "2026-11-20",
-   "target_date": "2026-11-27",
+   "created": "2026-11-21",
+   "target_date": "2026-11-28",
    "drivers": [
     {
      "topic": "foundation_models",
@@ -88,8 +88,8 @@
    "horizon": "month",
    "direction": "negative",
    "confidence": "high",
-   "created": "2026-11-20",
-   "target_date": "2026-12-20",
+   "created": "2026-11-21",
+   "target_date": "2026-12-21",
    "drivers": [
     {
      "topic": "policy_safety",
@@ -97,15 +97,7 @@
       "zh": "政策、安全与监管",
       "en": "Policy, safety & regulation"
      },
-     "momentum": 0.105
-    },
-    {
-     "topic": "foundation_models",
-     "name": {
-      "zh": "基础模型",
-      "en": "Foundation models"
-     },
-     "momentum": -0.103006
+     "momentum": 0.240982
     },
     {
      "topic": "chips_compute",
@@ -113,7 +105,15 @@
       "zh": "芯片与算力",
       "en": "Chips & compute"
      },
-     "momentum": 0.058899
+     "momentum": -0.144583
+    },
+    {
+     "topic": "foundation_models",
+     "name": {
+      "zh": "基础模型",
+      "en": "Foundation models"
+     },
+     "momentum": -0.127024
     }
    ],
    "scenarios": [
@@ -171,8 +171,8 @@
    "horizon": "quarter",
    "direction": "negative",
    "confidence": "high",
-   "created": "2026-11-20",
-   "target_date": "2027-02-19",
+   "created": "2026-11-21",
+   "target_date": "2027-02-20",
    "drivers": [
     {
      "topic": "policy_safety",
@@ -180,15 +180,7 @@
       "zh": "政策、安全与监管",
       "en": "Policy, safety & regulation"
      },
-     "momentum": 0.105
-    },
-    {
-     "topic": "foundation_models",
-     "name": {
-      "zh": "基础模型",
-      "en": "Foundation models"
-     },
-     "momentum": -0.103006
+     "momentum": 0.240982
     },
     {
      "topic": "chips_compute",
@@ -196,7 +188,15 @@
       "zh": "芯片与算力",
       "en": "Chips & compute"
      },
-     "momentum": 0.058899
+     "momentum": -0.144583
+    },
+    {
+     "topic": "foundation_models",
+     "name": {
+      "zh": "基础模型",
+      "en": "Foundation models"
+     },
+     "momentum": -0.127024
     }
    ],
    "scenarios": [
@@ -254,8 +254,8 @@
    "horizon": "year",
    "direction": "insufficient_data",
    "confidence": "low",
-   "created": "2026-11-20",
-   "target_date": "2027-11-20",
+   "created": "2026-11-21",
+   "target_date": "2027-11-21",
    "drivers": [],
    "scenarios": [
     {
@@ -301,6 +301,36 @@
   }
  ],
  "resolved": [
+  {
+   "id": "trend-quarter-2026-08-22",
+   "horizon": "quarter",
+   "created": "2026-08-22",
+   "target_date": "2026-11-21",
+   "direction": "insufficient_data",
+   "confidence": "low",
+   "observed": "negative",
+   "correct": false
+  },
+  {
+   "id": "trend-month-2026-10-22",
+   "horizon": "month",
+   "created": "2026-10-22",
+   "target_date": "2026-11-21",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "negative",
+   "correct": true
+  },
+  {
+   "id": "trend-week-2026-11-14",
+   "horizon": "week",
+   "created": "2026-11-14",
+   "target_date": "2026-11-21",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "negative",
+   "correct": true
+  },
   {
    "id": "trend-quarter-2026-08-21",
    "horizon": "quarter",
@@ -770,59 +800,29 @@
    "confidence": "high",
    "observed": "positive",
    "correct": false
-  },
-  {
-   "id": "trend-week-2026-10-27",
-   "horizon": "week",
-   "created": "2026-10-27",
-   "target_date": "2026-11-03",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": false
-  },
-  {
-   "id": "trend-month-2026-10-03",
-   "horizon": "month",
-   "created": "2026-10-03",
-   "target_date": "2026-11-02",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": false
-  },
-  {
-   "id": "trend-week-2026-10-26",
-   "horizon": "week",
-   "created": "2026-10-26",
-   "target_date": "2026-11-02",
-   "direction": "positive",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": true
   }
  ],
  "record": {
-  "resolved": 181,
-  "correct": 69,
-  "rate": 38,
+  "resolved": 184,
+  "correct": 71,
+  "rate": 39,
   "open": 4,
   "by_horizon": [
    {
     "horizon": "week",
-    "resolved": 96,
-    "correct": 40,
+    "resolved": 97,
+    "correct": 41,
     "rate": 42
    },
    {
     "horizon": "month",
-    "resolved": 73,
-    "correct": 29,
-    "rate": 40
+    "resolved": 74,
+    "correct": 30,
+    "rate": 41
    },
    {
     "horizon": "quarter",
-    "resolved": 12,
+    "resolved": 13,
     "correct": 0,
     "rate": 0
    }
@@ -831,7 +831,7 @@
  "calibration": [
   {
    "confidence": "low",
-   "n": 33,
+   "n": 34,
    "correct": 0,
    "rate": 0
   },
@@ -843,165 +843,13 @@
   },
   {
    "confidence": "high",
-   "n": 137,
-   "correct": 62,
-   "rate": 45
+   "n": 139,
+   "correct": 64,
+   "rate": 46
   }
  ],
  "questions": {
   "open": [
-   {
-    "id": "mq-week-2026-11-14-恒生科技",
-    "quote": "恒生科技",
-    "horizon": "week",
-    "created": "2026-11-14",
-    "deadline": "2026-11-21",
-    "p": 35,
-    "baseline": 36,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "恒生科技在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
-     "en": "Will Hang Seng Tech close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.92%/日，平均涨跌 -0.64%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.92%/day; average move -0.64%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
-   {
-    "id": "mq-week-2026-11-14-道琼斯",
-    "quote": "道琼斯",
-    "horizon": "week",
-    "created": "2026-11-14",
-    "deadline": "2026-11-21",
-    "p": 60,
-    "baseline": 64,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "道琼斯在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
-     "en": "Will Dow Jones close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 0.85%/日，平均涨跌 +0.18%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 0.85%/day; average move +0.18%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
-   {
-    "id": "mq-week-2026-11-14-恒生指数",
-    "quote": "恒生指数",
-    "horizon": "week",
-    "created": "2026-11-14",
-    "deadline": "2026-11-21",
-    "p": 42,
-    "baseline": 36,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "恒生指数在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
-     "en": "Will Hang Seng close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.16%/日，平均涨跌 -0.22%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.16%/day; average move -0.22%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
-   {
-    "id": "mq-week-2026-11-14-标普500",
-    "quote": "标普500",
-    "horizon": "week",
-    "created": "2026-11-14",
-    "deadline": "2026-11-21",
-    "p": 57,
-    "baseline": 59,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "标普500在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
-     "en": "Will S&P 500 close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 0.79%/日，平均涨跌 +0.12%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 0.79%/day; average move +0.12%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
-   {
-    "id": "mq-week-2026-11-14-黄金",
-    "quote": "黄金",
-    "horizon": "week",
-    "created": "2026-11-14",
-    "deadline": "2026-11-21",
-    "p": 44,
-    "baseline": 45,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "黄金在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
-     "en": "Will Gold close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.03%/日，平均涨跌 -0.14%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.03%/day; average move -0.14%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
-   {
-    "id": "mq-week-2026-11-14-VIX",
-    "quote": "VIX",
-    "horizon": "week",
-    "created": "2026-11-14",
-    "deadline": "2026-11-21",
-    "p": 53,
-    "baseline": 41,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "VIX在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
-     "en": "Will VIX close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 18.18%/日，平均涨跌 +1.14%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 18.18%/day; average move +1.14%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
-   {
-    "id": "mq-week-2026-11-14-原油",
-    "quote": "原油",
-    "horizon": "week",
-    "created": "2026-11-14",
-    "deadline": "2026-11-21",
-    "p": 52,
-    "baseline": 41,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "原油在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
-     "en": "Will Crude oil close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.53%/日，平均涨跌 +0.08%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.53%/day; average move +0.08%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
-   {
-    "id": "mq-week-2026-11-14-纳斯达克",
-    "quote": "纳斯达克",
-    "horizon": "week",
-    "created": "2026-11-14",
-    "deadline": "2026-11-21",
-    "p": 50,
-    "baseline": 59,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "纳斯达克在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
-     "en": "Will Nasdaq close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.23%/日，平均涨跌 -0.00%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.23%/day; average move -0.00%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "days_left": 1
-   },
    {
     "id": "mq-week-2026-11-19-上证指数",
     "quote": "上证指数",
@@ -1019,7 +867,7 @@
      "zh": "近 20 个交易日波动 0.58%/日，平均涨跌 -0.42%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 0.58%/day; average move -0.42%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 6
+    "days_left": 5
    },
    {
     "id": "mq-week-2026-11-19-创业板指",
@@ -1038,7 +886,7 @@
      "zh": "近 20 个交易日波动 1.71%/日，平均涨跌 -0.96%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.71%/day; average move -0.96%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 6
+    "days_left": 5
    },
    {
     "id": "mq-week-2026-11-19-深证成指",
@@ -1057,7 +905,159 @@
      "zh": "近 20 个交易日波动 1.17%/日，平均涨跌 -0.60%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.17%/day; average move -0.60%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 6
+    "days_left": 5
+   },
+   {
+    "id": "mq-week-2026-11-21-恒生科技",
+    "quote": "恒生科技",
+    "horizon": "week",
+    "created": "2026-11-21",
+    "deadline": "2026-11-28",
+    "p": 30,
+    "baseline": 32,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "恒生科技在 2026-11-28 或之后首个交易日收盘，会高于 2026-11-21 吗？",
+     "en": "Will Hang Seng Tech close higher on the first trading day on or after 2026-11-28 than on 2026-11-21?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.80%/日，平均涨跌 -0.86%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.80%/day; average move -0.86%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
+   },
+   {
+    "id": "mq-week-2026-11-21-恒生指数",
+    "quote": "恒生指数",
+    "horizon": "week",
+    "created": "2026-11-21",
+    "deadline": "2026-11-28",
+    "p": 35,
+    "baseline": 36,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "恒生指数在 2026-11-28 或之后首个交易日收盘，会高于 2026-11-21 吗？",
+     "en": "Will Hang Seng close higher on the first trading day on or after 2026-11-28 than on 2026-11-21?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.15%/日，平均涨跌 -0.38%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.15%/day; average move -0.38%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
+   },
+   {
+    "id": "mq-week-2026-11-21-纳斯达克",
+    "quote": "纳斯达克",
+    "horizon": "week",
+    "created": "2026-11-21",
+    "deadline": "2026-11-28",
+    "p": 37,
+    "baseline": 50,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "纳斯达克在 2026-11-28 或之后首个交易日收盘，会高于 2026-11-21 吗？",
+     "en": "Will Nasdaq close higher on the first trading day on or after 2026-11-28 than on 2026-11-21?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.68%/日，平均涨跌 -0.50%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.68%/day; average move -0.50%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
+   },
+   {
+    "id": "mq-week-2026-11-21-黄金",
+    "quote": "黄金",
+    "horizon": "week",
+    "created": "2026-11-21",
+    "deadline": "2026-11-28",
+    "p": 37,
+    "baseline": 45,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "黄金在 2026-11-28 或之后首个交易日收盘，会高于 2026-11-21 吗？",
+     "en": "Will Gold close higher on the first trading day on or after 2026-11-28 than on 2026-11-21?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.19%/日，平均涨跌 -0.34%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.19%/day; average move -0.34%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
+   },
+   {
+    "id": "mq-week-2026-11-21-VIX",
+    "quote": "VIX",
+    "horizon": "week",
+    "created": "2026-11-21",
+    "deadline": "2026-11-28",
+    "p": 61,
+    "baseline": 50,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "VIX在 2026-11-28 或之后首个交易日收盘，会高于 2026-11-21 吗？",
+     "en": "Will VIX close higher on the first trading day on or after 2026-11-28 than on 2026-11-21?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 19.13%/日，平均涨跌 +4.62%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 19.13%/day; average move +4.62%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
+   },
+   {
+    "id": "mq-week-2026-11-21-原油",
+    "quote": "原油",
+    "horizon": "week",
+    "created": "2026-11-21",
+    "deadline": "2026-11-28",
+    "p": 39,
+    "baseline": 36,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "原油在 2026-11-28 或之后首个交易日收盘，会高于 2026-11-21 吗？",
+     "en": "Will Crude oil close higher on the first trading day on or after 2026-11-28 than on 2026-11-21?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 0.87%/日，平均涨跌 -0.22%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 0.87%/day; average move -0.22%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
+   },
+   {
+    "id": "mq-week-2026-11-21-标普500",
+    "quote": "标普500",
+    "horizon": "week",
+    "created": "2026-11-21",
+    "deadline": "2026-11-28",
+    "p": 39,
+    "baseline": 45,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "标普500在 2026-11-28 或之后首个交易日收盘，会高于 2026-11-21 吗？",
+     "en": "Will S&P 500 close higher on the first trading day on or after 2026-11-28 than on 2026-11-21?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.23%/日，平均涨跌 -0.32%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.23%/day; average move -0.32%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
+   },
+   {
+    "id": "mq-week-2026-11-21-道琼斯",
+    "quote": "道琼斯",
+    "horizon": "week",
+    "created": "2026-11-21",
+    "deadline": "2026-11-28",
+    "p": 40,
+    "baseline": 45,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "道琼斯在 2026-11-28 或之后首个交易日收盘，会高于 2026-11-21 吗？",
+     "en": "Will Dow Jones close higher on the first trading day on or after 2026-11-28 than on 2026-11-21?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.14%/日，平均涨跌 -0.24%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.14%/day; average move -0.24%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "days_left": 7
    },
    {
     "id": "mq-month-2026-11-02-黄金",
@@ -1076,7 +1076,7 @@
      "zh": "近 20 个交易日波动 0.89%/日，平均涨跌 -0.28%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.89%/day; average move -0.28%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 12
+    "days_left": 11
    },
    {
     "id": "mq-month-2026-11-02-纳斯达克",
@@ -1095,7 +1095,7 @@
      "zh": "近 20 个交易日波动 1.23%/日，平均涨跌 -0.32%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.23%/day; average move -0.32%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 12
+    "days_left": 11
    },
    {
     "id": "mq-month-2026-11-02-道琼斯",
@@ -1114,7 +1114,7 @@
      "zh": "近 20 个交易日波动 0.61%/日，平均涨跌 +0.16%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.61%/day; average move +0.16%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 12
+    "days_left": 11
    },
    {
     "id": "mq-month-2026-11-02-原油",
@@ -1133,7 +1133,7 @@
      "zh": "近 20 个交易日波动 1.64%/日，平均涨跌 +0.28%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.64%/day; average move +0.28%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 12
+    "days_left": 11
    },
    {
     "id": "mq-month-2026-11-02-恒生指数",
@@ -1152,7 +1152,7 @@
      "zh": "近 20 个交易日波动 1.03%/日，平均涨跌 -0.08%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.03%/day; average move -0.08%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 12
+    "days_left": 11
    },
    {
     "id": "mq-month-2026-11-02-标普500",
@@ -1171,7 +1171,7 @@
      "zh": "近 20 个交易日波动 0.73%/日，平均涨跌 -0.06%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.73%/day; average move -0.06%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 12
+    "days_left": 11
    },
    {
     "id": "mq-month-2026-11-03-VIX",
@@ -1190,7 +1190,7 @@
      "zh": "近 20 个交易日波动 7.68%/日，平均涨跌 +2.48%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 7.68%/day; average move +2.48%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 13
+    "days_left": 12
    },
    {
     "id": "mq-month-2026-11-03-恒生科技",
@@ -1209,7 +1209,7 @@
      "zh": "近 20 个交易日波动 1.83%/日，平均涨跌 -0.40%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.83%/day; average move -0.40%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 13
+    "days_left": 12
    },
    {
     "id": "mq-month-2026-11-07-创业板指",
@@ -1228,7 +1228,7 @@
      "zh": "近 20 个交易日波动 2.08%/日，平均涨跌 -1.32%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 2.08%/day; average move -1.32%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 17
+    "days_left": 16
    },
    {
     "id": "mq-month-2026-11-07-上证指数",
@@ -1247,7 +1247,7 @@
      "zh": "近 20 个交易日波动 0.76%/日，平均涨跌 -0.44%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.76%/day; average move -0.44%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 17
+    "days_left": 16
    },
    {
     "id": "mq-month-2026-11-07-深证成指",
@@ -1266,10 +1266,202 @@
      "zh": "近 20 个交易日波动 1.48%/日，平均涨跌 -0.84%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.48%/day; average move -0.84%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 17
+    "days_left": 16
    }
   ],
   "resolved": [
+   {
+    "id": "mq-week-2026-11-14-黄金",
+    "quote": "黄金",
+    "horizon": "week",
+    "created": "2026-11-14",
+    "deadline": "2026-11-21",
+    "p": 44,
+    "baseline": 45,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "黄金在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
+     "en": "Will Gold close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.03%/日，平均涨跌 -0.14%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.03%/day; average move -0.14%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-21",
+    "change_pct": -6.0,
+    "outcome": 0,
+    "brier": 0.1936,
+    "baseline_brier": 0.2025
+   },
+   {
+    "id": "mq-week-2026-11-14-道琼斯",
+    "quote": "道琼斯",
+    "horizon": "week",
+    "created": "2026-11-14",
+    "deadline": "2026-11-21",
+    "p": 60,
+    "baseline": 64,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "道琼斯在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
+     "en": "Will Dow Jones close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 0.85%/日，平均涨跌 +0.18%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 0.85%/day; average move +0.18%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-21",
+    "change_pct": -8.01,
+    "outcome": 0,
+    "brier": 0.36,
+    "baseline_brier": 0.4096
+   },
+   {
+    "id": "mq-week-2026-11-14-纳斯达克",
+    "quote": "纳斯达克",
+    "horizon": "week",
+    "created": "2026-11-14",
+    "deadline": "2026-11-21",
+    "p": 50,
+    "baseline": 59,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "纳斯达克在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
+     "en": "Will Nasdaq close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.23%/日，平均涨跌 -0.00%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.23%/day; average move -0.00%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-21",
+    "change_pct": -10.01,
+    "outcome": 0,
+    "brier": 0.25,
+    "baseline_brier": 0.3481
+   },
+   {
+    "id": "mq-week-2026-11-14-标普500",
+    "quote": "标普500",
+    "horizon": "week",
+    "created": "2026-11-14",
+    "deadline": "2026-11-21",
+    "p": 57,
+    "baseline": 59,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "标普500在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
+     "en": "Will S&P 500 close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 0.79%/日，平均涨跌 +0.12%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 0.79%/day; average move +0.12%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-21",
+    "change_pct": -8.62,
+    "outcome": 0,
+    "brier": 0.3249,
+    "baseline_brier": 0.3481
+   },
+   {
+    "id": "mq-week-2026-11-14-恒生科技",
+    "quote": "恒生科技",
+    "horizon": "week",
+    "created": "2026-11-14",
+    "deadline": "2026-11-21",
+    "p": 35,
+    "baseline": 36,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "恒生科技在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
+     "en": "Will Hang Seng Tech close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.92%/日，平均涨跌 -0.64%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.92%/day; average move -0.64%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-21",
+    "change_pct": -10.62,
+    "outcome": 0,
+    "brier": 0.1225,
+    "baseline_brier": 0.1296
+   },
+   {
+    "id": "mq-week-2026-11-14-恒生指数",
+    "quote": "恒生指数",
+    "horizon": "week",
+    "created": "2026-11-14",
+    "deadline": "2026-11-21",
+    "p": 42,
+    "baseline": 36,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "恒生指数在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
+     "en": "Will Hang Seng close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.16%/日，平均涨跌 -0.22%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.16%/day; average move -0.22%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-21",
+    "change_pct": -7.16,
+    "outcome": 0,
+    "brier": 0.1764,
+    "baseline_brier": 0.1296
+   },
+   {
+    "id": "mq-week-2026-11-14-原油",
+    "quote": "原油",
+    "horizon": "week",
+    "created": "2026-11-14",
+    "deadline": "2026-11-21",
+    "p": 52,
+    "baseline": 41,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "原油在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
+     "en": "Will Crude oil close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 1.53%/日，平均涨跌 +0.08%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 1.53%/day; average move +0.08%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-21",
+    "change_pct": -0.32,
+    "outcome": 0,
+    "brier": 0.2704,
+    "baseline_brier": 0.1681
+   },
+   {
+    "id": "mq-week-2026-11-14-VIX",
+    "quote": "VIX",
+    "horizon": "week",
+    "created": "2026-11-14",
+    "deadline": "2026-11-21",
+    "p": 53,
+    "baseline": 41,
+    "model_version": "market-v1",
+    "question": {
+     "zh": "VIX在 2026-11-21 或之后首个交易日收盘，会高于 2026-11-14 吗？",
+     "en": "Will VIX close higher on the first trading day on or after 2026-11-21 than on 2026-11-14?"
+    },
+    "rationale": {
+     "zh": "近 20 个交易日波动 18.18%/日，平均涨跌 +1.14%/日（按一半计入），周期约 5 个交易日（一周）。",
+     "en": "20-day volatility 18.18%/day; average move +1.14%/day, counted at half weight; about 5 trading days (one week)."
+    },
+    "status": "resolved",
+    "resolved_on": "2026-11-21",
+    "change_pct": 85.96,
+    "outcome": 1,
+    "brier": 0.2209,
+    "baseline_brier": 0.3481
+   },
    {
     "id": "mq-week-2026-11-12-深证成指",
     "quote": "深证成指",
@@ -2277,206 +2469,14 @@
     "outcome": 1,
     "brier": 0.3844,
     "baseline_brier": 0.3481
-   },
-   {
-    "id": "mq-week-2026-10-24-原油",
-    "quote": "原油",
-    "horizon": "week",
-    "created": "2026-10-24",
-    "deadline": "2026-10-31",
-    "p": 57,
-    "baseline": 45,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "原油在 2026-10-31 或之后首个交易日收盘，会高于 2026-10-24 吗？",
-     "en": "Will Crude oil close higher on the first trading day on or after 2026-10-31 than on 2026-10-24?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.33%/日，平均涨跌 +0.22%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.33%/day; average move +0.22%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-31",
-    "change_pct": 3.43,
-    "outcome": 1,
-    "brier": 0.1849,
-    "baseline_brier": 0.3025
-   },
-   {
-    "id": "mq-week-2026-10-24-VIX",
-    "quote": "VIX",
-    "horizon": "week",
-    "created": "2026-10-24",
-    "deadline": "2026-10-31",
-    "p": 64,
-    "baseline": 64,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "VIX在 2026-10-31 或之后首个交易日收盘，会高于 2026-10-24 吗？",
-     "en": "Will VIX close higher on the first trading day on or after 2026-10-31 than on 2026-10-24?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 7.09%/日，平均涨跌 +2.22%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 7.09%/day; average move +2.22%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-31",
-    "change_pct": -0.15,
-    "outcome": 0,
-    "brier": 0.4096,
-    "baseline_brier": 0.4096
-   },
-   {
-    "id": "mq-week-2026-10-22-深证成指",
-    "quote": "深证成指",
-    "horizon": "week",
-    "created": "2026-10-22",
-    "deadline": "2026-10-29",
-    "p": 30,
-    "baseline": 23,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "深证成指在 2026-10-29 或之后首个交易日收盘，会高于 2026-10-22 吗？",
-     "en": "Will SZSE Component close higher on the first trading day on or after 2026-10-29 than on 2026-10-22?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.03%/日，平均涨跌 -0.50%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.03%/day; average move -0.50%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-29",
-    "change_pct": -1.07,
-    "outcome": 0,
-    "brier": 0.09,
-    "baseline_brier": 0.0529
-   },
-   {
-    "id": "mq-week-2026-10-22-创业板指",
-    "quote": "创业板指",
-    "horizon": "week",
-    "created": "2026-10-22",
-    "deadline": "2026-10-29",
-    "p": 28,
-    "baseline": 27,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "创业板指在 2026-10-29 或之后首个交易日收盘，会高于 2026-10-22 吗？",
-     "en": "Will ChiNext close higher on the first trading day on or after 2026-10-29 than on 2026-10-22?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 1.32%/日，平均涨跌 -0.68%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 1.32%/day; average move -0.68%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-29",
-    "change_pct": -1.85,
-    "outcome": 0,
-    "brier": 0.0784,
-    "baseline_brier": 0.0729
-   },
-   {
-    "id": "mq-week-2026-10-22-上证指数",
-    "quote": "上证指数",
-    "horizon": "week",
-    "created": "2026-10-22",
-    "deadline": "2026-10-29",
-    "p": 22,
-    "baseline": 36,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "上证指数在 2026-10-29 或之后首个交易日收盘，会高于 2026-10-22 吗？",
-     "en": "Will SSE Composite close higher on the first trading day on or after 2026-10-29 than on 2026-10-22?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 0.62%/日，平均涨跌 -0.44%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 0.62%/day; average move -0.44%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-29",
-    "change_pct": 0.14,
-    "outcome": 1,
-    "brier": 0.6084,
-    "baseline_brier": 0.4096
-   },
-   {
-    "id": "mq-week-2026-10-17-黄金",
-    "quote": "黄金",
-    "horizon": "week",
-    "created": "2026-10-17",
-    "deadline": "2026-10-24",
-    "p": 59,
-    "baseline": 55,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "黄金在 2026-10-24 或之后首个交易日收盘，会高于 2026-10-17 吗？",
-     "en": "Will Gold close higher on the first trading day on or after 2026-10-24 than on 2026-10-17?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 0.59%/日，平均涨跌 +0.12%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 0.59%/day; average move +0.12%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-24",
-    "change_pct": -1.89,
-    "outcome": 0,
-    "brier": 0.3481,
-    "baseline_brier": 0.3025
-   },
-   {
-    "id": "mq-week-2026-10-17-道琼斯",
-    "quote": "道琼斯",
-    "horizon": "week",
-    "created": "2026-10-17",
-    "deadline": "2026-10-24",
-    "p": 70,
-    "baseline": 68,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "道琼斯在 2026-10-24 或之后首个交易日收盘，会高于 2026-10-17 吗？",
-     "en": "Will Dow Jones close higher on the first trading day on or after 2026-10-24 than on 2026-10-17?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 0.55%/日，平均涨跌 +0.26%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 0.55%/day; average move +0.26%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-24",
-    "change_pct": 2.33,
-    "outcome": 1,
-    "brier": 0.09,
-    "baseline_brier": 0.1024
-   },
-   {
-    "id": "mq-week-2026-10-17-纳斯达克",
-    "quote": "纳斯达克",
-    "horizon": "week",
-    "created": "2026-10-17",
-    "deadline": "2026-10-24",
-    "p": 45,
-    "baseline": 59,
-    "model_version": "market-v1",
-    "question": {
-     "zh": "纳斯达克在 2026-10-24 或之后首个交易日收盘，会高于 2026-10-17 吗？",
-     "en": "Will Nasdaq close higher on the first trading day on or after 2026-10-24 than on 2026-10-17?"
-    },
-    "rationale": {
-     "zh": "近 20 个交易日波动 0.90%/日，平均涨跌 -0.10%/日（按一半计入），周期约 5 个交易日（一周）。",
-     "en": "20-day volatility 0.90%/day; average move -0.10%/day, counted at half weight; about 5 trading days (one week)."
-    },
-    "status": "resolved",
-    "resolved_on": "2026-10-24",
-    "change_pct": -0.07,
-    "outcome": 0,
-    "brier": 0.2025,
-    "baseline_brier": 0.3481
    }
   ],
   "record": {
-   "resolved": 77,
+   "resolved": 85,
    "open": 22,
    "void": 0,
-   "brier": 0.247,
-   "baseline_brier": 0.235
+   "brier": 0.246,
+   "baseline_brier": 0.238
   },
   "calibration": [
    {
@@ -2487,21 +2487,21 @@
    },
    {
     "label": "20–40",
-    "n": 28,
+    "n": 29,
     "predicted": 33,
-    "observed": 32
+    "observed": 31
    },
    {
     "label": "40–60",
-    "n": 30,
+    "n": 36,
     "predicted": 49,
-    "observed": 43
+    "observed": 39
    },
    {
     "label": "60–80",
-    "n": 16,
-    "predicted": 65,
-    "observed": 38
+    "n": 17,
+    "predicted": 64,
+    "observed": 35
    },
    {
     "label": "80–100",
