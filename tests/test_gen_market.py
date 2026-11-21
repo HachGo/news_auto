@@ -11,7 +11,7 @@ def _client(content):
     return client
 
 
-def test_generate_renders_all_four_blocks(tmp_path):
+def test_generate_renders_all_four_blocks(tmp_path, fake_summaries):
     from datetime import date
     config = {"settings": {"hours_window": 240, "total_limit": 5, "per_source_limit": 4},
               "ai_keywords": [], "feeds": [{"name": "T", "url": "x", "section": "market",
@@ -23,7 +23,7 @@ def test_generate_renders_all_four_blocks(tmp_path):
     announces = [{"sec_code": "600641", "sec_name": "先导基电", "title": "年报", "url": "http://x/a.PDF", "pub_date": "2026-08-01"}]
 
     with patch("generators.market.rss.fetch_candidates", return_value=candidates), \
-         patch("generators.market.summarize", return_value={"title_zh": "央行降准", "summary_zh": "摘要"}), \
+         patch("generators.market.apply_summaries", side_effect=fake_summaries), \
          patch("generators.market.eastmoney.fetch_quotes", return_value=quotes), \
          patch("generators.market.jin10.fetch_calendar", return_value=calendar), \
          patch("generators.market.cninfo.fetch_announcements", return_value=announces):
@@ -58,7 +58,7 @@ def test_generate_empty_calendar_not_failure(tmp_path):
               "ai_keywords": [], "feeds": []}
     quotes = [{"name": "上证指数", "price": 3225.43, "change_pct": 0.82, "amount": 8e11}]
     with patch("generators.market.rss.fetch_candidates", return_value=[]), \
-         patch("generators.market.summarize", return_value=None), \
+         patch("generators.market.apply_summaries", return_value=0), \
          patch("generators.market.eastmoney.fetch_quotes", return_value=quotes), \
          patch("generators.market.jin10.fetch_calendar", return_value=[]), \
          patch("generators.market.cninfo.fetch_announcements", return_value=[]):

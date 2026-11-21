@@ -117,7 +117,7 @@ def feed_link_cell(feed):
 
 
 SCORE_BANDS_EN = {
-    "9-10": "Major global events (major AI model/product releases such as new GPT, Kimi or DeepSeek versions, major geopolitical events, important international conferences such as WAIC, acquisitions or policies that reshape an industry)",
+    "9-10": "Major global events (major AI model/product releases such as new GPT, Kimi or DeepSeek versions, major geopolitical events, major agendas or substantive outcomes at APEC, G20 and UN climate conferences, openings of major technology conferences such as WAIC, acquisitions or policies that reshape an industry)",
     "7-8": "Industry news with broad impact, major policies in important countries, significant moves by well-known companies, highly discussed community stories",
     "5-6": "General industry news and regional events",
     "1-4": "Minor updates, marketing articles, pure opinion commentary and local news with limited impact",
@@ -126,6 +126,9 @@ RANK_RULES_EN = {
     0: "Community picks (top Hacker News stories and the day's hottest Reddit AI posts) reflect what the tech community is sharing: popular stories (for example HN 500+ points) about major topics deserve significantly higher scores; memes, spam and unrelated entertainment still receive low scores.",
     1: "For duplicate reports of the same event, select only the most authoritative report.",
     2: "Prioritize importance without forcing equal numbers in each category.",
+    3: "Factual reports on major international conferences, diplomacy, trade, public policy and geopolitical events are eligible. Do not exclude or downscore a report merely for mentioning political figures, offices, countries, regions, diplomacy or sanctions; score its actual impact, new facts and source reliability.",
+    4: "For APEC, G20 and UN climate conferences, focus on major agendas, concrete agreements, policy outcomes and implications for the global economy and security. A conference name or a leader's attendance alone does not justify a high score.",
+    5: "Give pure partisan disputes, campaign propaganda, personality promotion, opinion without new facts and repeated statements low scores of 1–4. Factual reports about major policies or public impact do not belong in this category.",
 }
 
 
@@ -147,7 +150,7 @@ def _row(zh, en, value=None, desc=None, kind="value", chips=None):
 
 
 def build_rules(config):
-    """仅导出公开规则和真实配置，不包含后台过滤内容。"""
+    """导出实际生效的筛选配置和中英文公开规则。"""
     from trends.config import TOPICS
     settings = config.get("settings") or {}
     group = lambda zh, en, rows: {"title": _pair(zh, en), "rows": rows}
@@ -173,6 +176,16 @@ def build_rules(config):
             ]),
         ]),
         section("filter", [2], "筛选", "Filter", "关键词与去重", "Keywords and dedupe", [
+            group("内容筛选边界", "Editorial scope", [
+                _row("默认策略", "Default policy", _pair(
+                    "默认不设置关键词硬过滤，重大国际事件按公开评分规则评选。",
+                    "No keyword exclusions by default; major international events follow the public scoring rules.")),
+                _row("排除关键词", "Excluded keywords", kind="chips",
+                     chips=[_pair(k, k) for k in config.get("block_keywords") or []]
+                     or [_pair("（当前未配置排除关键词）", "None configured")],
+                     desc=_pair("如显式配置 block_keywords，RSS 和创意来源的标题或摘要命中任一词即在评分前排除，不区分大小写。",
+                                "If block_keywords is explicitly configured, matching any term in an RSS or idea-source title or summary excludes it before scoring, case-insensitively.")),
+            ]),
             group("AI 关键词过滤", "AI keyword filter", [_row("关键词", "Keywords", kind="chips", chips=[_pair(k, k) for k in config.get("ai_keywords", [])], desc=_pair("适用于 ai_filter: true 的来源", "Applies to feeds with ai_filter: true"))]),
             group("去重", "Dedupe", [
                 _row("链接指纹", "Seen-link fingerprints", _pair("保留约 30 天", "Kept about 30 days")),

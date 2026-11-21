@@ -225,6 +225,51 @@
       "groups": [
         {
           "title": {
+            "zh": "内容筛选边界",
+            "en": "Editorial scope"
+          },
+          "rows": [
+            {
+              "label": {
+                "zh": "默认策略",
+                "en": "Default policy"
+              },
+              "desc": {
+                "zh": "",
+                "en": ""
+              },
+              "kind": "value",
+              "value": {
+                "zh": "默认不设置关键词硬过滤，重大国际事件按公开评分规则评选。",
+                "en": "No keyword exclusions by default; major international events follow the public scoring rules."
+              },
+              "chips": []
+            },
+            {
+              "label": {
+                "zh": "排除关键词",
+                "en": "Excluded keywords"
+              },
+              "desc": {
+                "zh": "如显式配置 block_keywords，RSS 和创意来源的标题或摘要命中任一词即在评分前排除，不区分大小写。",
+                "en": "If block_keywords is explicitly configured, matching any term in an RSS or idea-source title or summary excludes it before scoring, case-insensitively."
+              },
+              "kind": "chips",
+              "value": {
+                "zh": "",
+                "en": ""
+              },
+              "chips": [
+                {
+                  "zh": "（当前未配置排除关键词）",
+                  "en": "None configured"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": {
             "zh": "AI 关键词过滤",
             "en": "AI keyword filter"
           },
@@ -444,8 +489,8 @@
                     "en": "9-10"
                   },
                   "desc": {
-                    "zh": "全球级重大事件（重要 AI 模型/产品发布如 GPT、Kimi、DeepSeek 新版本，重大地缘政治事件，重要国际会议如 WAIC 开幕，行业格局改变的收购/政策）",
-                    "en": "Major global events (major AI model/product releases such as new GPT, Kimi or DeepSeek versions, major geopolitical events, important international conferences such as WAIC, acquisitions or policies that reshape an industry)"
+                    "zh": "全球级重大事件（重要 AI 模型/产品发布如 GPT、Kimi、DeepSeek 新版本，重大地缘政治事件，APEC、G20、联合国气候大会等重要国际会议的重大议程或实质成果，WAIC 等重要科技会议开幕，行业格局改变的收购/政策）",
+                    "en": "Major global events (major AI model/product releases such as new GPT, Kimi or DeepSeek versions, major geopolitical events, major agendas or substantive outcomes at APEC, G20 and UN climate conferences, openings of major technology conferences such as WAIC, acquisitions or policies that reshape an industry)"
                   }
                 },
                 {
@@ -523,6 +568,36 @@
                   "desc": {
                     "zh": "以重要性优先，不强求各分类数量平衡。",
                     "en": "Prioritize importance without forcing equal numbers in each category."
+                  }
+                },
+                {
+                  "label": {
+                    "zh": "4",
+                    "en": "4"
+                  },
+                  "desc": {
+                    "zh": "重大国际会议、外交、经贸、公共政策和地缘事件的客观事实报道正常参与评选，不因提及政治人物、职务、国家地区、外交或制裁等词汇而排除或降分；按事件的实际影响、事实增量和来源可靠性评分。",
+                    "en": "Factual reports on major international conferences, diplomacy, trade, public policy and geopolitical events are eligible. Do not exclude or downscore a report merely for mentioning political figures, offices, countries, regions, diplomacy or sanctions; score its actual impact, new facts and source reliability."
+                  }
+                },
+                {
+                  "label": {
+                    "zh": "5",
+                    "en": "5"
+                  },
+                  "desc": {
+                    "zh": "APEC、G20、联合国气候大会等重要国际会议，重点关注重大议程、实际协议与政策成果、全球经济和安全影响；不要仅凭会议名称或领导人出席就给高分。",
+                    "en": "For APEC, G20 and UN climate conferences, focus on major agendas, concrete agreements, policy outcomes and implications for the global economy and security. A conference name or a leader's attendance alone does not justify a high score."
+                  }
+                },
+                {
+                  "label": {
+                    "zh": "6",
+                    "en": "6"
+                  },
+                  "desc": {
+                    "zh": "纯党争、竞选宣传、人物吹捧、无实质新增事实的立场评论和重复表态按 1–4 分降权；涉及重大政策或公共影响的事实报道不属于此类。",
+                    "en": "Give pure partisan disputes, campaign propaganda, personality promotion, opinion without new facts and repeated statements low scores of 1–4. Factual reports about major policies or public impact do not belong in this category."
                   }
                 }
               ]

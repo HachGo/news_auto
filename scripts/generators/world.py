@@ -5,7 +5,7 @@
 
 from pathlib import Path
 
-from common import atomic_write_text, rank_and_select, summarize, render_sectioned
+from common import apply_summaries, atomic_write_text, rank_and_select, render_sectioned
 from published import load_published_post, retain_failed_source_items, seen_without_published
 from sources import rss
 
@@ -39,12 +39,7 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
         selected, existing, failed_sources, config.get("settings", {}).get("total_limit", 15),
     )
 
-    ok = 0
-    for item in selected:
-        result = summarize(client, item)
-        if result:
-            item.update(result)
-            ok += 1
+    ok = apply_summaries(client, selected, config=config)
 
     if client is not None and ok == 0 and selected:
         if existing is not None:

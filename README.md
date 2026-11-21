@@ -15,7 +15,7 @@ GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
     - 深度阅读与学习：经济学人 / 科学美国人 / 卫报长读 / 大西洋月刊等 → content/deep/
   → 趋势模块保存每日结构化快照，生成周、月、季度、年度趋势数据 → static/data/trends/
   → scripts/brief.py 汇总当日事件、上升信号与预测 → data/brief/YYYY-MM-DD.json（首页数据）
-  → 同步生成网站规则页 content/method.md（源清单 + 评分权重）
+  → 同步生成 data/radar/rules.json（双语规则页共用的源清单与评分权重）
   → 提交回仓库 → Hugo 构建 → 部署 GitHub Pages
 ```
 
@@ -44,7 +44,7 @@ GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
 | `content/deep/` | 深度阅读与学习（刊物长读） |
 | `content/trends/` | 趋势研判版面（科技与市场趋势） |
 | `content/_index.md` / `_index.en.md` | 首页标题；内容由 `data/brief/` 渲染 |
-| `content/method.md` | 网站规则（脚本生成，与 feeds/评分/屏蔽词同步） |
+| `data/radar/rules.json` | 网站规则数据（脚本生成，与 feeds/评分/排除关键词同步） |
 | `assets/css/extended/` | 站点样式（设计令牌、首页、版面、趋势页） |
 | `static/fonts/` | 自托管 Geist / Geist Mono 字体（OFL，中文走系统字体） |
 | `scripts/fetch_news.py` | 主入口，编排四版面 + 趋势 + 今日简报数据 + 网站规则页 |
@@ -62,7 +62,11 @@ GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
 ## 自定义
 
 - **增删新闻源**：编辑 `scripts/feeds.yaml` 的 `feeds` 列表；`ai_filter: true` 表示按 `ai_keywords` 关键词过滤。
+- **内容筛选**：默认不按人物、地区或政治词硬过滤；APEC、G20 等国际会议、外交与经贸事件按实际影响和事实增量评选，纯党争和宣传评论降权。评分规则在 `scripts/common.py` 的 `SCORE_BANDS` / `RANK_RULES` 中统一维护并公开到网站规则页；显式设置 `feeds.yaml` 的 `block_keywords` 会在 RSS 评分前排除命中条目，词表也会公开。修改后运行 `python scripts/method.py` 同步规则页。
 - **调整条数**：`feeds.yaml` 中 `settings.total_limit`（ai/world 每日上限）、`per_source_limit`（单来源上限）、`deep_limit`（深度版面上限）。
+- **调整抓取并发**：`feeds.yaml` 中 `settings.fetch_workers`（并发源数，默认 4）、`per_host_interval`（同域名最小间隔秒数，默认 2）。
+- **调整 LLM 批量**：`feeds.yaml` 中 `settings.batch_size`（一次请求处理几条摘要，默认 6；越大越省调用，越容易漏项）。
+- **搜索索引体积**：`hugo.toml` 中 `params.searchIndexDays`（默认 365 天）、`params.searchIndexChars`（每条正文截断字数，默认 400）。
 - **调整发布时间**：修改 `.github/workflows/daily.yml` 中的 cron 表达式（UTC 时间）。
 - **换模型**：设置环境变量 `DEEPSEEK_MODEL`（默认 `deepseek-v4-flash`，thinking 模式开启）或 `DEEPSEEK_BASE_URL`（任意 OpenAI 兼容接口）。
 
@@ -71,8 +75,12 @@ GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
 ```bash
 git clone --recurse-submodules https://github.com/HachGo/news_auto.git
 cd news_auto
-pip install -r scripts/requirements.txt
+pip install -r scripts/requirements.txt        # 运行依赖
+pip install -r scripts/requirements-dev.txt    # 含 pytest，跑测试需要
 export DEEPSEEK_API_KEY=sk-xxx   # 可选
 python scripts/fetch_news.py     # 生成当日文章
+python -m pytest -q              # 跑测试（无 hugo / 无主题时相关用例自动 skip）
 hugo server                       # 需要 Hugo extended >= 0.146
 ```
+
+依赖用 `~=` 锁到次版本：新的大版本不会自动进来，避免某次库升级把每日任务搞挂。

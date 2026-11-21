@@ -1,3 +1,4 @@
+import threading
 from unittest.mock import patch, MagicMock
 
 from sources import rss
@@ -124,3 +125,88 @@ def test_malformed_empty_feed_is_reported_as_failed():
         candidates, failures = rss.fetch_candidates(config, {}, return_failures=True)
     assert candidates == []
     assert failures == {"T"}
+
+
+# ---- 并发抓取 ----
+
+def _feed(name, host="example.test"):
+    return {"name": name, "url": f"https://{host}/{name}", "section": "ai",
+            "category": "AI 动态", "max_items": 10}
+
+
+def _entry(name):
+    return {"title": name, "link": f"https://example.com/{name}", "summary": "s",
+            "published": "Wed, 30 Jul 2026 10:00:00 GMT"}
+
+
+def test_feeds_are_fetched_concurrently():
+    """两个源必须同时在飞，否则 24 个源又要串行等 2 秒×N。"""
+    barrier = threading.Barrier(2, timeout=5)
+    errors = []
+
+    def fake_fetch(url):
+        try:
+            barrier.wait()  # 串行执行时第二个源永远到不了，这里会超时
+        except threading.BrokenBarrierError as exc:
+            errors.append(exc)
+        return MagicMock(entries=[], bozo=False)
+
+    config = {"settings": {"hours_window": 876000}, "ai_keywords": [], "block_keywords": [],
+              "feeds": [_feed("a", "a.test"), _feed("b", "b.test")]}
+    with patch("sources.rss.fetch_feed", side_effect=fake_fetch):
+        rss.fetch_candidates(config, {})
+
+    assert errors == []
+
+
+def test_candidates_keep_feed_order_when_responses_arrive_out_of_order():
+    import time as _time
+
+    def fake_fetch(url):
+        _time.sleep(0.05 if url.endswith("/a") else 0)  # a 慢、b 快
+        name = url.rsplit("/", 1)[-1]
+        return MagicMock(entries=[_entry(name)], bozo=False)
+
+    config = {"settings": {"hours_window": 876000}, "ai_keywords": [], "block_keywords": [],
+              "feeds": [_feed("a", "a.test"), _feed("b", "b.test")]}
+    with patch("sources.rss.fetch_feed", side_effect=fake_fetch):
+        candidates = rss.fetch_candidates(config, {})
+
+    assert [c["source"] for c in candidates] == ["a", "b"]
+
+
+def test_same_host_requests_are_spaced_but_other_hosts_are_not(monkeypatch):
+    sleeps = []
+    monkeypatch.setattr(rss.time, "monotonic", lambda: 100.0)
+    monkeypatch.setattr(rss.time, "sleep", sleeps.append)
+    slots = {}
+
+    rss._reserve_host_slot(slots, "https://a.test/1", 2.0)
+    assert sleeps == []                       # 同源首次不等待
+
+    rss._reserve_host_slot(slots, "https://a.test/2", 2.0)
+    assert sleeps and sleeps[0] > 0           # 同源第二次要排队
+
+    sleeps.clear()
+    rss._reserve_host_slot(slots, "https://b.test/1", 2.0)
+    assert sleeps == []                       # 不同源互不影响
+
+
+def test_host_interval_can_be_disabled(monkeypatch):
+    sleeps = []
+    monkeypatch.setattr(rss.time, "monotonic", lambda: 100.0)
+    monkeypatch.setattr(rss.time, "sleep", sleeps.append)
+    slots = {}
+
+    rss._reserve_host_slot(slots, "https://a.test/1", 0)
+    rss._reserve_host_slot(slots, "https://a.test/2", 0)
+
+    assert sleeps == []
+
+
+def test_worker_exception_is_treated_as_failed_source():
+    config = {"settings": {}, "feeds": [_feed("a", "a.test")]}
+    with patch.object(rss, "_fetch_one", side_effect=RuntimeError("boom")):
+        candidates, failures = rss.fetch_candidates(config, {}, return_failures=True)
+    assert candidates == []
+    assert failures == {"a"}

@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from generators import deep
 
 
-def test_generate_deep_magazine_layout(tmp_path):
+def test_generate_deep_magazine_layout(tmp_path, fake_summaries):
     config = {
         "settings": {"deep_limit": 6, "deep_per_source_limit": 2, "hours_window": 240},
         "ai_keywords": [],
@@ -18,8 +18,7 @@ def test_generate_deep_magazine_layout(tmp_path):
          "category": "科学美国人", "section": "deep", "time": now},
     ]
     with patch("generators.deep.rss.fetch_candidates", return_value=candidates), \
-         patch("generators.deep.summarize_deep",
-               return_value={"title_zh": "中文标题", "summary_zh": "加长导读摘要说明为何值得读。"}):
+         patch("generators.deep.apply_summaries", side_effect=fake_summaries):
         result = deep.generate(config, {}, None, date_str="2026-08-01", posts_dir=tmp_path)
     assert result["path"].exists()
     text = result["path"].read_text(encoding="utf-8")

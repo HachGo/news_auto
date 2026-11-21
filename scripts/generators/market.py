@@ -10,7 +10,7 @@ from datetime import date, datetime
 from pathlib import Path
 
 from common import (
-    atomic_write_text, select_items, summarize, translate_lines, CST,
+    atomic_write_text, select_items, apply_summaries, translate_lines, CST,
     item_id, title_en, summary_en,
 )
 from published import load_published_post, retain_failed_source_items, seen_without_published
@@ -117,10 +117,7 @@ def generate(config, seen, client, date_str, posts_dir=None, force_refresh=False
         news_items = retain_failed_source_items(news_items, news_existing, failed_sources, 8)
         research_items = retain_failed_source_items(research_items, research_existing, failed_sources, 4)
 
-    for item in news_items + research_items:
-        result = summarize(client, item)
-        if result:
-            item.update(result)
+    apply_summaries(client, news_items + research_items, config=config)
 
     posts_dir.mkdir(parents=True, exist_ok=True)
     atomic_write_text(

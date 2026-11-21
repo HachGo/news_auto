@@ -46,6 +46,10 @@ buildExpired = false
   todayEventLimit = 10
   githubURL = "https://github.com/HachGo/news_auto"
 
+  # 搜索索引体积控制：时间窗口与单条正文长度
+  searchIndexDays = 365
+  searchIndexChars = 400
+
   [params.fuseOpts]
     isCaseSensitive = false
     shouldSort = true

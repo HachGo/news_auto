@@ -18,7 +18,7 @@ from pathlib import Path
 
 from cluster import _text, cosine, tfidf_vectors
 from common import (
-    CST, DEEPSEEK_MODEL, PRIVATE_RANK_RULES, atomic_write_text, has_cjk, is_blocked,
+    CST, DEEPSEEK_MODEL, atomic_write_text, has_cjk, is_blocked,
 )
 from sources.ideas import github, hackaday, show_hn, sspai, v2ex
 
@@ -52,7 +52,6 @@ ENRICH_PROMPT = """你是创意编辑，为一个收集“好点子、好方法�
 type：hack=技术或硬件巧思，product=新产品/工具，method=好方法/技巧，wish=希望有人做的东西，design=设计与创意作品。
 effort：1=易上手，2=中等投入，3=投入较大（指自己尝试或做出来的成本）。
 keep=false：不是创意、方法或作品（如影评、片单、新闻、招聘、纯提问、广告软文）。
-{private}
 
 条目：
 {lines}
@@ -141,8 +140,7 @@ def enrich(client, items):
         lines = "\n".join(
             f"{index}. [{item['source']}] {item['title']} — {item['summary'][:200]}"
             for index, item in enumerate(batch))
-        private = "\n".join(f"另外：{rule}（这类条目 keep=false）" for rule in PRIVATE_RANK_RULES)
-        prompt = ENRICH_PROMPT.format(lines=lines, private=private)
+        prompt = ENRICH_PROMPT.format(lines=lines)
         data = _chat_json(client, prompt)
         for entry in (data or {}).get("ideas") or []:
             note = _note(entry, batch)

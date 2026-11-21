@@ -51,3 +51,12 @@ def test_commit_includes_radar_and_drops_method():
 def test_fetch_step_passes_github_token_for_idea_search():
     steps = {step["name"]: step for step in _workflow()["jobs"]["build"]["steps"]}
     assert steps["Fetch and summarize news"]["env"]["GITHUB_TOKEN"] == "${{ secrets.GITHUB_TOKEN }}"
+
+
+def test_deploy_requires_passing_tests():
+    """测试不过就不该发布：build 依赖 test job，且 test job 真的跑 pytest。"""
+    workflow = _workflow()
+    assert workflow["jobs"]["build"]["needs"] == "test"
+
+    steps = {step["name"]: step for step in workflow["jobs"]["test"]["steps"]}
+    assert "pytest" in steps["Run tests"]["run"]

@@ -1,6 +1,9 @@
 {{- /* 全文检索索引：每日简报拆成单条资讯（链接直达条目锚点）+ 保留整页（行情表等） */ -}}
+{{- $days := int (site.Params.searchIndexDays | default 365) -}}
+{{- $chars := int (site.Params.searchIndexChars | default 400) -}}
+{{- $cutoff := now.AddDate 0 0 (int (mul $days -1)) -}}
 {{- $.Scratch.Add "index" slice -}}
-{{- range site.RegularPages -}}
+{{- range where site.RegularPages "Date" "ge" $cutoff -}}
 {{- if and (not .Params.searchHidden) (ne .Layout "archives") (ne .Layout "search") -}}
 {{- $page := . -}}
 {{- $section := .Section -}}
@@ -26,7 +29,7 @@
 {{- $body := delimit (after 1 $lines) "\n" -}}
 {{- /* 截断到下一个二级标题，避免把后续分区并入本条 */ -}}
 {{- $body = index (split $body "\n## ") 0 -}}
-{{- $plain := $body | plainify | htmlUnescape | strings.TrimSpace -}}
+{{- $plain := $body | plainify | htmlUnescape | strings.TrimSpace | truncate $chars -}}
 {{- if $heading -}}
 {{- $link := printf "%s#%s" $page.Permalink $anchor -}}
 {{- $.Scratch.Add "index" (dict "title" $heading "content" $plain "permalink" $link "summary" $meta "section" $section) -}}
@@ -42,11 +45,11 @@
 {{- $title := replaceRE `(?s)^.*\[([^\]]+)\].*$` "$1" $line | strings.TrimSpace -}}
 {{- $entryTitle := printf "%s：%s" $company $title -}}
 {{- $link := printf "%s#%s" $page.Permalink (anchorize (cond (eq site.Language.Lang "en") "Filings & research" "公告与研报")) -}}
-{{- $.Scratch.Add "index" (dict "title" $entryTitle "content" $entryTitle "permalink" $link "summary" (printf "%s · %s · %s" $sectionLabel (i18n "filings") $date) "section" $section) -}}
+{{- $.Scratch.Add "index" (dict "title" $entryTitle "content" ($entryTitle | truncate $chars) "permalink" $link "summary" (printf "%s · %s · %s" $sectionLabel (i18n "filings") $date) "section" $section) -}}
 {{- end -}}
 
 {{- /* 整页兜底：行情表、宏观日历、未拆分内容均可搜 */ -}}
-{{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" (.Params.summary | default $meta) "section" $section) -}}
+{{- $.Scratch.Add "index" (dict "title" .Title "content" (.Plain | truncate $chars) "permalink" .Permalink "summary" (.Params.summary | default $meta) "section" $section) -}}
 
 {{- end -}}
 {{- end -}}

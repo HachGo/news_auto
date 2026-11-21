@@ -29,9 +29,9 @@ def test_feed_link_cell_links_site_home_not_rss_xml():
 
 def test_rules_include_every_feed_and_public_values():
     import json
-    from common import load_config, PRIVATE_RANK_RULES
+    from common import load_config, RANK_RULES
     config = load_config()
-    config["block_keywords"] = ["PRIVATE_BLOCK_SENTINEL", "隐藏过滤词"]
+    config["block_keywords"] = ["CUSTOM_BLOCK_SENTINEL", "自定义排除词"]
     result = build_rules(config)
     assert [s["key"] for s in result["sections"]] == ["fetch", "filter", "analyze", "publish"]
     assert len(result["sources"]) == len(config["feeds"]) + 3 + 5
@@ -45,9 +45,9 @@ def test_rules_include_every_feed_and_public_values():
         assert source["site"] == site_label(feed.get("homepage") or feed["url"])
         assert source["href"] == (feed.get("homepage") or __import__("method").site_home(feed["url"]))
     public = json.dumps(result, ensure_ascii=False)
-    assert "block_keywords" not in public
-    for private in config["block_keywords"] + PRIVATE_RANK_RULES:
-        assert private not in public
+    assert "block_keywords" in public
+    for rule in config["block_keywords"] + RANK_RULES:
+        assert rule in public
     assert "9-10" in public
     assert "rules-v1" in public
 
