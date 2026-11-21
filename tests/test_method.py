@@ -49,10 +49,10 @@ def test_build_method_page_includes_feeds_and_scores():
     assert "【重点】" in out
     assert "`AI`" in out
     assert "东方财富" in out
-    # 屏蔽词仅后台配置，前台网站规则页不展示
-    assert "屏蔽词" not in out
-    assert "Taiwan" not in out
-    assert "习近平" not in out
+    # 实际生效的词表必须公开，避免规则页与抓取过滤行为不一致。
+    assert "内容筛选边界" in out
+    assert "`Taiwan`" in out
+    assert "`政治`" in out
 
 
 def test_write_method_page(tmp_path):

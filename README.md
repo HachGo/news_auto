@@ -57,6 +57,7 @@ GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
 ## 自定义
 
 - **增删新闻源**：编辑 `scripts/feeds.yaml` 的 `feeds` 列表；`ai_filter: true` 表示按 `ai_keywords` 关键词过滤。
+- **内容筛选**：默认不按人物、地区或政治词硬过滤；APEC、G20 等国际会议、外交与经贸事件按实际影响和事实增量评选，纯党争和宣传评论降权。评分规则在 `scripts/common.py` 的 `SCORE_BANDS` / `RANK_RULES` 中统一维护并公开到网站规则页；显式设置 `feeds.yaml` 的 `block_keywords` 会在 RSS 评分前排除命中条目，词表也会公开。修改后运行 `python scripts/method.py` 同步规则页。
 - **调整条数**：`feeds.yaml` 中 `settings.total_limit`（ai/world 每日上限）、`per_source_limit`（单来源上限）、`deep_limit`（深度版面上限）。
 - **调整抓取并发**：`feeds.yaml` 中 `settings.fetch_workers`（并发源数，默认 4）、`per_host_interval`（同域名最小间隔秒数，默认 2）。
 - **调整 LLM 批量**：`feeds.yaml` 中 `settings.batch_size`（一次请求处理几条摘要，默认 6；越大越省调用，越容易漏项）。

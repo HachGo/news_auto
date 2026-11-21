@@ -147,7 +147,7 @@ def fetch_candidates(config, seen, return_failures=False, empty_is_failure=False
             count += 1
         print(f"[fetch] {name}: {count} new items", flush=True)
     if blocked:
-        print(f"[info] 屏蔽词过滤 {blocked} 条（政治/台湾等）", flush=True)
+        print(f"[info] 配置的排除关键词过滤 {blocked} 条", flush=True)
     if return_failures:
         return candidates, failed_sources
     return candidates

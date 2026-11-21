@@ -94,6 +94,7 @@ def build_method_page(config=None):
     settings = config.get("settings") or {}
     feeds = config.get("feeds") or []
     keywords = config.get("ai_keywords") or []
+    block_keywords = config.get("block_keywords") or []
     now = datetime.now(CST).strftime("%Y-%m-%d %H:%M %z")
 
     by_section = {key: [] for key in SECTION_ORDER}
@@ -160,7 +161,7 @@ def build_method_page(config=None):
         "",
         "### 流水线概览",
         "",
-        "1. 按版面拉取上表中的 RSS / 专用数据源，过滤时间窗与已读指纹（`data/seen.json`，保留约 30 天）。",
+        "1. 按版面拉取上表中的 RSS / 专用数据源，过滤时间窗与已读指纹（`data/seen.json`，保留约 30 天）；RSS 同时应用下方公开的排除关键词配置。",
         "2. **AI / 国际**：LLM 重要性排序 → 中文标题与摘要 → 写入当日 markdown。",
         "3. **市场**：行情 + 宏观日历 + 公告 + 财经 RSS（概览截取）→ 摘要要闻。",
         "4. **深度**：来源均衡选刊 → 加长导读 → 刊物式排版。",
@@ -195,6 +196,13 @@ def build_method_page(config=None):
         lines.append("")
 
     lines.extend([
+        "### 内容筛选边界",
+        "",
+        "默认不设置关键词硬过滤，重大国际事件按下方公开评分规则评选。"
+        "如显式配置 `block_keywords`，RSS 标题或摘要命中任一词即在评分前排除（不区分大小写）；实际词表如下：",
+        "",
+        ", ".join(f"`{kw}`" for kw in block_keywords) if block_keywords else "（当前未配置排除关键词）",
+        "",
         "### LLM 重要性评分（AI / 国际）",
         "",
         "评分范围 1–10，由模型给出；分数越高越优先入选与进入「今日焦点」。",
