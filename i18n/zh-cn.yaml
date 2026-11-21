@@ -281,7 +281,7 @@
 - id: trends_filter_empty
   translation: "没有符合筛选条件的条目。"
 - id: forecasts_desc
-  translation: "带概率的具体行情问题：根据已存储的行情自动结算，用 Brier 分数评估。原有的规则方向判断保留在单独标签页。"
+  translation: "页面上的每个概率都会登记成具体问题，到期按实际行情自动结算，用 Brier 分数与无模型基准比较。"
 - id: forecast_record
   translation: "历史表现"
 - id: hit_rate
@@ -549,3 +549,77 @@
   translation: "当前："
 - id: lab_clear
   translation: "清除"
+- id: outlook_page_desc
+  translation: "美股、A股、港股、黄金、原油与波动率的周 / 月 / 季度上涨概率和 80% 区间。所有模型先过滚动回测：打不过历史均值基准的，页面直接显示基准。"
+- id: outlook_assets
+  translation: "资产走势预测"
+- id: outlook_assets_count
+  translation: "资产"
+- id: outlook_assets_desc
+  translation: "上涨概率与区间来自 HAR 波动率 + 经验残差分布；目前 {{ .Models }} 个资产×周期的信号模型在回测中胜出，其余显示基准。"
+- id: outlook_topics
+  translation: "新闻与话题趋势"
+- id: outlook_horizon
+  translation: "预测周期"
+- id: outlook_tab_week
+  translation: "周"
+- id: outlook_tab_month
+  translation: "月"
+- id: outlook_tab_quarter
+  translation: "季度"
+- id: outlook_1w
+  translation: "近一周"
+- id: outlook_p_up
+  translation: "上涨概率"
+- id: outlook_range80
+  translation: "80% 区间"
+- id: outlook_median
+  translation: "中位"
+- id: outlook_close
+  translation: "收盘"
+- id: outlook_forecast
+  translation: "预测"
+- id: outlook_source_model
+  translation: "模型"
+- id: outlook_source_baseline
+  translation: "基准"
+- id: outlook_skill
+  translation: "技能分 {{ .Skill }}% · p={{ .P }}"
+- id: outlook_not_beaten
+  translation: "模型未胜出（技能分 {{ .Skill }}%）"
+- id: outlook_how
+  translation: "依据与回测"
+- id: outlook_target
+  translation: "目标日"
+- id: outlook_price_range
+  translation: "80% 价格区间"
+- id: outlook_p_model_base
+  translation: "上涨概率 模型 / 基准"
+- id: outlook_coverage
+  translation: "80% 区间实际覆盖"
+- id: outlook_up_rate
+  translation: "回测期上涨占比"
+- id: outlook_tests
+  translation: "回测次数"
+- id: outlook_signal_off
+  translation: "未启用"
+- id: outlook_missing
+  translation: "暂缺历史数据："
+- id: outlook_assets_empty
+  translation: "历史行情尚未就绪，下次每日任务后显示。"
+- id: outlook_method_title
+  translation: "方法与上线门槛"
+- id: outlook_method_baseline
+  translation: "基准：标准化收益的历史均值（Goyal & Welch 2008 发现几乎没有变量能在样本外打败它）。"
+- id: outlook_method_vol
+  translation: "波动率：直接多步 HAR 模型（Corsi 2009），用日内高低价估计方差，样本外通常优于 GARCH。"
+- id: outlook_method_signals
+  translation: "信号：美股、港股、商品用 12 个月与 3 个月时间序列动量（Moskowitz-Ooi-Pedersen 2012）；A 股用一周反转（中国市场短期反转显著）加 12 个月动量；VIX 用均值回复。系数符号与理论相反的信号自动关闭（Campbell-Thompson），其余等权组合（Rapach-Strauss-Zhou 2010）。"
+- id: outlook_method_dist
+  translation: "分布：σ × 实时残差的经验分布（过滤历史模拟），保留厚尾；扇形按 √时间 展开。"
+- id: outlook_method_gate
+  translation: "上线：2012 年起每周一个起点做实时滚动回测，Brier 技能分 ≥ {{ .Skill }}% 且 Diebold-Mariano 检验 p < {{ .P }} 才显示模型，否则显示基准。约 30 个资产×周期同时检验，个别胜出仍可能出于偶然。"
+- id: outlook_home_link
+  translation: "资产走势预测"
+- id: outlook_home_link_sub
+  translation: "美股、A股、黄金、原油的周 / 月 / 季度概率与区间"

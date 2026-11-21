@@ -283,7 +283,7 @@
 - id: trends_filter_empty
   translation: "No entries match these filters."
 - id: forecasts_desc
-  translation: "Concrete market questions with probabilities, resolved automatically from stored prices and scored with the Brier score. The older rule-based direction calls are kept under their own tab."
+  translation: "Every probability on this page is logged as a concrete question, resolved from actual prices when due, and scored with the Brier score against a no-model baseline."
 - id: forecast_record
   translation: "Track record"
 - id: hit_rate
@@ -551,3 +551,77 @@
   translation: "Showing:"
 - id: lab_clear
   translation: "Clear"
+- id: outlook_page_desc
+  translation: "Weekly, monthly and quarterly odds of a rise and 80% ranges for US, China and Hong Kong stocks, gold, oil and volatility. Every model is walk-forward tested first; where it cannot beat the historical-average baseline, the page shows the baseline."
+- id: outlook_assets
+  translation: "Asset outlook"
+- id: outlook_assets_count
+  translation: "Assets"
+- id: outlook_assets_desc
+  translation: "Odds and ranges come from HAR volatility plus an empirical residual distribution. {{ .Models }} asset-horizon signal models currently beat the baseline in backtests; the rest show the baseline."
+- id: outlook_topics
+  translation: "News & topic trends"
+- id: outlook_horizon
+  translation: "Forecast horizon"
+- id: outlook_tab_week
+  translation: "Week"
+- id: outlook_tab_month
+  translation: "Month"
+- id: outlook_tab_quarter
+  translation: "Quarter"
+- id: outlook_1w
+  translation: "past week"
+- id: outlook_p_up
+  translation: "Chance of a rise"
+- id: outlook_range80
+  translation: "80% range"
+- id: outlook_median
+  translation: "median"
+- id: outlook_close
+  translation: "Close"
+- id: outlook_forecast
+  translation: "forecast"
+- id: outlook_source_model
+  translation: "Model"
+- id: outlook_source_baseline
+  translation: "Baseline"
+- id: outlook_skill
+  translation: "Skill {{ .Skill }}% · p={{ .P }}"
+- id: outlook_not_beaten
+  translation: "Model did not win (skill {{ .Skill }}%)"
+- id: outlook_how
+  translation: "Basis & backtest"
+- id: outlook_target
+  translation: "Target date"
+- id: outlook_price_range
+  translation: "80% price range"
+- id: outlook_p_model_base
+  translation: "Chance of a rise, model / baseline"
+- id: outlook_coverage
+  translation: "80% range actual coverage"
+- id: outlook_up_rate
+  translation: "Share of rises in backtest"
+- id: outlook_tests
+  translation: "Backtests"
+- id: outlook_signal_off
+  translation: "off"
+- id: outlook_missing
+  translation: "History not yet available: "
+- id: outlook_assets_empty
+  translation: "Price history is not ready yet; it appears after the next daily run."
+- id: outlook_method_title
+  translation: "Method and publishing bar"
+- id: outlook_method_baseline
+  translation: "Baseline: the historical mean of standardized returns (Goyal & Welch 2008 found almost nothing beats it out of sample)."
+- id: outlook_method_vol
+  translation: "Volatility: a direct multi-step HAR model (Corsi 2009) on high-low range variance, which usually beats GARCH out of sample."
+- id: outlook_method_signals
+  translation: "Signals: 12- and 3-month time-series momentum for US, Hong Kong and commodities (Moskowitz-Ooi-Pedersen 2012); 1-week reversal plus 12-month momentum for China A-shares, where short-term reversal is strong; mean reversion for VIX. A signal whose fitted sign contradicts theory is switched off (Campbell-Thompson); the rest are averaged (Rapach-Strauss-Zhou 2010)."
+- id: outlook_method_dist
+  translation: "Distribution: σ times the empirical distribution of real-time residuals (filtered historical simulation), which keeps fat tails; the fan widens with the square root of time."
+- id: outlook_method_gate
+  translation: "Publishing: weekly walk-forward backtests since 2012. A model is shown only with Brier skill ≥ {{ .Skill }}% and a Diebold-Mariano p < {{ .P }}; otherwise the baseline is shown. About 30 asset-horizon pairs are tested at once, so an occasional win can still be luck."
+- id: outlook_home_link
+  translation: "Asset outlook"
+- id: outlook_home_link_sub
+  translation: "Weekly, monthly and quarterly odds and ranges for stocks, gold and oil"

@@ -5,8 +5,9 @@
 而每日涨跌幅在各自来源内自洽，所以用提问日之后各交易日的涨跌幅复利累计判断涨跌。
 休市日快照会重复上一交易日的点位与涨跌幅，这类重复不计为交易日。
 
-概率：近 20 个交易日涨跌幅的均值（按一半计入）与标准差，正态近似
-p = Φ(μ·√t / σ)，t 为交易日数（周 5 / 月 21），截断到 [5%, 95%]。
+概率：优先采用趋势与预测页（scripts/outlook）对同一资产、同一周期给出的概率，
+页面与问题记录用同一个数；没有该资产的预测时退回旧规则——近 20 个交易日涨跌幅的均值
+（按一半计入）与标准差，正态近似 p = Φ(μ·√t / σ)，t 为交易日数，截断到 [5%, 95%]。
 基准：近 20 个交易日上涨天数占比（拉普拉斯平滑），作为“无模型”对照，不是预测市场价格。
 
 问题与结算分别追加写入 data/trends/market_questions/ 与 market_resolutions/，从不覆盖。
@@ -23,14 +24,15 @@ from statistics import mean, pstdev
 from generators.market import QUOTE_NAMES_EN
 
 MODEL_VERSION = "market-v1"
-HORIZONS = {"week": {"days": 7, "trading": 5}, "month": {"days": 30, "trading": 21}}
+OUTLOOK_VERSION = "outlook-v1"
+HORIZONS = {"week": {"days": 7, "trading": 5}, "month": {"days": 30, "trading": 21}, "quarter": {"days": 91, "trading": 63}}
 LOOKBACK = 20
 DRIFT_SHRINK = 0.5
 P_MIN, P_MAX = 0.05, 0.95
 VOID_AFTER_DAYS = 7  # 截止后 7 个自然日（约 5 个交易日）仍无行情则作废
 CALIBRATION_MIN = 20
 BINS = ((0, 20), (20, 40), (40, 60), (60, 80), (80, 100))
-HORIZON_TEXT = {"week": ("一周", "one week"), "month": ("一个月", "one month")}
+HORIZON_TEXT = {"week": ("一周", "one week"), "month": ("一个月", "one month"), "quarter": ("一个季度", "one quarter")}
 
 
 def phi(x):
@@ -64,8 +66,12 @@ def baseline(changes):
     return round(100 * (ups + 1) / (len(changes) + 2))
 
 
-def create_questions(rows, date_str, open_keys):
-    """为每个资产、每个周期生成一个问题；同一资产同一周期已有未结算问题时不再生成。"""
+def create_questions(rows, date_str, open_keys, outlook=None):
+    """为每个资产、每个周期生成一个问题；同一资产同一周期已有未结算问题时不再生成。
+
+    outlook：{(展示名, 周期): {"p", "rationale"}}，来自趋势与预测页；季度问题只在有 outlook 时生成。
+    """
+    outlook = outlook or {}
     if not rows or rows[-1]["date"] != date_str:
         return []
     questions = []
@@ -79,16 +85,20 @@ def create_questions(rows, date_str, open_keys):
         for horizon, spec in HORIZONS.items():
             if (name, horizon) in open_keys:
                 continue
+            linked = outlook.get((name, horizon))
+            if horizon == "quarter" and not linked:
+                continue
             p, sigma, drift = probability(changes, spec["trading"])
             deadline = (date.fromisoformat(date_str) + timedelta(days=spec["days"])).isoformat()
             zh_h, en_h = HORIZON_TEXT[horizon]
             questions.append({
                 "id": f"mq-{horizon}-{date_str}-{quote.get('symbol') or name}",
                 "quote": name, "horizon": horizon, "created": date_str, "deadline": deadline,
-                "p": p, "baseline": baseline(changes), "model_version": MODEL_VERSION,
+                "p": min(99, max(1, linked["p"])) if linked else p, "baseline": baseline(changes),
+                "model_version": OUTLOOK_VERSION if linked else MODEL_VERSION,
                 "question": {"zh": f"{name}在 {deadline} 或之后首个交易日收盘，会高于 {date_str} 吗？",
                              "en": f"Will {name_en} close higher on the first trading day on or after {deadline} than on {date_str}?"},
-                "rationale": {"zh": f"近 {LOOKBACK} 个交易日波动 {sigma:.2f}%/日，平均涨跌 {2 * drift:+.2f}%/日（按一半计入），周期约 {spec['trading']} 个交易日（{zh_h}）。",
+                "rationale": linked["rationale"] if linked else {"zh": f"近 {LOOKBACK} 个交易日波动 {sigma:.2f}%/日，平均涨跌 {2 * drift:+.2f}%/日（按一半计入），周期约 {spec['trading']} 个交易日（{zh_h}）。",
                               "en": f"{LOOKBACK}-day volatility {sigma:.2f}%/day; average move {2 * drift:+.2f}%/day, counted at half weight; about {spec['trading']} trading days ({en_h})."},
             })
     return questions
@@ -115,7 +125,7 @@ def resolve(question, rows, date_str):
             "brier": round((p - outcome) ** 2, 4), "baseline_brier": round((b - outcome) ** 2, 4)}
 
 
-def run(trend_dir, date_str, rows=None):
+def run(trend_dir, date_str, rows=None, outlook=None):
     """当日首次运行时生成问题，并结算到期问题；只追加新文件或新记录。"""
     from radar import load_daily
     trend_dir = Path(trend_dir)
@@ -134,7 +144,7 @@ def run(trend_dir, date_str, rows=None):
     created = []
     if not question_path.exists():
         open_keys = {(q["quote"], q["horizon"]) for q in questions if q["id"] not in resolutions}
-        created = create_questions(rows, date_str, open_keys)
+        created = create_questions(rows, date_str, open_keys, outlook)
         if created:
             _write(question_path, {"date": date_str, "questions": created})
     return {"created": created, "resolved": found}

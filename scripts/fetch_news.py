@@ -2,7 +2,7 @@
 """每日资讯抓取主入口。
 
 编排四版面生成（ai/world/market/deep，中英文各一份）+ 创意抓取与评分 + 趋势快照 +
-今日简报数据（首页）+ 雷达页面数据 + 实验室跟踪器 + 网站规则，更新 seen.json。任一版面异常被捕获，不阻塞其他版面。
+资产走势预测 + 今日简报数据（首页）+ 雷达页面数据 + 实验室跟踪器 + 网站规则，更新 seen.json。任一版面异常被捕获，不阻塞其他版面。
 """
 
 import os
@@ -18,6 +18,7 @@ from brief import build_brief, load_brief, write_brief
 from method import write_rules
 from radar import write_radar
 from trends import market_forecast, pipeline as trend_pipeline
+from outlook import build as outlook_build
 
 ROOT = Path(__file__).resolve().parent.parent
 FEEDS_FILE = Path(__file__).resolve().parent / "feeds.yaml"
@@ -82,9 +83,18 @@ def main(force_refresh=None):
     except Exception as exc:
         print(f"[warn] 趋势数据生成失败，不影响日报发布: {exc}", file=sys.stderr)
 
+    # 资产走势预测（趋势与预测页）：历史日 K 增量更新 + 基准/模型 + 滚动回测。失败时问题退回旧规则。
+    outlook_probabilities = None
+    try:
+        payload = outlook_build.run(CONTENT_DIR.parent, date_str)
+        outlook_probabilities = outlook_build.questions_input(payload)
+        print(f"[info] 资产预测 {len(payload['assets'])} 个，缺失 {len(payload['missing'])} 个")
+    except Exception as exc:
+        print(f"[error] 资产预测生成失败: {exc}", file=sys.stderr)
+
     # 行情概率问题：生成与到期结算只追加记录，失败不影响其他内容。
     try:
-        outcome = market_forecast.run(trend_data_dir, date_str)
+        outcome = market_forecast.run(trend_data_dir, date_str, outlook=outlook_probabilities)
         print(f"[info] 行情问题新增 {len(outcome['created'])} 个，结算 {len(outcome['resolved'])} 个")
     except Exception as exc:
         print(f"[error] 行情概率问题生成失败: {exc}", file=sys.stderr)

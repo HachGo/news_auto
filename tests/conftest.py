@@ -15,6 +15,14 @@ def offline_idea_sources(monkeypatch):
     monkeypatch.setattr(ideas, "SOURCES", {})
 
 
+@pytest.fixture(autouse=True)
+def offline_price_history(monkeypatch):
+    """主流程测试不下载历史日 K；需要行情的测试显式传入 fetcher。"""
+    from outlook import history
+    monkeypatch.setattr(history, "fetch", lambda asset, start: [])
+    monkeypatch.setattr(history, "FETCHERS", ())
+
+
 @pytest.fixture
 def fake_summaries():
     """批量摘要替身：给每条打上可预期的中文标题/摘要，返回成功条数。

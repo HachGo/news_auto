@@ -3,19 +3,117 @@
 {{- $data := site.Data.radar.trends | default dict -}}
 {{- $entries := $data.entries | default slice -}}
 {{- $rising := where $entries "rising" true -}}
-<div class="radar-page trends-page">
+{{- $outlook := site.Data.radar.outlook | default dict -}}
+{{- $assets := $outlook.assets | default slice -}}
+{{- $fc := site.Data.radar.forecasts | default dict -}}
+{{- $q := $fc.questions | default dict -}}
+{{- $qrec := $q.record | default dict -}}
+{{- $modelCount := 0 }}{{ range $assets }}{{ range $k, $v := .horizons }}{{ if eq $v.source "model" }}{{ $modelCount = add $modelCount 1 }}{{ end }}{{ end }}{{ end -}}
+<div class="radar-page trends-page" data-horizon="month">
   <header class="radar-header">
     <div>
-      {{- with $data.as_of }}<p class="radar-updated mono"><span class="dot dot-finance" aria-hidden="true"></span>{{ i18n "updated_at" (dict "Time" .) }}</p>{{ end }}
+      {{- with $outlook.as_of | default $data.as_of }}<p class="radar-updated mono"><span class="dot dot-finance" aria-hidden="true"></span>{{ i18n "updated_at" (dict "Time" .) }}</p>{{ end }}
       <h1>{{ .Title }}</h1>
-      <p class="radar-description">{{ i18n "trends_desc" }}</p>
+      <p class="radar-description">{{ i18n "outlook_page_desc" }}</p>
     </div>
     <div class="radar-stats mono">
+      <div><strong>{{ len $assets }}</strong><span>{{ i18n "outlook_assets_count" }}</span></div>
       <div><strong>{{ len $rising }}</strong><span>{{ i18n "rising" }}</span></div>
-      <div><strong>{{ sub (len $entries) (len $rising) }}</strong><span>{{ i18n "watching" }}</span></div>
-      <div><strong>{{ $data.window | default 30 }}d</strong><span>{{ i18n "window" }}</span></div>
+      <div><strong>{{ with $qrec.brier }}{{ printf "%.3f" . }}{{ else }}—{{ end }}</strong><span>Brier</span></div>
     </div>
   </header>
+
+  <nav class="outlook-nav" aria-label="{{ .Title }}">
+    <a href="#assets">{{ i18n "outlook_assets" }}</a>
+    <a href="#topics">{{ i18n "outlook_topics" }}</a>
+    <a href="#record">{{ i18n "forecast_record" }}</a>
+  </nav>
+
+  {{- /* 一、资产走势预测 */}}
+  <section id="assets" class="outlook-section" aria-labelledby="assets-title">
+    <div class="outlook-head">
+      <div>
+        <h2 id="assets-title">{{ i18n "outlook_assets" }}</h2>
+        <p class="outlook-sub">{{ i18n "outlook_assets_desc" (dict "Models" $modelCount) }}</p>
+      </div>
+      <div class="horizon-switch" role="group" aria-label="{{ i18n "outlook_horizon" }}">
+        {{- range slice "week" "month" "quarter" }}
+        <button type="button" data-set-horizon="{{ . }}" aria-pressed="{{ eq . "month" }}">{{ i18n (printf "outlook_tab_%s" .) }}</button>
+        {{- end }}
+      </div>
+    </div>
+    {{- if $assets }}
+    {{- range $outlook.groups }}
+    {{- $group := . }}
+    <div class="asset-group">
+      <h3 class="asset-group-title">{{ index .name $lang }}</h3>
+      <div class="asset-grid">
+        {{- range $key := .assets }}{{ range where $assets "key" $key }}
+        {{- $asset := . }}
+        <article class="panel asset-card" data-asset="{{ .key }}" aria-labelledby="asset-{{ .key }}">
+          <header class="asset-top">
+            <div>
+              <h4 id="asset-{{ .key }}">{{ index .name $lang }}</h4>
+              <p class="mono asset-price">{{ lang.FormatNumber 2 .close }} <span class="{{ if ge .change_1w 0. }}quote-up{{ else }}quote-down{{ end }}">{{ printf "%+.1f%%" .change_1w }} · {{ i18n "outlook_1w" }}</span></p>
+            </div>
+          </header>
+          {{- range $h, $v := .horizons }}
+          <div class="asset-horizon" data-horizon-panel="{{ $h }}">
+            <div class="asset-figures">
+              <div><strong class="asset-p">{{ $v.p_up }}%</strong><small>{{ i18n "outlook_p_up" }}</small></div>
+              <div><strong class="mono asset-range">{{ printf "%+.1f%%" (index $v.q 0) }} ~ {{ printf "%+.1f%%" (index $v.q 2) }}</strong><small>{{ i18n "outlook_range80" }} · {{ i18n "outlook_median" }} {{ printf "%+.1f%%" (index $v.q 1) }}</small></div>
+            </div>
+            <div class="asset-chart" data-chart="{{ $asset.key }}" data-horizon="{{ $h }}" role="img" aria-label="{{ index $asset.name $lang }} · {{ i18n (printf "horizon_%s" $h) }} · {{ i18n "outlook_p_up" }} {{ $v.p_up }}% · {{ i18n "outlook_range80" }} {{ index $v.price_q 0 }}–{{ index $v.price_q 2 }}"></div>
+            <div class="asset-source">
+              {{- if eq $v.source "model" }}
+              <span class="source-chip is-model">{{ i18n "outlook_source_model" }}</span><span class="mono">{{ i18n "outlook_skill" (dict "Skill" (printf "%+.1f" $v.backtest.skill) "P" (printf "%.3f" $v.backtest.dm_p)) }}</span>
+              {{- else }}
+              <span class="source-chip">{{ i18n "outlook_source_baseline" }}</span><span class="mono">{{ i18n "outlook_not_beaten" (dict "Skill" (printf "%+.1f" $v.backtest.skill)) }}</span>
+              {{- end }}
+            </div>
+            <details class="asset-detail">
+              <summary>{{ i18n "outlook_how" }}</summary>
+              <p>{{ index $v.rationale $lang }}</p>
+              <dl class="asset-stats">
+                <div><dt>{{ i18n "outlook_target" }}</dt><dd class="mono">{{ $v.target_date }}</dd></div>
+                <div><dt>{{ i18n "outlook_price_range" }}</dt><dd class="mono">{{ lang.FormatNumber 2 (index $v.price_q 0) }} – {{ lang.FormatNumber 2 (index $v.price_q 2) }}</dd></div>
+                <div><dt>{{ i18n "outlook_p_model_base" }}</dt><dd class="mono">{{ $v.p_up_model }}% / {{ $v.p_up_baseline }}%</dd></div>
+                <div><dt>Brier</dt><dd class="mono">{{ printf "%.4f" $v.backtest.model.brier }} / {{ printf "%.4f" $v.backtest.baseline.brier }}</dd></div>
+                <div><dt>{{ i18n "outlook_coverage" }}</dt><dd class="mono">{{ (index $v.backtest $v.source).coverage80 }}%</dd></div>
+                <div><dt>{{ i18n "outlook_up_rate" }}</dt><dd class="mono">{{ $v.backtest.up_rate }}%</dd></div>
+                <div><dt>{{ i18n "outlook_tests" }}</dt><dd class="mono">{{ $v.backtest.n }} · {{ substr $v.backtest.start 0 4 }}–{{ substr $v.backtest.end 0 4 }}</dd></div>
+              </dl>
+              <ul class="asset-drivers">
+                {{- range $v.drivers }}
+                <li><span>{{ index .name $lang }}</span><span class="mono">{{ with .x }}{{ printf "%+.2f" . }}{{ else }}—{{ end }}</span><span class="driver-state{{ if .active }} is-on{{ end }}">{{ if .active }}{{ printf "%+.2fσ" .effect }}{{ else }}{{ i18n "outlook_signal_off" }}{{ end }}</span></li>
+                {{- end }}
+              </ul>
+            </details>
+          </div>
+          {{- end }}
+        </article>
+        {{- end }}{{ end }}
+      </div>
+    </div>
+    {{- end }}
+    {{- with $outlook.missing }}<p class="outlook-note">{{ i18n "outlook_missing" }}{{ range $i, $m := . }}{{ if $i }}{{ cond (eq $lang "en") ", " "、" }}{{ end }}{{ index $m $lang }}{{ end }}</p>{{ end }}
+    <details class="panel outlook-method">
+      <summary>{{ i18n "outlook_method_title" }}</summary>
+      <ol>
+        <li>{{ i18n "outlook_method_baseline" }}</li>
+        <li>{{ i18n "outlook_method_vol" }}</li>
+        <li>{{ i18n "outlook_method_signals" }}</li>
+        <li>{{ i18n "outlook_method_dist" }}</li>
+        <li>{{ i18n "outlook_method_gate" (dict "Skill" ($outlook.gate.skill | default 1) "P" ($outlook.gate.p | default 0.05)) }}</li>
+      </ol>
+      <p class="outlook-note">{{ i18n "disclaimer" }}</p>
+    </details>
+    {{- else }}<p class="panel radar-empty">{{ i18n "outlook_assets_empty" }}</p>{{ end }}
+  </section>
+
+  {{- /* 二、新闻与话题趋势（原趋势页） */}}
+  <section id="topics" class="outlook-section" aria-labelledby="topics-title">
+    <div class="outlook-head"><div><h2 id="topics-title">{{ i18n "outlook_topics" }}</h2><p class="outlook-sub">{{ i18n "trends_desc" }}</p></div></div>
   {{- if $entries }}
   <div class="trends-filters" hidden data-trends-filters>
     <div class="field-filter" aria-label="{{ i18n "filter_by_field" }}">
@@ -34,7 +132,7 @@
     </div>
   </div>
   <div class="trends-explorer">
-    <nav class="trend-entries" aria-label="{{ .Title }}">
+    <nav class="trend-entries" aria-label="{{ i18n "outlook_topics" }}">
       {{- range $entries }}
       <a class="trend-entry" href="#{{ .id }}" data-entry="{{ .id }}" data-field="{{ .field }}" data-kind="{{ .kind }}">
         <div class="trend-name"><strong>{{ index .name $lang }}</strong><small><span class="dot dot-{{ .field }}" aria-hidden="true"></span>{{ i18n (printf "kind_label_%s" .kind) }}</small></div>
@@ -65,13 +163,47 @@
         {{- with .related }}
         <div class="topic-related"><div class="block-head"><h3>{{ i18n (cond (eq $entry.kind "idea") "related_ideas" "related_events") }}</h3></div>{{ range . }}<a href="{{ .link }}" target="_blank" rel="noopener noreferrer"><strong>{{ index .title $lang }}</strong><small class="mono">{{ .source }} · {{ .date }}</small></a>{{ end }}</div>
         {{- end }}
-        {{- range .forecasts }}{{ $horizon := . }}{{ range site.Data.radar.forecasts.open }}{{ if eq .horizon $horizon }}
-        <a class="topic-forecast" href="{{ "forecasts/" | relLangURL }}#open"><div><small>{{ i18n "linked_forecast" }}</small><strong>{{ i18n (printf "horizon_%s" .horizon) }}</strong></div><span class="direction-{{ .direction }}">{{ i18n (printf "direction_%s" .direction) }} →</span></a>
-        {{- end }}{{ end }}{{ end }}
       </section>
       {{- end }}
     </div>
   </div>
   {{- else }}<p class="panel radar-empty">{{ i18n "trends_empty" }}</p>{{ end }}
+  </section>
+
+  {{- /* 三、预测记录（原预测页）：每个概率都会到期结算并计分 */}}
+  <section id="record" class="outlook-section" aria-labelledby="record-title">
+    <div class="outlook-head"><div><h2 id="record-title">{{ i18n "forecast_record" }}</h2><p class="outlook-sub">{{ i18n "forecasts_desc" }}</p></div></div>
+    <section class="panel forecast-record" aria-label="{{ i18n "forecast_record" }}">
+      <div>
+        <div class="record-stats">
+          <div><strong class="mono">{{ with $qrec.brier }}{{ printf "%.3f" . }}{{ else }}—{{ end }}</strong><small>{{ i18n "brier_ours" }}</small></div>
+          <div><strong class="mono">{{ with $qrec.baseline_brier }}{{ printf "%.3f" . }}{{ else }}—{{ end }}</strong><small>{{ i18n "brier_baseline" }}</small></div>
+          <div><strong class="mono">{{ $qrec.resolved | default 0 }}</strong><small>{{ i18n "resolved" }}</small></div>
+          <div><strong class="mono">{{ $qrec.open | default 0 }}</strong><small>{{ i18n "open" }}</small></div>
+        </div>
+        <p class="forecast-footnote">{{ i18n "brier_note" }}</p>
+      </div>
+      <div><div class="block-head"><h3>{{ i18n "calibration" }}</h3></div>
+        {{- if $q.calibration_ready }}
+        <p class="calibration-note">{{ i18n "calibration_bins_note" }}</p>
+        <div class="calibration-bars">{{ range $q.calibration }}<div class="calibration-column"><div class="calibration-plot"><i style="height: {{ .observed | default 0 }}%"></i>{{ with .predicted }}<span class="calibration-predicted" style="bottom: {{ . }}%"></span>{{ end }}</div><strong class="mono">{{ .label }}</strong><small class="mono">n={{ .n }}</small></div>{{ end }}</div>
+        {{- else }}
+        <p class="panel radar-empty calibration-wait">{{ i18n "calibration_collecting" (dict "Count" ($qrec.resolved | default 0) "Min" ($q.calibration_min | default 20)) }}</p>
+        {{- end }}
+      </div>
+    </section>
+    <div class="block-head"><h3>{{ i18n "open" }}</h3></div>
+    <div class="forecast-cards">{{ range $q.open }}
+      <details class="panel forecast-detail question-detail" data-question-horizon="{{ .horizon }}">
+        <summary><div><span class="forecast-horizon">{{ i18n (printf "horizon_%s" .horizon) }}</span><h3>{{ index .question $lang }}</h3><div class="forecast-meta mono"><span>{{ i18n "due" (dict "Date" .deadline) }}</span><span>{{ i18n "days_left" (dict "Count" .days_left) }}</span></div></div>
+          <div><div class="question-top"><strong class="question-p mono">{{ .p }}%</strong><small class="mono">{{ i18n "baseline_value" (dict "P" .baseline) }}</small></div><div class="question-bar" role="img" aria-label="{{ .p }}% · {{ i18n "baseline_value" (dict "P" .baseline) }}"><i style="width: {{ .p }}%"></i><b style="left: {{ .baseline }}%"></b></div></div></summary>
+        <div class="forecast-rationale"><div><h4>{{ i18n "rationale" }}</h4><p>{{ index .rationale $lang }}</p></div><div><h4>{{ i18n "how_resolves" }}</h4><p>{{ i18n "question_resolution" }}</p></div><div><h4>{{ i18n "baseline" }}</h4><p>{{ i18n "baseline_text" }}</p></div></div>
+      </details>
+    {{ else }}<p class="panel radar-empty">{{ i18n "questions_empty" }}</p>{{ end }}</div>
+    <div class="block-head"><h3>{{ i18n "resolved" }}</h3></div>
+    {{- if $q.resolved }}<div class="radar-table-wrap"><table class="radar-table"><thead><tr><th>{{ i18n "question" }}</th><th>{{ i18n "outcome" }}</th><th>{{ i18n "ours" }}</th><th>{{ i18n "baseline" }}</th><th>Brier</th></tr></thead><tbody>{{ range $q.resolved }}<tr><td>{{ index .question $lang }}<small class="mono">{{ printf "%+.2f%%" .change_pct }} · {{ .resolved_on }}</small></td><td><span class="result-chip{{ if eq .outcome 1 }} is-correct{{ end }}">{{ if eq .outcome 1 }}{{ i18n "answer_yes" }}{{ else }}{{ i18n "answer_no" }}{{ end }}</span></td><td class="mono">{{ .p }}%</td><td class="mono">{{ .baseline }}%</td><td class="mono">{{ printf "%.3f" .brier }}</td></tr>{{ end }}</tbody></table></div>{{ else }}<p class="panel radar-empty">{{ i18n "questions_resolved_empty" }}</p>{{ end }}
+    <p class="forecast-footnote">{{ i18n "disclaimer" }}</p>
+  </section>
 </div>
+<script type="application/json" id="outlook-config">{{ dict "src" ("data/trends/outlook.json" | relURL) "lang" $lang "labels" (dict "close" (i18n "outlook_close") "median" (i18n "outlook_median") "range" (i18n "outlook_range80") "forecast" (i18n "outlook_forecast")) | jsonify | safeJS }}</script>
 {{- end -}}
