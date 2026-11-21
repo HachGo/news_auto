@@ -10,8 +10,11 @@
   const requested = new URLSearchParams(location.search).get("field");
   let field = fields.some((button) => button.dataset.field === requested) ? requested : "all";
   let kind = "all";
+  // 页面还有 #assets / #topics / #record 等区块锚点：只把匹配条目 id 的 hash 当作选择
   const fromHash = () => {
-    try { return decodeURIComponent(location.hash.slice(1)); } catch (_) { return ""; }
+    let id = "";
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) { return ""; }
+    return entries.some((entry) => entry.dataset.entry === id) ? id : "";
   };
   let selected = fromHash();
   root.classList.add("is-enhanced");
@@ -46,6 +49,9 @@
   }, { capture: true }));
   fields.forEach((button) => button.addEventListener("click", () => { field = button.dataset.field; apply(true); }));
   kinds.forEach((button) => button.addEventListener("click", () => { kind = button.dataset.kind; apply(true); }));
-  window.addEventListener("hashchange", () => { selected = fromHash(); apply(true); });
-  apply(selected !== fromHash());
+  window.addEventListener("hashchange", () => {
+    const id = fromHash();
+    if (id) { selected = id; apply(false); }
+  });
+  apply(false);
 })();

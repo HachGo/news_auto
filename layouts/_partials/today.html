@@ -105,19 +105,17 @@
         {{- end }}
       </section>
 
-      {{- $year := dict }}
       {{- with $brief.forecasts }}
       <section aria-labelledby="outlook-title">
         <div class="block-head">
           <h2 id="outlook-title">{{ i18n "outlook" }}</h2>
           {{- $record := $brief.track_record }}
-          {{- with site.GetPage "/forecasts" }}
+          {{- with site.GetPage "/trends" }}
           {{- $qrec := $questions.record | default dict }}
-          <a class="mono" href="{{ .RelPermalink }}">{{ if $qrec.brier }}{{ i18n "outlook_brier" (dict "Brier" (printf "%.3f" $qrec.brier) "Count" $qrec.resolved) }}{{ else if $openQuestions }}{{ i18n "outlook_open" (dict "Count" (len $questions.open)) }}{{ else if gt $record.resolved 0 }}{{ i18n "track_record" (dict "Resolved" $record.resolved "Correct" $record.correct) }}{{ else }}{{ i18n "track_record_none" }}{{ end }}</a>
+          <a class="mono" href="{{ .RelPermalink }}#record">{{ if $qrec.brier }}{{ i18n "outlook_brier" (dict "Brier" (printf "%.3f" $qrec.brier) "Count" $qrec.resolved) }}{{ else if $openQuestions }}{{ i18n "outlook_open" (dict "Count" (len $questions.open)) }}{{ else if gt $record.resolved 0 }}{{ i18n "track_record" (dict "Resolved" $record.resolved "Correct" $record.correct) }}{{ else }}{{ i18n "track_record_none" }}{{ end }}</a>
           {{- end }}
         </div>
         <div class="forecast-stack">
-          {{- range . }}{{ if eq .horizon "year" }}{{ $year = . }}{{ end }}{{ end }}
           {{- /* 有行情概率问题时首页显示前 3 个（设计稿 v2 样式），否则沿用方向判断卡片 */ -}}
           {{- range $openQuestions }}
           <div class="panel fc-card fc-market">
@@ -162,17 +160,14 @@
       </section>
       {{- end }}
 
-      {{- with $year }}
-      {{- $base := index .scenarios 0 }}
-      {{- with site.GetPage "/forecasts" }}
-      <a class="scenario-card" href="{{ .RelPermalink }}#scenarios">
+      {{- with site.GetPage "/trends" }}
+      <a class="scenario-card" href="{{ .RelPermalink }}#assets">
         <span>
-          <span class="scenario-title">{{ i18n "scenarios" }}</span>
-          <span class="scenario-sub">{{ i18n "scenarios_sub" (dict "Count" (len $year.scenarios) "Base" (index $base.description $lang)) }}</span>
+          <span class="scenario-title">{{ i18n "outlook_home_link" }}</span>
+          <span class="scenario-sub">{{ i18n "outlook_home_link_sub" }}</span>
         </span>
         <span aria-hidden="true">→</span>
       </a>
-      {{- end }}
       {{- end }}
     </aside>
   </div>
