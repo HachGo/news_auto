@@ -11,6 +11,14 @@
   <script defer src="{{ $outlook.RelPermalink }}" integrity="{{ $outlook.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end -}}
 
+{{- /* 观测台：ECharts 自托管（CDN 在中国大陆不稳定），只在本页加载 */ -}}
+{{- if eq .Layout "revolution" -}}
+  {{- $echarts := resources.Get "js/vendor/echarts-5.6.0.min.js" | fingerprint -}}
+  <script defer src="{{ $echarts.RelPermalink }}" integrity="{{ $echarts.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- $rev := resources.Get "js/revolution.js" | minify | fingerprint -}}
+  <script defer src="{{ $rev.RelPermalink }}" integrity="{{ $rev.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end -}}
+
 {{- if eq .Layout "ideas" -}}
   {{- $ideas := resources.Get "js/ideas.js" | minify | fingerprint -}}
   <script defer src="{{ $ideas.RelPermalink }}" integrity="{{ $ideas.Data.Integrity }}" crossorigin="anonymous"></script>

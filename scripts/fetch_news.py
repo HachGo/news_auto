@@ -19,6 +19,7 @@ from method import write_rules
 from radar import write_radar
 from trends import market_forecast, pipeline as trend_pipeline
 from outlook import build as outlook_build
+from revolution import build as revolution_build
 
 ROOT = Path(__file__).resolve().parent.parent
 FEEDS_FILE = Path(__file__).resolve().parent / "feeds.yaml"
@@ -91,6 +92,13 @@ def main(force_refresh=None):
         print(f"[info] 资产预测 {len(payload['assets'])} 个，缺失 {len(payload['missing'])} 个")
     except Exception as exc:
         print(f"[error] 资产预测生成失败: {exc}", file=sys.stderr)
+
+    # AI 工业革命观测台：D/B/S/C 指数、成分级预测与回测。放在资产预测之后（复用其 VIX 缓存），失败不影响其他内容。
+    try:
+        page = revolution_build.run(CONTENT_DIR.parent, date_str)
+        print(f"[info] 观测台指标 {len(page['sources'])} 个，成分预测 {len(page['forecasts'])} 条")
+    except Exception as exc:
+        print(f"[error] 观测台数据生成失败: {exc}", file=sys.stderr)
 
     # 行情概率问题：生成与到期结算只追加记录，失败不影响其他内容。
     try:

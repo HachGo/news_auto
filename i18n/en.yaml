@@ -625,3 +625,275 @@
   translation: "Asset outlook"
 - id: outlook_home_link_sub
   translation: "Weekly, monthly and quarterly odds and ranges for stocks, gold and oil"
+
+# AI revolution observatory
+- id: rev_desc
+  translation: "Four sides of the AI industrial revolution, tracked with public data. Every line says whether it is observed, a proxy, research/illustrative or a model forecast; where there is no data the chart stays empty."
+- id: rev_stat_indicators
+  translation: "indicators"
+- id: rev_stat_forecasts
+  translation: "component forecasts"
+- id: rev_stat_models
+  translation: "models beat baseline"
+- id: rev_nav_board
+  translation: "Index board"
+- id: rev_nav_charts
+  translation: "Charts"
+- id: rev_nav_forecasts
+  translation: "Forecasts & backtests"
+- id: rev_nav_sources
+  translation: "Data sources"
+- id: rev_nav_method
+  translation: "Method"
+- id: rev_empty
+  translation: "Observatory data has not been generated yet; it will appear after the next daily run."
+- id: rev_board
+  translation: "D / B / S / C indices"
+- id: rev_board_desc
+  translation: "50 is each component's own historical average; 10 points is roughly one standard deviation. The indices are composites defined by this site, meant for comparing direction and strength only."
+- id: rev_board_note
+  translation: "\"Derived\" readings come from the component forecasts and are not scored on their own; when the components fall back to no-change forecasts, the derived reading stays close to today's value."
+- id: rev_12m
+  translation: "12 mo"
+- id: rev_coverage
+  translation: "{{ .Pct }}% of {{ .Count }} components available"
+- id: rev_coverage_short
+  translation: "{{ .Pct }}% coverage"
+- id: rev_derived
+  translation: "Derived +{{ .Months }} mo"
+- id: rev_no_reading
+  translation: "No reading: not enough component data."
+- id: rev_charts_desc
+  translation: "All charts share the time range above; drag or scroll inside a chart to zoom. Hover for values and coverage."
+- id: rev_range
+  translation: "Time range"
+- id: rev_range_1y
+  translation: "1Y"
+- id: rev_range_3y
+  translation: "3Y"
+- id: rev_range_5y
+  translation: "5Y"
+- id: rev_range_10y
+  translation: "10Y"
+- id: rev_range_all
+  translation: "All"
+- id: rev_show_events
+  translation: "Show events"
+- id: rev_kinds
+  translation: "Evidence class"
+- id: rev_kind_observed
+  translation: "Observed"
+- id: rev_kind_proxy
+  translation: "Proxy"
+- id: rev_kind_research
+  translation: "Research / illustrative"
+- id: rev_kind_model
+  translation: "Model forecast"
+- id: rev_kind_observed_desc
+  translation: "Official or company-reported data that measures the thing itself"
+- id: rev_kind_proxy_desc
+  translation: "Real data used to stand in for something that cannot be observed directly"
+- id: rev_kind_research_desc
+  translation: "Research estimates or historical comparison views; revised retroactively"
+- id: rev_kind_model_desc
+  translation: "Forecasts produced here, labelled with baseline, backtest and status"
+- id: rev_js_required
+  translation: "Charts need JavaScript. Index readings, forecasts and the source table on this page do not."
+- id: rev_chart_indices
+  translation: "Four-index trend"
+- id: rev_chart_indices_desc
+  translation: "Monthly D / B / S / C readings, each month using only data published by then. Dashed segments are derived forecasts. Replay month by month below."
+- id: rev_chart_indices_note
+  translation: "Playback uses the latest revised values, approximating what was visible only by publication lag; these are not first-release vintages."
+- id: rev_chart_stress
+  translation: "Financial stress"
+- id: rev_chart_stress_desc
+  translation: "NFCI and STLFSI4 (0 = historical average), VIX and the high-yield spread, faceted on a shared time axis."
+- id: rev_chart_stress_note
+  translation: "Measures with different units get their own panel, never a shared axis. The high-yield spread only covers the last three years."
+- id: rev_chart_capex
+  translation: "Capital investment compared"
+- id: rev_chart_capex_desc
+  translation: "Quarterly capex at the four hyperscalers, and investment as a share of GDP compared with the dot-com cycle."
+- id: rev_chart_capex_note
+  translation: "Hyperscaler share = quarterly cash capex × 4 ÷ seasonally adjusted annualized GDP, matching BEA's annualized basis; companies treat finance leases differently. The shaded period is a historical comparison, not a forecast."
+- id: rev_chart_diffusion
+  translation: "Diffusion"
+- id: rev_chart_diffusion_desc
+  translation: "Computer systems design employment growth and the software development job postings index."
+- id: rev_chart_diffusion_note
+  translation: "Both are proxies; direct measures such as business AI use rates are not connected yet; see Data sources."
+- id: rev_chart_capability
+  translation: "Capability & compute"
+- id: rev_chart_capability_desc
+  translation: "Models with training-compute estimates in Epoch AI's database (log scale), and the frontier (running maximum)."
+- id: rev_chart_capability_note
+  translation: "Compute figures are mostly research estimates and are backfilled over time."
+- id: rev_chart_semis
+  translation: "Semiconductor cycle"
+- id: rev_chart_semis_desc
+  translation: "The PHLX Semiconductor index versus its 3-year average, and US semiconductor output growth."
+- id: rev_chart_semis_note
+  translation: "Price distance is a proxy for valuation heat, not a P/E ratio."
+- id: rev_chart_compare
+  translation: "Compare indicators"
+- id: rev_chart_compare_desc
+  translation: "Pick up to four indicators; each is standardized over its own history (z-score) and plotted on one axis."
+- id: rev_chart_compare_note
+  translation: "Series with different release frequencies are drawn at their own dates, with no interpolation."
+- id: rev_chart_backtest
+  translation: "Forecast backtest"
+- id: rev_chart_backtest_desc
+  translation: "Choose a component and horizon: actual values, out-of-sample baseline and model forecasts, the 80% interval of the method in use, and the current forecast."
+- id: rev_chart_backtest_note
+  translation: "Backtests use rolling origins and only data realized at the time; live forecasts are logged separately, see the table below."
+- id: rev_playback
+  translation: "Timeline playback"
+- id: rev_play
+  translation: "Play"
+- id: rev_pause
+  translation: "Pause"
+- id: rev_events_until
+  translation: "Events so far"
+- id: rev_latest
+  translation: "latest"
+- id: rev_stale
+  translation: "Stale"
+- id: rev_fetch_failed
+  translation: "Fetch failed; using cache"
+- id: rev_cache_from
+  translation: "cached {{ .Date }}"
+- id: rev_no_data
+  translation: "No data"
+- id: rev_forecasts_desc
+  translation: "Only observable components are forecast, h releases ahead at their own frequency, and settled against the actual release. A model is shown only if its walk-forward backtest has ≥ {{ .N }} out-of-sample points, MSE skill ≥ {{ .Skill }}% and DM p < {{ .P }}; otherwise the no-change baseline is shown."
+- id: rev_forecasts_empty
+  translation: "No component forecasts yet."
+- id: rev_forecasts_note
+  translation: "Skill = 1 − model MSE / baseline MSE (backtest, %). The live record counts only forecasts actually logged here that have come due, kept separate from the backtest."
+- id: rev_th_indicator
+  translation: "Indicator"
+- id: rev_th_last
+  translation: "Latest"
+- id: rev_th_target
+  translation: "Target"
+- id: rev_th_forecast
+  translation: "Forecast"
+- id: rev_th_status
+  translation: "Status"
+- id: rev_th_backtest
+  translation: "Backtest"
+- id: rev_th_live
+  translation: "Live"
+- id: rev_th_kind
+  translation: "Class"
+- id: rev_th_freq
+  translation: "Frequency"
+- id: rev_th_span
+  translation: "Span"
+- id: rev_th_next
+  translation: "Next release (est.)"
+- id: rev_th_source
+  translation: "Source"
+- id: rev_freq_daily
+  translation: "Daily"
+- id: rev_freq_weekly
+  translation: "Weekly"
+- id: rev_freq_monthly
+  translation: "Monthly"
+- id: rev_freq_quarterly
+  translation: "Quarterly"
+- id: rev_range80
+  translation: "80% range"
+- id: rev_no_interval
+  translation: "Too few out-of-sample errors for a range"
+- id: rev_event_p
+  translation: "P(above {{ .Above }}) {{ .P }}% (historical rate {{ .Rate }}%)"
+- id: rev_event_status
+  translation: "Threshold odds"
+- id: rev_status_model
+  translation: "Model"
+- id: rev_status_baseline
+  translation: "Baseline"
+- id: rev_status_insufficient
+  translation: "Too few samples · illustrative"
+- id: rev_bt
+  translation: "n={{ .N }} · skill {{ .Skill }}% · p={{ .P }}"
+- id: rev_bt_cov
+  translation: "range coverage {{ .Pct }}%"
+- id: rev_live
+  translation: "{{ .N }} settled · MAE {{ .MAE }} / baseline {{ .Base }}"
+- id: rev_live_none
+  translation: "Collecting: {{ .Count }} logged, none due yet"
+- id: rev_sources_desc
+  translation: "Each indicator's evidence class, release frequency, publication lag, span and fetch status. Failed fetches fall back to the cache and are flagged here."
+- id: rev_in_index
+  translation: "Counts toward {{ .Index }}"
+- id: rev_not_indexed
+  translation: "Shown only, not indexed"
+- id: rev_gaps
+  translation: "Missing periods"
+- id: rev_lag
+  translation: "~{{ .Days }}-day publication lag"
+- id: rev_count
+  translation: "{{ .Count }} periods"
+- id: rev_pending
+  translation: "Not yet connected"
+- id: rev_method_kinds
+  translation: "Four evidence classes: observed (direct measurement), proxy (real data standing in for an unobservable concept), research/illustrative (research estimates and historical comparison views) and model forecast. Chart labels match the source table."
+- id: rev_method_index
+  translation: "Each component is turned into a growth rate, deviation or level, standardized over an expanding window (at least 36 months) and clipped at ±4σ; index = 50 + 10 × the mean z of available components. Missing components are not filled in, they only lower coverage; months with no components get no reading."
+- id: rev_method_asof
+  translation: "Each month uses only observations whose period end plus publication lag falls on or before month-end; values older than each frequency's limit count as missing, so no month's reading contains future information."
+- id: rev_method_forecast
+  translation: "The composite indices are not forecast directly (their weights are defined here and there is no real target to settle against). Only observable components are: the baseline is a no-change forecast; the model is a direct multi-step regression y(t+h) = a + b·y(t) on an expanding window; ranges are the empirical 10% / 90% quantiles of the method's past out-of-sample errors."
+- id: rev_method_gate
+  translation: "Publishing bar: ≥ {{ .N }} out-of-sample points, MSE skill ≥ {{ .Skill }}% and one-sided Diebold-Mariano p < {{ .P }}; shorter samples are labelled \"too few samples · illustrative\". No range is given with fewer than {{ .M }} out-of-sample errors. The baseline for threshold odds is the no-change forecast plus its error distribution, not the unconditional rate."
+- id: rev_method_derived
+  translation: "Derived index forecasts convert component point forecasts to z-scores with the current expanding-window mean and standard deviation and average them by the index rule, holding components without a forecast at that horizon at their current value (no change), with coverage counting only components that have a real forecast; they are not scored separately."
+- id: rev_method_ledger
+  translation: "Each new forecast origin is logged once (append-only) and settled once, against the first value seen for the target period; later revisions do not rewrite it. Data files are stored by schema version (/data/revolution/v1/) with a hash for each file in the manifest."
+- id: rev_tt_coverage
+  translation: "coverage"
+- id: rev_tt_derived
+  translation: "derived forecast"
+- id: rev_tt_actual
+  translation: "Actual"
+- id: rev_tt_baseline
+  translation: "Baseline forecast"
+- id: rev_tt_model
+  translation: "Model forecast"
+- id: rev_tt_interval
+  translation: "80% range"
+- id: rev_tt_now
+  translation: "Current forecast"
+- id: rev_tt_frontier
+  translation: "Frontier"
+- id: rev_tt_models
+  translation: "Models"
+- id: rev_view_amount
+  translation: "Quarterly $"
+- id: rev_view_share
+  translation: "Share of GDP"
+- id: rev_dotcom
+  translation: "Dot-com investment cycle 1995–2001 (historical comparison)"
+- id: rev_select_series
+  translation: "Choose indicators"
+- id: rev_select_forecast
+  translation: "Choose component and horizon"
+- id: rev_zscore
+  translation: "z-score"
+- id: rev_avg_line
+  translation: "historical average"
+- id: rev_threshold
+  translation: "threshold 0"
+- id: rev_cap_total
+  translation: "Total"
+- id: rev_load_failed
+  translation: "Chart data failed to load; please refresh later. The readings in the tables are unaffected."
+- id: rev_compare_max
+  translation: "Up to 4"
+- id: rev_home_link
+  translation: "AI revolution observatory"
+- id: rev_home_link_sub
+  translation: "Diffusion, build-out, stress and capability, with forecast backtests"

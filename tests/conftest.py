@@ -23,6 +23,16 @@ def offline_price_history(monkeypatch):
     monkeypatch.setattr(history, "FETCHERS", ())
 
 
+@pytest.fixture(autouse=True)
+def offline_revolution_sources(monkeypatch):
+    """观测台数据源默认离线：抓取失败、沿用缓存；需要数据的测试显式传入 fetcher。"""
+    from revolution import sources
+
+    def offline(key, root):
+        raise RuntimeError("offline in tests")
+    monkeypatch.setattr(sources, "fetch_raw", offline)
+
+
 @pytest.fixture
 def fake_summaries():
     """批量摘要替身：给每条打上可预期的中文标题/摘要，返回成功条数。
