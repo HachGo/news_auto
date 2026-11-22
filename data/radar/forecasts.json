@@ -97,7 +97,15 @@
       "zh": "基础模型",
       "en": "Foundation models"
      },
-     "momentum": -0.284077
+     "momentum": -0.239792
+    },
+    {
+     "topic": "funding_ma",
+     "name": {
+      "zh": "融资与并购",
+      "en": "Funding & M&A"
+     },
+     "momentum": -0.10128
     },
     {
      "topic": "policy_safety",
@@ -105,15 +113,7 @@
       "zh": "政策、安全与监管",
       "en": "Policy, safety & regulation"
      },
-     "momentum": 0.243929
-    },
-    {
-     "topic": "applications",
-     "name": {
-      "zh": "AI 应用与商业化",
-      "en": "AI apps & business"
-     },
-     "momentum": 0.091161
+     "momentum": 0.090268
     }
    ],
    "scenarios": [
@@ -180,7 +180,15 @@
       "zh": "基础模型",
       "en": "Foundation models"
      },
-     "momentum": -0.284077
+     "momentum": -0.239792
+    },
+    {
+     "topic": "funding_ma",
+     "name": {
+      "zh": "融资与并购",
+      "en": "Funding & M&A"
+     },
+     "momentum": -0.10128
     },
     {
      "topic": "policy_safety",
@@ -188,15 +196,7 @@
       "zh": "政策、安全与监管",
       "en": "Policy, safety & regulation"
      },
-     "momentum": 0.243929
-    },
-    {
-     "topic": "applications",
-     "name": {
-      "zh": "AI 应用与商业化",
-      "en": "AI apps & business"
-     },
-     "momentum": 0.091161
+     "momentum": 0.090268
     }
    ],
    "scenarios": [
@@ -301,6 +301,36 @@
   }
  ],
  "resolved": [
+  {
+   "id": "trend-quarter-2026-08-23",
+   "horizon": "quarter",
+   "created": "2026-08-23",
+   "target_date": "2026-11-22",
+   "direction": "insufficient_data",
+   "confidence": "low",
+   "observed": "negative",
+   "correct": false
+  },
+  {
+   "id": "trend-month-2026-10-23",
+   "horizon": "month",
+   "created": "2026-10-23",
+   "target_date": "2026-11-22",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "negative",
+   "correct": true
+  },
+  {
+   "id": "trend-week-2026-11-15",
+   "horizon": "week",
+   "created": "2026-11-15",
+   "target_date": "2026-11-22",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "negative",
+   "correct": true
+  },
   {
    "id": "trend-quarter-2026-08-22",
    "horizon": "quarter",
@@ -770,59 +800,29 @@
    "confidence": "high",
    "observed": "positive",
    "correct": false
-  },
-  {
-   "id": "trend-month-2026-10-05",
-   "horizon": "month",
-   "created": "2026-10-05",
-   "target_date": "2026-11-04",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "neutral",
-   "correct": false
-  },
-  {
-   "id": "trend-week-2026-10-28",
-   "horizon": "week",
-   "created": "2026-10-28",
-   "target_date": "2026-11-04",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "neutral",
-   "correct": false
-  },
-  {
-   "id": "trend-month-2026-10-04",
-   "horizon": "month",
-   "created": "2026-10-04",
-   "target_date": "2026-11-03",
-   "direction": "negative",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": false
   }
  ],
  "record": {
-  "resolved": 184,
-  "correct": 71,
+  "resolved": 187,
+  "correct": 73,
   "rate": 39,
   "open": 4,
   "by_horizon": [
    {
     "horizon": "week",
-    "resolved": 97,
-    "correct": 41,
-    "rate": 42
+    "resolved": 98,
+    "correct": 42,
+    "rate": 43
    },
    {
     "horizon": "month",
-    "resolved": 74,
-    "correct": 30,
+    "resolved": 75,
+    "correct": 31,
     "rate": 41
    },
    {
     "horizon": "quarter",
-    "resolved": 13,
+    "resolved": 14,
     "correct": 0,
     "rate": 0
    }
@@ -831,7 +831,7 @@
  "calibration": [
   {
    "confidence": "low",
-   "n": 34,
+   "n": 35,
    "correct": 0,
    "rate": 0
   },
@@ -843,9 +843,9 @@
   },
   {
    "confidence": "high",
-   "n": 139,
-   "correct": 64,
-   "rate": 46
+   "n": 141,
+   "correct": 66,
+   "rate": 47
   }
  ],
  "questions": {
