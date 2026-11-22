@@ -1,0 +1,193 @@
+{{- define "main" -}}
+{{- $lang := cond (eq site.Language.Lang "en") "en" "zh" -}}
+{{- $d := site.Data.radar.revolution | default dict -}}
+{{- $cards := $d.cards | default slice -}}
+{{- $sources := $d.sources | default slice -}}
+{{- $fc := $d.forecasts | default slice -}}
+{{- $gate := $d.gate | default dict -}}
+{{- $byId := dict }}{{ range $sources }}{{ $byId = merge $byId (dict .id .) }}{{ end -}}
+{{- $modelCount := len (where $fc "source" "model") -}}
+{{- /* 每张图包含的指标：用于标注证据类别与发布频率 */ -}}
+{{- $charts := slice
+  (dict "id" "indices" "ids" (slice))
+  (dict "id" "stress" "ids" (slice "s_nfci" "s_stlfsi" "s_vix" "s_hy"))
+  (dict "id" "capex" "ids" (slice "b_capex" "b_info_equip" "b_software"))
+  (dict "id" "diffusion" "ids" (slice "d_csd_emp" "d_softdev_postings"))
+  (dict "id" "capability" "ids" (slice "c_frontier"))
+  (dict "id" "semis" "ids" (slice "s_sox_heat" "c_semis_ip"))
+  (dict "id" "compare" "ids" (slice))
+  (dict "id" "backtest" "ids" (slice))
+-}}
+<div class="radar-page revolution-page">
+  <header class="radar-header">
+    <div>
+      {{- with $d.as_of }}<p class="radar-updated mono"><span class="dot dot-ai_tech" aria-hidden="true"></span>{{ i18n "updated_at" (dict "Time" .) }} · {{ $d.method_version }}</p>{{ end }}
+      <h1>{{ .Title }}</h1>
+      <p class="radar-description">{{ i18n "rev_desc" }}</p>
+    </div>
+    <div class="radar-stats mono">
+      <div><strong>{{ len $sources }}</strong><span>{{ i18n "rev_stat_indicators" }}</span></div>
+      <div><strong>{{ len $fc }}</strong><span>{{ i18n "rev_stat_forecasts" }}</span></div>
+      <div><strong>{{ $modelCount }}</strong><span>{{ i18n "rev_stat_models" }}</span></div>
+    </div>
+  </header>
+
+  <nav class="outlook-nav" aria-label="{{ .Title }}">
+    <a href="#board">{{ i18n "rev_nav_board" }}</a>
+    <a href="#charts">{{ i18n "rev_nav_charts" }}</a>
+    <a href="#forecasts">{{ i18n "rev_nav_forecasts" }}</a>
+    <a href="#sources">{{ i18n "rev_nav_sources" }}</a>
+    <a href="#method">{{ i18n "rev_nav_method" }}</a>
+  </nav>
+
+  {{- if not $cards }}
+  <p class="panel radar-empty">{{ i18n "rev_empty" }}</p>
+  {{- else }}
+
+  {{- /* 一、指数看板 */}}
+  <section id="board" class="outlook-section" aria-labelledby="board-title">
+    <div class="outlook-head"><div><h2 id="board-title">{{ i18n "rev_board" }}</h2><p class="outlook-sub">{{ i18n "rev_board_desc" }}</p></div></div>
+    <div class="rev-cards">
+      {{- range $i, $c := $cards }}
+      <article class="panel rev-card" style="--series: var(--rev-{{ add $i 1 }})" aria-labelledby="card-{{ .key }}">
+        <header><span class="rev-key mono" aria-hidden="true">{{ .key }}</span><h3 id="card-{{ .key }}">{{ index .name $lang }}</h3></header>
+        {{- if ne .value nil }}
+        <p class="rev-value mono">{{ printf "%.1f" .value }}{{ with .change_12m }} <small class="{{ if ge . 0. }}is-up{{ else }}is-down{{ end }}">{{ printf "%+.1f" . }} · {{ i18n "rev_12m" }}</small>{{ end }}</p>
+        <p class="rev-meta mono">{{ .month }} · {{ i18n "rev_coverage" (dict "Pct" .coverage "Count" .members) }}</p>
+        {{- range .derived }}
+        <p class="rev-meta"><span class="kind-chip kind-model">{{ i18n "rev_derived" (dict "Months" .months) }}</span> <span class="mono">{{ printf "%.1f" .value }}</span>{{ if lt .coverage 1. }} <span class="mono">· {{ i18n "rev_coverage_short" (dict "Pct" (math.Round (mul .coverage 100))) }}</span>{{ end }}</p>
+        {{- end }}
+        {{- else }}
+        <p class="rev-value mono">—</p><p class="rev-meta">{{ i18n "rev_no_reading" }}</p>
+        {{- end }}
+        <p class="rev-desc">{{ index .desc $lang }}</p>
+      </article>
+      {{- end }}
+    </div>
+    <p class="outlook-note">{{ i18n "rev_board_note" }}</p>
+  </section>
+
+  {{- /* 二、动态图 */}}
+  <section id="charts" class="outlook-section" aria-labelledby="charts-title">
+    <div class="outlook-head"><div><h2 id="charts-title">{{ i18n "rev_nav_charts" }}</h2><p class="outlook-sub">{{ i18n "rev_charts_desc" }}</p></div></div>
+    {{- /* 全页共享筛选：一行、置于所有图之上 */}}
+    <div class="rev-filters" data-rev-filters hidden>
+      <div class="horizon-switch" role="group" aria-label="{{ i18n "rev_range" }}">
+        {{- range slice "1y" "3y" "5y" "10y" "all" }}
+        <button type="button" data-range="{{ . }}" aria-pressed="{{ eq . "5y" }}">{{ i18n (printf "rev_range_%s" .) }}</button>
+        {{- end }}
+      </div>
+      <label class="rev-toggle"><input type="checkbox" data-events checked> {{ i18n "rev_show_events" }}</label>
+      <div class="rev-kinds" aria-label="{{ i18n "rev_kinds" }}">
+        {{- range slice "observed" "proxy" "research" "model" }}<span class="kind-chip kind-{{ . }}" title="{{ i18n (printf "rev_kind_%s_desc" .) }}">{{ i18n (printf "rev_kind_%s" .) }}</span>{{ end }}
+      </div>
+    </div>
+    <noscript><p class="panel radar-empty">{{ i18n "rev_js_required" }}</p></noscript>
+
+    {{- range $n, $chart := $charts }}
+    <article class="panel rev-chart" id="chart-{{ .id }}" aria-labelledby="chart-{{ .id }}-title">
+      <header class="rev-chart-head">
+        <div>
+          <h3 id="chart-{{ .id }}-title"><span class="mono rev-num">{{ add $n 1 }}</span>{{ i18n (printf "rev_chart_%s" .id) }}</h3>
+          <p class="outlook-sub">{{ i18n (printf "rev_chart_%s_desc" .id) }}</p>
+        </div>
+        <div class="rev-chart-tools" data-tools="{{ .id }}"></div>
+      </header>
+      {{- with .ids }}
+      <ul class="rev-series-meta">
+        {{- range . }}{{ with index $byId . }}
+        <li><span class="kind-chip kind-{{ .kind }}">{{ index .kind_label $lang }}</span><span>{{ index .name $lang }}</span><span class="mono">{{ index .freq_label $lang }}{{ with .last }} · {{ i18n "rev_latest" }} {{ . }}{{ end }}</span>{{ if .stale }}<span class="rev-warn">{{ i18n "rev_stale" }}</span>{{ end }}{{ if not .fetch_ok }}<span class="rev-warn">{{ i18n "rev_fetch_failed" }}</span>{{ end }}{{ if eq .count 0 }}<span class="rev-warn">{{ i18n "rev_no_data" }}</span>{{ end }}</li>
+        {{- end }}{{ end }}
+      </ul>
+      {{- end }}
+      <div class="rev-canvas{{ if eq .id "stress" }} is-tall{{ end }}" data-chart="{{ .id }}" role="img" aria-label="{{ i18n (printf "rev_chart_%s" .id) }}"></div>
+      {{- if eq .id "indices" }}
+      <div class="rev-playback" data-playback hidden>
+        <button type="button" class="rev-play" data-play aria-label="{{ i18n "rev_play" }}">▶</button>
+        <input type="range" data-scrub min="0" max="0" value="0" aria-label="{{ i18n "rev_playback" }}">
+        <output class="mono" data-scrub-label></output>
+      </div>
+      <div class="rev-snapshot" data-snapshot hidden>
+        <div class="rev-canvas is-short" data-chart="snapshot" role="img" aria-label="{{ i18n "rev_playback" }}"></div>
+        <ol class="rev-snapshot-events" data-snapshot-events></ol>
+      </div>
+      {{- end }}
+      <p class="rev-chart-note" data-note="{{ .id }}">{{ i18n (printf "rev_chart_%s_note" .id) }}</p>
+    </article>
+    {{- end }}
+  </section>
+
+  {{- /* 三、成分级预测与回测 */}}
+  <section id="forecasts" class="outlook-section" aria-labelledby="forecasts-title">
+    <div class="outlook-head"><div><h2 id="forecasts-title">{{ i18n "rev_nav_forecasts" }}</h2><p class="outlook-sub">{{ i18n "rev_forecasts_desc" (dict "Skill" $gate.skill "P" $gate.p "N" $gate.min_oos) }}</p></div></div>
+    {{- if $fc }}
+    <div class="radar-table-wrap"><table class="radar-table rev-table">
+      <thead><tr><th>{{ i18n "rev_th_indicator" }}</th><th>{{ i18n "rev_th_last" }}</th><th>{{ i18n "rev_th_target" }}</th><th>{{ i18n "rev_th_forecast" }}</th><th>{{ i18n "rev_th_status" }}</th><th>{{ i18n "rev_th_backtest" }}</th><th>{{ i18n "rev_th_live" }}</th></tr></thead>
+      <tbody>
+      {{- range $fc }}
+      <tr>
+        <td>{{ index .name $lang }}<small class="mono">{{ i18n (printf "rev_freq_%s" .freq) }} · h={{ .h }}</small></td>
+        <td class="mono rev-nowrap">{{ with .last }}{{ printf "%.2f" .value }}<small>{{ .date }}</small>{{ end }}</td>
+        <td class="mono rev-nowrap">{{ .target }}</td>
+        <td class="mono">{{ printf "%.2f" .point }}{{ with .q }}<small>{{ i18n "rev_range80" }} {{ printf "%.2f" (index . 0) }} ~ {{ printf "%.2f" (index . 1) }}</small>{{ else }}<small>{{ i18n "rev_no_interval" }}</small>{{ end }}
+          {{- with .event }}<small>{{ i18n "rev_event_p" (dict "Above" .above "P" .p "Rate" .p_rate) }}</small>{{ end }}</td>
+        <td><span class="kind-chip{{ if eq .status "model" }} kind-model{{ end }}">{{ i18n (printf "rev_status_%s" .status) }}</span>{{ with .event }}<small>{{ i18n "rev_event_status" }}: {{ i18n (printf "rev_status_%s" .status) }}</small>{{ end }}</td>
+        {{- $bt := .backtest }}
+        <td class="mono">{{ i18n "rev_bt" (dict "N" $bt.n "Skill" (printf "%+.1f" (float ($bt.skill | default 0))) "P" (cond (ne $bt.dm_p nil) (printf "%.3f" (float ($bt.dm_p | default 0))) "—")) }}{{ with $bt.coverage }}<small>{{ i18n "rev_bt_cov" (dict "Pct" .) }}</small>{{ end }}{{ with $bt.start }}<small>{{ . }} – {{ $bt.end }}</small>{{ end }}</td>
+        <td class="mono">{{ if gt (.live.n | default 0) 0 }}{{ i18n "rev_live" (dict "N" .live.n "MAE" .live.mae "Base" .live.mae_baseline) }}{{ else }}{{ i18n "rev_live_none" (dict "Count" .logged) }}{{ end }}</td>
+      </tr>
+      {{- end }}
+      </tbody>
+    </table></div>
+    {{- else }}<p class="panel radar-empty">{{ i18n "rev_forecasts_empty" }}</p>{{ end }}
+    <p class="outlook-note">{{ i18n "rev_forecasts_note" }}</p>
+  </section>
+
+  {{- /* 四、数据来源 */}}
+  <section id="sources" class="outlook-section" aria-labelledby="sources-title">
+    <div class="outlook-head"><div><h2 id="sources-title">{{ i18n "rev_nav_sources" }}</h2><p class="outlook-sub">{{ i18n "rev_sources_desc" }}</p></div></div>
+    <div class="radar-table-wrap"><table class="radar-table rev-table">
+      <thead><tr><th>{{ i18n "rev_th_indicator" }}</th><th>{{ i18n "rev_th_kind" }}</th><th>{{ i18n "rev_th_freq" }}</th><th>{{ i18n "rev_th_span" }}</th><th>{{ i18n "rev_th_next" }}</th><th>{{ i18n "rev_th_source" }}</th></tr></thead>
+      <tbody>
+      {{- range $sources }}
+      <tr id="src-{{ .id }}">
+        <td>{{ index .name $lang }}<small>{{ if .in_index }}{{ i18n "rev_in_index" (dict "Index" .index) }}{{ else }}{{ i18n "rev_not_indexed" }}{{ end }} · {{ .unit }}</small><small>{{ index .note $lang }}</small>{{ with .gaps }}<small class="rev-warn">{{ i18n "rev_gaps" }}: {{ delimit . ", " }}</small>{{ end }}</td>
+        <td><span class="kind-chip kind-{{ .kind }}">{{ index .kind_label $lang }}</span></td>
+        <td class="mono">{{ index .freq_label $lang }}<small>{{ i18n "rev_lag" (dict "Days" .lag_days) }}</small></td>
+        <td class="mono">{{ with .first }}{{ . }} – {{ end }}{{ .last | default "—" }}<small>{{ i18n "rev_count" (dict "Count" .count) }}</small>{{ if .stale }}<small class="rev-warn">{{ i18n "rev_stale" }}</small>{{ end }}{{ if not .fetch_ok }}<small class="rev-warn">{{ i18n "rev_fetch_failed" }}{{ with .fetched_on }} · {{ i18n "rev_cache_from" (dict "Date" .) }}{{ end }}</small>{{ end }}</td>
+        <td class="mono rev-nowrap">{{ .next_release | default "—" }}</td>
+        <td><a href="{{ .source.url }}" target="_blank" rel="noopener noreferrer">{{ .source.name }}</a></td>
+      </tr>
+      {{- end }}
+      </tbody>
+    </table></div>
+    {{- with $d.pending }}
+    <div class="block-head"><h3>{{ i18n "rev_pending" }}</h3></div>
+    <ul class="rev-pending">{{ range . }}<li><span class="mono rev-key-sm">{{ .index }}</span><a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ index .name $lang }}</a><small>{{ index .reason $lang }}</small></li>{{ end }}</ul>
+    {{- end }}
+  </section>
+
+  {{- /* 五、方法 */}}
+  <section id="method" class="outlook-section" aria-labelledby="method-title">
+    <details class="panel outlook-method" open>
+      <summary id="method-title">{{ i18n "rev_nav_method" }}</summary>
+      <ol>
+        <li>{{ i18n "rev_method_kinds" }}</li>
+        <li>{{ i18n "rev_method_index" }}</li>
+        <li>{{ i18n "rev_method_asof" }}</li>
+        <li>{{ i18n "rev_method_forecast" }}</li>
+        <li>{{ i18n "rev_method_gate" (dict "Skill" $gate.skill "P" $gate.p "N" $gate.min_oos "M" $gate.min_interval) }}</li>
+        <li>{{ i18n "rev_method_derived" }}</li>
+        <li>{{ i18n "rev_method_ledger" }}</li>
+      </ol>
+      <p class="outlook-note">{{ i18n "disclaimer" }}</p>
+    </details>
+  </section>
+  {{- end }}
+</div>
+{{- $labels := dict -}}
+{{- range slice "rev_tt_coverage" "rev_tt_derived" "rev_tt_actual" "rev_tt_baseline" "rev_tt_model" "rev_tt_interval" "rev_tt_now" "rev_tt_frontier" "rev_tt_models" "rev_view_amount" "rev_view_share" "rev_dotcom" "rev_select_series" "rev_select_forecast" "rev_play" "rev_pause" "rev_zscore" "rev_no_data" "rev_avg_line" "rev_threshold" "rev_cap_total" "rev_load_failed" "rev_compare_max" "rev_kind_observed" "rev_kind_proxy" "rev_kind_research" "rev_kind_model" "rev_status_model" "rev_status_baseline" "rev_status_insufficient" "rev_events_until" -}}
+{{- $labels = merge $labels (dict . (i18n .)) -}}
+{{- end -}}
+<script type="application/json" id="revolution-config">{{ dict "base" ("data/revolution/v1/" | relURL) "lang" $lang "labels" $labels | jsonify | safeJS }}</script>
+{{- end -}}

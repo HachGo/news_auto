@@ -623,3 +623,275 @@
   translation: "资产走势预测"
 - id: outlook_home_link_sub
   translation: "美股、A股、黄金、原油的周 / 月 / 季度概率与区间"
+
+# AI 工业革命观测台
+- id: rev_desc
+  translation: "用公开数据跟踪 AI 工业革命的四个侧面。每条线都标明是真实观测、代理估算、历史研究示意还是模型预测；没有数据的地方留空，不做填补。"
+- id: rev_stat_indicators
+  translation: "个指标"
+- id: rev_stat_forecasts
+  translation: "条成分预测"
+- id: rev_stat_models
+  translation: "个模型胜出"
+- id: rev_nav_board
+  translation: "指数看板"
+- id: rev_nav_charts
+  translation: "动态图"
+- id: rev_nav_forecasts
+  translation: "预测与回测"
+- id: rev_nav_sources
+  translation: "数据来源"
+- id: rev_nav_method
+  translation: "方法"
+- id: rev_empty
+  translation: "观测台数据尚未生成，下一次每日任务后出现。"
+- id: rev_board
+  translation: "D / B / S / C 指数"
+- id: rev_board_desc
+  translation: "50 为成分各自的历史平均，每 10 点约一个标准差。指数是本站自定的合成量，只用于横向比较方向和强弱。"
+- id: rev_board_note
+  translation: "「衍生」读数由成分预测推导而来，不单独计分；成分多为不变预测时，衍生读数接近当前值。"
+- id: rev_12m
+  translation: "12 个月"
+- id: rev_coverage
+  translation: "{{ .Pct }}% 成分可得（共 {{ .Count }} 个）"
+- id: rev_coverage_short
+  translation: "覆盖 {{ .Pct }}%"
+- id: rev_derived
+  translation: "衍生 +{{ .Months }} 月"
+- id: rev_no_reading
+  translation: "暂无读数：成分数据不足。"
+- id: rev_charts_desc
+  translation: "所有图共用上方的时间范围；图内可拖动、滚轮缩放。悬停查看数值与覆盖率。"
+- id: rev_range
+  translation: "时间范围"
+- id: rev_range_1y
+  translation: "1 年"
+- id: rev_range_3y
+  translation: "3 年"
+- id: rev_range_5y
+  translation: "5 年"
+- id: rev_range_10y
+  translation: "10 年"
+- id: rev_range_all
+  translation: "全部"
+- id: rev_show_events
+  translation: "显示历史事件"
+- id: rev_kinds
+  translation: "证据类别"
+- id: rev_kind_observed
+  translation: "真实观测"
+- id: rev_kind_proxy
+  translation: "代理估算"
+- id: rev_kind_research
+  translation: "历史研究示意"
+- id: rev_kind_model
+  translation: "模型预测"
+- id: rev_kind_observed_desc
+  translation: "直接度量所述对象的官方或公司披露数据"
+- id: rev_kind_proxy_desc
+  translation: "真实数据，但用来近似一个不可直接观测的概念"
+- id: rev_kind_research_desc
+  translation: "研究机构的估算或本站的历史对照视图，会回溯修订"
+- id: rev_kind_model_desc
+  translation: "本站生成的预测，标注基准、回测与上线状态"
+- id: rev_js_required
+  translation: "图表需要 JavaScript。指数读数、预测与数据来源表不依赖脚本，见本页其余部分。"
+- id: rev_chart_indices
+  translation: "四指数趋势"
+- id: rev_chart_indices_desc
+  translation: "D / B / S / C 月度读数，每个月只用当时已经公布的数据。虚线为衍生预测。下方可逐月回放。"
+- id: rev_chart_indices_note
+  translation: "回放用最新修订值，只按发布滞后近似当时可见的数据，不是当时的初值。"
+- id: rev_chart_stress
+  translation: "金融压力"
+- id: rev_chart_stress_desc
+  translation: "NFCI 与 STLFSI4（0 = 历史平均）、VIX、高收益债利差，分面展示、共用时间轴。"
+- id: rev_chart_stress_note
+  translation: "单位不同的指标分开画，不共用纵轴。高收益债利差只有近三年数据。"
+- id: rev_chart_capex
+  translation: "资本投入对比"
+- id: rev_chart_capex_desc
+  translation: "四大云厂商单季资本开支，以及与互联网投资周期对照的占 GDP 比重。"
+- id: rev_chart_capex_note
+  translation: "云厂商为季度现金支出 × 4 ÷ 季调年化 GDP，与 BEA 的年化口径对齐；各公司对融资租赁的处理不同。阴影区间为历史对照，不是预测。"
+- id: rev_chart_diffusion
+  translation: "采用扩散"
+- id: rev_chart_diffusion_desc
+  translation: "计算机系统设计业就业同比与软件开发岗位发布指数。"
+- id: rev_chart_diffusion_note
+  translation: "两者都是代理指标；企业 AI 使用率等直接数据尚未接入，见数据来源。"
+- id: rev_chart_capability
+  translation: "能力与算力"
+- id: rev_chart_capability_desc
+  translation: "Epoch AI 收录的有训练算力估计的模型（对数刻度），以及前沿（截至当时的最大值）。"
+- id: rev_chart_capability_note
+  translation: "算力多为研究估算，数据会回溯补录。"
+- id: rev_chart_semis
+  translation: "半导体周期"
+- id: rev_chart_semis_desc
+  translation: "费城半导体指数相对三年均线的偏离，与美国半导体产出同比。"
+- id: rev_chart_semis_note
+  translation: "价格偏离是估值过热的代理，不是市盈率。"
+- id: rev_chart_compare
+  translation: "多指标对比"
+- id: rev_chart_compare_desc
+  translation: "最多选 4 个指标，按各自全历史标准化（z 值）后放在同一纵轴。"
+- id: rev_chart_compare_note
+  translation: "不同发布频率的序列按各自日期绘制，不做插值。"
+- id: rev_chart_backtest
+  translation: "预测回测"
+- id: rev_chart_backtest_desc
+  translation: "选择成分与周期：实际值、基准与模型的样本外预测、所用方法的 80% 区间，以及当前预测。"
+- id: rev_chart_backtest_note
+  translation: "回测为滚动起点、只用当时已实现的数据；实盘记录另行登记，见下方表格。"
+- id: rev_playback
+  translation: "时间轴回放"
+- id: rev_play
+  translation: "播放"
+- id: rev_pause
+  translation: "暂停"
+- id: rev_events_until
+  translation: "截至此时的事件"
+- id: rev_latest
+  translation: "最新"
+- id: rev_stale
+  translation: "数据过期"
+- id: rev_fetch_failed
+  translation: "本次抓取失败，沿用缓存"
+- id: rev_cache_from
+  translation: "缓存自 {{ .Date }}"
+- id: rev_no_data
+  translation: "暂无数据"
+- id: rev_forecasts_desc
+  translation: "只预测可观测的成分，按各自发布频率预测后 h 期，到期用真实发布值结算。模型须在滚动回测中样本外点数 ≥ {{ .N }}、MSE 技能分 ≥ {{ .Skill }}%、DM 检验 p < {{ .P }} 才显示，否则显示不变预测（基准）。"
+- id: rev_forecasts_empty
+  translation: "暂无成分预测。"
+- id: rev_forecasts_note
+  translation: "技能分 = 1 − 模型 MSE / 基准 MSE（回测，%）。实盘记录只统计本站真实登记且已到期的预测，与回测分开。"
+- id: rev_th_indicator
+  translation: "指标"
+- id: rev_th_last
+  translation: "最新值"
+- id: rev_th_target
+  translation: "目标期"
+- id: rev_th_forecast
+  translation: "预测"
+- id: rev_th_status
+  translation: "状态"
+- id: rev_th_backtest
+  translation: "回测"
+- id: rev_th_live
+  translation: "实盘"
+- id: rev_th_kind
+  translation: "类别"
+- id: rev_th_freq
+  translation: "发布频率"
+- id: rev_th_span
+  translation: "覆盖期"
+- id: rev_th_next
+  translation: "预计下次发布"
+- id: rev_th_source
+  translation: "来源"
+- id: rev_freq_daily
+  translation: "日度"
+- id: rev_freq_weekly
+  translation: "周度"
+- id: rev_freq_monthly
+  translation: "月度"
+- id: rev_freq_quarterly
+  translation: "季度"
+- id: rev_range80
+  translation: "80% 区间"
+- id: rev_no_interval
+  translation: "样本外误差不足，不给区间"
+- id: rev_event_p
+  translation: "高于 {{ .Above }} 的概率 {{ .P }}%（历史发生率 {{ .Rate }}%）"
+- id: rev_event_status
+  translation: "阈值概率"
+- id: rev_status_model
+  translation: "模型"
+- id: rev_status_baseline
+  translation: "基准"
+- id: rev_status_insufficient
+  translation: "样本不足 · 仅示意"
+- id: rev_bt
+  translation: "n={{ .N }} · 技能 {{ .Skill }}% · p={{ .P }}"
+- id: rev_bt_cov
+  translation: "区间覆盖 {{ .Pct }}%"
+- id: rev_live
+  translation: "{{ .N }} 条已结算 · MAE {{ .MAE }} / 基准 {{ .Base }}"
+- id: rev_live_none
+  translation: "收集中：已登记 {{ .Count }} 条，尚未到期"
+- id: rev_sources_desc
+  translation: "每个指标的证据类别、发布频率、发布滞后、覆盖期与抓取状态。抓取失败时沿用缓存并在此标注。"
+- id: rev_in_index
+  translation: "计入 {{ .Index }} 指数"
+- id: rev_not_indexed
+  translation: "只展示，不入指数"
+- id: rev_gaps
+  translation: "缺失期"
+- id: rev_lag
+  translation: "发布滞后约 {{ .Days }} 天"
+- id: rev_count
+  translation: "{{ .Count }} 期"
+- id: rev_pending
+  translation: "待接入"
+- id: rev_method_kinds
+  translation: "证据分四类：真实观测（直接度量）、代理估算（真实数据近似不可观测的概念）、历史研究示意（研究估算与历史对照视图）、模型预测。图上的标签与数据来源表一致。"
+- id: rev_method_index
+  translation: "每个成分先换成同比、偏离或水平值，再按扩展窗口标准化（至少 36 个月），截断在 ±4σ；指数 = 50 + 10 × 可得成分 z 值的平均。缺失成分不填补，只降低覆盖率；一个成分都没有的月份不出读数。"
+- id: rev_method_asof
+  translation: "每个月只使用「观测期末 + 发布滞后 ≤ 月末」的数据，超过各频率时限仍未更新的值视为缺失，因此任一月份的读数都不含未来信息。"
+- id: rev_method_forecast
+  translation: "不直接预测合成指数（权重是本站自定的，没有可结算的真实目标）。只预测可观测成分：基准为不变预测；模型为直接多步回归 y(t+h) = a + b·y(t)，扩展窗口估计；区间取所用方法过去样本外误差的经验 10% / 90% 分位。"
+- id: rev_method_gate
+  translation: "上线门槛：样本外点数 ≥ {{ .N }}、MSE 技能分 ≥ {{ .Skill }}%、Diebold-Mariano 单侧 p < {{ .P }}；点数不足时标为「样本不足 · 仅示意」。样本外误差少于 {{ .M }} 个时不给区间。阈值概率的基准是不变预测加其误差分布，而不是无条件发生率。"
+- id: rev_method_derived
+  translation: "指数的衍生预测：把成分点预测按当前扩展窗口均值与标准差换算成 z 值后按指数规则平均，没有该周期预测的成分按当前值保持（不变预测），覆盖率只统计真正有预测的成分；不单独计分。"
+- id: rev_method_ledger
+  translation: "每个新起点的预测登记一次（只追加），目标期首次出现真实值时按该值结算一次；之后的修订不改写结算。数据文件按 schema 版本存放（/data/revolution/v1/），清单里带每个文件的哈希。"
+- id: rev_tt_coverage
+  translation: "覆盖率"
+- id: rev_tt_derived
+  translation: "衍生预测"
+- id: rev_tt_actual
+  translation: "实际值"
+- id: rev_tt_baseline
+  translation: "基准预测"
+- id: rev_tt_model
+  translation: "模型预测"
+- id: rev_tt_interval
+  translation: "80% 区间"
+- id: rev_tt_now
+  translation: "当前预测"
+- id: rev_tt_frontier
+  translation: "前沿"
+- id: rev_tt_models
+  translation: "模型"
+- id: rev_view_amount
+  translation: "季度金额"
+- id: rev_view_share
+  translation: "占 GDP"
+- id: rev_dotcom
+  translation: "互联网投资周期 1995–2001（历史对照）"
+- id: rev_select_series
+  translation: "选择指标"
+- id: rev_select_forecast
+  translation: "选择成分与周期"
+- id: rev_zscore
+  translation: "z 值"
+- id: rev_avg_line
+  translation: "历史平均"
+- id: rev_threshold
+  translation: "阈值 0"
+- id: rev_cap_total
+  translation: "合计"
+- id: rev_load_failed
+  translation: "图表数据加载失败，请稍后刷新。表格中的读数不受影响。"
+- id: rev_compare_max
+  translation: "最多 4 个"
+- id: rev_home_link
+  translation: "AI 工业革命观测台"
+- id: rev_home_link_sub
+  translation: "采用、资本、金融压力、算力四个指数与预测回测"

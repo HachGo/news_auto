@@ -15,6 +15,7 @@ GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
     - 深度阅读与学习：经济学人 / 科学美国人 / 卫报长读 / 大西洋月刊等 → content/deep/
   → 趋势模块保存每日结构化快照，生成周、月、季度、年度趋势数据 → static/data/trends/
   → scripts/outlook/ 增量更新历史日 K（history/），HAR 波动率 + 动量/反转/均值回复信号 + 滚动回测，生成周/月/季度上涨概率与区间 → data/radar/outlook.json、static/data/trends/outlook.json
+  → scripts/revolution/ 抓取 FRED / SEC EDGAR / Epoch AI 等公开数据，计算 D/B/S/C 指数与成分级预测回测 → data/radar/revolution.json、static/data/revolution/v1/
   → scripts/brief.py 汇总当日事件、上升信号与预测 → data/brief/YYYY-MM-DD.json（首页数据）
   → 同步生成 data/radar/rules.json（双语规则页共用的源清单与评分权重）
   → 提交回仓库 → Hugo 构建 → 部署 GitHub Pages
@@ -59,6 +60,10 @@ GitHub Actions (每日 UTC 22:00 / 北京 06:00，或 main 分支收到推送)
 | `data/trends/` | 趋势每日快照、周期聚合、预测与评估记录 |
 | `history/` | 资产历史日 K 缓存（2010 年起，每日增量；不放 data/ 以免被 Hugo 解析） |
 | `scripts/outlook/` | 资产走势预测：历史抓取、模型与回测、页面数据（方法见 docs/superpowers/specs/2026-11-21-trends-forecasts-merge-design.md） |
+| `scripts/revolution/` | AI 工业革命观测台（`/revolution/`）：指标目录、数据抓取、D/B/S/C 指数、成分级预测与回测（方法见 docs/superpowers/specs/2026-11-22-revolution-observatory-design.md） |
+| `static/data/revolution/v1/` | 观测台图表数据（版本化 JSON，manifest 带文件哈希） |
+| `history/revolution/` | 观测台原始数据缓存与预测登记 / 结算日志（只追加） |
+| `assets/js/vendor/` | 自托管 Apache ECharts 5.6.0（Apache-2.0，只在观测台页面加载） |
 | `data/brief/` | 每日首页数据（中英文共用，Hugo 通过 `site.Data.brief` 读取） |
 | `.github/workflows/daily.yml` | 定时与推送触发任务 + 构建 + 部署 |
 

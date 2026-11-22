@@ -91,7 +91,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add content/ai content/world content/market content/deep data/seen.json
-          git add data/trends data/brief data/radar data/ideas history static/data/trends content/trends
+          git add data/trends data/brief data/radar data/ideas history static/data/trends static/data/revolution content/trends
           if git diff --cached --quiet; then
             echo "No new content to commit."
           else

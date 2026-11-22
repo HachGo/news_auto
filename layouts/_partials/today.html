@@ -169,6 +169,15 @@
         <span aria-hidden="true">→</span>
       </a>
       {{- end }}
+      {{- with site.GetPage "/revolution" }}
+      <a class="scenario-card" href="{{ .RelPermalink }}">
+        <span>
+          <span class="scenario-title">{{ i18n "rev_home_link" }}</span>
+          <span class="scenario-sub">{{ i18n "rev_home_link_sub" }}</span>
+        </span>
+        <span aria-hidden="true">→</span>
+      </a>
+      {{- end }}
     </aside>
   </div>
 
