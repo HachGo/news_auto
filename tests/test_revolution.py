@@ -273,3 +273,47 @@ def test_page_builds_bilingual_and_navigation_is_unchanged(tmp_path):
         assert "echarts" not in home
         nav = re.search(r'<ul id="?menu"?[^>]*>(.*?)</ul>', home, re.S)
         assert nav and "revolution" not in nav.group(1)             # 不进主导航
+
+
+# ---------- Census BTOS ----------
+
+def btos_workbook(question, dates_as_text=False):
+    import io
+    from datetime import datetime
+    import openpyxl
+    wb = openpyxl.Workbook()
+    est = wb.active
+    est.title = "National Estimates"
+    header = ["Question ID", "Question", "Answer ID", "Answer", "202402", "202401"]
+    est.append(header)
+    est.append([7, question, 1, "Yes", "5.1%", "."])
+    est.append([7, question, 2, "No", "90.0%", "91.0%"])
+    se = wb.create_sheet("National SE")
+    se.append(header)
+    se.append([7, question, 1, "Yes", "0.20%", "."])
+    dates = wb.create_sheet("Collection and Reference Dates")
+    dates.append(["Sample Year", "Cycle", "Panel", "Smpdt", "Collection Start", "Col End"])
+    for period, end in (("202401", datetime(2024, 1, 14)), ("202402", datetime(2024, 1, 28))):
+        dates.append([1, 1, 1, int(period), None, end.strftime("%m/%d/%Y") if dates_as_text else end])
+    buffer = io.BytesIO()
+    wb.save(buffer)
+    return buffer.getvalue()
+
+
+@pytest.mark.parametrize("as_text", [False, True])
+def test_parse_btos_maps_periods_to_collection_end(as_text):
+    content = btos_workbook("Did this business use AI in producing goods or services?", dates_as_text=as_text)
+    rows = sources.parse_btos(content, ("National Estimates", "National SE"), 7, "in producing goods or services")
+    assert rows == [{"date": "2024-01-28", "value": 5.1, "se": 0.2}]  # '.' 缺失期不输出
+
+
+def test_parse_btos_rejects_reworded_question():
+    content = btos_workbook("Did this business use AI in any of its business functions?")
+    with pytest.raises(ValueError, match="wording changed"):
+        sources.parse_btos(content, ("National Estimates", "National SE"), 7, "in producing goods or services")
+
+
+def test_discontinued_series_is_not_stale_and_has_no_next_release():
+    ind = catalog.indicator("d_btos_ai_old")
+    assert build.next_release("2025-10-05", ind) is None
+    assert build.next_release("2026-11-15", catalog.indicator("d_btos_ai")) == "2026-12-03"  # 下一期收集结束 + 4 天

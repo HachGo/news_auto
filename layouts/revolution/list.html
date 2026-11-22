@@ -12,7 +12,7 @@
   (dict "id" "indices" "ids" (slice))
   (dict "id" "stress" "ids" (slice "s_nfci" "s_stlfsi" "s_vix" "s_hy"))
   (dict "id" "capex" "ids" (slice "b_capex" "b_info_equip" "b_software"))
-  (dict "id" "diffusion" "ids" (slice "d_csd_emp" "d_softdev_postings"))
+  (dict "id" "diffusion" "ids" (slice "d_btos_ai" "d_btos_ai_old" "d_csd_emp" "d_softdev_postings"))
   (dict "id" "capability" "ids" (slice "c_frontier"))
   (dict "id" "semis" "ids" (slice "s_sox_heat" "c_semis_ip"))
   (dict "id" "compare" "ids" (slice))
@@ -96,11 +96,11 @@
       {{- with .ids }}
       <ul class="rev-series-meta">
         {{- range . }}{{ with index $byId . }}
-        <li><span class="kind-chip kind-{{ .kind }}">{{ index .kind_label $lang }}</span><span>{{ index .name $lang }}</span><span class="mono">{{ index .freq_label $lang }}{{ with .last }} · {{ i18n "rev_latest" }} {{ . }}{{ end }}</span>{{ if .stale }}<span class="rev-warn">{{ i18n "rev_stale" }}</span>{{ end }}{{ if not .fetch_ok }}<span class="rev-warn">{{ i18n "rev_fetch_failed" }}</span>{{ end }}{{ if eq .count 0 }}<span class="rev-warn">{{ i18n "rev_no_data" }}</span>{{ end }}</li>
+        <li><span class="kind-chip kind-{{ .kind }}">{{ index .kind_label $lang }}</span><span>{{ index .name $lang }}</span><span class="mono">{{ index .freq_label $lang }}{{ with .last }} · {{ i18n "rev_latest" }} {{ . }}{{ end }}</span>{{ if .discontinued }}<span class="kind-chip">{{ i18n "rev_discontinued" }}</span>{{ end }}{{ if .stale }}<span class="rev-warn">{{ i18n "rev_stale" }}</span>{{ end }}{{ if not .fetch_ok }}<span class="rev-warn">{{ i18n "rev_fetch_failed" }}</span>{{ end }}{{ if eq .count 0 }}<span class="rev-warn">{{ i18n "rev_no_data" }}</span>{{ end }}</li>
         {{- end }}{{ end }}
       </ul>
       {{- end }}
-      <div class="rev-canvas{{ if eq .id "stress" }} is-tall{{ end }}" data-chart="{{ .id }}" role="img" aria-label="{{ i18n (printf "rev_chart_%s" .id) }}"></div>
+      <div class="rev-canvas{{ if in (slice "stress" "diffusion") .id }} is-tall{{ end }}" data-chart="{{ .id }}" role="img" aria-label="{{ i18n (printf "rev_chart_%s" .id) }}"></div>
       {{- if eq .id "indices" }}
       <div class="rev-playback" data-playback hidden>
         <button type="button" class="rev-play" data-play aria-label="{{ i18n "rev_play" }}">▶</button>
@@ -154,7 +154,7 @@
         <td>{{ index .name $lang }}<small>{{ if .in_index }}{{ i18n "rev_in_index" (dict "Index" .index) }}{{ else }}{{ i18n "rev_not_indexed" }}{{ end }} · {{ .unit }}</small><small>{{ index .note $lang }}</small>{{ with .gaps }}<small class="rev-warn">{{ i18n "rev_gaps" }}: {{ delimit . ", " }}</small>{{ end }}</td>
         <td><span class="kind-chip kind-{{ .kind }}">{{ index .kind_label $lang }}</span></td>
         <td class="mono">{{ index .freq_label $lang }}<small>{{ i18n "rev_lag" (dict "Days" .lag_days) }}</small></td>
-        <td class="mono">{{ with .first }}{{ . }} – {{ end }}{{ .last | default "—" }}<small>{{ i18n "rev_count" (dict "Count" .count) }}</small>{{ if .stale }}<small class="rev-warn">{{ i18n "rev_stale" }}</small>{{ end }}{{ if not .fetch_ok }}<small class="rev-warn">{{ i18n "rev_fetch_failed" }}{{ with .fetched_on }} · {{ i18n "rev_cache_from" (dict "Date" .) }}{{ end }}</small>{{ end }}</td>
+        <td class="mono">{{ with .first }}{{ . }} – {{ end }}{{ .last | default "—" }}<small>{{ i18n "rev_count" (dict "Count" .count) }}</small>{{ if .discontinued }}<small>{{ i18n "rev_discontinued" }}</small>{{ end }}{{ if .stale }}<small class="rev-warn">{{ i18n "rev_stale" }}</small>{{ end }}{{ if not .fetch_ok }}<small class="rev-warn">{{ i18n "rev_fetch_failed" }}{{ with .fetched_on }} · {{ i18n "rev_cache_from" (dict "Date" .) }}{{ end }}</small>{{ end }}</td>
         <td class="mono rev-nowrap">{{ .next_release | default "—" }}</td>
         <td><a href="{{ .source.url }}" target="_blank" rel="noopener noreferrer">{{ .source.name }}</a></td>
       </tr>
