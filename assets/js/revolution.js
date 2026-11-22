@@ -341,6 +341,53 @@
     });
   }
 
+  // ---------- 4. 采用扩散（BTOS 两段口径 + 两个代理指标） ----------
+  // 90% 抽样置信带：下界 + 带宽堆叠；BTOS 新旧口径措辞不同，分两条画、不连线
+  function ciBand(rows, color, stack, xi) {
+    const z = 1.645;
+    const lo = rows.map((r) => [day(r[0]), r[2] == null ? null : +(r[1] - z * r[2]).toFixed(3)]);
+    const width = rows.map((r) => [day(r[0]), r[2] == null ? null : +(2 * z * r[2]).toFixed(3)]);
+    const common = { type: "line", stack, stackStrategy: "all", showSymbol: false, silent: true, lineStyle: { opacity: 0 }, xAxisIndex: xi, yAxisIndex: xi, tooltip: { show: false } };
+    return [Object.assign({ name: stack + "_lo", data: lo }, common), Object.assign({ name: stack + "_w", data: width, areaStyle: { color, opacity: 0.18 } }, common)];
+  }
+  function diffusionOption() {
+    const s = state.data.series.series;
+    const ind = state.data.series.indicators;
+    const grids = [{ left: 48, right: 72, top: 64, height: "30%" }, { left: 48, right: 72, top: "52%", height: "16%" }, { left: 48, right: 72, top: "75%", height: "15%" }];
+    const btosNew = s.d_btos_ai || [], btosOld = s.d_btos_ai_old || [];
+    const label = { show: true, formatter: (p) => fmt(p.value[1], 1) + "%", color: C.ink, fontSize: 11 };
+    const series = [
+      line(T(ind.d_btos_ai.name), pairs(btosNew), C.slot[1], { xAxisIndex: 0, yAxisIndex: 0, endLabel: label,
+        markLine: markLines(eventLines().filter((e) => e.xAxis >= "2023-01-01")) }),
+      line(T(ind.d_btos_ai_old.name), pairs(btosOld), C.slot[2], { xAxisIndex: 0, yAxisIndex: 0, endLabel: label }),
+      ...ciBand(btosNew, C.slot[1], "ci_new", 0), ...ciBand(btosOld, C.slot[2], "ci_old", 0),
+      line(T(ind.d_csd_emp.name), pairs(s.d_csd_emp), C.ink, { xAxisIndex: 1, yAxisIndex: 1, lineStyle: { width: 1.5, color: C.ink },
+        markLine: markLines([refLine(0, "0")].concat(eventLines())) }),
+      line(T(ind.d_softdev_postings.name), pairs(s.d_softdev_postings), C.ink, { xAxisIndex: 2, yAxisIndex: 2, lineStyle: { width: 1.5, color: C.ink } }),
+    ];
+    const se = {};
+    btosNew.concat(btosOld).forEach((r) => { se[r[0]] = r[2]; });
+    return base({
+      legend: Object.assign(base({}).legend, { data: [series[0].name, series[1].name] }),
+      grid: grids, axisPointer: { link: [{ xAxisIndex: "all" }] },
+      xAxis: grids.map((_, i) => timeAxis({ gridIndex: i, axisLabel: Object.assign(axisCommon().axisLabel, { show: i === 2 }) })),
+      yAxis: [valueAxis({ gridIndex: 0, name: "%" }), valueAxis({ gridIndex: 1, name: T(ind.d_csd_emp.name), splitNumber: 2 }),
+        valueAxis({ gridIndex: 2, name: T(ind.d_softdev_postings.name), splitNumber: 2 })],
+      series, dataZoom: zoom([0, 1, 2]),
+      tooltip: tooltip((params) => {
+        if (!params.length) return "";
+        let html = `<div style="color:${C.muted};margin-bottom:4px">${dateLabel(params[0].axisValue)}</div>`;
+        params.forEach((p) => {
+          if (p.value[1] == null || p.seriesName.startsWith("ci_")) return;
+          const d = dateLabel(p.value[0]);
+          const ci = se[d] != null && p.seriesIndex < 2 ? `90%: ${fmt(p.value[1] - 1.645 * se[d], 1)}–${fmt(p.value[1] + 1.645 * se[d], 1)}` : d;
+          html += row(p.color, p.seriesName, fmt(p.value[1], 1) + (p.seriesIndex < 2 ? "%" : ""), ci);
+        });
+        return html;
+      }),
+    });
+  }
+
   // ---------- 5. 能力与算力 ----------
   function capabilityOption() {
     const cap = state.data.series.capability;
@@ -511,7 +558,7 @@
     indices: () => indicesOption(state.play.i),
     stress: stressOption,
     capex: capexOption,
-    diffusion: () => twoPanel("d_csd_emp", "d_softdev_postings", true, false),
+    diffusion: diffusionOption,
     capability: capabilityOption,
     semis: () => twoPanel("s_sox_heat", "c_semis_ip", true, true),
     compare: compareOption,
@@ -532,11 +579,23 @@
     }
     return chart;
   }
+  // 多面板图：过滤模式下各面板会按自己的数据范围定横轴（如 BTOS 2023 年才开始、高收益债只有 3 年），
+  // 统一为所有面板数据的并集，竖直方向才对得齐
+  function alignPanels(option) {
+    if (!Array.isArray(option.xAxis) || option.xAxis.length < 2) return option;
+    let lo = Infinity, hi = -Infinity;
+    option.series.forEach((s) => (s.data || []).forEach((d) => {
+      const t = Array.isArray(d) && d[1] != null ? new Date(d[0]).getTime() : NaN;
+      if (!isNaN(t)) { lo = Math.min(lo, t); hi = Math.max(hi, t); }
+    }));
+    if (isFinite(lo)) option.xAxis.forEach((x) => Object.assign(x, { min: lo, max: hi }));
+    return option;
+  }
   function render(id) {
     const chart = make(id);
     if (!chart) return;
     try {
-      chart.setOption(BUILDERS[id](), true);
+      chart.setOption(alignPanels(BUILDERS[id]()), true);
     } catch (err) {
       console.error("revolution chart", id, err);
       chart.dispose();

@@ -14,8 +14,8 @@ from __future__ import annotations
 
 INDICES = {
     "D": {"zh": "采用扩散", "en": "Diffusion",
-          "desc": {"zh": "AI 在企业与劳动力市场中的扩散程度。目前只有代理指标，覆盖较弱。",
-                   "en": "How far AI is spreading through firms and the labor market. Proxies only for now; coverage is thin."}},
+          "desc": {"zh": "AI 在企业与劳动力市场中的扩散程度。直接观测的 BTOS 企业 AI 使用率新口径历史不足 36 个月，暂不计入读数；当前读数来自代理指标。",
+                   "en": "How far AI is spreading through firms and the labor market. The directly observed BTOS business AI use rate has under 36 months of history on its current wording, so it does not count yet; today's reading comes from a proxy."}},
     "B": {"zh": "资本与基建", "en": "Build-out",
           "desc": {"zh": "云厂商资本开支、信息处理设备与软件投资的增速。",
                    "en": "Growth in hyperscaler capex and in investment in information-processing equipment and software."}},
@@ -31,6 +31,7 @@ INDEX_ORDER = ["D", "B", "S", "C"]
 FREQ_LABEL = {
     "daily": {"zh": "日度", "en": "Daily"},
     "weekly": {"zh": "周度", "en": "Weekly"},
+    "biweekly": {"zh": "双周", "en": "Biweekly"},
     "monthly": {"zh": "月度", "en": "Monthly"},
     "quarterly": {"zh": "季度", "en": "Quarterly"},
     "event": {"zh": "不定期（按模型发布）", "en": "Irregular (per model release)"},
@@ -64,6 +65,11 @@ RAW = {
     "EPOCH": {"fetch": "epoch"},
     "SOX": {"fetch": "yahoo", "symbol": "^SOX"},
     "VIX": {"fetch": "local", "key": "vix"},
+    # Census BTOS 企业 AI 使用率：问卷措辞 2025 年 11 月改版，两段分别抓取，不拼接
+    "BTOS_AI": {"fetch": "btos", "file": "National.xlsx", "sheets": ("Response Estimates", "Response Standard Errors"),
+                "qid": 7, "contains": "in any of its business functions"},
+    "BTOS_AI_OLD": {"fetch": "btos", "file": "AI Core Questions.xlsx", "sheets": ("National Estimates", "National SE"),
+                    "qid": 7, "contains": "in producing goods or services"},
 }
 
 CAPEX_COMPANIES = [("CAPEX_MSFT", "Microsoft"), ("CAPEX_GOOGL", "Alphabet"), ("CAPEX_AMZN", "Amazon"), ("CAPEX_META", "Meta")]
@@ -72,6 +78,21 @@ CAPEX_COMPANIES = [("CAPEX_MSFT", "Microsoft"), ("CAPEX_GOOGL", "Alphabet"), ("C
 # index：所属指数（None 表示只展示不入指数）；sign：入指数时的方向（+1 越高指数越高）。
 # forecast：成分级预测的周期（按该指标自身频率计）；event：阈值概率问题。
 INDICATORS = [
+    {"id": "d_btos_ai", "raw": "BTOS_AI", "transform": "level", "freq": "biweekly", "kind": "observed", "index": "D", "sign": 1,
+     "unit": "%", "lag_days": 4, "forecast": [1, 6],
+     "name": {"zh": "企业 AI 使用率（BTOS，过去两周）", "en": "Businesses using AI (BTOS, last two weeks)"},
+     "source": {"name": "U.S. Census Bureau · Business Trends and Outlook Survey", "url": "https://www.census.gov/hfp/btos/data"},
+     "note": {"zh": "全国加权估计，日期为每期收集结束日，约 4 天后发布；阴影为 90% 抽样置信区间。2025 年 11 月起题目改为「在任何业务职能中使用」并增加「不知道」选项，与旧口径不可比。"
+                    "按指数规则需满 36 个月读数才计入 D 指数读数。",
+              "en": "National weighted estimate dated at each cycle's collection end, published about 4 days later; the band is the 90% sampling interval. "
+                    "Since November 2025 the question asks about use \"in any business function\" and adds a \"do not know\" option, so it is not comparable with the earlier wording. "
+                    "Under the index rules it counts toward D only after 36 months of readings."}},
+    {"id": "d_btos_ai_old", "raw": "BTOS_AI_OLD", "transform": "level", "freq": "biweekly", "kind": "observed", "index": None, "sign": 0,
+     "unit": "%", "lag_days": 4, "forecast": [], "discontinued": True,
+     "name": {"zh": "企业 AI 使用率（BTOS 旧口径，已停用）", "en": "Businesses using AI (BTOS, earlier wording, discontinued)"},
+     "source": {"name": "U.S. Census Bureau · BTOS AI Core Questions", "url": "https://www.census.gov/hfp/btos/data"},
+     "note": {"zh": "2023 年 9 月至 2025 年 10 月，题目为「在生产商品或服务中使用 AI」。口径已停用，不与新口径拼接，只展示。",
+              "en": "September 2023 to October 2025, asking about AI use \"in producing goods or services\". Discontinued; shown only, never spliced onto the new wording."}},
     {"id": "d_csd_emp", "raw": "CSD_EMP", "transform": "yoy", "freq": "monthly", "kind": "proxy", "index": "D", "sign": 1,
      "unit": "%", "lag_days": 7, "forecast": [1, 3],
      "name": {"zh": "计算机系统设计业就业（同比）", "en": "Computer systems design employment (YoY)"},
@@ -144,8 +165,6 @@ INDICATORS = [
 
 # 已规划、尚未接入的数据：页面如实列出，不用其他数据填补
 PENDING = [
-    {"index": "D", "name": {"zh": "美国人口普查局 BTOS 企业 AI 使用率（双周）", "en": "Census BTOS business AI use rate (biweekly)"},
-     "url": "https://www.census.gov/hfp/btos/data", "reason": {"zh": "无稳定的机器可读接口，待接入。", "en": "No stable machine-readable endpoint yet."}},
     {"index": "B", "name": {"zh": "数据中心建设支出（月度）", "en": "Data center construction spending (monthly)"},
      "url": "https://www.census.gov/construction/c30/", "reason": {"zh": "Census 明细表格式待解析。", "en": "Census detail tables still to be parsed."}},
     {"index": "C", "name": {"zh": "数据中心用电（EIA）", "en": "Data center electricity use (EIA)"},
@@ -186,14 +205,19 @@ EVENTS = [
      "url": "https://openai.com/index/announcing-the-stargate-project/"},
     {"date": "2025-01-27", "type": "market", "title": {"zh": "DeepSeek-R1 引发 AI 股抛售", "en": "DeepSeek-R1 triggers AI stock sell-off"},
      "url": "https://en.wikipedia.org/wiki/DeepSeek"},
+    {"date": "2025-11-17", "type": "data", "title": {"zh": "BTOS 调整 AI 使用题目措辞（新旧口径不可比）", "en": "BTOS rewords its AI-use question (old and new not comparable)"},
+     "url": "https://www.census.gov/hfp/btos/data"},
     {"date": "2025-04-02", "type": "policy", "title": {"zh": "美国宣布全面对等关税", "en": "US announces sweeping reciprocal tariffs"},
      "url": "https://en.wikipedia.org/wiki/Liberation_Day_tariffs"},
 ]
+EVENTS.sort(key=lambda e: e["date"])  # 回放按时间取最近几条，必须有序
+
 EVENT_TYPES = {
     "model": {"zh": "模型", "en": "Model"},
     "capital": {"zh": "资本", "en": "Capital"},
     "policy": {"zh": "政策", "en": "Policy"},
     "market": {"zh": "市场", "en": "Market"},
+    "data": {"zh": "数据口径", "en": "Data"},
 }
 
 

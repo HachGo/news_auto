@@ -35,6 +35,8 @@ def step(day, freq, k=1):
     d = date.fromisoformat(day)
     if freq == "weekly":
         return (d + timedelta(days=7 * k)).isoformat()
+    if freq == "biweekly":
+        return (d + timedelta(days=14 * k)).isoformat()
     if freq == "monthly":
         return series.add_months(d, k).isoformat()
     if freq == "quarterly":
@@ -213,7 +215,7 @@ def live_record(logged, resolutions):
 def next_release(last_date, ind):
     """按「观测期末 + 一个频率周期 + 发布滞后」粗估下次发布；不定期序列不估计。"""
     freq = series.native_freq(ind)
-    if ind["freq"] in ("daily", "event") or not last_date:
+    if ind["freq"] in ("daily", "event") or ind.get("discontinued") or not last_date:
         return None
     nxt = step(last_date, freq)
     return (series.period_end(nxt, freq) + timedelta(days=ind["lag_days"])).isoformat()
@@ -226,7 +228,8 @@ def source_rows(transformed, raw, meta, today):
         last = data[-1]["date"] if data else None
         freq = series.native_freq(ind)
         age_limit = series.MAX_AGE[freq] * 2 + ind["lag_days"]
-        stale = bool(last) and (date.fromisoformat(today) - series.period_end(last, freq)).days > age_limit
+        # 已停用的口径不会再更新，不算过期
+        stale = not ind.get("discontinued") and bool(last) and (date.fromisoformat(today) - series.period_end(last, freq)).days > age_limit
         raw_keys = [k for k, _ in catalog.CAPEX_COMPANIES] if ind["raw"] == "CAPEX_TOTAL" else [ind["raw"]]
         info = [meta.get(k, {}) for k in raw_keys]
         gaps = []
@@ -247,7 +250,7 @@ def source_rows(transformed, raw, meta, today):
             "next_release": next_release(last, ind), "stale": stale,
             "fetched_on": min((i.get("fetched_on") or "") for i in info) or None,
             "fetch_ok": all(i.get("ok") for i in info), "gaps": gaps,
-            "forecast": bool(ind["forecast"]),
+            "forecast": bool(ind["forecast"]), "discontinued": bool(ind.get("discontinued")),
         })
     return rows
 
@@ -260,7 +263,8 @@ def chart_series(transformed, raw):
         rows = transformed.get(ind["id"], [])
         if ind["freq"] == "daily":
             rows = weekly_downsample(rows)
-        out[ind["id"]] = [[row["date"], r(row["value"], 4)] for row in rows]
+        # 第三列为抽样标准误（只有调查类序列有）
+        out[ind["id"]] = [[row["date"], r(row["value"], 4)] + ([r(row["se"], 4)] if row.get("se") is not None else []) for row in rows]
     gdp = {row["date"]: row["value"] for row in raw.get("GDP", [])}  # 十亿美元，季调年化
 
     def share(rows, scale=1.0):

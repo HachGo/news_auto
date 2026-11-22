@@ -21,7 +21,7 @@ START_MONTH = "2000-01"
 MIN_Z_MONTHS = 36   # 扩展窗口标准化至少需要 3 年月度读数
 CLIP = 4.0
 # 观测期末超过这个天数仍无新数据就视为缺失（不沿用过旧的值）
-MAX_AGE = {"daily": 14, "weekly": 35, "monthly": 75, "quarterly": 200, "event": 75}
+MAX_AGE = {"daily": 14, "weekly": 35, "biweekly": 35, "monthly": 75, "quarterly": 200, "event": 75}
 
 
 def month_end(year, month):
@@ -117,7 +117,8 @@ def transform(indicator, raw):
     name, kind = indicator["raw"], indicator["transform"]
     rows = capex_total(raw) if name == "CAPEX_TOTAL" else raw.get(name, [])
     if kind == "level":
-        return [{"date": r["date"], "value": r["value"]} for r in rows]
+        # 抽样调查（BTOS）带标准误，原样保留供图表画置信带
+        return [{"date": r["date"], "value": r["value"], **({"se": r["se"]} if r.get("se") is not None else {})} for r in rows]
     if kind == "yoy":
         return yoy(rows, indicator["freq"])
     if kind == "dev3y":

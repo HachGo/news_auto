@@ -140,6 +140,80 @@ def fetch_epoch():
     return parse_epoch(response.content.decode("utf-8-sig"))
 
 
+BTOS_BASE = "https://www.census.gov/hfp/btos/downloads/"
+
+
+def _pct(value):
+    """BTOS 表格里的百分比是 '25.0%' 文本，缺失为 '.'。"""
+    if isinstance(value, (int, float)):
+        return float(value)
+    text = str(value or "").strip().rstrip("%")
+    return _num(text) if text not in ("", ".") else None
+
+
+def _rows(sheet):
+    rows = list(sheet.iter_rows(values_only=True))
+    return rows[0], rows[1:]
+
+
+def _iso_date(value):
+    """日期单元格可能是 datetime、'YYYY-MM-DD' 或 'MM/DD/YYYY' 文本（不同文件不一致）。"""
+    from datetime import datetime
+    if hasattr(value, "date"):
+        return value.date().isoformat()
+    text = str(value).strip()
+    for pattern in ("%Y-%m-%d", "%m/%d/%Y"):
+        try:
+            return datetime.strptime(text[:10], pattern).date().isoformat()
+        except ValueError:
+            continue
+    raise ValueError(f"BTOS date not recognized: {text[:20]}")
+
+
+def parse_btos(content, sheets, qid, contains):
+    """全国估计：按题号取「Yes」行，期号映射到收集结束日，附标准误。
+
+    题号与题干文字必须同时匹配，Census 调整题号时直接报错（沿用缓存），不会悄悄换成别的题。
+    """
+    import openpyxl
+    wb = openpyxl.load_workbook(io.BytesIO(content), read_only=True, data_only=True)
+    est_header, est_rows = _rows(wb[sheets[0]])
+    se_header, se_rows = _rows(wb[sheets[1]])
+
+    def yes_row(rows):
+        for row in rows:
+            if row and row[0] == qid and str(row[3]).strip() == "Yes":
+                if contains not in str(row[1]):
+                    raise ValueError(f"BTOS question {qid} wording changed: {str(row[1])[:80]}")
+                return row
+        raise ValueError(f"BTOS question {qid} not found")
+    est, se = yes_row(est_rows), yes_row(se_rows)
+    se_by_period = {str(h): _pct(v) for h, v in zip(se_header[4:], se[4:])}
+    date_header, date_rows = _rows(wb["Collection and Reference Dates"])
+    col = {name: i for i, name in enumerate(date_header) if name}
+    end_by_period = {}
+    for row in date_rows:
+        period, end = row[col["Smpdt"]], row[col["Col End"]]
+        if period and end:
+            end_by_period[str(period)] = _iso_date(end)
+    out = []
+    for header, value in zip(est_header[4:], est[4:]):
+        period, number = str(header), _pct(value)
+        if number is None:
+            continue
+        if period not in end_by_period:
+            raise ValueError(f"BTOS period {period} has no collection dates")
+        out.append({"date": end_by_period[period], "value": number, "se": se_by_period.get(period)})
+    return sorted(out, key=lambda r: r["date"])
+
+
+def fetch_btos(spec):
+    from urllib.parse import quote
+    response = requests.get(BTOS_BASE + quote(spec["file"]), headers={"User-Agent": "Mozilla/5.0"}, timeout=60)
+    response.raise_for_status()
+    return parse_btos(response.content, spec["sheets"], spec["qid"], spec["contains"])
+
+
 def fetch_yahoo(symbol):
     from outlook.history import fetch_yahoo as yahoo
     return [{"date": row["date"], "value": row["close"]} for row in yahoo(symbol, "2000-01-01") if _num(row["close"])]
@@ -156,13 +230,16 @@ def fetch_raw(key, root):
         return fetch_epoch()
     if kind == "yahoo":
         return fetch_yahoo(spec["symbol"])
+    if kind == "btos":
+        return fetch_btos(spec)
     if kind == "local":
         from outlook.history import read_cache
         return [{"date": row["date"], "value": row["close"]} for row in read_cache(Path(root) / "history" / f"{spec['key']}.csv")]
     raise ValueError(kind)
 
 
-FIELDS = {"EPOCH": ["date", "flop", "model", "organization"]}
+FIELDS = {"EPOCH": ["date", "flop", "model", "organization"],
+          "BTOS_AI": ["date", "value", "se"], "BTOS_AI_OLD": ["date", "value", "se"]}
 
 
 def read_cache(path, key):
@@ -173,6 +250,8 @@ def read_cache(path, key):
         rows = list(csv.DictReader(stream))
     if key == "EPOCH":
         return [{**row, "flop": float(row["flop"])} for row in rows]
+    if "se" in FIELDS.get(key, []):
+        return [{"date": row["date"], "value": float(row["value"]), "se": _num(row.get("se"))} for row in rows]
     return [{"date": row["date"], "value": float(row["value"])} for row in rows]
 
 
