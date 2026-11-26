@@ -1,0 +1,59 @@
+{
+ "date": "2026-11-26",
+ "questions": [
+  {
+   "id": "mq-week-2026-11-26-上证指数",
+   "quote": "上证指数",
+   "horizon": "week",
+   "created": "2026-11-26",
+   "deadline": "2026-12-03",
+   "p": 54,
+   "baseline": 32,
+   "model_version": "outlook-v1",
+   "question": {
+    "zh": "上证指数在 2026-12-03 或之后首个交易日收盘，会高于 2026-11-26 吗？",
+    "en": "Will SSE Composite close higher on the first trading day on or after 2026-12-03 than on 2026-11-26?"
+   },
+   "rationale": {
+    "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 -0.2%（p=0.800），未达到上线门槛。",
+    "en": "Baseline: historical average drift + HAR volatility. The signal model scored -0.2% skill in backtests (p=0.800), below the publishing bar."
+   }
+  },
+  {
+   "id": "mq-week-2026-11-26-深证成指",
+   "quote": "深证成指",
+   "horizon": "week",
+   "created": "2026-11-26",
+   "deadline": "2026-12-03",
+   "p": 53,
+   "baseline": 41,
+   "model_version": "outlook-v1",
+   "question": {
+    "zh": "深证成指在 2026-12-03 或之后首个交易日收盘，会高于 2026-11-26 吗？",
+    "en": "Will SZSE Component close higher on the first trading day on or after 2026-12-03 than on 2026-11-26?"
+   },
+   "rationale": {
+    "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 +0.3%（p=0.080），未达到上线门槛。",
+    "en": "Baseline: historical average drift + HAR volatility. The signal model scored +0.3% skill in backtests (p=0.080), below the publishing bar."
+   }
+  },
+  {
+   "id": "mq-week-2026-11-26-创业板指",
+   "quote": "创业板指",
+   "horizon": "week",
+   "created": "2026-11-26",
+   "deadline": "2026-12-03",
+   "p": 51,
+   "baseline": 41,
+   "model_version": "outlook-v1",
+   "question": {
+    "zh": "创业板指在 2026-12-03 或之后首个交易日收盘，会高于 2026-11-26 吗？",
+    "en": "Will ChiNext close higher on the first trading day on or after 2026-12-03 than on 2026-11-26?"
+   },
+   "rationale": {
+    "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 +0.0%（p=0.554），未达到上线门槛。",
+    "en": "Baseline: historical average drift + HAR volatility. The signal model scored +0.0% skill in backtests (p=0.554), below the publishing bar."
+   }
+  }
+ ]
+}
