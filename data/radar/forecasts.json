@@ -1,12 +1,12 @@
 {
- "as_of": "2026-11-26",
+ "as_of": "2026-11-27",
  "open": [
   {
    "horizon": "week",
    "direction": "positive",
    "confidence": "high",
-   "created": "2026-11-26",
-   "target_date": "2026-12-03",
+   "created": "2026-11-27",
+   "target_date": "2026-12-04",
    "drivers": [
     {
      "topic": "foundation_models",
@@ -88,24 +88,24 @@
    "horizon": "month",
    "direction": "positive",
    "confidence": "high",
-   "created": "2026-11-26",
-   "target_date": "2026-12-26",
+   "created": "2026-11-27",
+   "target_date": "2026-12-27",
    "drivers": [
-    {
-     "topic": "policy_safety",
-     "name": {
-      "zh": "政策、安全与监管",
-      "en": "Policy, safety & regulation"
-     },
-     "momentum": 0.399673
-    },
     {
      "topic": "foundation_models",
      "name": {
       "zh": "基础模型",
       "en": "Foundation models"
      },
-     "momentum": -0.367113
+     "momentum": -0.440774
+    },
+    {
+     "topic": "funding_ma",
+     "name": {
+      "zh": "融资与并购",
+      "en": "Funding & M&A"
+     },
+     "momentum": -0.351964
     },
     {
      "topic": "chips_compute",
@@ -113,7 +113,7 @@
       "zh": "芯片与算力",
       "en": "Chips & compute"
      },
-     "momentum": 0.168482
+     "momentum": 0.245357
     }
    ],
    "scenarios": [
@@ -171,24 +171,24 @@
    "horizon": "quarter",
    "direction": "positive",
    "confidence": "high",
-   "created": "2026-11-26",
-   "target_date": "2027-02-25",
+   "created": "2026-11-27",
+   "target_date": "2027-02-26",
    "drivers": [
-    {
-     "topic": "policy_safety",
-     "name": {
-      "zh": "政策、安全与监管",
-      "en": "Policy, safety & regulation"
-     },
-     "momentum": 0.399673
-    },
     {
      "topic": "foundation_models",
      "name": {
       "zh": "基础模型",
       "en": "Foundation models"
      },
-     "momentum": -0.367113
+     "momentum": -0.440774
+    },
+    {
+     "topic": "funding_ma",
+     "name": {
+      "zh": "融资与并购",
+      "en": "Funding & M&A"
+     },
+     "momentum": -0.351964
     },
     {
      "topic": "chips_compute",
@@ -196,7 +196,7 @@
       "zh": "芯片与算力",
       "en": "Chips & compute"
      },
-     "momentum": 0.168482
+     "momentum": 0.245357
     }
    ],
    "scenarios": [
@@ -254,8 +254,8 @@
    "horizon": "year",
    "direction": "insufficient_data",
    "confidence": "low",
-   "created": "2026-11-26",
-   "target_date": "2027-11-26",
+   "created": "2026-11-27",
+   "target_date": "2027-11-27",
    "drivers": [],
    "scenarios": [
     {
@@ -301,6 +301,36 @@
   }
  ],
  "resolved": [
+  {
+   "id": "trend-quarter-2026-08-28",
+   "horizon": "quarter",
+   "created": "2026-08-28",
+   "target_date": "2026-11-27",
+   "direction": "insufficient_data",
+   "confidence": "low",
+   "observed": "positive",
+   "correct": false
+  },
+  {
+   "id": "trend-month-2026-10-28",
+   "horizon": "month",
+   "created": "2026-10-28",
+   "target_date": "2026-11-27",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "positive",
+   "correct": false
+  },
+  {
+   "id": "trend-week-2026-11-20",
+   "horizon": "week",
+   "created": "2026-11-20",
+   "target_date": "2026-11-27",
+   "direction": "negative",
+   "confidence": "high",
+   "observed": "positive",
+   "correct": false
+  },
   {
    "id": "trend-quarter-2026-08-27",
    "horizon": "quarter",
@@ -770,59 +800,29 @@
    "confidence": "high",
    "observed": "negative",
    "correct": true
-  },
-  {
-   "id": "trend-week-2026-11-04",
-   "horizon": "week",
-   "created": "2026-11-04",
-   "target_date": "2026-11-11",
-   "direction": "neutral",
-   "confidence": "high",
-   "observed": "negative",
-   "correct": false
-  },
-  {
-   "id": "trend-quarter-2026-08-11",
-   "horizon": "quarter",
-   "created": "2026-08-11",
-   "target_date": "2026-11-10",
-   "direction": "insufficient_data",
-   "confidence": "low",
-   "observed": "positive",
-   "correct": false
-  },
-  {
-   "id": "trend-month-2026-10-11",
-   "horizon": "month",
-   "created": "2026-10-11",
-   "target_date": "2026-11-10",
-   "direction": "positive",
-   "confidence": "high",
-   "observed": "positive",
-   "correct": true
   }
  ],
  "record": {
-  "resolved": 199,
+  "resolved": 202,
   "correct": 76,
   "rate": 38,
   "open": 4,
   "by_horizon": [
    {
     "horizon": "week",
-    "resolved": 102,
+    "resolved": 103,
     "correct": 44,
     "rate": 43
    },
    {
     "horizon": "month",
-    "resolved": 79,
+    "resolved": 80,
     "correct": 32,
-    "rate": 41
+    "rate": 40
    },
    {
     "horizon": "quarter",
-    "resolved": 18,
+    "resolved": 19,
     "correct": 0,
     "rate": 0
    }
@@ -831,7 +831,7 @@
  "calibration": [
   {
    "confidence": "low",
-   "n": 39,
+   "n": 40,
    "correct": 0,
    "rate": 0
   },
@@ -843,7 +843,7 @@
   },
   {
    "confidence": "high",
-   "n": 149,
+   "n": 151,
    "correct": 69,
    "rate": 46
   }
@@ -867,7 +867,7 @@
      "zh": "近 20 个交易日波动 1.80%/日，平均涨跌 -0.86%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.80%/day; average move -0.86%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 2
+    "days_left": 1
    },
    {
     "id": "mq-week-2026-11-21-恒生指数",
@@ -886,7 +886,7 @@
      "zh": "近 20 个交易日波动 1.15%/日，平均涨跌 -0.38%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.15%/day; average move -0.38%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 2
+    "days_left": 1
    },
    {
     "id": "mq-week-2026-11-21-纳斯达克",
@@ -905,7 +905,7 @@
      "zh": "近 20 个交易日波动 1.68%/日，平均涨跌 -0.50%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.68%/day; average move -0.50%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 2
+    "days_left": 1
    },
    {
     "id": "mq-week-2026-11-21-黄金",
@@ -924,7 +924,7 @@
      "zh": "近 20 个交易日波动 1.19%/日，平均涨跌 -0.34%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.19%/day; average move -0.34%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 2
+    "days_left": 1
    },
    {
     "id": "mq-week-2026-11-21-VIX",
@@ -943,7 +943,7 @@
      "zh": "近 20 个交易日波动 19.13%/日，平均涨跌 +4.62%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 19.13%/day; average move +4.62%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 2
+    "days_left": 1
    },
    {
     "id": "mq-week-2026-11-21-原油",
@@ -962,7 +962,7 @@
      "zh": "近 20 个交易日波动 0.87%/日，平均涨跌 -0.22%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 0.87%/day; average move -0.22%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 2
+    "days_left": 1
    },
    {
     "id": "mq-week-2026-11-21-标普500",
@@ -981,7 +981,7 @@
      "zh": "近 20 个交易日波动 1.23%/日，平均涨跌 -0.32%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.23%/day; average move -0.32%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 2
+    "days_left": 1
    },
    {
     "id": "mq-week-2026-11-21-道琼斯",
@@ -1000,7 +1000,7 @@
      "zh": "近 20 个交易日波动 1.14%/日，平均涨跌 -0.24%/日（按一半计入），周期约 5 个交易日（一周）。",
      "en": "20-day volatility 1.14%/day; average move -0.24%/day, counted at half weight; about 5 trading days (one week)."
     },
-    "days_left": 2
+    "days_left": 1
    },
    {
     "id": "mq-month-2026-11-02-黄金",
@@ -1019,7 +1019,7 @@
      "zh": "近 20 个交易日波动 0.89%/日，平均涨跌 -0.28%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.89%/day; average move -0.28%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 6
+    "days_left": 5
    },
    {
     "id": "mq-month-2026-11-02-纳斯达克",
@@ -1038,7 +1038,7 @@
      "zh": "近 20 个交易日波动 1.23%/日，平均涨跌 -0.32%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.23%/day; average move -0.32%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 6
+    "days_left": 5
    },
    {
     "id": "mq-month-2026-11-02-道琼斯",
@@ -1057,7 +1057,7 @@
      "zh": "近 20 个交易日波动 0.61%/日，平均涨跌 +0.16%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.61%/day; average move +0.16%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 6
+    "days_left": 5
    },
    {
     "id": "mq-month-2026-11-02-原油",
@@ -1076,7 +1076,7 @@
      "zh": "近 20 个交易日波动 1.64%/日，平均涨跌 +0.28%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.64%/day; average move +0.28%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 6
+    "days_left": 5
    },
    {
     "id": "mq-month-2026-11-02-恒生指数",
@@ -1095,7 +1095,7 @@
      "zh": "近 20 个交易日波动 1.03%/日，平均涨跌 -0.08%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.03%/day; average move -0.08%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 6
+    "days_left": 5
    },
    {
     "id": "mq-month-2026-11-02-标普500",
@@ -1114,7 +1114,7 @@
      "zh": "近 20 个交易日波动 0.73%/日，平均涨跌 -0.06%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.73%/day; average move -0.06%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 6
+    "days_left": 5
    },
    {
     "id": "mq-month-2026-11-03-VIX",
@@ -1133,7 +1133,7 @@
      "zh": "近 20 个交易日波动 7.68%/日，平均涨跌 +2.48%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 7.68%/day; average move +2.48%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-month-2026-11-03-恒生科技",
@@ -1152,7 +1152,7 @@
      "zh": "近 20 个交易日波动 1.83%/日，平均涨跌 -0.40%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.83%/day; average move -0.40%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-26-上证指数",
@@ -1171,7 +1171,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 -0.2%（p=0.800），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored -0.2% skill in backtests (p=0.800), below the publishing bar."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-26-深证成指",
@@ -1190,7 +1190,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 +0.3%（p=0.080），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored +0.3% skill in backtests (p=0.080), below the publishing bar."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-week-2026-11-26-创业板指",
@@ -1209,7 +1209,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 +0.0%（p=0.554），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored +0.0% skill in backtests (p=0.554), below the publishing bar."
     },
-    "days_left": 7
+    "days_left": 6
    },
    {
     "id": "mq-month-2026-11-07-创业板指",
@@ -1228,7 +1228,7 @@
      "zh": "近 20 个交易日波动 2.08%/日，平均涨跌 -1.32%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 2.08%/day; average move -1.32%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 11
+    "days_left": 10
    },
    {
     "id": "mq-month-2026-11-07-上证指数",
@@ -1247,7 +1247,7 @@
      "zh": "近 20 个交易日波动 0.76%/日，平均涨跌 -0.44%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 0.76%/day; average move -0.44%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 11
+    "days_left": 10
    },
    {
     "id": "mq-month-2026-11-07-深证成指",
@@ -1266,7 +1266,7 @@
      "zh": "近 20 个交易日波动 1.48%/日，平均涨跌 -0.84%/日（按一半计入），周期约 21 个交易日（一个月）。",
      "en": "20-day volatility 1.48%/day; average move -0.84%/day, counted at half weight; about 21 trading days (one month)."
     },
-    "days_left": 11
+    "days_left": 10
    },
    {
     "id": "mq-quarter-2026-11-23-黄金",
@@ -1285,7 +1285,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 +1.1%（p=0.218），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored +1.1% skill in backtests (p=0.218), below the publishing bar."
     },
-    "days_left": 88
+    "days_left": 87
    },
    {
     "id": "mq-quarter-2026-11-23-恒生科技",
@@ -1304,7 +1304,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 -1.2%（p=0.931），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored -1.2% skill in backtests (p=0.931), below the publishing bar."
     },
-    "days_left": 88
+    "days_left": 87
    },
    {
     "id": "mq-quarter-2026-11-23-上证指数",
@@ -1323,7 +1323,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 -3.2%（p=0.924），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored -3.2% skill in backtests (p=0.924), below the publishing bar."
     },
-    "days_left": 88
+    "days_left": 87
    },
    {
     "id": "mq-quarter-2026-11-23-原油",
@@ -1342,7 +1342,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 -3.8%（p=0.914），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored -3.8% skill in backtests (p=0.914), below the publishing bar."
     },
-    "days_left": 88
+    "days_left": 87
    },
    {
     "id": "mq-quarter-2026-11-23-深证成指",
@@ -1361,7 +1361,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 -1.3%（p=0.892），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored -1.3% skill in backtests (p=0.892), below the publishing bar."
     },
-    "days_left": 88
+    "days_left": 87
    },
    {
     "id": "mq-quarter-2026-11-23-创业板指",
@@ -1380,7 +1380,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 +0.8%（p=0.352），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored +0.8% skill in backtests (p=0.352), below the publishing bar."
     },
-    "days_left": 88
+    "days_left": 87
    },
    {
     "id": "mq-quarter-2026-11-23-恒生指数",
@@ -1399,7 +1399,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 +0.0%（p=0.064），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored +0.0% skill in backtests (p=0.064), below the publishing bar."
     },
-    "days_left": 88
+    "days_left": 87
    },
    {
     "id": "mq-quarter-2026-11-24-VIX",
@@ -1418,7 +1418,7 @@
      "zh": "HAR 波动率 + 信号组合。滚动回测 646 次（2013–2026），Brier 技能分 +9.9%，DM 检验 p=0.039。",
      "en": "HAR volatility + signal combination. 646 walk-forward tests (2013–2026), Brier skill +9.9%, DM test p=0.039."
     },
-    "days_left": 89
+    "days_left": 88
    },
    {
     "id": "mq-quarter-2026-11-24-标普500",
@@ -1437,7 +1437,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 -0.2%（p=0.908），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored -0.2% skill in backtests (p=0.908), below the publishing bar."
     },
-    "days_left": 89
+    "days_left": 88
    },
    {
     "id": "mq-quarter-2026-11-24-纳斯达克",
@@ -1456,7 +1456,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 +0.0%（p=0.149），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored +0.0% skill in backtests (p=0.149), below the publishing bar."
     },
-    "days_left": 89
+    "days_left": 88
    },
    {
     "id": "mq-quarter-2026-11-24-道琼斯",
@@ -1475,7 +1475,7 @@
      "zh": "基准：历史平均漂移 + HAR 波动率。信号模型回测技能分 -0.6%（p=0.911），未达到上线门槛。",
      "en": "Baseline: historical average drift + HAR volatility. The signal model scored -0.6% skill in backtests (p=0.911), below the publishing bar."
     },
-    "days_left": 89
+    "days_left": 88
    }
   ],
   "resolved": [
